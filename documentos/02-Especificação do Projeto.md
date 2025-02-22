@@ -97,6 +97,8 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 ## Projeto da Base de Dados
 
 O projeto da base de dados corresponde à representação das entidades e relacionamentos identificadas no Modelo ER, no formato de tabelas, com colunas e chaves primárias/estrangeiras necessárias para representar corretamente as restrições de integridade.
- 
+![marcos_turismo_db drawio (2)](https://github.com/user-attachments/assets/7cbc4fc0-3c03-42ce-8c6d-c070dfcb9ffd)
+
+
 Para mais informações, consulte o microfundamento "Modelagem de Dados".
 
