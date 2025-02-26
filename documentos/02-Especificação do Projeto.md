@@ -37,17 +37,32 @@ Para mais informações, consulte os microfundamentos Fundamentos de Engenharia 
 
 ### Requisitos Funcionais
 
-|ID    | Descrição do Requisito  | Prioridade |
-|------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|ID     | Título do Requisito | Descrição do Requisito  | Prioridade |
+|-------|-------------------- |-------------------------|----|
+|RF-001 | Site público | O sistema deve permitir que o usuário visitante acesse o site e suas informações. | ALTA |
+|RF-002 | Autenticação e Painel de Gestão | O sistema deve permitir que apenas colaboradores e o administrador se autentiquem e acessem o painel de gestão. | ALTA |
+|RF-003 | Gerenciar Colaboradores | O sistema deve permitir que apenas o administrador cadastre, edite e exclua colaboradores. | ALTA |
+|RF-004 | Gerenciar Viagens | O sistema deve permitir que apenas o administrador crie, edite e exclua viagens. | ALTA |
+|RF-005 | Gerenciamento de Frota | O sistema deve permitir que o administrador cadastre, edite e exclua veículos da frota. | ALTA |
+|RF-006 | Iniciar Viagem e Checklist | O sistema deve permitir que o colaborador inicie sua viagem somente após a realização do checklist do veículo. | ALTA |
+|RF-007 | Finalizar Viagem | O sistema deve permitir que o colaborador finalize a viagem após inserir a quilometragem do veículo. | MÉDIA |
+|RF-008 | Serviços | O sistema deve permitir que o colaborador registre um serviço realizado em um veículo. | MÉDIA |
+|RF-009 | Gerenciar excursões | O sistema deve permitir que o administrador cadastre, edite e exclua excursões. | MÉDIA |
+|RF-010 | Contato | O sistema deve permitir que o usuário entre em contato pelo WhatsApp com o cliente por meio de um redirecionamento de URL. | MÉDIA |
+|RF-011 | Validar avaliações | O sistema deve permitir que o administrador valide ou exclui avaliações a serem validadas. | MÉDIA |
+|RF-012 | Avaliações | O sistema deve permitir que o usuário visitante deixe sua avaliação de serviço para ser validado. | BAIXA |
+|RF-013 | Visualizar Frota | O sistema deve permitir que o usuário visitante veja a lista de frotas da empresa. | BAIXA |
+|RF-014 | Visualizar excursões | O sistema deve permitir que o usuário visitante veja as próximas excursões. | BAIXA |
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
+|RNF-001 | Disponibilidade | O sistema deve estar disponível 24 horas por dia, garantindo que os usuários possam acessá-lo a qualquer momento. | ALTA |
+|RNF-002 | Controle de Acesso | Apenas usuários autenticados com as permissões adequadas poderão acessar o painel de gestão e executar operações administrativas. | ALTA |
+|RNF-003 | Compatibilidade | O sistema deve ser compatível com os principais navegadores e dispositivos móveis. | MÉDIA |
+|RNF-004 | Desempenho | O sistema deve processar solicitações de autenticação e carregamento de páginas em até 3 segundos para garantir uma experiência ágil para os usuários. | BAIXA |
+ 
 
 Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
 
@@ -93,6 +108,7 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 > - [Lucidchart](https://www.lucidchart.com/)
 > - [Astah](https://astah.net/)
 > - [Diagrams](https://app.diagrams.net/)
+![brave_kbDFXHoVEu](https://github.com/user-attachments/assets/cd83a8f1-57df-4ede-b175-51e32f06d9bc)
 
 ## Projeto da Base de Dados
 
