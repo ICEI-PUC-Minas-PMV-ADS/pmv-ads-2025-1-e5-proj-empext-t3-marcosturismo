@@ -22,12 +22,10 @@ Definição do problema e ideia de solução a partir da perspectiva do usuário
 Descreva brevemente a arquitetura definida para o projeto e as tecnologias a serem utilizadas. Sugere-se a criação de um diagrama de componentes da solução.
 
 ## Project Model Canvas
+Segue abaixo o nosso modelo:
 
-Deve ser desenvolvido a partir do microfundamento: Empreendedorismo e inovação.
-Colocar a imagem do modelo construído apresentando a proposta de solução.
+![Project Model Canvas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2025-1-e5-proj-empext-t3-marcosturismo/blob/main/documentos/img/ProjectModelCanvas.png)
 
-> **Links Úteis**:
-> Disponíveis em material de apoio do projeto
 
 ## Requisitos
 
