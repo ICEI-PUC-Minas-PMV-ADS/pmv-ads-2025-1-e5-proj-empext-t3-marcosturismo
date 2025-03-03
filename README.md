@@ -1,6 +1,6 @@
 # TÍTULO DO PROJETO
 
-`CURSO´Analise e Desenvolvimento de Sistemas
+`CURSO`Analise e Desenvolvimento de Sistemas
 
 `DISCIPLINA` Desenvolvimento de um Sistema Sociotécnico Inovador
 
