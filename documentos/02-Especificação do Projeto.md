@@ -82,11 +82,13 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 
 ## Diagrama de Caso de Uso
+![casos-de-uso](https://github.com/user-attachments/assets/6ccc847f-69f4-47ae-b94c-208df97dee5b)
 
-![brave_kbDFXHoVEu](https://github.com/user-attachments/assets/cd83a8f1-57df-4ede-b175-51e32f06d9bc)
-
+## Modelo Entidade Relacionamento
+![Modelo ER  drawio](https://github.com/user-attachments/assets/6644549a-71ed-4376-b50a-ec42283b513c)
 
 ## Projeto da Base de Dados
-![marcos_turismo_db drawio (2)](https://github.com/user-attachments/assets/7cbc4fc0-3c03-42ce-8c6d-c070dfcb9ffd)
+![modelo-dbpng](https://github.com/user-attachments/assets/e591e3d1-5c22-45db-ba13-6b04f58113fa)
+
 
 
