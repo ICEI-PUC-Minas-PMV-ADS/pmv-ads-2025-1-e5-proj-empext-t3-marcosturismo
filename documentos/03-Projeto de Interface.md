@@ -1,6 +1,11 @@
 
 # Projeto de Interface
 
-<span style="color:red">Pré-requisitos: <a href="02-Especificação do Projeto.md"> Especificação do Projeto</a></span>
+> **A interface do projeto foi desenvolvida toda no Figma**.
 
-Visão geral da interação do usuário com as funcionalidades que fazem parte do sistema sociotécnico (protótipo de telas).
+# Paleta de tonalidades utilizada para dar vida as telas:
+
+
+![Paleta](https://github.com/user-attachments/assets/dcb354d0-bd7b-4d37-b89f-3ba0abf65e56)
+
+
