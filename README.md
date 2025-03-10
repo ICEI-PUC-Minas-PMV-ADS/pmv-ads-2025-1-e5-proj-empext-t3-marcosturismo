@@ -1,12 +1,14 @@
 # TÍTULO DO PROJETO
 
-`CURSO`
+`CURSO`Analise e Desenvolvimento de Sistemas
 
-`DISCIPLINA`
+`DISCIPLINA` Desenvolvimento de um Sistema Sociotécnico Inovador
 
-`SEMESTRE`
+`SEMESTRE` 5º Eixo
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+A Marcos Turismo é uma empresa consolidada no setor de transporte e turismo, especializada em fretamento, excursões e translados. Com mais de uma década de atuação, construiu uma base sólida de clientes graças à qualidade de seus serviços e à confiabilidade que oferece.
+Contudo, com o crescimento das operações e o aumento da demanda por soluções tecnológicas, a Marcos Turismo enfrenta desafios significativos para modernizar seus processos e acompanhar as tendências do mercado. A empresa busca uma solução integrada que permita centralizar suas operações, melhorar a comunicação com os clientes e otimizar a gestão de frota, colaboradores e itinerários, garantindo eficiência e escalabilidade para atender ao seu público de forma cada vez mais personalizada.
+
 
 ## Integrantes
 
@@ -20,7 +22,7 @@ Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo de
 
 ## Orientador
 
-* Nome completo do professor orientador
+* José Wilson da Costa
 
 ## Instruções de utilização
 
