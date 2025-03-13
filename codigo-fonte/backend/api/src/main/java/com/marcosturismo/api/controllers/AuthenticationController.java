@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,29 +32,45 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data) {
+        try {
+            if (data.email() == null || data.email().isEmpty() || data.senha() == null || data.senha().isEmpty()) {
+                return ResponseEntity.badRequest().body("Email e senha são obrigatórios");
+            }
 
-        var usuarioSenha = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
-        var auth = this.authenticationManager.authenticate(usuarioSenha);
-        var token = this.tokenService.generateToken((Usuario) auth.getPrincipal());
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+            var usuarioSenha = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
+            var auth = this.authenticationManager.authenticate(usuarioSenha);
+            var token = this.tokenService.generateToken((Usuario) auth.getPrincipal());
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Credenciais inválidas");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erro interno ao processar login");
+        }
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Validated RegisterDTO data) {
-        if (this.usuarioRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+        try {
 
-        String encryptedSenha = new BCryptPasswordEncoder().encode(data.email());
-        Usuario newUsuario = new Usuario(
-                data.email(),
-                encryptedSenha,
-                data.tipo(),
-                data.status(),
-                data.nome(),
-                data.telefone(),
-                data.descricao());
+            if (this.usuarioRepository.findByEmail(data.email()) != null) {
+                return ResponseEntity.badRequest().body("Email já cadastrado");
+            }
 
-        this.usuarioRepository.save(newUsuario);
+            String encryptedSenha = new BCryptPasswordEncoder().encode(data.email());
+            Usuario newUsuario = new Usuario(
+                    data.email(),
+                    encryptedSenha,
+                    data.tipo(),
+                    data.status(),
+                    data.nome(),
+                    data.telefone(),
+                    data.descricao());
 
-        return ResponseEntity.ok().build();
+            this.usuarioRepository.save(newUsuario);
+
+            return ResponseEntity.ok().body("Usuário registrado com sucesso");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erro ao registrar usuário: " + e.getMessage());
+        }
     }
 }
