@@ -94,7 +94,7 @@ CREATE TABLE usuario (
     status VARCHAR(50) CHECK (status IN ('Ativo', 'EmServico', 'Inativo')),
     nome VARCHAR(255) NOT NULL,
     telefone VARCHAR(20),
-    tipo VARCHAR(50) CHECK (tipo IN ('Motorista', 'Mecanico', 'Administrador')),
+    tipo VARCHAR(50) CHECK (tipo IN ('Motorista', 'Administrador')),
     descricao TEXT,
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
