@@ -27,7 +27,7 @@ public class Veiculo {
     private Integer kmAtual;
 
     @Enumerated(EnumType.STRING)
-    private Situacao situacao;
+    private SituacaoVeiculo situacao;
 
     private String placa;
     private Integer kmProxTrocaOleo;
@@ -41,11 +41,28 @@ public class Veiculo {
     private Boolean geladeira;
     private Boolean sanitarios;
 
-    public enum Situacao {
-        ATIVO, INATIVO, MANUTENCAO
-    }
 
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImagemVeiculo> imagens = new ArrayList<>();
+
+    public Veiculo(VeiculoDTO data) {
+        this.numeracao = data.numeracao();
+        this.modelo = data.modelo();
+        this.marca = data.marca();
+        this.anoModelo = data.anoModelo();
+        this.kmAtual = data.kmAtual();
+        this.situacao = data.situacao();
+        this.placa = data.placa();
+        this.kmProxTrocaOleo = data.kmProxTrocaOleo();
+        this.kmProxTrocaPneu = data.kmProxTrocaPneu();
+        this.lotacao = data.lotacao();
+        this.categoria = data.categoria();
+        this.arCondicionado = data.arCondicionado();
+        this.wifi = data.wifi();
+        this.poltronaReclinavel = data.poltronaReclinavel();
+        this.tv = data.tv();
+        this.geladeira = data.geladeira();
+        this.sanitarios = data.sanitarios();
+    }
 }
 

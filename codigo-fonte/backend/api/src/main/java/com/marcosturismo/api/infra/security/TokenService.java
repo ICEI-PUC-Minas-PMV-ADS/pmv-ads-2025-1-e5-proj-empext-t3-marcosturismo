@@ -29,9 +29,12 @@ public class TokenService {
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
             return token;
-        } catch (JWTCreationException exception) {
-            ///  Falta tratar o erro de token
-            throw new RuntimeException("Erro ao gerar o token", exception);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Erro ao configurar o algoritmo de assinatura do token", e);
+        } catch (JWTCreationException e) {
+            throw new RuntimeException("Erro ao gerar o token JWT", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro inesperado ao gerar o token", e);
         }
     }
 
@@ -42,9 +45,10 @@ public class TokenService {
                     .withIssuer(issuer)
                     .build().verify(token)
                     .getSubject();
-        } catch (JWTVerificationException exception) {
-            ///  Falta tratar o erro de token
-            return "";
+        } catch (JWTVerificationException e) {
+            throw new RuntimeException("Erro ao validar o token JWT: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro inesperado ao validar o token", e);
         }
     }
 
