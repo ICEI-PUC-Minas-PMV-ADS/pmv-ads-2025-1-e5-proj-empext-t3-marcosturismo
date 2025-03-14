@@ -25,12 +25,17 @@ public class Avaliacao {
     private Double nota;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusAvaliacao status;
 
     private Date dataPublicacao;
 
-    public enum Status {
-        VALIDA, INVALIDA
+    public Avaliacao(AvaliacaoDTO data){
+        this.autor = data.autor();
+        this.titulo = data.titulo();
+        this.descricao = data.descricao();
+        this.nota = data.nota();
+        this.status = StatusAvaliacao.AValidar;
+        this.dataPublicacao = new Date(data.dataPublicacao());
     }
 }
 
