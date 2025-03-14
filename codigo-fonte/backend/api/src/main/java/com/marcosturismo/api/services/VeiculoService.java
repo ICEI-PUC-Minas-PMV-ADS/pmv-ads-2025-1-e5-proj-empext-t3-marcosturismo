@@ -1,5 +1,6 @@
 package com.marcosturismo.api.services;
 
+import com.marcosturismo.api.domain.veiculo.SituacaoVeiculo;
 import com.marcosturismo.api.domain.veiculo.Veiculo;
 import com.marcosturismo.api.domain.veiculo.VeiculoDTO;
 import com.marcosturismo.api.repositories.VeiculoRepository;
@@ -19,6 +20,10 @@ public class VeiculoService {
         return veiculoRepository.findAll();
     }
 
+    public List<Veiculo> getAllFrota() {
+        return veiculoRepository.findBySituacaoNot(SituacaoVeiculo.Inativo);
+    }
+
     public Veiculo createVeiculo(VeiculoDTO data) {
         Veiculo veiculo = new Veiculo(data);
         return veiculoRepository.save(veiculo);
@@ -31,7 +36,7 @@ public class VeiculoService {
         veiculoRepository.deleteById(id);
     }
 
-    public Veiculo updateVeiculo(VeiculoDTO data, UUID id){
+    public Veiculo updateVeiculo(VeiculoDTO data, UUID id) {
         Veiculo veiculo = veiculoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
         veiculo.setNumeracao(data.numeracao());
@@ -54,15 +59,15 @@ public class VeiculoService {
         return veiculoRepository.save(veiculo);
     }
 
-    public Optional<Veiculo> findNumeracao(String numeracao){
+    public Optional<Veiculo> findNumeracao(String numeracao) {
         return veiculoRepository.findByNumeracao(numeracao);
     }
 
-    public Optional<Veiculo> findPlaca(String placa){
+    public Optional<Veiculo> findPlaca(String placa) {
         return veiculoRepository.findByPlaca(placa);
     }
 
-    public Optional<Veiculo> findById(UUID id){
+    public Optional<Veiculo> findById(UUID id) {
         return veiculoRepository.findById(id);
     }
 }

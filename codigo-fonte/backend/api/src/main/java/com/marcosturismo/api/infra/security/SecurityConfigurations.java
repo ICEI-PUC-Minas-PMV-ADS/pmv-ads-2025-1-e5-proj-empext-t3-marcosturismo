@@ -33,6 +33,7 @@ public class SecurityConfigurations {
                         //.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         /// Endpoints
                         /// Veículos
+                        .requestMatchers(HttpMethod.GET, "/veiculo/frota").permitAll()
                         .requestMatchers(HttpMethod.GET, "/veiculo").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/veiculo").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/veiculo/{veiculoId}").hasRole("ADMIN")
