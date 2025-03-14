@@ -37,6 +37,12 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/veiculo").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/veiculo/{veiculoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/veiculo/{veiculoId}").hasRole("ADMIN")
+                        ///  Avaliações
+                        .requestMatchers(HttpMethod.POST, "/avaliacao").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/avaliacao/validas").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/avaliacao").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/avaliacao/validar/{avaliacaoId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/avaliacao/{avaliacaoId}").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 ///  Tipos de roles: ADMIN / USER / STAFF (Motoristas)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
