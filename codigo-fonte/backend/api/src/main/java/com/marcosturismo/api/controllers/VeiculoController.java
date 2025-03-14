@@ -2,6 +2,7 @@ package com.marcosturismo.api.controllers;
 
 import com.marcosturismo.api.domain.veiculo.Veiculo;
 import com.marcosturismo.api.domain.veiculo.VeiculoDTO;
+import com.marcosturismo.api.domain.veiculo.VeiculoFrotaResponseDTO;
 import com.marcosturismo.api.services.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,35 @@ public class VeiculoController {
                 return ResponseEntity.noContent().build(); // Retorna 204 se não houver veículos
             }
             return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erro ao buscar veículos: " + e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/frota")
+    public ResponseEntity<?> getAllFrota() {
+        try {
+            var response = this.veiculoService.getAllFrota();
+            if (response.isEmpty()) {
+                return ResponseEntity.noContent().build(); // Retorna 204 se não houver veículos
+            }
+            List<VeiculoFrotaResponseDTO> veiculoFrotaResponseDTOList = response.stream()
+                    .map(element -> new VeiculoFrotaResponseDTO(
+                            element.getModelo(),
+                            element.getAnoModelo(),
+                            element.getMarca(),
+                            element.getLotacao(),
+                            element.getCategoria(),
+                            element.getArCondicionado(),
+                            element.getWifi(),
+                            element.getPoltronaReclinavel(),
+                            element.getTv(),
+                            element.getGeladeira(),
+                            element.getSanitarios()
+                    ))
+                    .toList();
+            return ResponseEntity.ok(veiculoFrotaResponseDTOList);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erro ao buscar veículos: " + e.getMessage());
         }
