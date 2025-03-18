@@ -19,7 +19,8 @@ CREATE TABLE veiculo (
     poltrona_reclinavel BOOLEAN,
     tv BOOLEAN,
     geladeira BOOLEAN,
-    sanitarios BOOLEAN
+    sanitarios BOOLEAN,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabela Imagem Veículo
@@ -27,6 +28,7 @@ CREATE TABLE imagem_veiculo (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     img_url VARCHAR(500) NOT NULL,
     veiculo_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
 );
 
@@ -41,6 +43,7 @@ CREATE TABLE checklist_veiculo (
     documento_ok BOOLEAN,
     ocorrencias TEXT,
     veiculo_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
 );
 
@@ -49,6 +52,7 @@ CREATE TABLE imagem_checklist (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     img_url VARCHAR(500) NOT NULL,
     checklist_veiculo_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (checklist_veiculo_id) REFERENCES checklist_veiculo(id) ON DELETE CASCADE
 );
 
@@ -57,17 +61,18 @@ CREATE TABLE servico (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     data_servico DATE NOT NULL,
     km_veiculo INTEGER,
-    custo DOUBLE PRECISION,
     descricao TEXT,
     veiculo_id UUID NOT NULL,
     responsavel_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
 );
 
 -- Tabela Tipo Serviço
 CREATE TABLE tipo_servico (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    descricao VARCHAR(255) NOT NULL
+    descricao VARCHAR(255) NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabela Serviço Realizado
@@ -75,6 +80,8 @@ CREATE TABLE servico_realizado (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     servico_id UUID NOT NULL,
     tipos_servicos_id UUID NOT NULL,
+    custo DOUBLE PRECISION,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (servico_id) REFERENCES servico(id) ON DELETE CASCADE,
     FOREIGN KEY (tipos_servicos_id) REFERENCES tipo_servico(id) ON DELETE CASCADE
 );
@@ -85,7 +92,8 @@ CREATE TABLE cliente (
     nome VARCHAR(255) NOT NULL,
     cpf_cnpj VARCHAR(20) UNIQUE NOT NULL,
     telefone VARCHAR(20),
-    endereco TEXT
+    endereco TEXT,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabela Usuário
@@ -95,10 +103,9 @@ CREATE TABLE usuario (
     nome VARCHAR(255) NOT NULL,
     telefone VARCHAR(20),
     tipo VARCHAR(50) CHECK (tipo IN ('Motorista', 'Administrador')),
-    descricao TEXT,
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    img_url VARCHAR(500)
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabela Viagem
@@ -115,6 +122,7 @@ CREATE TABLE viagem (
     veiculo_id UUID NOT NULL,
     motorista_id UUID NOT NULL,
     cliente_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE,
     FOREIGN KEY (motorista_id) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
@@ -135,7 +143,8 @@ CREATE TABLE cnh (
     cpf VARCHAR(20) UNIQUE NOT NULL,
     num_registro VARCHAR(50) UNIQUE NOT NULL,
     cat_habilitacao VARCHAR(10),
-    cat_p_habilitacao DATE,
+    data_p_habilitacao DATE,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     usuario_id UUID NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
@@ -148,7 +157,8 @@ CREATE TABLE avaliacao (
     descricao TEXT,
     nota DOUBLE PRECISION CHECK (nota BETWEEN 0 AND 10),
     status VARCHAR(50) CHECK (status IN ('Valida', 'AValidar')),
-    data_publicacao DATE NOT NULL
+    data_publicacao TIMESTAMP NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabela Excursão
@@ -157,5 +167,6 @@ CREATE TABLE excursao (
     titulo VARCHAR(255),
     descricao TEXT,
     img_url VARCHAR(500),
-    data_excursao DATE NOT NULL
+    data_excursao TIMESTAMP NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -22,4 +22,5 @@ public class Cliente {
     private String cpfCnpj;
     private String telefone;
     private String endereco;
+    private Date dataCriacao;
 }

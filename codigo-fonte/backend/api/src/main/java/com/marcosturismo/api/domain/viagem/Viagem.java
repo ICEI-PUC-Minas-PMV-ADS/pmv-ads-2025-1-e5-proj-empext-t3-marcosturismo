@@ -29,6 +29,7 @@ public class Viagem {
     private Date dataChegada;
     private String enderecoSaida;
     private String enderecoDestino;
+    private Date dataCriacao;
 
     @Enumerated(EnumType.STRING)
     private TipoViagem tipoViagem;

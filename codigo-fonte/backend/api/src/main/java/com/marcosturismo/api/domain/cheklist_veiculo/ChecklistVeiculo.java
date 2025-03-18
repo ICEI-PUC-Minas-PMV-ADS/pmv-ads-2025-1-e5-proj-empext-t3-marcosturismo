@@ -33,6 +33,8 @@ public class ChecklistVeiculo {
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 
+    private Date dataCriacao;
+
     @OneToMany(mappedBy = "checklistVeiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImagemChecklist> imagens = new ArrayList<>();
 }

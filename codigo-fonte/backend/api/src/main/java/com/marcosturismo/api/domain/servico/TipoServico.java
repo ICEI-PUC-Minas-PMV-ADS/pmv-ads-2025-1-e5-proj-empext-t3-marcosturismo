@@ -2,6 +2,7 @@ package com.marcosturismo.api.domain.servico;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.UUID;
 @Entity
 @Table(name = "tipo_servico")
@@ -17,4 +18,5 @@ public class TipoServico {
     private UUID id;
 
     private String descricao;
+    private Date dataCriacao;
 }

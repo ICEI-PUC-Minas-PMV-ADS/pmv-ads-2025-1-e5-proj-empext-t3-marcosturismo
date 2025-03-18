@@ -2,6 +2,7 @@ package com.marcosturismo.api.domain.servico;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -24,4 +25,7 @@ public class ServicoRealizado {
     @ManyToOne
     @JoinColumn(name = "tipos_servicos_id")
     private TipoServico tipoServico;
+
+    private Double custo;
+    private Date dataCriacao;
 }

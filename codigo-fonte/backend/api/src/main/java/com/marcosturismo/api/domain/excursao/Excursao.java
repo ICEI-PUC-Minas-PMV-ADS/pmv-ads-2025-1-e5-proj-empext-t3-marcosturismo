@@ -22,4 +22,5 @@ public class Excursao {
     private String descricao;
     private String imgUrl;
     private Date dataExcursao;
+    private Date dataCriacao;
 }
