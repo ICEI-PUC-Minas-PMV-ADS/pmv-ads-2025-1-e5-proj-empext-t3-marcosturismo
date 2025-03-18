@@ -2,6 +2,7 @@ package com.marcosturismo.api.domain.veiculo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -22,5 +23,6 @@ public class ImagemVeiculo {
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
+    private Date dataCriacao;
 }
 

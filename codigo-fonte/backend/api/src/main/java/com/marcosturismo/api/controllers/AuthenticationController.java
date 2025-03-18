@@ -47,30 +47,4 @@ public class AuthenticationController {
             return ResponseEntity.status(500).body("Erro interno ao processar login");
         }
     }
-
-    @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Validated RegisterDTO data) {
-        try {
-
-            if (this.usuarioRepository.findByEmail(data.email()) != null) {
-                return ResponseEntity.badRequest().body("Email já cadastrado");
-            }
-
-            String encryptedSenha = new BCryptPasswordEncoder().encode(data.email());
-            Usuario newUsuario = new Usuario(
-                    data.email(),
-                    encryptedSenha,
-                    data.tipo(),
-                    data.status(),
-                    data.nome(),
-                    data.telefone(),
-                    data.descricao());
-
-            this.usuarioRepository.save(newUsuario);
-
-            return ResponseEntity.ok().body("Usuário registrado com sucesso");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Erro ao registrar usuário: " + e.getMessage());
-        }
-    }
 }

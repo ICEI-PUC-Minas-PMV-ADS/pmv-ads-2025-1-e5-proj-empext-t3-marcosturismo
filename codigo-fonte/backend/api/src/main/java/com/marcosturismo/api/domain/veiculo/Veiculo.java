@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class Veiculo {
     private Boolean tv;
     private Boolean geladeira;
     private Boolean sanitarios;
+    private Date dataCriacao;
 
 
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -29,6 +29,8 @@ public class Avaliacao {
 
     private Date dataPublicacao;
 
+    private Date dataCriacao;
+
     public Avaliacao(AvaliacaoDTO data){
         this.autor = data.autor();
         this.titulo = data.titulo();

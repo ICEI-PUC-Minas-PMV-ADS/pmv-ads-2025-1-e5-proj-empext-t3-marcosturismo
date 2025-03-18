@@ -2,6 +2,7 @@ package com.marcosturismo.api.domain.cheklist_veiculo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -22,4 +23,6 @@ public class ImagemChecklist {
     @ManyToOne
     @JoinColumn(name = "checklist_veiculo_id")
     private ChecklistVeiculo checklistVeiculo;
+
+    private Date dataCriacao;
 }

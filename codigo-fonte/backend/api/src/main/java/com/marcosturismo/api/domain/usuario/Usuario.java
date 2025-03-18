@@ -1,14 +1,13 @@
 package com.marcosturismo.api.domain.usuario;
 
+import com.marcosturismo.api.domain.cheklist_veiculo.ImagemChecklist;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "usuario")
@@ -32,10 +31,9 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo;
 
-    private String descricao;
     private String email;
     private String senha;
-    private String imgUrl;
+    private Date dataCriacao;
 
     public Usuario(
             String email,
@@ -43,15 +41,14 @@ public class Usuario implements UserDetails {
             TipoUsuario tipo,
             StatusUsuario status,
             String nome,
-            String telefone,
-            String descricao) {
+            String telefone
+    ) {
         this.email = email;
         this.senha = senha;
         this.tipo = tipo;
         this.status = status;
         this.nome = nome;
         this.telefone = telefone;
-        this.descricao = descricao;
     }
 
     @Override
@@ -92,5 +89,4 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
-
 }

@@ -24,6 +24,7 @@ public class Servico {
     private Integer kmVeiculo;
     private Double custo;
     private String descricao;
+    private Date dataCriacao;
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
