@@ -46,16 +46,22 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT, "/avaliacao/validar/{avaliacaoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/avaliacao/{avaliacaoId}").hasRole("ADMIN")
                         ///  Usuários
-                        //.requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         ///
                         /// Para o primeira vez que for rodar, descomentar para criar usuário
                         ///
-                        .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+                        //.requestMatchers(HttpMethod.POST, "/usuario").permitAll()
                         .requestMatchers(HttpMethod.GET, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/usuario/{usuarioId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/usuario/{usuarioId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/usuario/cnh/{usuarioId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/usuario/cnh/{usuarioId}").hasRole("ADMIN")
+                        /// Excursões
+                        .requestMatchers(HttpMethod.POST, "/excursao").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/excursao/upcoming").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/excursao").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/excursao/{excursaoId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/excursao/{excursaoId}").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 ///  Tipos de roles: ADMIN / USER / STAFF (Motoristas)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
