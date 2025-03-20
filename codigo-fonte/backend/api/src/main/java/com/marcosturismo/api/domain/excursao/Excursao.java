@@ -1,4 +1,5 @@
 package com.marcosturismo.api.domain.excursao;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +24,10 @@ public class Excursao {
     private String imgUrl;
     private Date dataExcursao;
     private Date dataCriacao;
+
+    public Excursao(ExcursaoDTO data) {
+        this.titulo = data.titulo();
+        this.descricao = data.descricao();
+        this.dataExcursao = new Date(data.dataExcursao());
+    }
 }
