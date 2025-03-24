@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórias - Marcos Turismo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            background-image: url('/src/imagens/fundo.jpg'); /* Caminho da sua imagem de fundo */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #002F6C;
+            padding: 10px 20px;
+            color: white;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .navbar .logo {
+            width: 100px;
+        }
+
+        .navbar .menu a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar .user-icon {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        /* Frase fora da Navbar */
+        .header {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            top: 80px; /* Ajustado para não sobrepor a Navbar */
+            font-size: 1.5em; /* Frase menor */
+            z-index: 1;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        /* Galeria */
+        .gallery {
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+            margin-top: 200px; /* Adicionado para que a galeria não sobreponha a frase */
+        }
+
+        .gallery-text {
+            font-size: 1.5em;
+            margin: 10px;
+        }
+
+        /* Cards de Depoimentos */
+        .testimonials {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+            z-index: 1;
+        }
+
+        .testimonials .card {
+            background-color: white;
+            width: 30%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .testimonials .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .testimonials .card p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Botão Avaliação */
+        button {
+            background-color: #002F6C;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px;
+            z-index: 1;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 50%;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .rating {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .star {
+            color: gray;
+            margin: 0 5px;
+        }
+
+        .star.selected {
+            color: gold;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 50%;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .feedback-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #002F6C;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .whatsapp-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .whatsapp-icon {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <img src="/src/imagens/logo.jpg" alt="Marcos Turismo" class="logo">
+        <div class="menu">
+            <a href="/src/app/home/home.component.html">HOME</a>
+            <a href="/src/app/Sobrenos/sobrenos.component.html">SOBRE NÓS</a>
+            <a href="/src/app/Frota/frota.component.html">NOSSA FROTA</a>
+            <a href="/src/app/historias/historias.component.html">HISTÓRIAS</a>
+            <a href="https://wa.me/558791103345">CONTATO</a>
+            <a href="/src/app/components/login/login.component.html">CORPORATIVO</a>
+        </div>
+        <img src="/src/imagens/user-icon.png" alt="Usuário" class="user-icon" width="40">
+    </nav>
+
+    <header class="header">
+        <h1>Viajar é colecionar momentos, expandir horizontes e descobrir que o mundo é muito maior do que os olhos podem ver.</h1>
+    </header>
+
+    <section class="gallery">
+        <div class="gallery-text">Fotos de algumas viagens, pode ficar em carrossel ou separadas!</div>
+    </section>
+
+    <section class="testimonials">
+        <div class="card">
+            <img src="/src/imagens/viagem1.jpg" alt="Viagem 1">
+            <p>"Tivemos uma experiência incrível! Organização e conforto impecáveis."</p>
+        </div>
+        <div class="card">
+            <img src="/src/imagens/viagem2.jpg" alt="Viagem 2">
+            <p>"A melhor viagem que já fizemos! Motoristas atenciosos e muita segurança."</p>
+        </div>
+        <div class="card">
+            <img src="/src/imagens/viagem3.jpg" alt="Viagem 3">
+            <p>"Recomendo demais! Tudo perfeito, do início ao fim da viagem."</p>
+        </div>
+    </section>
+
+    <button id="openFeedbackModal">Avalia-nos</button>
+
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Conte-nos a sua experiência com essa viagem</h2>
+            <div class="feedback-form">
+                <input type="text" id="name" placeholder="Seu Nome">
+                <div class="rating" id="rating">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <textarea id="description" placeholder="Descreva sua experiência..."></textarea>
+                <div class="feedback-buttons">
+                    <button id="register">Registrar</button>
+                    <button id="cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/558791103345" target="_blank" class="whatsapp-link">
+        <img src="/src/imagens/Whatsapp.jpg" alt="WhatsApp" class="whatsapp-icon">
+    </a>
+
+    <script>
+        // Abrir o modal de avaliação
+        document.getElementById('openFeedbackModal').addEventListener('click', function() {
+            document.getElementById('feedbackModal').style.display = 'flex';
+        });
+
+        // Fechar o modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('feedbackModal').style.display = 'none';
+        });
+
+        // Estrelas de avaliação
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const ratingValue = this.getAttribute('data-value');
+                stars.forEach(s => {
+                    s.classList.remove('selected');
+                    if (s.getAttribute('data-value') <= ratingValue) {
+                        s.classList.add('selected');
+                    }
+                });
+            });
+        });
+
+        // Botões de ação
+        document.getElementById('register').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const rating = document.querySelector('.star.selected');
+
+            if (name && description && rating) {
+                alert('Obrigado pela sua avaliação!');
+                // Aqui você pode enviar os dados para o servidor ou salvar localmente
+            } else {
+                alert('Preencha todos os campos');
+            }
+        });
+
+        document.getElementById('cancel').addEventListener('click', function() {
+            document.getElementById('feedbackModal').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

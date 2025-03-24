@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frota</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/src/imagens/imagemDeFundo.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .navbar {
+            background-color: #002F6C;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .menu {
+            display: flex;
+            gap: 15px;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .logo {
+            width: 160px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+        .user-icon {
+            margin-right: 30px;
+        }
+        .frota {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .frota h1 {
+            color: #001f5b;
+            font-size: 2.5em;
+        }
+        .descricao {
+            background-color: #0046a1;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .card {
+            background-color: #ffcc00;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .executivo {
+            background-color: #002f9c;
+            color: white;
+        }
+        .passageiros {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .whatsapp img {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <img src="/src/imagens/logo.jpg" alt="Marcos Turismo" class="logo">
+        <div class="menu">
+            <a href="/src/app/home/home.component.html">HOME</a>
+            <a href="/src/app/Sobrenos/sobrenos.component.html">SOBRE NÓS</a>
+            <a href="/src/app/Frota/frota.component.html">NOSSA FROTA</a>
+            <a href="/src/app/historias/historias.component.html">HISTÓRIAS</a>
+            <a href="https://wa.me/558791103345">CONTATO</a>
+            <a href="/src/app/components/login/login.component.html">CORPORATIVO</a>
+        </div>
+        <img src="/src/imagens/user-icon.png" alt="Usuário" class="user-icon" width="40">
+    </nav>
+
+    <section class="frota">
+        <h1>Frota</h1>
+        <div class="descricao">
+            <h2>Título</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet...</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <img src="/src/imagens/micro-onibus.jpg" alt="Micro-ônibus">
+                <h3>Micro-ônibus</h3>
+                <p class="subtitulo">Plus Service</p>
+                <p class="passageiros">30 PASSAGEIROS</p>
+                <ul>
+                    <li>Ar-condicionado</li>
+                    <li>Poltronas reclináveis</li>
+                    <li>Wi-Fi</li>
+                    <li>Tomadas USB</li>
+                </ul>
+            </div>
+            <div class="card executivo">
+                <img src="/src/imagens/marcopolo-g7.jpg" alt="Marcopolo G7 1200">
+                <h3>Marcopolo G7 1200</h3>
+                <p class="subtitulo">Executivo</p>
+                <p class="passageiros">46 PASSAGEIROS</p>
+                <ul>
+                    <li>Poltronas extra confortáveis</li>
+                    <li>Sistema de entretenimento</li>
+                    <li>Wi-Fi e tomadas USB</li>
+                    <li>Banheiro a bordo</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="/src/imagens/sprinter-517.jpg" alt="Sprinter 517">
+                <h3>Sprinter 517</h3>
+                <p class="subtitulo">Executivo</p>
+                <p class="passageiros">21 PASSAGEIROS</p>
+                <ul>
+                    <li>Ar-condicionado</li>
+                    <li>Poltronas reclináveis</li>
+                    <li>Vidros escurecidos</li>
+                    <li>Carga USB</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/558791103345" class="whatsapp">
+        <img src="/src/imagens/Whatsapp.jpg" alt="Fale conosco no WhatsApp">
+    </a>
+</body>
+</html>

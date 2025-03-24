@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Marcos Turismo</title>
+  <style>
+    body {
+      background: url('/src/imagens/imagemDeFundo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .login-box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: white;
+      width: 300px;
+    }
+
+    .logo {
+      width: 160px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .btn {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #0056b3;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="login-box">
+      <img src="/src/imagens/logo.jpg" alt="Marcos Turismo" class="logo">
+      <form id="loginForm">
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login" required>
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+
+        <button type="submit" class="btn">Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("loginForm");
+
+      if (!loginForm) {
+        console.error("Erro: Formulário de login não encontrado.");
+        return;
+      }
+
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const emailInput = document.getElementById("login");
+        const senhaInput = document.getElementById("senha");
+
+        if (!emailInput || !senhaInput) {
+          alert("Erro: Campos de login ou senha não encontrados.");
+          return;
+        }
+
+        const email = emailInput.value.trim();
+        const senha = senhaInput.value.trim();
+
+        if (!email || !email.includes("@")) {
+          alert("Por favor, insira um e-mail válido.");
+          return;
+        }
+
+        console.log("Enviando:", { email, senha });
+
+        try {
+          const response = await fetch("http://localhost:8080/auth/login", {
+            method: "POST",
+            mode:"cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, senha }),
+          });
+
+          const data = await response.json();
+          console.log("Resposta do servidor:", data);
+
+          if (response.ok) {
+            localStorage.setItem("token", data.token);
+            alert("Login bem-sucedido!");
+            window.location.href = "/dashboard.html";
+          } else {
+            alert(data.message || "Erro ao fazer login");
+          }
+        } catch (error) {
+          console.error("Erro ao conectar ao servidor:", error);
+          alert("Erro ao conectar ao servidor. Verifique sua conexão e tente novamente.");
+        }
+      });
+    });
+
+    async function fetchWithAuth(url, options = {}) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Usuário não autenticado. Faça login novamente.");
+        window.location.href = "/index.html";
+        return;
+      }
+
+      const headers = {
+        ...options.headers,
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      };
+
+      return fetch(url, { ...options, headers });
+    }
+  </script>
+</body>
+</html>

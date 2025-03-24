@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excursões</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-image: url('/src/imagens/imagemDeFundo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #001f4d;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #002F6C;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .logo img {
+            height: 50px;
+            border-radius: 50%;
+        }
+        .menu {
+            display: flex;
+            gap: 15px;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .menu a:hover {
+            color: #00aaff;
+        }
+        .user-icon {
+            width: 40px;
+        }
+        main {
+            flex-grow: 1;
+            text-align: center;
+            padding: 40px 20px 20px; /* Adicionado espaçamento superior */
+        }
+        h1 {
+            margin-bottom: 30px; /* Espaço entre o título e os cards */
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 80%;
+            margin: auto;
+        }
+        .card {
+            background-color: rgba(0, 31, 77, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            height: 350px;
+        }
+        .card .image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .card p {
+            margin-top: 15px; /* Espaço entre o título do card e o texto */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #001f4d;
+        }
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .whatsapp img {
+            width: 50px;
+            transition: transform 0.3s;
+        }
+        .whatsapp img:hover {
+            transform: scale(1.1);
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            .menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="/src/imagens/logo.jpg" alt="Logo">
+            </div>
+            <div class="menu">
+                <a href="/src/app/home/home.component.html">HOME</a>
+                <a href="/src/app/Sobrenos/sobrenos.component.html">SOBRE NÓS</a>
+                <a href="/src/app/Frota/frota.component.html">NOSSA FROTA</a>
+                <a href="/src/app/historias/historias.component.html">HISTÓRIAS</a>
+                <a href="https://wa.me/558791103345">CONTATO</a>
+                <a href="/src/app/components/login/login.component.html">CORPORATIVO</a>
+            </div>
+            <img src="/src/imagens/logo.jpg" alt="Usuário" class="user-icon">
+        </nav>
+    </header>
+    <main>
+        <h1>Excursões</h1>
+        <section class="grid-container" id="excursions-container"></section>
+    </main>
+    <footer>
+        <a href="https://wa.me/558791103345" class="whatsapp">
+            <img src="/src/imagens/Whatsapp.jpg" alt="Fale conosco no WhatsApp">
+        </a>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const excursions = [
+                { img: "/src/imagens/logo.jpg", desc: "Excursão incrível para belas paisagens naturais." },
+                { img: "/src/imagens/logo.jpg", desc: "Conheça as cidades históricas e seus encantos." },
+                { img: "/src/imagens/logo.jpg", desc: "Um dia relaxante na praia com tudo incluso." },
+                { img: "/src/imagens/logo.jpg", desc: "Passeio pelo campo com experiências únicas." },
+                { img: "/src/imagens/logo.jpg", desc: "Descubra cachoeiras paradisíacas e trilhas." },
+                { img: "/src/imagens/logo.jpg", desc: "Aventuras emocionantes nas montanhas." }
+            ];
+            const container = document.getElementById("excursions-container");
+            excursions.forEach(excursion => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                    <div class="image">
+                        <img src="${excursion.img}" alt="Excursão">
+                    </div>
+                    <p>${excursion.desc}</p>
+                `;
+                container.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>

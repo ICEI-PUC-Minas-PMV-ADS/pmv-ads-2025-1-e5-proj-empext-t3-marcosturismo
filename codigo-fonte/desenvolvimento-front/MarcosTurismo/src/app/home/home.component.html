@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marcos Turismo</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <style>
+    body {
+      background: url('/src/imagens/imagemDeFundo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      background-color: #002F6C;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .menu {
+      display: flex;
+      gap: 15px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .logo {
+      width: 160px;
+      border-radius: 50%;
+      margin-left: 20px;
+    }
+
+    .user-icon {
+      margin-right: 30px;
+    }
+
+    .cards-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 30px;
+      height: auto;
+      margin-top: 5px;
+      flex-wrap: wrap; /* Permite que os cards se ajustem em telas pequenas */
+    }
+
+    .card {
+      background: rgba(200, 200, 200, 0.9);
+      padding: 90px;
+      border-radius: 10px;
+      text-align: center;
+      width: 350px;
+      height: 200px;
+      font-size: 2em;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+      margin-bottom: 20px; /* Adiciona um espaçamento inferior entre os cards */
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .carousel-container {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-top: -50px;
+    }
+
+    .swiper {
+      width: 80%;
+      padding: 110px;
+    }
+
+    .swiper-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      position: relative;
+      flex-shrink: 0;
+      transform: none;
+    }
+
+    .image-container {
+      width: 100%;
+      max-width: 250px;
+      margin: auto;
+      position: relative;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .whatsapp-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .whatsapp-text {
+      font-size: 14px;
+      font-weight: bold;
+      color: #25D366;
+    }
+
+    .whatsapp-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    /* Media Queries para telas menores */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .menu {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .cards-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .card {
+        width: 90%;
+        padding: 60px;
+      }
+
+      .swiper {
+        width: 100%;
+        padding: 40px;
+      }
+
+      .whatsapp-container {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Media Queries para telas menores que 480px */
+    @media (max-width: 480px) {
+      .logo {
+        width: 120px;
+      }
+
+      .cards-container {
+        gap: 15px;
+        padding: 10px;
+      }
+
+      .card {
+        padding: 40px;
+        font-size: 1.5em;
+        width: 90%;
+      }
+
+      .whatsapp-container {
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <img src="/src/imagens/logo.jpg" alt="Marcos Turismo" class="logo">
+    <div class="menu">
+      <a href="/src/app/home/home.component.html">HOME</a>
+      <a href="/src/app/Sobrenos/sobrenos.component.html">SOBRE NÓS</a>
+      <a href="/src/app/Frota/frota.component.html">NOSSA FROTA</a>
+      <a href="/src/app/historias/historias.component.html">HISTÓRIAS</a>
+      <a href="https://wa.me/558791103345">CONTATO</a>
+      <a href="/src/app/components/login/login.component.html">CORPORATIVO</a>
+    </div>
+    <img src="/src/imagens/user-icon.png" alt="Usuário" class="user-icon" width="40">
+  </nav>
+
+  <div class="cards-container">
+    <a href="/src/app/Excurção/excursao.component.html">
+      <div class="card">Excursões</div>
+    </a>
+    <a href="https://wa.me/558791103345">
+      <div class="card">Orçamento</div>
+    </a>
+    <a href="fretamento.component.html">
+      <div class="card">Fretamento</div>
+    </a>
+  </div>
+
+  <div class="carousel-container">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="image-container">
+            <img src="/src/imagens/teste1.jpg" alt="Foto 1">
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="image-container">
+            <img src="/src/imagens/teste5.jpg" alt="Foto 5">
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="image-container">
+            <img src="/src/imagens/teste3.jpeg" alt="Foto 3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="whatsapp-container">
+    <span class="whatsapp-text">Fale agora em nosso WhatsApp</span>
+    <a href="https://wa.me/558791103345" target="_blank">
+      <img src="/src/imagens/Whatsapp.jpg" alt="WhatsApp" class="whatsapp-icon">
+    </a>
+  </div>
+
+  <script>
+    var swiper = new Swiper(".swiper", {
+      loop: false,
+      slidesPerView: "auto",
+      spaceBetween: 20,
+    });
+  </script>
+</body>
+</html>
