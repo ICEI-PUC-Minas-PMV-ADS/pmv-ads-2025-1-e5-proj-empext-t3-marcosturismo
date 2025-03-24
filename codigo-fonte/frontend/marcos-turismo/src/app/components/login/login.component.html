@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="login-box">
+      <img src="assets/imagens/logo.jpg" alt="Marcos Turismo" class="logo" />
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label for="login">Login:</label>
+        <input
+          type="text"
+          id="login"
+          formControlName="login"
+          placeholder="Digite seu e-mail"
+        />
+  
+        <label for="senha">Senha:</label>
+        <input
+          type="password"
+          id="senha"
+          formControlName="senha"
+          placeholder="Digite sua senha"
+        />
+  
+        <button type="submit" class="btn" [disabled]="loginForm.invalid">
+          Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+  
