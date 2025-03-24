@@ -1,0 +1,44 @@
+<div class="user-card">
+  <!-- Campos -->
+
+  <label for="nome">Nome</label>
+  <input
+    type="text"
+    id="nome"
+    [(ngModel)]="usuario.nome"
+    [ngClass]="{'erro': campoTemErro('nome')}">
+
+  <label for="status">Status</label>
+  <input
+    type="text"
+    id="status"
+    [(ngModel)]="usuario.status"
+    [ngClass]="{'erro': campoTemErro('status')}">
+
+  <label for="categoria">Categoria</label>
+  <input
+    type="text"
+    id="categoria"
+    [(ngModel)]="usuario.categoria"
+    [ngClass]="{'erro': campoTemErro('categoria')}">
+
+  <label for="documento">Documento</label>
+  <input
+    type="text"
+    id="documento"
+    [(ngModel)]="usuario.documento"
+    [ngClass]="{'erro': campoTemErro('documento')}">
+
+  <label for="email">E-mail</label>
+  <input
+    type="text"
+    id="email"
+    [(ngModel)]="usuario.email"
+    [ngClass]="{'erro': campoTemErro('email')}">
+
+  <!-- Botões -->
+  <div class="button-container">
+    <button class="btn cadastrar" (click)="cadastrar()">Cadastrar</button>
+    <button class="btn cancelar" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>
