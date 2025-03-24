@@ -1,0 +1,58 @@
+<aside class="sidebar" [class.active]="isSidebarActive">
+  <div class="menu">
+    <button class="menu-item" (click)="navigate('/dashboard')" routerLinkActive="active">
+      <i class="fas fa-home"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Dashboard</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/frota')" routerLinkActive="active">
+      <i class="fas fa-bus"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Frota</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/avaliacao')" routerLinkActive="active">
+      <i class="fas fa-star"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Avaliação</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/usuario')" routerLinkActive="active">
+      <i class="fas fa-user"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Usuários</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/checklist')" routerLinkActive="active">
+      <i class="fas fa-car-side"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Viagens</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/excursoes')" routerLinkActive="active">
+      <i class="fas fa-map-marker-alt"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Excursões</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/servicos')" routerLinkActive="active">
+      <i class="fas fa-cogs"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Serviços</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/cliente')" routerLinkActive="active">
+      <i class="fas fa-users"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Clientes</span>
+    </button>
+
+       <button class="menu-item" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }"></span>
+    </button>
+  </div>
+
+  <div class="logo">
+    <img src="logo.jpg" alt="Logo" />
+  </div>
+
+  <div class="footer">
+    <div id="hamburguer" (click)="toggleSidebarFunction()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+</aside>

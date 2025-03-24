@@ -1,0 +1,108 @@
+/* CARD DO USUÁRIO */
+.user-card {
+  background: #002366;
+  color: white;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* LABELS E INPUTS */
+label {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* CLASSE DE ERRO NOS INPUTS */
+input.erro,
+input.ng-invalid.ng-touched {
+  border: 2px solid red !important;
+}
+
+/* CONTAINER DOS BOTÕES */
+.button-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ESTILOS DOS BOTÕES */
+.btn {
+  width: 48%;
+  padding: 8px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn.cadastrar {
+  background-color: green;
+}
+
+.btn.cancelar {
+  background-color: red;
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 16px;
+}
+
+.form {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+}
+
+.button-group button {
+  margin-right: 8px;
+  padding: 8px 16px;
+}
+
+.erro {
+  border: 1px solid red;
+}
+
+.usuarios-container {
+  margin-top: 32px;
+}
+
+.usuario-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.usuario-card h3 {
+  margin-top: 0;
+}
