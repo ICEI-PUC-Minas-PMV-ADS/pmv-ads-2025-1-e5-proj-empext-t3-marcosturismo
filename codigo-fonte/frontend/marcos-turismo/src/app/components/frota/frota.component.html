@@ -1,0 +1,54 @@
+<!-- Botão para abrir o modal -->
+<button id="openModalBtn" class="add-btn" (click)="abrirModal()">+</button>
+
+<!-- Modal de cadastro -->
+<div id="modal" class="modal" [style.display]="modalAberto ? 'flex' : 'none'">
+  <div class="card">
+    <input type="text"  [(ngModel)]="modeloVeiculo" placeholder="Modelo do veículo">
+
+    <div class="image-container" (click)="fileInput.click()">
+      <img [src]="imagemPreview || 'assets/imagens/sem-imagem.jpg'" alt="Inserir imagem">
+      <input type="file" #fileInput (change)="selecionarImagem($event)" accept="image/*" style="display: none;">
+    </div>
+
+    <div class="input-container">
+      <label for="passageiros">Quantidade de passageiros</label>
+      <input type="number" class="input-number" [(ngModel)]="passageiros">
+    </div>
+
+
+    <label for="adicionais">Adicionais</label>
+    <div id="adicionais-container">
+      <div class="adicional-item" *ngFor="let adicional of adicionais; let i = index">
+        <input type="text" [(ngModel)]="adicionais[i]" placeholder="Adicionais">
+        <button type="button" class="trash-btn" (click)="removerCampoAdicional(i)"> <i class="fas fa-trash-alt"></i></button>
+      </div>
+    </div>
+    <button type="button" class="ad-btn" (click)="adicionarCampoAdicional()">+</button>
+
+    <div class="buttons">
+      <button class="btn green" (click)="gerarCard()">Gerar Card</button>
+      <button class="btn red" (click)="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cards gerados -->
+<div id="generatedCards">
+  <div class="card generated-card" *ngFor="let card of cardsGerados; let i = index">
+    <div class="header">
+      <img src="logo.jpg" alt="Logo">
+    </div>
+    <h2>{{ card.modelo }}</h2>
+    <img [src]="card.imagem" class="vehicle-image">
+    <p class="passageiros">{{ card.passageiros }} PASSAGEIROS</p>
+    <ul>
+      <li *ngFor="let adicional of card.adicionais">{{ adicional }}</li>
+    </ul>
+    <button class="delete-card-btn" (click)="excluirCard(i)">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+
+  </div>
+</div>
+
