@@ -6,11 +6,13 @@ import path from 'node:path';
 import { LoginComponent } from './components/login/login.component';
 import { AvaliacaoComponent } from './components/avaliacao/avaliacao.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
+import { FrotaComponent } from './components/frota/frota.component';
 
 export const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent },
   { path: 'login', component: LoginComponent},
   { path: 'avaliacao', component: AvaliacaoComponent},
   { path: 'cliente', component: ClienteComponent},
+  { path: 'frota', component: FrotaComponent},
   { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
 ];
