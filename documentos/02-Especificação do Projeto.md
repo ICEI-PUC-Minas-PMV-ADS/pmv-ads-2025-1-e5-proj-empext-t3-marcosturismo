@@ -44,20 +44,19 @@ Segue abaixo o nosso modelo:
 
 |ID     | Título do Requisito | Descrição do Requisito  | Prioridade |
 |-------|-------------------- |-------------------------|----|
-|RF-001 | Site público | O sistema deve permitir que o usuário visitante acesse o site e suas informações. | ALTA |
-|RF-002 | Autenticação e Painel de Gestão | O sistema deve permitir que apenas colaboradores e o administrador se autentiquem e acessem o painel de gestão. | ALTA |
-|RF-003 | Gerenciar Colaboradores | O sistema deve permitir que apenas o administrador cadastre, edite e exclua colaboradores. | ALTA |
-|RF-004 | Gerenciar Viagens | O sistema deve permitir que apenas o administrador crie, edite e exclua viagens. | ALTA |
-|RF-005 | Gerenciamento de Frota | O sistema deve permitir que o administrador cadastre, edite e exclua veículos da frota. | ALTA |
-|RF-006 | Iniciar Viagem e Checklist | O sistema deve permitir que o colaborador inicie sua viagem somente após a realização do checklist do veículo. | ALTA |
-|RF-007 | Finalizar Viagem | O sistema deve permitir que o colaborador finalize a viagem após inserir a quilometragem do veículo. | MÉDIA |
-|RF-008 | Serviços | O sistema deve permitir que o colaborador registre um serviço realizado em um veículo. | MÉDIA |
-|RF-009 | Gerenciar excursões | O sistema deve permitir que o administrador cadastre, edite e exclua excursões. | MÉDIA |
-|RF-010 | Contato | O sistema deve permitir que o usuário entre em contato pelo WhatsApp com o cliente por meio de um redirecionamento de URL. | MÉDIA |
-|RF-011 | Validar avaliações | O sistema deve permitir que o administrador valide ou exclui avaliações a serem validadas. | MÉDIA |
-|RF-012 | Avaliações | O sistema deve permitir que o usuário visitante deixe sua avaliação de serviço para ser validado. | BAIXA |
-|RF-013 | Visualizar Frota | O sistema deve permitir que o usuário visitante veja a lista de frotas da empresa. | BAIXA |
-|RF-014 | Visualizar excursões | O sistema deve permitir que o usuário visitante veja as próximas excursões. | BAIXA |
+|RF-001 | Autenticação e Painel de Gestão | O sistema deve permitir que apenas colaboradores e o administrador se autentiquem e acessem o painel de gestão. | ALTA |
+|RF-002 | Gerenciar Colaboradores | O sistema deve permitir que apenas o administrador cadastre, edite e exclua colaboradores. | ALTA |
+|RF-003 | Gerenciar Viagens | O sistema deve permitir que apenas o administrador crie, edite e exclua viagens. | ALTA |
+|RF-004 | Gerenciamento de Frota | O sistema deve permitir que o administrador cadastre, edite e exclua veículos da frota. | ALTA |
+|RF-005 | Iniciar Viagem e Checklist | O sistema deve permitir que o colaborador inicie sua viagem somente após a realização do checklist do veículo. | ALTA |
+|RF-006 | Finalizar Viagem | O sistema deve permitir que o colaborador finalize a viagem após inserir a quilometragem do veículo. | MÉDIA |
+|RF-007 | Serviços | O sistema deve permitir que o colaborador registre um serviço realizado em um veículo. | MÉDIA |
+|RF-008 | Gerenciar excursões | O sistema deve permitir que o administrador cadastre, edite e exclua excursões. | MÉDIA |
+|RF-009 | Contato | O sistema deve permitir que o usuário entre em contato pelo WhatsApp com o cliente por meio de um redirecionamento de URL. | MÉDIA |
+|RF-010 | Validar avaliações | O sistema deve permitir que o administrador valide ou exclui avaliações a serem validadas. | MÉDIA |
+|RF-011 | Avaliações | O sistema deve permitir que o usuário visitante deixe sua avaliação de serviço para ser validado. | BAIXA |
+|RF-012 | Visualizar Frota | O sistema deve permitir que o usuário visitante veja a lista de frotas da empresa. | BAIXA |
+|RF-013 | Visualizar excursões | O sistema deve permitir que o usuário visitante veja as próximas excursões. | BAIXA |
 
 
 ### Requisitos não Funcionais
