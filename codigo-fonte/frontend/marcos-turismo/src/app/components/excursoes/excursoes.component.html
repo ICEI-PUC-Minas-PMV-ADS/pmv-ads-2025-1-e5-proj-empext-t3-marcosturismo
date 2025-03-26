@@ -1,0 +1,25 @@
+<div id="cards-container">
+    <div *ngFor="let excursao of excursoes; let i = index" class="excursao-card">
+      <div class="image-container">
+        <img class="preview" [src]="excursao.imagem" alt="Imagem da excursão">
+        <input type="file" class="upload" (change)="selecionarImagem($event, i)" hidden>
+      </div>
+      
+      <textarea [(ngModel)]="excursao.descricao" placeholder="Digite a descrição da excursão..."></textarea>
+  
+      <div class="button-container">
+        <button class="confirmar">Confirmar</button>
+        <button class="cancelar">Cancelar</button>
+      </div>
+  
+      <button class="delete-card" (click)="apagarCard(i)">
+        <i class="fas fa-trash-alt"></i> Apagar
+      </button>
+    </div>
+  </div>
+  
+  <!-- Botão de Adicionar Excursão -->
+  <button class="add-card" (click)="adicionarCard()">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+
