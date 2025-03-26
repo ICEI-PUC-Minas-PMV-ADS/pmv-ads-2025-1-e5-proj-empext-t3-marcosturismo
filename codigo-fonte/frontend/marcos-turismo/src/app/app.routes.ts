@@ -18,5 +18,6 @@ export const routes: Routes = [
   { path: 'excursoes', component: ExcursoesComponent},
   { path: 'frota', component: FrotaComponent},
   { path: 'viagens', component: ViagensComponent},
-  { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
+  { path: 'avaliacao', component: AvaliacaoComponent}
+  { path: '', redirectTo: '/usuario', pathMatch: 'full' }
 ];
