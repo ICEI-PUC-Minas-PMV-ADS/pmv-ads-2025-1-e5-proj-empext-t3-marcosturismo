@@ -33,3 +33,4 @@ export class ExcursoesComponent {
     this.excursoes.push({ imagem: 'placeholder.jpg', descricao: '' });
   }
 }
+
