@@ -2,7 +2,10 @@ package com.marcosturismo.api.domain.excursao;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,7 +26,10 @@ public class Excursao {
     private String descricao;
     private String imgUrl;
     private Date dataExcursao;
-    private Date dataCriacao;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
     public Excursao(ExcursaoDTO data) {
         this.titulo = data.titulo();

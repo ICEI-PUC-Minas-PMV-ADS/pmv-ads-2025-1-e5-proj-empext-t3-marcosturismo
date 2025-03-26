@@ -3,10 +3,13 @@ package com.marcosturismo.api.domain.usuario;
 import com.marcosturismo.api.domain.cheklist_veiculo.ImagemChecklist;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -33,7 +36,10 @@ public class Usuario implements UserDetails {
 
     private String email;
     private String senha;
-    private Date dataCriacao;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
     public Usuario(
             String email,

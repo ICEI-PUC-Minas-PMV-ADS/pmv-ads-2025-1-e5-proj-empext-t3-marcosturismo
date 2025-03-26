@@ -1,12 +1,17 @@
 package com.marcosturismo.api.domain.viagem;
+
 import com.marcosturismo.api.domain.cliente.Cliente;
 import com.marcosturismo.api.domain.usuario.Usuario;
 import com.marcosturismo.api.domain.veiculo.Veiculo;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
+
 @Entity
 @Table(name = "viagem")
 @Getter
@@ -21,7 +26,7 @@ public class Viagem {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusViagem status;
 
     private Double distancia;
     private Double valor;
@@ -29,7 +34,10 @@ public class Viagem {
     private Date dataChegada;
     private String enderecoSaida;
     private String enderecoDestino;
-    private Date dataCriacao;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
     @Enumerated(EnumType.STRING)
     private TipoViagem tipoViagem;
@@ -46,11 +54,41 @@ public class Viagem {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public enum Status {
-        FINALIZADA, NAO_INICIADA, CANCELADA
+    public Viagem(ViagemDTO data, Cliente cliente, Usuario motorista, Veiculo veiculo) {
+        this.status = data.status();
+        this.distancia = data.distancia();
+        this.valor = data.valor();
+        this.dataInicio = new Date(data.dataInicio());
+        this.dataChegada = new Date(data.dataChegada());
+        this.enderecoSaida = data.enderecoSaida();
+        this.enderecoDestino = data.enderecoDestino();
+        this.tipoViagem = data.tipoViagem();
+        this.veiculo = veiculo;
+        this.motorista = motorista;
+        this.cliente = cliente;
     }
 
-    public enum TipoViagem {
-        EXCURSAO, FRETAMENTO
+    public ViagemResponseDTO toResponseDTO() {
+        return new ViagemResponseDTO(
+                this.id,
+                this.status,
+                this.distancia,
+                this.valor,
+                this.dataInicio,
+                this.dataChegada,
+                this.enderecoSaida,
+                this.enderecoDestino,
+                this.dataCriacao,
+                this.tipoViagem,
+                veiculo.getId(),
+                veiculo.getNumeracao(),
+                veiculo.getModelo(),
+                veiculo.getMarca(),
+                motorista.getId(),
+                motorista.getStatus(),
+                motorista.getNome(),
+                cliente.getId(),
+                cliente.getNome()
+        );
     }
 }

@@ -111,7 +111,7 @@ CREATE TABLE usuario (
 -- Tabela Viagem
 CREATE TABLE viagem (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    status VARCHAR(50) CHECK (status IN ('Finalizada', 'NaoIniciada', 'Cancelada')),
+    status VARCHAR(50) CHECK (status IN ('Finalizada', 'NaoIniciada', 'Cancelada', 'EmAndamento')),
     distancia DOUBLE PRECISION,
     valor DOUBLE PRECISION,
     data_inicio DATE NOT NULL,

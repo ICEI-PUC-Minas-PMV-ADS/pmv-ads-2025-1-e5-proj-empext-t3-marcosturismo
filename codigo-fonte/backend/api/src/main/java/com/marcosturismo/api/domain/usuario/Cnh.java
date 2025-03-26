@@ -3,8 +3,11 @@ package com.marcosturismo.api.domain.usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.security.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.Date;
 
@@ -35,7 +38,10 @@ public class Cnh {
     private String catHabilitacao;
     @Column(name = "data_p_habilitacao")
     private LocalDate dataPHabilitacao;
-    private Date dataCriacao;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
     @JsonIgnore
     @OneToOne()

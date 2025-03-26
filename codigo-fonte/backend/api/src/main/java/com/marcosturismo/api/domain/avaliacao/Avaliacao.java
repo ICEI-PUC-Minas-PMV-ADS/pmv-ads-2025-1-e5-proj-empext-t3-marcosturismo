@@ -2,7 +2,10 @@ package com.marcosturismo.api.domain.avaliacao;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -29,7 +32,9 @@ public class Avaliacao {
 
     private Date dataPublicacao;
 
-    private Date dataCriacao;
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
     public Avaliacao(AvaliacaoDTO data){
         this.autor = data.autor();
