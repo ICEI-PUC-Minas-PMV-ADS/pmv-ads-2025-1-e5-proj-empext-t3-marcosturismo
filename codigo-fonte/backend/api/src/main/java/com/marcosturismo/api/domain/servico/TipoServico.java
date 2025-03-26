@@ -1,7 +1,10 @@
 package com.marcosturismo.api.domain.servico;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 @Entity
@@ -18,5 +21,8 @@ public class TipoServico {
     private UUID id;
 
     private String descricao;
-    private Date dataCriacao;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 }

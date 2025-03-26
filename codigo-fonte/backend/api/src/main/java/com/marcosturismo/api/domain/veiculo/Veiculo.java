@@ -2,7 +2,10 @@ package com.marcosturismo.api.domain.veiculo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -41,8 +44,10 @@ public class Veiculo {
     private Boolean tv;
     private Boolean geladeira;
     private Boolean sanitarios;
-    private Date dataCriacao;
 
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImagemVeiculo> imagens = new ArrayList<>();
