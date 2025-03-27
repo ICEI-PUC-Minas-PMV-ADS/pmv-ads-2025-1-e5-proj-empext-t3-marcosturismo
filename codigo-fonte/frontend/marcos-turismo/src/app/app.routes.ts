@@ -20,6 +20,6 @@ export const routes: Routes = [
   { path: 'frota', component: FrotaComponent},
   { path: 'viagens', component: ViagensComponent},
   { path: 'dashboard', component: DashboardComponent },
-
+  { path: 'dashboard', Component: DashboardComponent},
   { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
 ];
