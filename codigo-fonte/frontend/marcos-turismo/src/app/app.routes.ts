@@ -8,6 +8,7 @@ import { ClienteComponent } from './components/cliente/cliente.component';
 import { ExcursoesComponent } from './components/excursoes/excursoes.component';
 import { FrotaComponent } from './components/frota/frota.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 export const routes: Routes = [
@@ -18,5 +19,6 @@ export const routes: Routes = [
   { path: 'excursoes', component: ExcursoesComponent},
   { path: 'frota', component: FrotaComponent},
   { path: 'viagens', component: ViagensComponent},
+  { path: 'dashboard', Component: DashboardComponent},
   { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
 ];
