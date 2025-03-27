@@ -81,7 +81,8 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 
 ## Diagrama de Caso de Uso
-![casos-de-uso](https://github.com/user-attachments/assets/6ccc847f-69f4-47ae-b94c-208df97dee5b)
+![casos-de-uso](https://github.com/user-attachments/assets/15c9a2d9-5dd4-45b9-a940-97a4bdcde5e1)
+
 
 ## Modelo Entidade Relacionamento
 ![Modelo ER  drawio](https://github.com/user-attachments/assets/6644549a-71ed-4376-b50a-ec42283b513c)
