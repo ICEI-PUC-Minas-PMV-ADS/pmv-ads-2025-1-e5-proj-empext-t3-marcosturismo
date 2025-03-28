@@ -34,6 +34,6 @@ export class SidebarComponent implements OnInit {
     sessionStorage.clear();
 
     console.log('User logged out successfully');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 }
