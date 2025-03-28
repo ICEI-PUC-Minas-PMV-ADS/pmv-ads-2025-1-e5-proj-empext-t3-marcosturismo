@@ -1,3 +1,4 @@
+import { HomeComponent } from './components/home/home.component';
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { UsuarioComponent } from './components/usuario/usuario.component';
@@ -9,6 +10,7 @@ import { ExcursoesComponent } from './components/excursoes/excursoes.component';
 import { FrotaComponent } from './components/frota/frota.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 export const routes: Routes = [
@@ -20,5 +22,7 @@ export const routes: Routes = [
   { path: 'frota', component: FrotaComponent},
   { path: 'viagens', component: ViagensComponent},
   { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
+  { path: 'home', component: HomeComponent},
+  { path: 'navbar', component: NavbarComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' } // opcional
 ];

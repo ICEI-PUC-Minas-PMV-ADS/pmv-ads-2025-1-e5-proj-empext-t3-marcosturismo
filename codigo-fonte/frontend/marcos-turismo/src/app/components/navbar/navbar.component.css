@@ -1,0 +1,107 @@
+/* Navbar */
+.navbar {
+  background-color: rgba(0, 38, 107, 0.8);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.logo {
+  width: 140px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.menu-navbar {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 15px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px; /* Tamanho do botão */
+  border-radius: 5px; /* Arredondar os cantos */
+  background-color: #007BFF; /* Cor de fundo azul para o botão */
+  border: 2px solid #0056b3; /* Borda azul mais escura */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.menu-navbar a:hover {
+  background-color: #0056b3; /* Azul mais escuro no hover */
+  color: #FFD700; /* Amarelo para o texto no hover */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo {
+    margin: 10px 0;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .card {
+    width: 90%;
+    padding: 60px;
+  }
+
+  .swiper {
+    width: 100%;
+    padding: 40px;
+  }
+
+  .whatsapp-container {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 120px;
+  }
+
+  .cards-container {
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .card {
+    padding: 40px;
+    font-size: 1.5em;
+    width: 90%;
+  }
+
+  .whatsapp-container {
+    bottom: 10px;
+    right: 10px;
+  }
+}

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { SidebarComponent } from "../sidebar/sidebar.component";
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [SidebarComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']  // Corrigido de styleUrl para styleUrls
 })

@@ -1,0 +1,32 @@
+<!-- home.component.html -->
+<app-navbar></app-navbar>
+  <div class="cards-container">
+    <a routerLink="/excursao">
+      <div class="card">Excursões</div>
+    </a>
+    <a href="https://wa.me/558791103345">
+      <div class="card">Orçamento</div>
+    </a>
+    <a routerLink="/fretamento">
+      <div class="card">Fretamento</div>
+    </a>
+  </div>
+  
+  <div class="carousel-container">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let imagem of imagens">
+          <div class="image-container">
+            <img [src]="imagem" alt="Foto da galeria">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="whatsapp-container">
+      <a href="https://wa.me/558791103345" target="_blank">
+      <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">
+    </a>
+  </div>
+  

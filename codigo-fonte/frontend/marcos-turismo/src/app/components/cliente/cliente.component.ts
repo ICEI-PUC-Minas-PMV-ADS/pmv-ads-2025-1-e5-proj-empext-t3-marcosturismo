@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 // Definindo uma interface para o tipo de card
 interface Card {
@@ -15,7 +16,7 @@ interface Card {
 @Component({
   selector: 'app-cliente',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SidebarComponent],
   templateUrl: './cliente.component.html',
   styleUrls: ['./cliente.component.css']
 })
