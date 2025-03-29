@@ -4,7 +4,7 @@
   padding: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   color: white;
   width: 100%;
   position: fixed;
@@ -28,22 +28,30 @@
   gap: 20px;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 
 .menu-navbar a {
   color: white;
   text-decoration: none;
   font-weight: bold;
-  padding: 10px 20px; /* Tamanho do botão */
-  border-radius: 5px; /* Arredondar os cantos */
-  background-color: #007BFF; /* Cor de fundo azul para o botão */
-  border: 2px solid #0056b3; /* Borda azul mais escura */
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: rgba(0, 55, 125, 0.6); /* Azul mais escuro e transparente */
+  border: 2px solid rgba(0, 45, 100, 0.8); /* Borda um pouco mais escura */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .menu-navbar a:hover {
-  background-color: #0056b3; /* Azul mais escuro no hover */
-  color: #FFD700; /* Amarelo para o texto no hover */
+  background-color: rgba(0, 45, 100, 0.8); /* Tom mais escuro no hover */
+  color: #FFD700;
+}
+
+/* Estilo para o link ativo */
+.menu-navbar a.active {
+  background-color: rgba(255, 215, 0, 0.8); /* Amarelo dourado translúcido */
+  color: #00266b; /* Azul escuro para contraste */
+  border: 2px solid rgba(255, 215, 0, 1); /* Borda dourada */
 }
 
 /* Responsividade */
@@ -57,51 +65,8 @@
     margin: 10px 0;
   }
 
-  .menu {
+  .menu-navbar {
     flex-direction: column;
     gap: 10px;
-  }
-
-  .cards-container {
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-  }
-
-  .card {
-    width: 90%;
-    padding: 60px;
-  }
-
-  .swiper {
-    width: 100%;
-    padding: 40px;
-  }
-
-  .whatsapp-container {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .logo {
-    width: 120px;
-  }
-
-  .cards-container {
-    gap: 15px;
-    padding: 10px;
-  }
-
-  .card {
-    padding: 40px;
-    font-size: 1.5em;
-    width: 90%;
-  }
-
-  .whatsapp-container {
-    bottom: 10px;
-    right: 10px;
   }
 }

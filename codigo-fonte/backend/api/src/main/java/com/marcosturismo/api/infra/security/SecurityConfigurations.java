@@ -46,12 +46,12 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT, "/avaliacao/validar/{avaliacaoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/avaliacao/{avaliacaoId}").hasRole("ADMIN")
                         ///  Usuários
-                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
+                        ///.requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         ///
                         /// Para o primeira vez que for rodar, descomentar para criar usuário
                         ///
-                        //.requestMatchers(HttpMethod.POST, "/usuario").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/usuario").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+                        ///.requestMatchers(HttpMethod.GET, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/usuario/{usuarioId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/usuario/{usuarioId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/usuario/cnh/{usuarioId}").hasRole("ADMIN")
