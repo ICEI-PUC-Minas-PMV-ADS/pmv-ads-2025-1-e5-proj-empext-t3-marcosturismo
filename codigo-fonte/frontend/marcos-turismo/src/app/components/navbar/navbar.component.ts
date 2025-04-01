@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';  // Importing Router
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';  // Importing Router
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']  // Use styleUrls instead of styleUrl
 })

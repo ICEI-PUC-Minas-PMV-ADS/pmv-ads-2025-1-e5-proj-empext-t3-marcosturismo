@@ -1,15 +1,11 @@
 <aside class="sidebar" [class.active]="isSidebarActive">
+  <!-- Menu de navegação -->
   <div class="menu">
-
-
     <button class="menu-item" (click)="navigate('/dashboard')" routerLinkActive="active">
-
       <i class="fas fa-home"></i>&nbsp;
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Dashboard</span>
     </button>
 
-
-    
     <button class="menu-item" (click)="navigate('/frota')" routerLinkActive="active">
       <i class="fas fa-bus"></i>&nbsp;
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Frota</span>
@@ -45,16 +41,18 @@
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Clientes</span>
     </button>
 
-       <button class="menu-item" (click)="logout()">
+    <button class="menu-item" (click)="logout()">
       <i class="fas fa-sign-out-alt"></i>&nbsp;
       <span [ngClass]="{ 'hidden': !isSidebarActive }"></span>
     </button>
   </div>
 
+  <!-- Logo -->
   <div class="logo">
     <img src="logo.jpg" alt="Logo" />
   </div>
 
+  <!-- Footer com botão para alternar a sidebar -->
   <div class="footer">
     <div id="hamburguer" (click)="toggleSidebarFunction()">
       <i class="fas fa-bars"></i>
