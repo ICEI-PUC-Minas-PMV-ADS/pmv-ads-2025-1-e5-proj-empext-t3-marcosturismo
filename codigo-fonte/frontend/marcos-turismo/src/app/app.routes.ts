@@ -9,9 +9,15 @@ import { ClienteComponent } from './components/cliente/cliente.component';
 import { ExcursoesComponent } from './components/excursoes/excursoes.component';
 import { FrotaComponent } from './components/frota/frota.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
+<<<<<<< Updated upstream
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
+=======
+import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
+
+
+>>>>>>> Stashed changes
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,6 +25,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'usuario', component: UsuarioComponent },
+<<<<<<< Updated upstream
   { path: 'cliente', component: ClienteComponent },
   { path: 'avaliacao', component: AvaliacaoComponent },
   { path: 'excursoes', component: ExcursoesComponent },
@@ -26,4 +33,14 @@ export const routes: Routes = [
   { path: 'viagens', component: ViagensComponent },
   { path: 'nossahistoria', component: NossahistoriaComponent },
   { path: 'navbar', component: NavbarComponent }
+=======
+  { path: 'login', component: LoginComponent},
+  { path: 'avaliacao', component: AvaliacaoComponent},
+  { path: 'cliente', component: ClienteComponent},
+  { path: 'excursoes', component: ExcursoesComponent},
+  { path: 'frota', component: FrotaComponent},
+  { path: 'viagens', component: ViagensComponent},
+  { path: 'nossahistoria', component: NossahistoriaComponent},
+  { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
+>>>>>>> Stashed changes
 ];
