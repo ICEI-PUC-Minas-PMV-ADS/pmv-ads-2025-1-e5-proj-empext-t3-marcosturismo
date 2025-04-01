@@ -11,37 +11,27 @@ import { FrotaComponent } from './components/frota/frota.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-<<<<<<< Updated upstream
-
-=======
 import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
->>>>>>> Stashed changes
 
 export const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent },
-<<<<<<< Updated upstream
-=======
   { path: 'cliente', component: ClienteComponent },
   { path: 'avaliacao', component: AvaliacaoComponent },
   { path: 'excursoes', component: ExcursoesComponent },
   { path: 'frota', component: FrotaComponent },
   { path: 'viagens', component: ViagensComponent },
   { path: 'nossahistoria', component: NossahistoriaComponent },
-  { path: 'navbar', component: NavbarComponent }
->>>>>>> Stashed changes
+  { path: 'navbar', component: NavbarComponent },
   { path: 'login', component: LoginComponent},
   { path: 'avaliacao', component: AvaliacaoComponent},
   { path: 'cliente', component: ClienteComponent},
   { path: 'excursoes', component: ExcursoesComponent},
   { path: 'frota', component: FrotaComponent},
   { path: 'viagens', component: ViagensComponent},
-<<<<<<< Updated upstream
   { path: 'dashboard', component: DashboardComponent },
   { path: 'home', component: HomeComponent},
   { path: 'navbar', component: NavbarComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full' } // opcional
-=======
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // opcional
   { path: 'nossahistoria', component: NossahistoriaComponent},
   { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
->>>>>>> Stashed changes
 ];
