@@ -1,13 +1,20 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: left;
+  }
 /* Ajuste para evitar sobreposição da navbar fixa */
 .header {
-    margin-top: 150px, auto 0;
+    margin-top: 150px; /* Ajuste a margem para baixo da navbar */
     text-align: center;
     padding: 20px;
     font-size: 24px;
     color: white;
-    display: column;
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: column; /* Flexbox para alinhar itens verticalmente */
+    align-items: center; /* Centraliza o conteúdo */
+    justify-content: center; /* Alinha o conteúdo central */
     width: 100%;
     background: linear-gradient(to right, rgba(0, 32, 96, 0.9), rgba(0, 32, 96, 0.7));
 }
@@ -142,7 +149,8 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
-  }
+}
+
 .whatsapp-icon {
     width: 60px;
     height: 60px;
@@ -168,10 +176,11 @@
         flex-direction: column;
     }
 }
+
 footer {
     width: 100%;
     background-color: var(--footer-bg);
     color: var(--footer-text-color);
     text-align: center;
     color: #ffffff;
-  }
+}

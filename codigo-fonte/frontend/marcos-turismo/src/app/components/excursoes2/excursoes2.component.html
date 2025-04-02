@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <header class="header">
+    <h1>{{ excursao.nome }}</h1>
+    <p>{{ excursao.descricao }}</p>
+  </header>
+
+  <section class="info">
+    <h3>Detalhes da Excursão</h3>
+    <p><strong>Data:</strong> {{ excursao.data }}</p>
+    <p><strong>Roteiro:</strong> {{ excursao.roteiro }}</p>
+    <p><strong>Preço:</strong> R$ {{ excursao.preco }}</p>
+  </section>
+
+  <section class="veiculos">
+    <div class="veiculo" *ngFor="let veiculo of excursao.veiculos">
+      <img [src]="veiculo.imagem" alt="{{ veiculo.nome }}">
+      <h4>{{ veiculo.nome }}</h4>
+      <p><strong>Capacidade:</strong> {{ veiculo.capacidade }} passageiros</p>
+      <p><strong>Placa:</strong> {{ veiculo.placa }}</p>
+      <button (click)="mostrarDetalhes()">Ver Detalhes</button>
+    </div>
+  </section>
+  
+  
+</div>
+<div class="whatsapp-container">
+  <a href="https://wa.me/558791103345" target="_blank">
+    <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+</div>
+<!-- Rodapé -->
+<footer class="bg-dark text-light text-center py-3">
+  <small>&copy; Copyright 2025</small>
+</footer>
