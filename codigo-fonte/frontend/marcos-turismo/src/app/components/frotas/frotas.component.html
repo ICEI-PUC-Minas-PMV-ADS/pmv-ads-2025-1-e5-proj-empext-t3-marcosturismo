@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+<div class="fleet-container">
+    <h1>Frotas</h1>
+    <ul>
+      <li *ngFor="let frota of frotas">
+        <img [src]="frota.image" [alt]="frota.name" class="onibus-img"/>
+        <h2>{{ frota.name }}</h2>
+        <p>{{ frota.description }}</p>
+      </li>
+    </ul>
+</div>
+<div class="whatsapp-container">
+  <a href="https://wa.me/558791103345" target="_blank">
+    <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+</div>
+<!-- Rodapé -->
+<footer class="bg-dark text-light text-center py-3">
+  <small>&copy; Copyright 2025</small>
+</footer>

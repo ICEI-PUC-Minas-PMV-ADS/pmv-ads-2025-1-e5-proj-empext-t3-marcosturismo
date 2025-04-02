@@ -8,6 +8,7 @@ import { AvaliacaoComponent } from './components/avaliacao/avaliacao.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { ExcursoesComponent } from './components/excursoes/excursoes.component';
 import { FrotaComponent } from './components/frota/frota.component';
+import { FrotasComponent } from './components/frotas/frotas.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'avaliacao', component: AvaliacaoComponent },
   { path: 'excursoes', component: ExcursoesComponent },
   { path: 'frota', component: FrotaComponent },
+  { path: 'frotas', component: FrotasComponent },
   { path: 'viagens', component: ViagensComponent },
   { path: 'nossahistoria', component: NossahistoriaComponent },
   { path: 'navbar', component: NavbarComponent },
