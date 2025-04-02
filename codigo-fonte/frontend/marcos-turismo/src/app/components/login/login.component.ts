@@ -29,31 +29,44 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      alert('Por favor, preencha todos os campos corretamente.');
+      alert('Email e senha são obrigatórios'); // Mensagem padronizada com o back-end
       return;
     }
-
+  
     const email = this.loginForm.get('login')?.value;
     const senha = this.loginForm.get('senha')?.value;
-
-    this.http.post<any>('http://localhost:8080/auth/login', { email, senha }, {
-      withCredentials: true
-    }).subscribe({
-      next: (response: { token: string; }) => {
-        console.log('Resposta do servidor:', response);
-
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-          alert('Login bem-sucedido!');
-          this.router.navigate(['/dashboard']);
-        } else {
-          alert('Erro: Token não recebido.');
+  
+    this.http.post<any>('http://localhost:8080/auth/login', { email, senha }, { withCredentials: true })
+      .subscribe({
+        next: (response: { token: string }) => {
+          console.log('Resposta do servidor:', response);
+  
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+            alert('Login bem-sucedido!');
+            this.router.navigate(['/dashboard']);
+          } else {
+            alert('Erro: Token não recebido.');
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Erro ao conectar ao servidor:', error);
+  
+          // Tratamento de mensagens conforme os códigos de erro do backend
+          switch (error.status) {
+            case 400:
+              alert('Email e senha são obrigatórios');
+              break;
+            case 401:
+              alert('Credenciais inválidas');
+              break;
+            case 500:
+              alert('Erro interno ao processar login');
+              break;
+            default:
+              alert(error.error || 'Erro ao fazer login. Tente novamente.');
+          }
         }
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Erro ao conectar ao servidor:', error);
-        alert(error.error?.message || 'Erro ao fazer login. Tente novamente.');
-      }
-    });
+      });
   }
 }
