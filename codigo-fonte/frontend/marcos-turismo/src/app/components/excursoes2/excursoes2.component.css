@@ -1,0 +1,100 @@
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  margin-top: 150px;
+}
+
+.header {
+  background: #003366;
+  padding: 20px;
+  border-radius: 10px;
+  height: 250px; /* Aumentado para 250px para um header maior */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.veiculos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.veiculo {
+  background: #FFD700;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px;
+  width: 30%;
+  color: black;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.veiculo img {
+  width: 100%;
+  height: 200px; /* Tamanho fixo para as imagens */
+  object-fit: cover; /* Ajusta a imagem para preencher o espaço sem distorcer */
+  border-radius: 10px;
+}
+
+.veiculo h4 {
+  color: #003366;
+}
+
+button {
+  background: #0074cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: #005599;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+  .veiculo {
+    width: 100%; /* Para telas menores, os cards ocupam toda a largura */
+    margin: 10px 0;
+  }
+}
+.whatsapp-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #25D366;
+}
+
+.whatsapp-icon {
+  width: 60px;
+  height: 60px;
+}

@@ -9,12 +9,11 @@ import { ClienteComponent } from './components/cliente/cliente.component';
 import { ExcursoesComponent } from './components/excursoes/excursoes.component';
 import { FrotaComponent } from './components/frota/frota.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
-import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
-import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
-import { HistoriasComponent } from './historias/historias.component';
+import { HistoriasComponent } from './components/historias/historias.component';
+import { Excursoes2Component } from './components/excursoes2/excursoes2.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,22 +27,7 @@ export const routes: Routes = [
   { path: 'frota', component: FrotaComponent },
   { path: 'viagens', component: ViagensComponent },
   { path: 'nossahistoria', component: NossahistoriaComponent },
-  { path: 'navbar', component: NavbarComponent }
   { path: 'navbar', component: NavbarComponent },
-  { path: 'login', component: LoginComponent},
-  { path: 'avaliacao', component: AvaliacaoComponent},
-  { path: 'cliente', component: ClienteComponent},
-  { path: 'excursoes', component: ExcursoesComponent},
-  { path: 'frota', component: FrotaComponent},
-  { path: 'viagens', component: ViagensComponent},
-  { path: 'nossahistoria', component: NossahistoriaComponent},
-  { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: HomeComponent},
-  { path: 'navbar', component: NavbarComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full' }, // opcional
-  { path: 'nossahistoria', component: NossahistoriaComponent},
-  { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
-  { path: 'historias', component: HistoriasComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full' } // opcional
+  { path: 'historias', component: HistoriasComponent },
+  { path: 'excursoes2', component: Excursoes2Component }
 ];

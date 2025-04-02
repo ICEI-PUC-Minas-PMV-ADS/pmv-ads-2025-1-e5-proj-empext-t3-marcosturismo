@@ -1,16 +1,19 @@
 <aside class="sidebar" [class.active]="isSidebarActive">
+  <!-- Logo -->
+  <div class="logo">
+    <img src="logo.jpg" alt="Logo" />
+  </div>
+
   <!-- Menu de navegação -->
   <div class="menu">
-<<<<<<< Updated upstream
     <button class="menu-item" (click)="navigate('/dashboard')" routerLinkActive="active">
-=======
-
-
-    <button class="menu-item" (click)="navigate('/nossahistoria')" routerLinkActive="active">
-
->>>>>>> Stashed changes
       <i class="fas fa-home"></i>&nbsp;
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Dashboard</span>
+    </button>
+
+    <button class="menu-item" (click)="navigate('/nossahistoria')" routerLinkActive="active">
+      <i class="fas fa-book"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Nossa História</span>
     </button>
 
     <button class="menu-item" (click)="navigate('/frota')" routerLinkActive="active">
@@ -33,7 +36,7 @@
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Viagens</span>
     </button>
 
-    <button class="menu-item" (click)="navigate('/excursoes')" routerLinkActive="active">
+    <button class="menu-item" (click)="navigate('/excursao')" routerLinkActive="active">
       <i class="fas fa-map-marker-alt"></i>&nbsp;
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Excursões</span>
     </button>
@@ -50,13 +53,8 @@
 
     <button class="menu-item" (click)="logout()">
       <i class="fas fa-sign-out-alt"></i>&nbsp;
-      <span [ngClass]="{ 'hidden': !isSidebarActive }"></span>
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Sair</span>
     </button>
-  </div>
-
-  <!-- Logo -->
-  <div class="logo">
-    <img src="logo.jpg" alt="Logo" />
   </div>
 
   <!-- Footer com botão para alternar a sidebar -->
