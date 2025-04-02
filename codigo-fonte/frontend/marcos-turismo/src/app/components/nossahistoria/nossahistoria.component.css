@@ -1,16 +1,14 @@
-<<<<<<< Updated upstream
 /* Div para "Nossa História" */
 .historia-container {
-=======
 /* Container principal centralizado */
 .container {
->>>>>>> Stashed changes
+/* Div para "Nossa História" */
+.historia-container {
   background-color: rgba(0, 38, 107, 0.8);
   margin: 2rem auto;       /* 2rem vertical e centralizado horizontalmente */
   border-radius: 4px;
   padding: 2rem;
   max-width: 900px;        /* Largura máxima para melhor leitura */
-<<<<<<< Updated upstream
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
   margin-top: 150px;
@@ -26,10 +24,8 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
   height: 300px;
-=======
   box-shadow: 0 0 10px rgba(0, 0, 0, 10);
   color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
->>>>>>> Stashed changes
 }
 
 /* Título centralizado */
@@ -79,12 +75,10 @@ footer {
    ====================== */
 .whatsapp-container {
   position: fixed;
-<<<<<<< Updated upstream
   bottom: 80px; /* Ajusta para que o botão fique acima do rodapé */
-=======
   /* Ajustamos o bottom para que o botão fique acima do rodapé */
   bottom: 80px;
->>>>>>> Stashed changes
+  bottom: 80px; /* Ajusta para que o botão fique acima do rodapé */
   right: 20px;
   display: flex;
   align-items: center;
@@ -97,8 +91,6 @@ footer {
 .whatsapp-icon {
   width: 50px;
   height: 50px;
-<<<<<<< Updated upstream
 }
-=======
 }
->>>>>>> Stashed changes
+}

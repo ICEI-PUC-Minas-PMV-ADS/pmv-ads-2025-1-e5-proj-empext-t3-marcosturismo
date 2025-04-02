@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<header class="header">
+  <h1>Viajar é colecionar momentos, expandir horizontes e descobrir que o mundo é muito maior do que os olhos podem ver.</h1>
+</header>
+
+<section class="gallery">
+  <div class="gallery-text">Fotos de algumas viagens, pode ficar em carrossel ou separadas!</div>
+</section>
+
+<section class="testimonials">
+  <div class="card" *ngFor="let viagem of viagens">
+    <img [src]="viagem.imagem" [alt]="viagem.descricao">
+    <p>{{ viagem.mensagem }}</p>
+  </div>
+</section>
+
+<!-- Formulário de Avaliação -->
+<section class="review-form">
+  <div class="review-card">
+    <h3>Conte-nos a sua experiência com a Marcos Turismo</h3>
+    <label for="name">Nome</label>
+    <input type="text" id="name" [(ngModel)]="avaliacao.nome">
+    
+    <div class="stars">
+      <span *ngFor="let star of [1,2,3,4,5]" (click)="avaliacao.estrelas = star">
+        &#9733;
+      </span>
+    </div>
+    
+    <textarea [(ngModel)]="avaliacao.comentario" placeholder="Digite seu comentário..."></textarea>
+
+    <!-- Campo de upload de foto -->
+    <label for="foto">Envie uma foto</label>
+    <input type="file" id="foto" (change)="onFileSelected($event)">
+
+    <div class="buttons">
+      <button (click)="registrarAvaliacao()" class="register-btn">Registrar</button>
+      <button (click)="cancelarAvaliacao()" class="cancel-btn">Cancelar</button>
+    </div>
+  </div>
+</section>
+
+<div class="whatsapp-container">
+  <a href="https://wa.me/558791103345" target="_blank">
+    <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+</div>
+<!-- Rodapé -->
+<footer class="bg-dark text-light text-center py-3">
+  <small>&copy; Copyright 2025</small>
+</footer>
