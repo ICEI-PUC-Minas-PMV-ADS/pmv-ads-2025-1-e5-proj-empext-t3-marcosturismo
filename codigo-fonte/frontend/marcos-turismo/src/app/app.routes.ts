@@ -11,7 +11,13 @@ import { FrotaComponent } from './components/frota/frota.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+<<<<<<< Updated upstream
 import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
+=======
+import { HistoriasComponent } from './historias/historias.component';
+
+
+>>>>>>> Stashed changes
 
 export const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent },
@@ -31,7 +37,12 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'home', component: HomeComponent},
   { path: 'navbar', component: NavbarComponent},
+<<<<<<< Updated upstream
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // opcional
   { path: 'nossahistoria', component: NossahistoriaComponent},
   { path: '', redirectTo: '/usuario', pathMatch: 'full' } // opcional
+=======
+  { path: 'historias', component: HistoriasComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' } // opcional
+>>>>>>> Stashed changes
 ];
