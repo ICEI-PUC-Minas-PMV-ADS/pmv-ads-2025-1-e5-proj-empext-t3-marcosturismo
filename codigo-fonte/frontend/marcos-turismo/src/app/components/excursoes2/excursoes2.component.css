@@ -1,5 +1,3 @@
-
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -9,7 +7,8 @@
 }
 
 .header {
-  background: #003366;
+  background-color: rgba(0, 38, 107, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 10);
   padding: 20px;
   border-radius: 10px;
   height: 250px; /* Aumentado para 250px para um header maior */
@@ -17,6 +16,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.header h1{
+  color: white;
+  font-size: 50px;
+}
+
+.header h2{
+  color: white;
+  font-size: 40px;
 }
 
 .info {
@@ -38,7 +47,7 @@
   padding: 15px;
   border-radius: 10px;
   margin: 10px;
-  width: 30%;
+  width: 100%;
   color: black;
   text-align: center;
   box-sizing: border-box;
@@ -67,6 +76,13 @@ button {
 
 button:hover {
   background: #005599;
+}
+
+footer {
+  width: 100%;
+  background-color: var(--footer-bg);
+  color: white;
+  text-align: center;
 }
 
 /* Responsividade para telas pequenas */
