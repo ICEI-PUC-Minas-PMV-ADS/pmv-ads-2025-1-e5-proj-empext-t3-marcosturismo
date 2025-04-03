@@ -1,4 +1,5 @@
 <nav class="navbar">
+<<<<<<< Updated upstream
     <img src="logo.jpg" alt="Marcos Turismo" class="logo">
     <div class="menu-navbar">
       <a routerLink="/home" routerLinkActive="active">HOME</a>
@@ -11,3 +12,16 @@
     </div>
   </nav>
   
+=======
+  <img src="logo.jpg" alt="Marcos Turismo" class="logo">
+  <div class="menu-navbar">
+    <a [routerLink]="'/home'" routerLinkActive="active">HOME</a>
+    <a [routerLink]="'/sobrenos'" routerLinkActive="active">SOBRE NÓS</a>
+    <a [routerLink]="'/frotas'" routerLinkActive="active">NOSSA FROTA</a>
+    <a routerLink="/excursoes2" routerLinkActive="active">EXCURSÕES</a>
+    <a [routerLink]="'/historias'" routerLinkActive="active">HISTÓRIAS</a>
+    <a [routerLink]="'/contatos'" routerLinkActive="active">CONTATO</a>
+    <a (click)="navigateToAvaliacao()" class="clickable">CORPORATIVO</a>
+  </div>
+</nav>
+>>>>>>> Stashed changes

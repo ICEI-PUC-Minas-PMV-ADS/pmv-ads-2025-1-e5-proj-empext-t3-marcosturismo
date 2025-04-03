@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 
+<<<<<<< Updated upstream
 <section class="header">
   <h1>Viajar é colecionar momentos, expandir horizontes e descobrir que o mundo é muito maior do que os olhos podem ver.</h1>
 </section>
@@ -50,3 +51,56 @@
 <footer class="bg-dark text-light text-center py-3">
   <small>&copy; Copyright 2025</small>
 </footer>
+=======
+<div class="viagens-container">
+  <h2>Histórias de Viagem</h2>
+  <div *ngFor="let viagem of viagens">
+    <img [src]="viagem.imagem" alt="{{viagem.descricao}}" />
+    <p>{{viagem.mensagem}}</p>
+  </div>
+</div>
+
+<div class="avaliacao-container">
+  <h2>Deixe sua Avaliação</h2>
+  
+  <!-- Mensagem de Feedback -->
+  <div *ngIf="mensagem" [ngClass]="{'sucesso': tipoMensagem === 'sucesso', 'erro': tipoMensagem === 'erro'}" class="mensagem">
+    {{ mensagem }}
+  </div>
+
+  <!-- Formulário de Avaliação -->
+  <form (ngSubmit)="registrarAvaliacao()">
+    <div>
+      <label for="nome">Seu Nome:</label>
+      <input type="text" id="nome" [(ngModel)]="avaliacao.nome" name="nome" required />
+    </div>
+
+    <div>
+      <label>Classificação:</label>
+      <div class="rating">
+        <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+              (click)="avaliacao.estrelas = i + 1"
+              [class.active]="avaliacao.estrelas >= (i + 1)">
+          ★
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <label for="comentario">Comentário:</label>
+      <textarea id="comentario" [(ngModel)]="avaliacao.comentario" name="comentario" required></textarea>
+    </div>
+
+    <div>
+      <label for="foto">Foto (opcional):</label>
+      <input type="file" id="foto" (change)="onFileSelected($event)" />
+    </div>
+
+    <div class="buttons">
+      <button type="submit">Enviar Avaliação</button>
+      <button type="button" (click)="cancelarAvaliacao()">Cancelar</button>
+    </div>
+  </form>
+</div>
+
+>>>>>>> Stashed changes

@@ -1,39 +1,40 @@
-<!-- dashboard.component.html -->
 <app-sidebar></app-sidebar>
-<h1>Bem-vindo ao SIGF</h1>
-<p>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</p>
 
-<div class="cards-container">
+<div class="main-content" [class.active]="isSidebarActive">
+  <h1>Bem-vindo ao SIGF</h1>
+  <p>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</p>
+
+  <div class="cards-container">
+    <div class="card">
+      <h2>Veículos Ativos</h2>
+      <p>Quantidade: 50</p>
+    </div>
+    <div class="card">
+      <h2>Manutenções Pendentes</h2>
+      <p>Quantidade: 5</p>
+    </div>
+    <div class="card">
+      <h2>Últimos Relatórios</h2>
+      <button>Clique para ver detalhes</button>
+    </div>
+  </div>
+
+  <div class="charts-container">
+    <div class="chart-card">
+      <canvas id="maintenanceChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas id="fuelChart"></canvas>
+    </div>
+  </div>
+
   <div class="card">
-    <h2>Veículos Ativos</h2>
-    <p>Quantidade: 50</p>
+    <h2>Gastos com Manutenção</h2>
+    <p>Custos com Manutenção</p>
   </div>
+
   <div class="card">
-    <h2>Manutenções Pendentes</h2>
-    <p>Quantidade: 5</p>
-  </div>
-  <div class="card">
-    <h2>Últimos Relatórios</h2>
-    <button>Clique para ver detalhes</button>
+    <h2>Gastos com Abastecimento</h2>
+    <p>Custos com Abastecimentos</p>
   </div>
 </div>
-
-<div class="charts-container">
-  <div class="chart-card">
-    <canvas id="maintenanceChart"></canvas>
-  </div>
-  <div class="chart-card">
-    <canvas id="fuelChart"></canvas>
-  </div>
-</div>
-
-<div class="card">
-  <h2>Gastos com Manutenção</h2>
-  <p>Custos com Manutenção</p>
-</div>
-
-<div class="card">
-  <h2>Gastos com Abastecimento</h2>
-  <p>Custos com Abastecimentos</p>
-</div>
-
