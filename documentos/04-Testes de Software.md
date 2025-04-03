@@ -98,9 +98,9 @@ Apresente os casos de testes utilizados na realização da verificação e valid
   </tr>
     <tr>
     <td><strong>Critérios de êxito</strong></td>
-  -  <td>O sistema deve exibir uma mensagem de erro informando que as credenciais são inválidas.</td>
-  -  <td>O usuário não deve ser autenticado nem redirecionado para o painel de gestão.</td>
-    
+    <td> - O sistema deve exibir uma mensagem de erro informando que as credenciais são inválidas.
+    <br>
+    - O usuário não deve ser autenticado nem redirecionado para o painel de gestão.</td>
   </tr>
 </table>
 
