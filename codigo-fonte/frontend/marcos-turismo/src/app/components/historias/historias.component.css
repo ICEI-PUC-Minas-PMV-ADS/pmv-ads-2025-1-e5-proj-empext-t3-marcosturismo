@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 body {
     margin: 0;
     padding: 0;
@@ -7,18 +8,29 @@ body {
 /* Ajuste para evitar sobreposição da navbar fixa */
 .header {
     margin-top: 150px; /* Ajuste a margem para baixo da navbar */
+=======
+/* Ajuste para evitar sobreposição da navbar fixa */
+.header {
+    margin-top: 150px;
+>>>>>>> Stashed changes
     text-align: center;
     padding: 20px;
     font-size: 24px;
     color: white;
     display: flex;
+<<<<<<< Updated upstream
     flex-direction: column; /* Flexbox para alinhar itens verticalmente */
     align-items: center; /* Centraliza o conteúdo */
     justify-content: center; /* Alinha o conteúdo central */
+=======
+    align-items: center;
+    justify-content: center;
+>>>>>>> Stashed changes
     width: 100%;
     background: linear-gradient(to right, rgba(0, 32, 96, 0.9), rgba(0, 32, 96, 0.7));
 }
 
+<<<<<<< Updated upstream
 /* Estilo da galeria */
 .gallery {
     text-align: center;
@@ -82,11 +94,46 @@ body {
     width: 100%;
     padding: 10px;
     margin: 5px 0;
+=======
+/* Estilização do formulário de avaliação */
+.avaliacao-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.avaliacao-container h2 {
+    margin-bottom: 15px;
+    color: #00266b;
+}
+
+.avaliacao-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.avaliacao-container label {
+    font-weight: bold;
+    text-align: left;
+    display: block;
+}
+
+.avaliacao-container input, 
+.avaliacao-container textarea {
+    width: 100%;
+    padding: 10px;
+>>>>>>> Stashed changes
     border: 1px solid #000bec;
     border-radius: 5px;
     font-size: 16px;
 }
 
+<<<<<<< Updated upstream
 .stars {
     display: flex;
     justify-content: center;
@@ -114,6 +161,9 @@ body {
 }
 
 .register-btn {
+=======
+.avaliacao-container button {
+>>>>>>> Stashed changes
     background-color: #fbb700;
     color: #00266b;
     font-size: 16px;
@@ -124,11 +174,16 @@ body {
     font-weight: bold;
 }
 
+<<<<<<< Updated upstream
 .register-btn:hover {
+=======
+.avaliacao-container button:hover {
+>>>>>>> Stashed changes
     background-color: #000bec;
     color: white;
 }
 
+<<<<<<< Updated upstream
 .cancel-btn {
     background: red;
     color: #333;
@@ -154,10 +209,86 @@ body {
 .whatsapp-icon {
     width: 60px;
     height: 60px;
+=======
+.avaliacao-container button[type="button"] {
+    background: red;
+    color: white;
+}
+
+.avaliacao-container button[type="button"]:hover {
+    background: #999;
+}
+
+/* Estilo para o feedback */
+.mensagem {
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.sucesso {
+    background-color: #4caf50;
+    color: white;
+}
+
+.erro {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Estilização das estrelas */
+.estrelas {
+    font-size: 2rem;
+    color: #ccc; /* Cor das estrelas não selecionadas */
+}
+
+.estrelas .filled {
+    color: gold; /* Cor das estrelas selecionadas */
+}
+
+/* Estilização da seção de histórias de viagem */
+.viagens-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.viagens-container h2 {
+    text-align: center;
+    color: #00266b;
+    margin-bottom: 20px;
+}
+
+.viagens-container div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.viagens-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.viagens-container p {
+    flex: 1;
+    color: #333;
+    font-size: 16px;
+>>>>>>> Stashed changes
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
+<<<<<<< Updated upstream
     .testimonials {
         flex-direction: column;
         align-items: center;
@@ -184,3 +315,142 @@ footer {
     text-align: center;
     color: #ffffff;
 }
+=======
+    .avaliacao-container, .viagens-container {
+        width: 90%;
+    }
+}
+
+/* Estilos gerais para o formulário de avaliação (refatoração para evitar duplicações) */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input, form textarea, form button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+form button[type="button"] {
+    background-color: #f44336;
+}
+
+form button[type="button"]:hover {
+    background-color: #e53935;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  .rating {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .rating label {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .rating input {
+    display: none;
+  }
+  
+  .rating input:checked ~ label,
+  .rating label:hover,
+  .rating label:hover ~ label {
+    color: gold;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  button[type="button"] {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  .rating {
+    display: flex;
+    gap: 5px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .rating span {
+    color: #ccc;
+    transition: color 0.3s;
+  }
+  
+  .rating span.active {
+    color: gold;
+  }
+  
+>>>>>>> Stashed changes
