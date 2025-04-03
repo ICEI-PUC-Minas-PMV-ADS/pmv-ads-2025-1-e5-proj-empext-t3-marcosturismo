@@ -85,7 +85,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
- 
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -156,6 +155,164 @@
     .whatsapp-container {
       bottom: 10px;
       right: 10px;
+    }
+  }
+  
+  /* ======================
+     Estilos da Hero Section
+     ====================== */
+  .hero-section {
+    padding-top: 250px; /* Adiciona um espaço para a navbar */
+    background-color: #baccea; /* Altere a cor de fundo conforme necessário */
+    text-align: center;
+    padding: 50px 20px; /* Padding geral para a hero section */
+    color: #333; /* Cor do texto */
+    margin-top: 150px; /* Para garantir que a hero-section fique abaixo da navbar */
+    justify-content: center;
+    
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  h2{
+    color: blue;
+  }
+  .hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  /* ======================
+     Estilos dos Botões CTA
+     ====================== */
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .cta-buttons .btn {
+    padding: 10px 20px;
+    background-color: #ffcc00; /* Ajuste para a cor da sua paleta */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-buttons .btn:hover {
+    background-color: #ff9900; /* Cor de hover */
+  }
+  
+  .cta-buttons .whatsapp {
+    background-color: #25d366; /* Cor do botão do WhatsApp */
+  }
+  
+  .cta-buttons .whatsapp:hover {
+    background-color: #128c7e; /* Cor de hover do WhatsApp */
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: 30px 10px;
+    }
+  
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+  
+    .hero-section p {
+      font-size: 1rem;
+    }
+  
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .cta-buttons .btn {
+      margin-bottom: 10px;
+    }
+  }
+
+  .carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.video-item {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+button.prev {
+  left: 10px;
+}
+
+button.next {
+  right: 10px;
+}
+/* ======================
+   Estilos da Seção de Vídeos
+   ====================== */
+   .video-section {
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  .video-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap; /* Garante que os vídeos se ajustem em telas menores */
+    padding: 10px;
+  }
+  
+  .video-wrapper {
+    width: 32%; /* Garantindo que três vídeos caibam lado a lado */
+    margin-bottom: 20px;
+  }
+  
+  video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover; /* Garante que o vídeo se ajuste bem ao espaço */
+  }
+  
+  /* Responsividade para telas menores */
+  @media (max-width: 1024px) {
+    .video-wrapper {
+      width: 48%; /* 2 vídeos lado a lado em telas médias */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .video-wrapper {
+      width: 100%; /* Um vídeo por linha em telas menores */
     }
   }
   
