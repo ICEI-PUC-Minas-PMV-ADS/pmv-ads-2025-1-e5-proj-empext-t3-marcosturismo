@@ -19,7 +19,7 @@ Na primeira execução da API, deve-se fazer uma pequena alteração de seguran�
 2. Entre em `SecurityConfigurations.java`
 3. Faça o que se pede na linha comentada em "Usuários"
 4. ![image](https://github.com/user-attachments/assets/ac117c49-253c-4b35-9504-a2c693ae13ea)
-5. Vá para o tópico "Usuários" para adicionar um.
+5. Vá para o tópico "[Criar usuário](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2025-1-e5-proj-empext-t3-marcosturismo/blob/main/documentos/api_documentacao.md#endpoint-criar-usu%C3%A1rio)" para adicionar um.
 
 ---
 
