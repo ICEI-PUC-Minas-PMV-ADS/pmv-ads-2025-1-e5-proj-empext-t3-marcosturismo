@@ -11,33 +11,10 @@ import { FrotaComponent } from './components/frota/frota.component';
 import { FrotasComponent } from './components/frotas/frotas.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-<<<<<<< Updated upstream
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
-import { HistoriasComponent } from './components/historias/historias.component';
-import { Excursoes2Component } from './components/excursoes2/excursoes2.component';
-
-export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'usuario', component: UsuarioComponent },
-  { path: 'cliente', component: ClienteComponent },
-  { path: 'avaliacao', component: AvaliacaoComponent },
-  { path: 'excursoes', component: ExcursoesComponent },
-  { path: 'frota', component: FrotaComponent },
-  { path: 'frotas', component: FrotasComponent },
-  { path: 'viagens', component: ViagensComponent },
-  { path: 'nossahistoria', component: NossahistoriaComponent },
-  { path: 'navbar', component: NavbarComponent },
-  { path: 'historias', component: HistoriasComponent },
-  { path: 'excursoes2', component: Excursoes2Component }
-=======
 import { HistoriasComponent } from './components/historias/historias.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { Excursoes2Component } from './components/excursoes2/excursoes2.component';
-import { FrotasComponent } from './components/frotas/frotas.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent },
@@ -55,5 +32,4 @@ export const routes: Routes = [
   { path: 'excursoes2', component: Excursoes2Component },
   { path: 'frotas', component: FrotasComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Redireciona para 'home' ao acessar a raiz
->>>>>>> Stashed changes
 ];

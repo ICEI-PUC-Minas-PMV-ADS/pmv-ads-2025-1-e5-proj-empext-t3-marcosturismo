@@ -12,20 +12,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class FrotasComponent {
   frotas = [
     {
-<<<<<<< Updated upstream
-      image: 'logo.jpg',
-=======
       image: 'bus.jpg',
->>>>>>> Stashed changes
       name: 'Ônibus Executivo',
       description: 'Ônibus confortável para viagens longas.'
     },
     {
-<<<<<<< Updated upstream
-      image: 'logo.jpg',
-=======
       image: 'bus.jpg',
->>>>>>> Stashed changes
       name: 'Micro-ônibus',
       description: 'Ideal para pequenos grupos e eventos.'
     }
