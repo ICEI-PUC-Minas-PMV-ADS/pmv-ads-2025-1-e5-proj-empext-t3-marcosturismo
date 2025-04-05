@@ -4,11 +4,7 @@
   padding: 10px;
   display: flex;
   align-items: center;
-<<<<<<< Updated upstream
   justify-content: center;
-=======
-  justify-content: space-between; /* Ajusta para espaço entre logo e menu */
->>>>>>> Stashed changes
   color: white;
   /*width: 100%;*/
 
@@ -41,36 +37,21 @@
   font-weight: bold;
   padding: 10px 20px;
   border-radius: 5px;
-<<<<<<< Updated upstream
   background-color: rgba(0, 55, 125, 0.6); /* Azul mais escuro e transparente */
   border: 2px solid rgba(0, 45, 100, 0.8); /* Borda um pouco mais escura */
-=======
-  background-color: #007BFF;
-  border: 2px solid #0056b3;
->>>>>>> Stashed changes
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .menu-navbar a:hover {
-<<<<<<< Updated upstream
   background-color: rgba(0, 45, 100, 0.8); /* Tom mais escuro no hover */
-=======
-  background-color: #0056b3;
->>>>>>> Stashed changes
   color: #FFD700;
 }
 
 /* Estilo para o link ativo */
 .menu-navbar a.active {
-<<<<<<< Updated upstream
   background-color: rgba(255, 215, 0, 0.8); /* Amarelo dourado translúcido */
   color: #00266b; /* Azul escuro para contraste */
   border: 2px solid rgba(255, 215, 0, 1); /* Borda dourada */
-=======
-  background-color: #FFD700;
-  color: #003366;
-  border-color: #FFD700;
->>>>>>> Stashed changes
 }
 
 /* Responsividade */
