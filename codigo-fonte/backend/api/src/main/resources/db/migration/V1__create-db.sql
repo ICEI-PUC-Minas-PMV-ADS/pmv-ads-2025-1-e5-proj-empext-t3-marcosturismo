@@ -170,3 +170,7 @@ CREATE TABLE excursao (
     data_excursao TIMESTAMP NOT NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Insere o administrador master Marcos Turismo
+INSERT INTO usuario (id, nome, status, tipo, email, senha)
+VALUES ('5d7208ef-6a27-4904-9a82-23b1b120ef38', 'Marcos Turismo', 'Ativo', 'Administrador', 'administrador@marcosturismo.com.br', '$2a$10$HRB01PHbdpmqPhmhbbvjcuXXyqvyCN4PLOhBKlWzHH1yPch9se.v6');

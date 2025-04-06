@@ -46,12 +46,6 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT, "/avaliacao/validar/{avaliacaoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/avaliacao/{avaliacaoId}").hasRole("ADMIN")
                         ///  Usuários
-                        ///
-                        /// Para o primeira vez que for rodar,
-                        /// descomente essa linha: .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
-                        /// e comente a linha: requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN").
-                        /// Após a criação do usuário, desfaça as alterações.
-                        //.requestMatchers(HttpMethod.POST, "/usuario").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/usuario/{usuarioId}").hasRole("ADMIN")
