@@ -1,5 +1,6 @@
 package com.marcosturismo.api.domain.viagem;
 
+import com.marcosturismo.api.domain.cheklist_veiculo.ChecklistResponseViagemDTO;
 import com.marcosturismo.api.domain.cliente.Cliente;
 import com.marcosturismo.api.domain.usuario.StatusUsuario;
 import com.marcosturismo.api.domain.usuario.Usuario;
@@ -28,6 +29,7 @@ public record ViagemResponseDTO(
         StatusUsuario motoristaStatus,
         String motoristaNome,
         UUID clienteId,
-        String clienteNome
+        String clienteNome,
+        ChecklistResponseViagemDTO checkList
 ) {
 }

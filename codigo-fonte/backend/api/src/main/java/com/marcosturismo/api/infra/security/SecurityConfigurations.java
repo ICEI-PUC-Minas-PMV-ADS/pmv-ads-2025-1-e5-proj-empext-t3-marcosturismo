@@ -61,6 +61,7 @@ public class SecurityConfigurations {
                         ///  Viagens
                         .requestMatchers(HttpMethod.GET, "/viagem").authenticated()
                         .requestMatchers(HttpMethod.POST, "/viagem").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/viagem/checklist/{viagemId}").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/viagem/{viagemId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/viagem/{viagemId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/viagem/cancelar/{viagemId}").hasRole("ADMIN")
