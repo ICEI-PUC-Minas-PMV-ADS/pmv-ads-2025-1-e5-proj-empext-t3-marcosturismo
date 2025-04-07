@@ -3,6 +3,8 @@ package com.marcosturismo.api.services;
 import com.marcosturismo.api.domain.veiculo.SituacaoVeiculo;
 import com.marcosturismo.api.domain.veiculo.Veiculo;
 import com.marcosturismo.api.domain.veiculo.VeiculoDTO;
+import com.marcosturismo.api.domain.veiculo.VeiculoResponseDTO;
+import com.marcosturismo.api.repositories.ChecklistRepository;
 import com.marcosturismo.api.repositories.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,22 @@ public class VeiculoService {
     @Autowired
     VeiculoRepository veiculoRepository;
 
-    public List<Veiculo> getAllVeiculos() {
-        return veiculoRepository.findAll();
+    @Autowired
+    ChecklistRepository checklistRepository;
+
+    public List<VeiculoResponseDTO> getAllVeiculos() {
+        var veiculos = veiculoRepository.findAll();
+        return veiculos.stream()
+                .map(veiculo -> {
+                    // Busca o checklist relacionado a viagem
+                    var checklistOptional = checklistRepository.findFirstByVeiculoIdOrderByDataCriacaoDesc(
+                            veiculo.getId()
+                    );
+
+                    // Monta o DTO com ou sem checklist
+                    return veiculo.toResponseDTO(checklistOptional.orElse(null));
+                })
+                .toList();
     }
 
     public List<Veiculo> getAllFrota() {

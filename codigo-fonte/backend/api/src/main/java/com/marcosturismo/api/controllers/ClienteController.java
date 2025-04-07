@@ -5,6 +5,7 @@ import com.marcosturismo.api.domain.cliente.ClienteDTO;
 import com.marcosturismo.api.domain.usuario.Cnh;
 import com.marcosturismo.api.domain.usuario.Usuario;
 import com.marcosturismo.api.domain.viagem.Viagem;
+import com.marcosturismo.api.repositories.ChecklistRepository;
 import com.marcosturismo.api.repositories.ClienteRepository;
 import com.marcosturismo.api.repositories.ViagemRepository;
 import com.marcosturismo.api.services.ClienteService;
@@ -30,6 +31,9 @@ public class ClienteController {
     @Autowired
     ViagemRepository viagemRepository;
 
+    @Autowired
+    ChecklistRepository checklistRepository;
+
     @GetMapping
     public ResponseEntity<?> getAllCliente() {
         try {
@@ -54,8 +58,14 @@ public class ClienteController {
                 var viagens = viagemRepository.findByClienteId(cliente.getId());
 
                 clienteMap.put("viagem", viagens.stream()
-                        .map(Viagem::toResponseDTO)  // Simplificando o lambda
-                        .toList()); // Adiciona as viagens se houver, senão fica null
+                        .map(viagem -> {
+                            var checklist = checklistRepository
+                                    .findByViagemId(viagem.getId())
+                                    .orElse(null);
+
+                            return viagem.toResponseDTO(checklist);
+                        })
+                        .toList());
 
                 return clienteMap;
             }).toList();

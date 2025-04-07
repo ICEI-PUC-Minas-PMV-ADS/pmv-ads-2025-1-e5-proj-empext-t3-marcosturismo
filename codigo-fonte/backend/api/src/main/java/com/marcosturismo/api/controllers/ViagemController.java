@@ -1,5 +1,6 @@
 package com.marcosturismo.api.controllers;
 
+import com.marcosturismo.api.domain.cheklist_veiculo.ChecklistDTO;
 import com.marcosturismo.api.domain.cliente.Cliente;
 import com.marcosturismo.api.domain.usuario.TipoUsuario;
 import com.marcosturismo.api.domain.usuario.Usuario;
@@ -7,10 +8,8 @@ import com.marcosturismo.api.domain.veiculo.Veiculo;
 import com.marcosturismo.api.domain.viagem.StatusViagem;
 import com.marcosturismo.api.domain.viagem.Viagem;
 import com.marcosturismo.api.domain.viagem.ViagemDTO;
-import com.marcosturismo.api.repositories.ClienteRepository;
-import com.marcosturismo.api.repositories.UsuarioRepository;
-import com.marcosturismo.api.repositories.VeiculoRepository;
-import com.marcosturismo.api.repositories.ViagemRepository;
+import com.marcosturismo.api.repositories.*;
+import com.marcosturismo.api.services.ChecklistService;
 import com.marcosturismo.api.services.UsuarioService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.marcosturismo.api.services.ViagemService;
@@ -41,6 +40,12 @@ public class ViagemController {
 
     @Autowired
     ViagemRepository viagemRepository;
+
+    @Autowired
+    ChecklistService checklistService;
+
+    @Autowired
+    ChecklistRepository checklistRepository;
 
     @GetMapping
     public ResponseEntity<?> getAllViagem() {
@@ -231,6 +236,50 @@ public class ViagemController {
             return ResponseEntity.ok().body("Viagem excluída com sucesso");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erro ao registrar viagem: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/checklist/{viagemId}")
+    public ResponseEntity<?> createChecklist(@PathVariable UUID viagemId, @RequestBody @Validated ChecklistDTO data) {
+        try {
+            Viagem viagem = viagemRepository.findById(viagemId)
+                    .orElseThrow(() -> new RuntimeException("Viagem não encontrada"));
+
+            if (viagem.getStatus() != StatusViagem.NaoIniciada) {
+                return ResponseEntity.badRequest().body("Só é possível fazer o checklist em viagens que ainda não foram iniciadas.");
+            }
+
+            var authentication = SecurityContextHolder.getContext().getAuthentication();
+            var principal = authentication.getPrincipal();
+            var authorities = authentication.getAuthorities();
+
+            UUID userId = null;
+            if (principal instanceof UserDetails) {
+                userId = ((Usuario) principal).getId();
+            }
+            if (userId == null) {
+                return ResponseEntity.badRequest().body("Usuário não encontrado");
+            }
+
+            // Verifica se o usuário tem a role STAFF
+            boolean isStaff = authorities.stream()
+                    .anyMatch(auth -> auth.getAuthority().equals("ROLE_STAFF"));
+
+            if (isStaff && userId != viagem.getMotorista().getId()) {
+                return ResponseEntity.badRequest().body("Você não tem permissão para fazer o checklist nesta viagem pois não é o motorista.");
+            }
+
+            var checkViagem = this.checklistRepository.findByViagemId(viagemId);
+
+            if (checkViagem.isPresent()) {
+                return ResponseEntity.badRequest().body("O checklist já foi realizado nesta viagem");
+            }
+
+            this.checklistService.createChecklist(data, viagem);
+
+            return ResponseEntity.ok().body("Checklist realizado com sucesso.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erro ao fazer checklist: " + e.getMessage());
         }
     }
 }

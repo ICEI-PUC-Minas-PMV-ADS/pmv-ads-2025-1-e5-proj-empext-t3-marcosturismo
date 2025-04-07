@@ -32,30 +32,6 @@ CREATE TABLE imagem_veiculo (
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
 );
 
--- Tabela Checklist Veículo
-CREATE TABLE checklist_veiculo (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    data_checklist DATE NOT NULL,
-    pneus_ok BOOLEAN,
-    limpeza_ok BOOLEAN,
-    avarias_ok BOOLEAN,
-    farois_ok BOOLEAN,
-    documento_ok BOOLEAN,
-    ocorrencias TEXT,
-    veiculo_id UUID NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
-);
-
--- Tabela Imagem Checklist
-CREATE TABLE imagem_checklist (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    img_url VARCHAR(500) NOT NULL,
-    checklist_veiculo_id UUID NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (checklist_veiculo_id) REFERENCES checklist_veiculo(id) ON DELETE CASCADE
-);
-
 -- Tabela Serviço
 CREATE TABLE servico (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -126,6 +102,32 @@ CREATE TABLE viagem (
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE,
     FOREIGN KEY (motorista_id) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
+);
+
+-- Tabela Checklist Veículo
+CREATE TABLE checklist_veiculo (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    data_checklist DATE NOT NULL,
+    pneus_ok BOOLEAN,
+    limpeza_ok BOOLEAN,
+    avarias_ok BOOLEAN,
+    farois_ok BOOLEAN,
+    documento_ok BOOLEAN,
+    ocorrencias TEXT,
+    viagem_id UUID NOT NULL,
+    veiculo_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (viagem_id) REFERENCES viagem(id) ON DELETE CASCADE,
+    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
+);
+
+-- Tabela Imagem Checklist
+CREATE TABLE imagem_checklist (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    img_url VARCHAR(500) NOT NULL,
+    checklist_veiculo_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (checklist_veiculo_id) REFERENCES checklist_veiculo(id) ON DELETE CASCADE
 );
 
 -- Tabela CNH
