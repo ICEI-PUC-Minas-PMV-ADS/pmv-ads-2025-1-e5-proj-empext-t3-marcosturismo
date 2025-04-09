@@ -19,7 +19,7 @@ export class Excursoes2Component {
       roteiro: "Cidade A → Praia X",
       preco: 120.00,
       veiculos: [
-        { nome: "Van", capacidade: 15, placa: "XYZ-5678", imagem: "logo.jpg" }
+        { nome: "Van", capacidade: 15, placa: "XYZ-5678", imagem: "logo.png" }
       ],
       mostrarInfo: false
     },
@@ -30,7 +30,7 @@ export class Excursoes2Component {
       roteiro: "Cidade B → Cidade C",
       preco: 200.00,
       veiculos: [
-        { nome: "Ônibus Executivo", capacidade: 40, placa: "LMN-2345", imagem: "logo.jpg" }
+        { nome: "Ônibus Executivo", capacidade: 40, placa: "LMN-2345", imagem: "logo.png" }
       ],
       mostrarInfo: false
     },
@@ -41,7 +41,7 @@ export class Excursoes2Component {
       roteiro: "Cidade D → Montanhas Z",
       preco: 250.00,
       veiculos: [
-        { nome: "Micro-ônibus", capacidade: 20, placa: "OPQ-6789", imagem: "logo.jpg" }
+        { nome: "Micro-ônibus", capacidade: 20, placa: "OPQ-6789", imagem: "logo.png" }
       ],
       mostrarInfo: false
     }
@@ -52,3 +52,4 @@ export class Excursoes2Component {
     excursao.mostrarInfo = !excursao.mostrarInfo;
   }
 }
+

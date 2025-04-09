@@ -9,35 +9,64 @@
 </section>
 
 <section class="testimonials">
-  <div class="card" *ngFor="let viagem of viagens">
-    <img [src]="viagem.imagem" [alt]="viagem.descricao">
-    <p>{{ viagem.mensagem }}</p>
+  <div class="card" *ngFor="let avaliacao of avaliacoesValidas">
+    <h3>{{ avaliacao.titulo }}</h3>
+    <p><strong>{{ avaliacao.autor }}</strong></p>
+    <p>{{ avaliacao.descricao }}</p>
+    <div class="rating">
+      <span *ngFor="let star of stars; let i = index" 
+            [class.active]="avaliacao.nota >= (i + 1)">
+        ★
+      </span>
+    </div>
+    <p><strong>Data: </strong>{{ avaliacao.dataPublicacao | date:'short' }}</p>
+    <div *ngIf="avaliacao.foto">
+      <img [src]="avaliacao.foto" alt="Foto da avaliação" />
+    </div>
   </div>
 </section>
 
-<!-- Formulário de Avaliação -->
-<section class="review-form">
-  <div class="review-card">
-    <h3>Conte-nos a sua experiência com a Marcos Turismo</h3>
-    <label for="name">Nome</label>
-    <input type="text" id="name" [(ngModel)]="avaliacao.nome">
-    
-    <div class="stars">
-      <span *ngFor="let star of [1,2,3,4,5]" (click)="avaliacao.estrelas = star">
-        &#9733;
-      </span>
+<section class="avaliacao-novo">
+  <h2>💬 Avalie sua experiência</h2>
+  <form (ngSubmit)="registrarAvaliacao()">
+    <div class="campo-form">
+      <label for="autor">Nome</label>
+      <input id="autor" type="text" [(ngModel)]="avaliacao.autor" name="autor" required>
     </div>
-    
-    <textarea [(ngModel)]="avaliacao.comentario" placeholder="Digite seu comentário..."></textarea>
 
-    <!-- Campo de upload de foto -->
-    <label for="foto">Envie uma foto</label>
-    <input type="file" id="foto" (change)="onFileSelected($event)">
-
-    <div class="buttons">
-      <button (click)="registrarAvaliacao()" class="register-btn">Registrar</button>
-      <button (click)="cancelarAvaliacao()" class="cancel-btn">Cancelar</button>
+    <div class="campo-form">
+      <label for="titulo">Título</label>
+      <input id="titulo" type="text" [(ngModel)]="avaliacao.titulo" name="titulo" required>
     </div>
+
+    <div class="campo-form">
+      <label for="descricao">Comentário</label>
+      <textarea id="descricao" rows="4" [(ngModel)]="avaliacao.descricao" name="descricao" required></textarea>
+    </div>
+
+    <div class="campo-form">
+      <label>Nota</label>
+      <div class="estrelas">
+        <span *ngFor="let star of stars; let i = index"
+              (click)="setRating(i + 1)"
+              [class.ativa]="avaliacao.nota >= (i + 1)">★</span>
+      </div>
+    </div>
+
+    <div class="campo-form">
+      <label for="foto">Adicionar Foto (opcional)</label>
+      <input type="file" id="foto" (change)="onFileSelected($event)">
+    </div>
+
+    <div class="botoes-avaliacao">
+      <button type="submit" class="enviar">Enviar</button>
+      <button type="button" class="cancelar" (click)="cancelarAvaliacao()">Cancelar</button>
+    </div>
+  </form>
+
+  <!-- Mensagem de confirmação -->
+  <div *ngIf="mensagem" [ngClass]="{'aviso-sucesso': tipoMensagem === 'sucesso', 'aviso-erro': tipoMensagem === 'erro'}">
+    {{ mensagem }}
   </div>
 </section>
 
@@ -46,6 +75,7 @@
     <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">
   </a>
 </div>
+
 <!-- Rodapé -->
 <footer class="bg-dark text-light text-center py-3">
   <small>&copy; Copyright 2025</small>

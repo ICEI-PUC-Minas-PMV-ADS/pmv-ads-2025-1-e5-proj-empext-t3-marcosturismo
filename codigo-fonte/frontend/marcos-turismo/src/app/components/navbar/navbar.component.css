@@ -68,5 +68,7 @@
   .menu-navbar {
     flex-direction: column;
     gap: 10px;
+    align-items: center;
+    width: 100%; /* Adiciona largura total ao menu para ficar bem centralizado */
   }
 }

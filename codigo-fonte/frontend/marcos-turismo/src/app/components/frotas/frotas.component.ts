@@ -12,12 +12,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class FrotasComponent {
   frotas = [
     {
-      image: 'logo.jpg',
+      image: 'logo.png',
       name: 'Ônibus Executivo',
       description: 'Ônibus confortável para viagens longas.'
     },
     {
-      image: 'logo.jpg',
+      image: 'logo.png',
       name: 'Micro-ônibus',
       description: 'Ideal para pequenos grupos e eventos.'
     }

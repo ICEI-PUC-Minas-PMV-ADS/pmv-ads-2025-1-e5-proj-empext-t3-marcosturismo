@@ -1,5 +1,6 @@
 package com.marcosturismo.api.services;
 
+import com.marcosturismo.api.domain.cheklist_veiculo.ChecklistVeiculo;
 import com.marcosturismo.api.domain.cliente.Cliente;
 import com.marcosturismo.api.domain.cliente.ClienteDTO;
 import com.marcosturismo.api.domain.usuario.StatusUsuario;
@@ -9,10 +10,7 @@ import com.marcosturismo.api.domain.viagem.StatusViagem;
 import com.marcosturismo.api.domain.viagem.Viagem;
 import com.marcosturismo.api.domain.viagem.ViagemDTO;
 import com.marcosturismo.api.domain.viagem.ViagemResponseDTO;
-import com.marcosturismo.api.repositories.ClienteRepository;
-import com.marcosturismo.api.repositories.UsuarioRepository;
-import com.marcosturismo.api.repositories.VeiculoRepository;
-import com.marcosturismo.api.repositories.ViagemRepository;
+import com.marcosturismo.api.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +32,9 @@ public class ViagemService {
     @Autowired
     ClienteRepository clienteRepository;
 
+    @Autowired
+    ChecklistRepository checklistRepository;
+
     public List<ViagemResponseDTO> getAllViagens(Boolean isStaff, UUID id) {
         // Obtem as viagens conforme o parâmetro `isStaff`
         var viagens = isStaff ? this.viagemRepository.findByMotoristaId(id) : this.viagemRepository.findAll();
@@ -45,8 +46,16 @@ public class ViagemService {
 
         // Mapeia as viagens para ViagemResponseDTO e retorna a lista resultante
         return viagens.stream()
-                .map(Viagem::toResponseDTO)  // Simplificando o lambda
-                .toList();  // Converte para List<ViagemResponseDTO>
+                .map(viagem -> {
+                    // Busca o checklist relacionado a viagem
+                    var checklistOptional = checklistRepository.findByViagemId(
+                            viagem.getId()
+                    );
+
+                    // Monta o DTO com ou sem checklist
+                    return viagem.toResponseDTO(checklistOptional.orElse(null));
+                })
+                .toList();
     }
 
     public void startViagem(UUID viagemId) {

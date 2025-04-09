@@ -46,12 +46,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT, "/avaliacao/validar/{avaliacaoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/avaliacao/{avaliacaoId}").hasRole("ADMIN")
                         ///  Usuários
-                        ///.requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
-                        ///
-                        /// Para o primeira vez que for rodar, descomentar para criar usuário
-                        ///
-                        .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
-                        ///.requestMatchers(HttpMethod.GET, "/usuario").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/usuario/{usuarioId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/usuario/{usuarioId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/usuario/cnh/{usuarioId}").hasRole("ADMIN")
@@ -65,6 +61,7 @@ public class SecurityConfigurations {
                         ///  Viagens
                         .requestMatchers(HttpMethod.GET, "/viagem").authenticated()
                         .requestMatchers(HttpMethod.POST, "/viagem").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/viagem/checklist/{viagemId}").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/viagem/{viagemId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/viagem/{viagemId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/viagem/cancelar/{viagemId}").hasRole("ADMIN")
@@ -75,6 +72,12 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/cliente/{clienteId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/cliente/{clienteId}").hasRole("ADMIN")
+                        /// Serviços
+                        .requestMatchers(HttpMethod.GET, "/servico/tipo_servico").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/servico").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/servico/{servicoId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/servico/tipo_servico").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/servico/tipo_servico/{tipoId}").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 ///  Tipos de roles: ADMIN / USER / STAFF (Motoristas)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

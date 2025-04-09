@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="left">
+    <div class="location">
+      <h3>LOCALIZAÇÃO</h3>
+      <p>Rua Pesqueira, 16 - Loteamento Arco-íris<br>Arcoverde - PE, Brasil</p>
+    </div>
+    <div class="contact-cards">
+      <div class="card">
+        <h4><i class="fas fa-phone-alt"></i> Telefone</h4>
+        <p>+55 87 99110-3345</p>
+      </div>
+    </div>
+    <div class="social">
+      <h3>SIGA-NOS</h3>
+      <div class="icons">
+        <a href="https://www.facebook.com/share/163uxfqk7b/?mibextid=wwXIfr" target="_blank">
+          <i class="fab fa-facebook-f"></i>
+        </a>          
+        <a href="https://www.instagram.com/marcosturismoonline" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/5587991103345" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+    <!-- Horário de Atendimento -->
+    <div class="hours">
+      <h3>HORÁRIO DE ATENDIMENTO</h3>
+      <p>Das 8h às 12h e das 14h às 18h</p>
+    </div>
+    <p class="privacy">©️ 2018 Política de privacidade</p>
+  </div>
+
+  <div class="right">
+    <h2>FORMULÁRIO DE CONTATO</h2>
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="formData.name" required><br><br>
+      
+        <label for="phone">Telefone:</label>
+        <input type="tel" id="phone" name="phone" [(ngModel)]="formData.phone" required><br><br>
+      
+        <label for="message">Mensagem:</label>
+        <textarea id="message" name="message" [(ngModel)]="formData.message" required></textarea><br><br>
+      
+        <button type="submit" [disabled]="!contactForm.form.valid">Enviar para WhatsApp</button>
+    </form>
+  </div>
+</div>
