@@ -59,7 +59,7 @@ CREATE TABLE servico_realizado (
     custo DOUBLE PRECISION,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (servico_id) REFERENCES servico(id) ON DELETE CASCADE,
-    FOREIGN KEY (tipos_servicos_id) REFERENCES tipo_servico(id) ON DELETE CASCADE
+    FOREIGN KEY (tipos_servicos_id) REFERENCES tipo_servico(id) ON DELETE RESTRICT
 );
 
 -- Tabela Cliente
