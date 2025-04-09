@@ -12,9 +12,10 @@ import { FrotasComponent } from './components/frotas/frotas.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
 import { HistoriasComponent } from './components/historias/historias.component';
 import { Excursoes2Component } from './components/excursoes2/excursoes2.component';
+import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,8 +29,9 @@ export const routes: Routes = [
   { path: 'frota', component: FrotaComponent },
   { path: 'frotas', component: FrotasComponent },
   { path: 'viagens', component: ViagensComponent },
-  { path: 'nossahistoria', component: NossahistoriaComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'historias', component: HistoriasComponent },
-  { path: 'excursoes2', component: Excursoes2Component }
+  { path: 'excursoes2', component: Excursoes2Component },
+  { path: 'nossahistoria', component: NossahistoriaComponent },
+
 ];
