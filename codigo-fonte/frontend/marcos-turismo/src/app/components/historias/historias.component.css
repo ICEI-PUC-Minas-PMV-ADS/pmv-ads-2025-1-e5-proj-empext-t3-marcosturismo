@@ -1,14 +1,18 @@
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    text-align: left;
-  }
 /* Ajuste para evitar sobreposição da navbar fixa */
 .header {
-    margin-top: 150px; /* Ajuste a margem para baixo da navbar */
+    margin-top: 150px;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: linear-gradient(to right, rgba(0, 32, 96, 0.9), rgba(0, 32, 96, 0.7));
 }
+
 /* Estilo da galeria */
 .gallery {
     text-align: center;
@@ -34,7 +38,6 @@ body {
     max-width: 1200px;
 }
 
-/* Card responsivo */
 .card {
     background: white;
     padding: 20px;
@@ -50,52 +53,108 @@ body {
     border-radius: 10px;
 }
 
-/* Estilização do formulário de avaliação */
-.review-form {
-    display: flex;
-    justify-content: center;
-    margin: 40px auto;
+/* Estilização da seção de histórias de viagem */
+.viagens-container {
     max-width: 800px;
-}
-
-.review-card {
-    background: white;
+    margin: 40px auto;
     padding: 20px;
+    background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    text-align: center;
 }
 
-.review-card input, 
-.review-card textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #000bec;
+.viagens-container h2 {
+    text-align: center;
+    color: #00266b;
+    margin-bottom: 20px;
+}
+
+.viagens-container div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.viagens-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
     border-radius: 5px;
+}
+
+.viagens-container p {
+    flex: 1;
+    color: #333;
     font-size: 16px;
 }
 
-.stars {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
+/* Estilização do formulário de avaliação */
+.avaliacao-container {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.stars span {
-    font-size: 24px;
+.avaliacao-container h2 {
+    margin-bottom: 25px;
+    color: #00266b;
+    text-align: center;
+    font-size: 26px;
+}
+
+.avaliacao-container label {
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.avaliacao-container input, 
+.avaliacao-container textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+.avaliacao-container input:focus,
+.avaliacao-container textarea:focus {
+    border-color: #00266b;
+    outline: none;
+}
+
+/* Estrelas de avaliação */
+.rating {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.rating span {
+    font-size: 28px;
     cursor: pointer;
     color: #ccc;
     transition: color 0.3s;
 }
 
-.stars span:hover,
-.stars span.active,
-.stars span.selected {
-    color: gold;
+.rating span.active,
+.rating span:hover,
+.rating span:hover ~ span {
+    color: #fbb700;
 }
 
+/* Botões */
 .buttons {
     display: flex;
     gap: 10px;
@@ -103,35 +162,55 @@ body {
     margin-top: 10px;
 }
 
-.register-btn {
+.avaliacao-container button {
     background-color: #fbb700;
     color: #00266b;
     font-size: 16px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.register-btn:hover {
-    background-color: #000bec;
+.avaliacao-container button:hover {
+    background-color: #00266b;
     color: white;
 }
 
-.cancel-btn {
-    background: red;
-    color: #333;
+.avaliacao-container button[type="button"] {
+    background-color: #d9534f;
+    color: white;
 }
 
-.cancel-btn:hover {
-    background: #999;
+.avaliacao-container button[type="button"]:hover {
+    background-color: #a94442;
 }
 
-/* Ícone do WhatsApp fixo */
+/* Feedback */
+.mensagem {
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.sucesso {
+    background-color: #4caf50;
+    color: white;
+}
+
+.erro {
+    background-color: #f44336;
+    color: white;
+}
+
+/* WhatsApp fixo */
 .whatsapp-container {
     position: fixed;
-    bottom: 80px; /* Ajusta para que o botão fique acima do rodapé */
+    bottom: 80px;
     right: 20px;
     display: flex;
     align-items: center;
@@ -146,8 +225,21 @@ body {
     height: 60px;
 }
 
+/* Rodapé */
+footer {
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
+    .viagens-container,
+    .avaliacao-container {
+        width: 90%;
+    }
+
     .testimonials {
         flex-direction: column;
         align-items: center;
@@ -167,10 +259,216 @@ body {
     }
 }
 
-footer {
-    width: 100%;
-    background-color: var(--footer-bg);
-    color: var(--footer-text-color);
-    text-align: center;
-    color: #ffffff;
+@media (max-width: 600px) {
+    .avaliacao-container {
+        padding: 25px 20px;
+    }
+
+    .avaliacao-container h2 {
+        font-size: 22px;
+    }
+
+    .rating span {
+        font-size: 24px;
+    }
 }
+
+.avaliacao-nova {
+    max-width: 700px;
+    margin: 60px auto;
+    background: #fefefe;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.avaliacao-nova h2 {
+    text-align: center;
+    color: #002a64;
+    margin-bottom: 30px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+}
+
+.rating-group .rating {
+    display: flex;
+    gap: 8px;
+    font-size: 28px;
+    cursor: pointer;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.rating span {
+    color: #bbb;
+    transition: color 0.3s;
+}
+
+.rating span.active,
+.rating span:hover,
+.rating span:hover ~ span {
+    color: #fbb700;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    background-color: #0e73b9;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #064a7f;
+}
+
+.cancel-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: #a94442;
+}
+
+.avaliacao-novo {
+    background: #f2f6ff;
+    padding: 40px;
+    margin: 60px auto;
+    max-width: 600px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.avaliacao-novo h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 30px;
+}
+
+.campo-form {
+    margin-bottom: 20px;
+}
+
+.campo-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.campo-form input,
+.campo-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.campo-form input:focus,
+.campo-form textarea:focus {
+    border-color: #003366;
+    outline: none;
+}
+
+.estrelas {
+    display: flex;
+    gap: 8px;
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.estrelas span.ativa,
+.estrelas span:hover,
+.estrelas span:hover ~ span {
+    color: #fbb700;
+}
+
+.botoes-avaliacao {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.enviar {
+    background-color: #003366;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.enviar:hover {
+    background-color: #002244;
+}
+
+.cancelar {
+    background-color: #d9534f;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cancelar:hover {
+    background-color: #a94442;
+}
+.aviso-sucesso {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  

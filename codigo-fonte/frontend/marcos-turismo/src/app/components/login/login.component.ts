@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +14,8 @@ import { from } from 'rxjs';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  mensagem: string = ''; // Mensagem para exibir ao usuário
+  mensagemTipo: 'success' | 'error' | '' = ''; // Para indicar se a mensagem é de sucesso ou erro
 
   constructor(
     private fb: FormBuilder,
@@ -29,44 +30,52 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      alert('Email e senha são obrigatórios'); // Mensagem padronizada com o back-end
+      this.mensagem = 'Email e senha são obrigatórios';
+      this.mensagemTipo = 'error';
       return;
     }
-  
+
     const email = this.loginForm.get('login')?.value;
     const senha = this.loginForm.get('senha')?.value;
-  
+
     this.http.post<any>('http://localhost:8080/auth/login', { email, senha }, { withCredentials: true })
       .subscribe({
         next: (response: { token: string }) => {
           console.log('Resposta do servidor:', response);
-  
+
           if (response.token) {
+            // Armazenando o token no localStorage
             localStorage.setItem('token', response.token);
-            alert('Login bem-sucedido!');
+            this.mensagem = 'Login bem-sucedido!';
+            this.mensagemTipo = 'success';
             this.router.navigate(['/dashboard']);
           } else {
-            alert('Erro: Token não recebido.');
+            this.mensagem = 'Erro: Token não recebido.';
+            this.mensagemTipo = 'error';
           }
         },
         error: (error: HttpErrorResponse) => {
           console.error('Erro ao conectar ao servidor:', error);
-  
-          // Tratamento de mensagens conforme os códigos de erro do backend
+
+          // Mensagens específicas para cada erro
           switch (error.status) {
             case 400:
-              alert('Email e senha são obrigatórios');
+              this.mensagem = 'Email e senha são obrigatórios';
+              this.mensagemTipo = 'error';
               break;
             case 401:
-              alert('Credenciais inválidas');
+              this.mensagem = 'Credenciais inválidas';
+              this.mensagemTipo = 'error';
               break;
             case 500:
-              alert('Erro interno ao processar login');
+              this.mensagem = 'Erro interno ao processar login';
+              this.mensagemTipo = 'error';
               break;
             default:
-              alert(error.error || 'Erro ao fazer login. Tente novamente.');
+              this.mensagem = error.error || 'Erro ao fazer login. Tente novamente.';
+              this.mensagemTipo = 'error';
           }
         }
-      });
-  }
+      });
+  }
 }
