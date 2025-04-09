@@ -1,14 +1,13 @@
 package com.marcosturismo.api.controllers;
 
 import com.marcosturismo.api.domain.avaliacao.Avaliacao;
-import com.marcosturismo.api.domain.servico.ServicoDTO;
-import com.marcosturismo.api.domain.servico.TipoServico;
-import com.marcosturismo.api.domain.servico.TipoServicoDTO;
+import com.marcosturismo.api.domain.servico.*;
 import com.marcosturismo.api.domain.usuario.Usuario;
 import com.marcosturismo.api.repositories.TipoServicoRepository;
 import com.marcosturismo.api.services.ServicoService;
 import com.marcosturismo.api.services.TipoServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,6 +51,8 @@ public class ServicoController {
         try {
             this.tipoServicoService.deleteTipoServico(tipoId);
             return ResponseEntity.ok().body("Tipo de serviço excluído com sucesso");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(400).body("Não é possível excluir este tipo de serviço, pois ele está sendo utilizado em outros registros.");
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
@@ -89,6 +90,29 @@ public class ServicoController {
             return ResponseEntity.ok().body("Serviço registrado com sucesso");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erro ao registrar serviço: " + e.getMessage());
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllServico() {
+        try {
+            List<ServicoResponseDTO> response = this.servicoService.getAllServicos();
+            if (response.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erro ao buscar todos os serviços: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{servicoId}")
+    public ResponseEntity<?> deleteServico(@PathVariable UUID servicoId) {
+        try {
+            this.servicoService.deleteServico(servicoId);
+            return ResponseEntity.ok().body("Serviço excluído com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 }

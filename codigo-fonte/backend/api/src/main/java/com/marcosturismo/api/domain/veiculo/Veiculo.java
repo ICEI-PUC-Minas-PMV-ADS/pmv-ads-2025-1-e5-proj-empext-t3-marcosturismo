@@ -80,5 +80,19 @@ public class Veiculo {
                 check.toResponseDTO()
         );
     }
+
+    public VeiculoResponseServicoDTO toResponseServicoDTO() {
+        return new VeiculoResponseServicoDTO(
+                this.id,
+                this.numeracao,
+                this.modelo,
+                this.marca,
+                this.anoModelo,
+                this.kmAtual,
+                this.situacao,
+                this.kmProxTrocaOleo,
+                this.kmProxTrocaPneu
+        );
+    }
 }
 

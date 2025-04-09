@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -58,5 +59,52 @@ public class ServicoService {
         }
 
         return servico;
+    }
+
+    public List<ServicoResponseDTO> getAllServicos() {
+        List<ServicoResponseDTO> servicosResponse = new java.util.ArrayList<>(List.of());
+        List<Servico> servicos = this.servicoRepository.findAll();
+
+        for (Servico servico : servicos) {
+
+            List<ServicoRealizadoResponseDTO> servicoRealizadoResponseDTOS = new java.util.ArrayList<>(List.of());
+
+            double custoTotal = 0.0;
+
+            List<ServicoRealizado> servicosRealizados = this.servicoRealizadoRepository.findByServicoId(servico.getId());
+
+            for (ServicoRealizado servicoRealizado : servicosRealizados) {
+                custoTotal = custoTotal + servicoRealizado.getCusto();
+                servicoRealizadoResponseDTOS.add(new ServicoRealizadoResponseDTO(
+                        servicoRealizado.getId(),
+                        servicoRealizado.getTipoServico(),
+                        servicoRealizado.getCusto(),
+                        servicoRealizado.getDataCriacao()
+                ));
+            }
+
+            ServicoResponseDTO servicoResponse = new ServicoResponseDTO(
+                    servico.getId(),
+                    servico.getDataServico(),
+                    servico.getKmVeiculo(),
+                    servico.getDescricao(),
+                    servico.getDataCriacao(),
+                    servico.getVeiculo().toResponseServicoDTO(),
+                    servico.getResponsavel().toResponseDTO(),
+                    custoTotal,
+                    servicoRealizadoResponseDTOS
+            );
+
+            servicosResponse.add(servicoResponse);
+        }
+
+        return servicosResponse;
+    }
+
+    public void deleteServico(UUID id){
+        if (!this.servicoRepository.existsById(id)) {
+            throw new RuntimeException("Serviço não encontrado");
+        }
+        this.servicoRepository.deleteById(id);
     }
 }

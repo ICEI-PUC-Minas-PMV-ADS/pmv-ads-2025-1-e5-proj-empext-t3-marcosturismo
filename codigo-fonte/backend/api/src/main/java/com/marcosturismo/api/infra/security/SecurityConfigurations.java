@@ -74,6 +74,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT, "/cliente/{clienteId}").hasRole("ADMIN")
                         /// Serviços
                         .requestMatchers(HttpMethod.GET, "/servico/tipo_servico").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/servico").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/servico/{servicoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/servico/tipo_servico").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/servico/tipo_servico/{tipoId}").hasRole("ADMIN")
                         .anyRequest().authenticated())

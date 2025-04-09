@@ -1,6 +1,8 @@
 package com.marcosturismo.api.domain.usuario;
 
+import com.marcosturismo.api.domain.cheklist_veiculo.ChecklistVeiculo;
 import com.marcosturismo.api.domain.cheklist_veiculo.ImagemChecklist;
+import com.marcosturismo.api.domain.viagem.ViagemResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -94,5 +96,15 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
+    }
+
+    public UsuarioResponseDTO toResponseDTO() {
+        return new UsuarioResponseDTO(
+                this.id,
+                this.status,
+                this.nome,
+                this.tipo,
+                this.dataCriacao
+        );
     }
 }
