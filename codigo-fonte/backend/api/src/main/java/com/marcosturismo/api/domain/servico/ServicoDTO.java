@@ -9,5 +9,8 @@ public record ServicoDTO(
         Integer kmVeiculo,
         String descricao,
         UUID veiculoId,
+        Integer kmProxTrocaOleo,
+        Integer kmProxTrocaPneu,
         List<ServicoRealizadoDTO> servicosRealizados
-) {}
+) {
+}

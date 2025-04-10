@@ -78,6 +78,11 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE, "/servico/{servicoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/servico/tipo_servico").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/servico/tipo_servico/{tipoId}").hasRole("ADMIN")
+                        ///  Dashboard
+                        .requestMatchers(HttpMethod.GET, "/dashboard/gastos-manutencao").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/dashboard/gastos-manutencao/{tipoId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/dashboard/veiculos-ativos").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/dashboard/manutencoes-pendentes").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 ///  Tipos de roles: ADMIN / USER / STAFF (Motoristas)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

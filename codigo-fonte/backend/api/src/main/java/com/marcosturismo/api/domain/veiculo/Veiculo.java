@@ -77,7 +77,7 @@ public class Veiculo {
     public VeiculoResponseDTO toResponseDTO(ChecklistVeiculo check) {
         return new VeiculoResponseDTO(
                 this,
-                check.toResponseDTO()
+                check != null ? check.toResponseDTO() : null
         );
     }
 

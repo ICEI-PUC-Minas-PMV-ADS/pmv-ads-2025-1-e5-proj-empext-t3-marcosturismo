@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ServicoService {
@@ -34,6 +33,16 @@ public class ServicoService {
                 .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
         Usuario responsavel = usuarioRepository.findById(responsavelId)
                 .orElseThrow(() -> new RuntimeException("Responsável não encontrado"));
+
+        veiculo.setKmAtual(dto.kmVeiculo());
+        if (dto.kmProxTrocaOleo() != null) {
+            veiculo.setKmProxTrocaOleo(dto.kmProxTrocaOleo());
+        }
+        if (dto.kmProxTrocaPneu() != null) {
+            veiculo.setKmProxTrocaPneu(dto.kmProxTrocaPneu());
+        }
+
+        veiculoRepository.save(veiculo);
 
         Servico servico = Servico.builder()
                 .dataServico(LocalDate.parse(dto.dataServico()))
@@ -101,7 +110,7 @@ public class ServicoService {
         return servicosResponse;
     }
 
-    public void deleteServico(UUID id){
+    public void deleteServico(UUID id) {
         if (!this.servicoRepository.existsById(id)) {
             throw new RuntimeException("Serviço não encontrado");
         }
