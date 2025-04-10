@@ -176,3 +176,9 @@ CREATE TABLE excursao (
 -- Insere o administrador master Marcos Turismo
 INSERT INTO usuario (id, nome, status, tipo, email, senha)
 VALUES ('5d7208ef-6a27-4904-9a82-23b1b120ef38', 'Marcos Turismo', 'Ativo', 'Administrador', 'administrador@marcosturismo.com.br', '$2a$10$HRB01PHbdpmqPhmhbbvjcuXXyqvyCN4PLOhBKlWzHH1yPch9se.v6');
+
+-- Insere tipos de serviço fixo
+INSERT INTO tipo_servico (id, descricao)
+VALUES ('14a1f134-66bd-4719-a290-65246bb35aab', 'Abastecimento'),
+('7ceeac45-9275-4da9-9df9-fb078985fb53', 'Troca de óleo'),
+('d0161509-ed21-4034-98f4-721d4778be1e', 'Troca de pneus');
