@@ -39,8 +39,9 @@
 }
 
 .card {
-    background: white;
+    background: #00266b;
     padding: 20px;
+    color: white;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -89,59 +90,9 @@
     font-size: 16px;
 }
 
-/* Estilização do formulário de avaliação */
-.avaliacao-container {
-    max-width: 650px;
-    margin: 60px auto;
-    padding: 40px 30px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    text-align: left;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.avaliacao-container h2 {
-    margin-bottom: 25px;
-    color: #00266b;
-    text-align: center;
-    font-size: 26px;
-}
-
-.avaliacao-container label {
-    font-weight: bold;
-    text-align: left;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.avaliacao-container input, 
-.avaliacao-container textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    transition: border 0.3s ease;
-}
-
-.avaliacao-container input:focus,
-.avaliacao-container textarea:focus {
-    border-color: #00266b;
-    outline: none;
-}
-
-/* Estrelas de avaliação */
-.rating {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.rating span {
+/* Estilização para as estrelas de avaliação */
+.rating span,
+.estrelas span {
     font-size: 28px;
     cursor: pointer;
     color: #ccc;
@@ -150,64 +101,70 @@
 
 .rating span.active,
 .rating span:hover,
-.rating span:hover ~ span {
+.rating span:hover ~ span,
+.estrelas span.ativa,
+.estrelas span:hover,
+.estrelas span:hover ~ span {
     color: #fbb700;
 }
 
-/* Botões */
-.buttons {
+/* Estilização dos botões dentro dos formulários */
+.botoes-avaliacao {
     display: flex;
-    gap: 10px;
     justify-content: center;
-    margin-top: 10px;
+    gap: 15px;
 }
 
-.avaliacao-container button {
-    background-color: #fbb700;
-    color: #00266b;
-    font-size: 16px;
-    padding: 10px 20px;
+.enviar {
+    background-color: #FFD700; /* Botão de enviar em amarelo */
+    color: #003366; /* Cor do texto para contraste */
+    padding: 12px 20px;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    border-radius: 10px;
     font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.avaliacao-container button:hover {
-    background-color: #00266b;
-    color: white;
+.enviar:hover {
+    background-color: #FFC300; /* Tom levemente modificado no hover */
 }
 
-.avaliacao-container button[type="button"] {
+.cancelar {
     background-color: #d9534f;
     color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.avaliacao-container button[type="button"]:hover {
+.cancelar:hover {
     background-color: #a94442;
 }
 
-/* Feedback */
-.mensagem {
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-.sucesso {
-    background-color: #4caf50;
+/* Estilização dos feedbacks de avaliação */
+.aviso-sucesso {
+    background-color: #28a745;
     color: white;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
 }
 
-.erro {
+.aviso-erro {
     background-color: #f44336;
     color: white;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
 }
 
-/* WhatsApp fixo */
+/* Estilização do WhatsApp fixo */
 .whatsapp-container {
     position: fixed;
     bottom: 80px;
@@ -233,159 +190,21 @@ footer {
     font-size: 14px;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .viagens-container,
-    .avaliacao-container {
-        width: 90%;
-    }
-
-    .testimonials {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .card {
-        width: 90%;
-    }
-
-    .header {
-        font-size: 18px;
-        padding: 15px;
-    }
-
-    .buttons {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 600px) {
-    .avaliacao-container {
-        padding: 25px 20px;
-    }
-
-    .avaliacao-container h2 {
-        font-size: 22px;
-    }
-
-    .rating span {
-        font-size: 24px;
-    }
-}
-
-.avaliacao-nova {
-    max-width: 700px;
-    margin: 60px auto;
-    background: #fefefe;
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-    font-family: 'Segoe UI', sans-serif;
-}
-
-.avaliacao-nova h2 {
-    text-align: center;
-    color: #002a64;
-    margin-bottom: 30px;
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #444;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    font-size: 16px;
-}
-
-.rating-group .rating {
-    display: flex;
-    gap: 8px;
-    font-size: 28px;
-    cursor: pointer;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.rating span {
-    color: #bbb;
-    transition: color 0.3s;
-}
-
-.rating span.active,
-.rating span:hover,
-.rating span:hover ~ span {
-    color: #fbb700;
-}
-
-.form-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.submit-btn {
-    background-color: #0e73b9;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.submit-btn:hover {
-    background-color: #064a7f;
-}
-
-.cancel-btn {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.cancel-btn:hover {
-    background-color: #a94442;
-}
-
+/* Estilização do formulário de avaliação (seção avaliacao-novo) */
 .avaliacao-novo {
-    background: #f2f6ff;
-    padding: 40px;
-    margin: 60px auto;
-    max-width: 600px;
+    background: rgba(0, 51, 102, 0.8); /* azul escuro com transparência */
+    padding: 30px; /* padding um pouco menor */
+    margin: 40px auto; /* margem um pouco menor */
+    max-width: 480px; /* largura reduzida */
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* sombra um pouco mais suave */
     font-family: 'Segoe UI', sans-serif;
 }
 
 .avaliacao-novo h2 {
     text-align: center;
-    color: #003366;
-    margin-bottom: 30px;
+    color: #ffffff; /* título branco para contraste */
+    margin-bottom: 20px; /* espaço um pouco menor abaixo do título */
 }
 
 .campo-form {
@@ -396,17 +215,20 @@ footer {
     display: block;
     font-weight: 600;
     margin-bottom: 6px;
-    color: #333;
+    color: #ffffff; /* Label em branco */
+    text-align: center; /* Labels centralizados */
 }
 
 .campo-form input,
 .campo-form textarea {
-    width: 100%;
+    width: 95%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 15px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.2); /* Fundo translúcido para combinar com o tema */
+    color: #ffffff; /* Texto branco */
+    text-align: center; /* Centraliza o texto digitado */
     transition: border-color 0.3s;
 }
 
@@ -418,6 +240,7 @@ footer {
 
 .estrelas {
     display: flex;
+    justify-content: center; /* Estrelas centralizadas */
     gap: 8px;
     font-size: 28px;
     color: #ccc;
@@ -437,17 +260,18 @@ footer {
 }
 
 .enviar {
-    background-color: #003366;
-    color: white;
+    background-color: #FFD700; /* Botão de enviar amarelo */
+    color: #003366;
     padding: 12px 20px;
     border: none;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .enviar:hover {
-    background-color: #002244;
+    background-color: #FFC300; /* Efeito hover para o botão de enviar */
 }
 
 .cancelar {
@@ -463,6 +287,7 @@ footer {
 .cancelar:hover {
     background-color: #a94442;
 }
+
 .aviso-sucesso {
     background-color: #28a745;
     color: white;
@@ -470,5 +295,4 @@ footer {
     margin-top: 20px;
     border-radius: 5px;
     text-align: center;
-  }
-  
+}

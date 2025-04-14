@@ -11,7 +11,6 @@ import { FrotaComponent } from './components/frota/frota.component';
 import { FrotasComponent } from './components/frotas/frotas.component';
 import { ViagensComponent } from './components/viagens/viagens.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HistoriasComponent } from './components/historias/historias.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { Excursoes2Component } from './components/excursoes2/excursoes2.component';
