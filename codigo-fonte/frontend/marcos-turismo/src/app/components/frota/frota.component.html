@@ -1,55 +1,57 @@
 <app-sidebar></app-sidebar>
-<!-- Botão para abrir o modal -->
-<button id="openModalBtn" class="add-btn" (click)="abrirModal()">+</button>
-
-<!-- Modal de cadastro -->
-<div id="modal" class="modal" [style.display]="modalAberto ? 'flex' : 'none'">
+<button class="add-btn" (click)="abrirModal()">+</button>
+<div class="modal" [style.display]="modalAberto ? 'flex' : 'none'">
   <div class="card">
-    <input type="text"  [(ngModel)]="modeloVeiculo" placeholder="Modelo do veículo">
-
+    <input type="text" [(ngModel)]="numeracao" placeholder="Numeração">
+    <input type="text" [(ngModel)]="modelo" placeholder="Modelo">
+    <input type="text" [(ngModel)]="marca" placeholder="Marca">
+    <input type="text" [(ngModel)]="anoModelo" placeholder="Ano Modelo">
+    <input type="number" [(ngModel)]="kmAtual" placeholder="KM Atual">
+    <select [(ngModel)]="situacao">
+      <option value="Ativo">Ativo</option>
+      <option value="Inativo">Inativo</option>
+      <option value="Manutencao">Manutenção</option>
+    </select>
+    <input type="text" [(ngModel)]="placa" placeholder="Placa">
+    <input type="number" [(ngModel)]="lotacao" placeholder="Lotação">
+    <select [(ngModel)]="categoria">
+      <option value="Rodoviario">Rodoviário</option>
+      <option value="Urbano">Urbano</option>
+    </select>
+    <label><input type="checkbox" [(ngModel)]="arCondicionado"> Ar Condicionado</label>
+    <label><input type="checkbox" [(ngModel)]="wifi"> Wi-Fi</label>
+    <label><input type="checkbox" [(ngModel)]="poltronaReclinavel"> Poltrona Reclinável</label>
+    <label><input type="checkbox" [(ngModel)]="tv"> TV</label>
+    <label><input type="checkbox" [(ngModel)]="geladeira"> Geladeira</label>
+    <label><input type="checkbox" [(ngModel)]="sanitarios"> Sanitários</label>
     <div class="image-container" (click)="fileInput.click()">
       <img [src]="imagemPreview || 'assets/imagens/sem-imagem.jpg'" alt="Inserir imagem">
-      <input type="file" #fileInput (change)="selecionarImagem($event)" accept="image/*" style="display: none;">
+      <input type="file" #fileInput (change)="selecionarImagem($event)" accept="image/*" hidden>
     </div>
-
-    <div class="input-container">
-      <label for="passageiros">Quantidade de passageiros</label>
-      <input type="number" class="input-number" [(ngModel)]="passageiros">
-    </div>
-
-
-    <label for="adicionais">Adicionais</label>
-    <div id="adicionais-container">
-      <div class="adicional-item" *ngFor="let adicional of adicionais; let i = index">
-        <input type="text" [(ngModel)]="adicionais[i]" placeholder="Adicionais">
-        <button type="button" class="trash-btn" (click)="removerCampoAdicional(i)"> <i class="fas fa-trash-alt"></i></button>
-      </div>
-    </div>
-    <button type="button" class="ad-btn" (click)="adicionarCampoAdicional()">+</button>
-
     <div class="buttons">
-      <button class="btn green" (click)="gerarCard()">Gerar Card</button>
+      <button class="btn green" (click)="gerarCard()">Salvar</button>
       <button class="btn red" (click)="fecharModal()">Cancelar</button>
     </div>
   </div>
 </div>
-
-<!-- Cards gerados -->
 <div id="generatedCards">
-  <div class="card generated-card" *ngFor="let card of cardsGerados; let i = index">
-    <div class="header">
-      <img src="logo.jpg" alt="Logo">
-    </div>
-    <h2>{{ card.modelo }}</h2>
-    <img [src]="card.imagem" class="vehicle-image">
-    <p class="passageiros">{{ card.passageiros }} PASSAGEIROS</p>
+  <div class="card generated-card" *ngFor="let v of cardsGerados; let i = index">
+    <h3>{{ v.numeracao }} - {{ v.modelo }}</h3>
+    <p>{{ v.marca }} / {{ v.anoModelo }}</p>
+    <p>KM: {{ v.kmAtual }}</p>
+    <p>Situacao: {{ v.situacao }}</p>
+    <p>Placa: {{ v.placa }}</p>
+    <p>Lotação: {{ v.lotacao }} ({{ v.categoria }})</p>
     <ul>
-      <li *ngFor="let adicional of card.adicionais">{{ adicional }}</li>
+      <li *ngIf="v.arCondicionado">Ar Condicionado</li>
+      <li *ngIf="v.wifi">Wi-Fi</li>
+      <li *ngIf="v.poltronaReclinavel">Poltrona Reclinável</li>
+      <li *ngIf="v.tv">TV</li>
+      <li *ngIf="v.geladeira">Geladeira</li>
+      <li *ngIf="v.sanitarios">Sanitários</li>
     </ul>
-    <button class="delete-card-btn" (click)="excluirCard(i)">
-      <i class="fas fa-trash-alt"></i>
-    </button>
-
+    <img [src]="v.imagem" alt="Imagem do veículo">
+    <button class="delete-card-btn" (click)="excluirCard(i)">Excluir</button>
+    <button class="btn blue" (click)="atualizarCard(i)">Atualizar</button>
   </div>
 </div>
-

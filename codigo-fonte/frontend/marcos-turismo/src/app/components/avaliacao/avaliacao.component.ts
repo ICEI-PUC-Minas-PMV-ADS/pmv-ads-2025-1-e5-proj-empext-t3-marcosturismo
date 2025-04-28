@@ -17,7 +17,7 @@ export class AvaliacaoComponent implements OnInit {
   avaliacoes: any[] = [];
   avaliacoesValidas: any[] = [];
 
-  private apiUrl = 'http://localhost:8080/avaliacao';  // URL da API
+  private apiUrl = 'http://168.231.94.195:8080/';  // URL da API
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
 

@@ -1,0 +1,88 @@
+<app-sidebar></app-sidebar>
+
+<div class="container-principal">
+  <!-- Botão flutuante para abrir o modal -->
+  <button class="btn-mais" (click)="openModal()">+</button>
+
+  <!-- Modal de cadastro de serviço -->
+  <div class="modal" [class.show]="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Adicionar Serviço</h2>
+      <form>
+        <!-- Dados do veículo -->
+        <label>
+          Placa:
+          <input type="text" #placa name="placa" placeholder="Informe a placa">
+        </label>
+        <label>
+          Kilometragem:
+          <input type="text" #km name="km" placeholder="Informe a quilometragem">
+        </label>
+        <label>
+          Fornecedor:
+          <input type="text" #fornecedor name="fornecedor" placeholder="Informe o fornecedor">
+        </label>
+        <label>
+          Nota:
+          <input type="text" #nota name="nota" placeholder="Número da nota ou identificação">
+        </label>
+
+        <!-- Informações de Troca de Óleo -->
+        <div class="row">
+          <label>
+            Última troca de óleo:
+            <input type="text" #ultimaTrocaOleo name="ultimaTrocaOleo" placeholder="DD/MM/AAAA">
+          </label>
+          <label>
+            Km da última troca:
+            <input type="text" #kmUltimaTroca name="kmUltimaTroca" placeholder="Quilometragem">
+          </label>
+          <label>
+            Valor do óleo:
+            <input type="text" #valorOleo name="valorOleo">
+          </label>
+        </div>
+
+        <!-- Próxima troca de óleo -->
+        <label>
+          Próxima troca de óleo (Km):
+          <input type="text" #proximaTrocaOleo name="proximaTrocaOleo" placeholder="Quilometragem prevista">
+        </label>
+
+        <!-- Informações das Pastilhas de Freio -->
+        <div class="row">
+          <label>
+            Data da pastilha de freio:
+            <input type="text" #pastilhaFreio name="pastilhaFreio" placeholder="DD/MM/AAAA">
+          </label>
+          <label>
+            Valor da pastilha:
+            <input type="text" #valorPastilhaFreio name="valorPastilhaFreio">
+          </label>
+        </div>
+
+        <!-- Checkup do Motor -->
+        <label>
+          Checkup do motor:
+          <textarea #checkupMotor name="checkupMotor" rows="2" placeholder="Descreva o checkup do motor"></textarea>
+        </label>
+        <label>
+          Valor do Checkup:
+          <input type="text" #valorCheckup name="valorCheckup">
+        </label>
+
+        <!-- Botões de ação -->
+        <div class="buttons">
+          <button type="button" (click)="closeModal()">Cancelar</button>
+          <button type="button" (click)="salvar(
+            placa.value, km.value, fornecedor.value, nota.value,
+            ultimaTrocaOleo.value, kmUltimaTroca.value, valorOleo.value,
+            proximaTrocaOleo.value, pastilhaFreio.value, valorPastilhaFreio.value,
+            checkupMotor.value, valorCheckup.value
+          )">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

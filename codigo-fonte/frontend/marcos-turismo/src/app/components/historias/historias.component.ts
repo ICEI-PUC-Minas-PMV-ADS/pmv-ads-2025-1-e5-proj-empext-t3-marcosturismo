@@ -24,7 +24,7 @@ export class HistoriasComponent implements OnInit {
   stars = [1, 2, 3, 4, 5];
   mensagem = '';
   tipoMensagem = '';
-  private apiUrl = 'http://localhost:8080/avaliacao';
+  private apiUrl = 'http://168.231.94.195:8080/';
 
   constructor(private http: HttpClient) {}
 

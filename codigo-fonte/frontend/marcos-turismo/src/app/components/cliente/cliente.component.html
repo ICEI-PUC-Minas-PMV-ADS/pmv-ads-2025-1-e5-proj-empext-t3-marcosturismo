@@ -1,45 +1,44 @@
-<!-- cliente.component.html -->
 <app-sidebar></app-sidebar>
+
+<!-- Modal de Formulário -->
 <div class="modal" *ngIf="isModalOpen" [ngClass]="{'open': isModalOpen}">
   <div class="modal-content">
-   
     <span class="close" (click)="closeModal()">&times;</span>
     
-    
+    <!-- Formulário de Cliente -->
     <label for="nome">Nome</label>
-    <input type="text" id="nome" [(ngModel)]="cliente.nome">
+    <input type="text" id="nome" [(ngModel)]="clienteForm.nome">
     
     <label for="documento">Documento (CPF)</label>
-    <input type="number" id="documento" [(ngModel)]="cliente.documento">
+    <input type="number" id="documento" [(ngModel)]="clienteForm.cpfCnpj">
     
     <label for="telefone">Telefone</label>
-    <input type="text" id="telefone" [(ngModel)]="cliente.telefone">
+    <input type="text" id="telefone" [(ngModel)]="clienteForm.telefone">
     
     <label for="endereco">Endereço</label>
-    <input type="text" id="endereco" [(ngModel)]="cliente.endereco">
+    <input type="text" id="endereco" [(ngModel)]="clienteForm.endereco">
     
-    <label for="viagem">Viagem</label>
-    <input type="text" id="viagem" [(ngModel)]="cliente.viagem">
+    <!-- Remover a seção de Viagem -->
     
     <div class="button-container">
-      <button class="btn cadastrar" (click)="cadastrar()">Cadastrar</button>
-      <button class="btn cancelar" (click)="cancelar()">Cancelar</button>
+      <button class="btn cadastrar" (click)="salvar()">Cadastrar</button>
+      <button class="btn cancelar" (click)="closeModal()">Cancelar</button>
     </div>
   </div>
 </div>
 
-<!-- Container de Cards -->
+<!-- Container de Cards de Clientes -->
 <div id="cards-container">
-  <div class="card" *ngFor="let card of cards">
-    <h3>{{ card.nome }}</h3>
-    <p>{{ card.documento }}</p>
-    <p>{{ card.telefone }}</p>
-    <p>{{ card.endereco }}</p>
-    <p>{{ card.viagem }}</p>
+  <div class="card" *ngFor="let cliente of clientes">
+    <h3>{{ cliente.nome }}</h3>
+    <p>{{ cliente.cpfCnpj }}</p>
+    <p>{{ cliente.telefone }}</p>
+    <p>{{ cliente.endereco }}</p>
+    <p>{{ cliente.viagem}}</p>
     
     <div class="card-actions">
-      <button class="editar" (click)="editarCard(card)">Editar</button>
-      <button class="excluir" (click)="excluirCard(card)">Excluir</button>
+      <button class="editar" (click)="editarCliente(cliente)">Editar</button>
+      <button class="excluir" (click)="excluirCliente(cliente.id)">Excluir</button>
     </div>
   </div>
 </div>
