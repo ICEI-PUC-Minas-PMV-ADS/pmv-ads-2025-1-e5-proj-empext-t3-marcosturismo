@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-historias',
@@ -24,7 +25,7 @@ export class HistoriasComponent implements OnInit {
   stars = [1, 2, 3, 4, 5];
   mensagem = '';
   tipoMensagem = '';
-  private apiUrl = 'http://168.231.94.195:8080/';
+  private apiUrl = `${environment.apiUrl}/avaliacao`;
 
   constructor(private http: HttpClient) {}
 

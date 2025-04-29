@@ -14,6 +14,7 @@ import {
   HttpClientModule
 } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { environment } from '../../../environments/environment';
 
 /**
  * Representa uma excursão.
@@ -33,7 +34,7 @@ interface Excursao {
   styleUrls: ['./excursoes.component.css']
 })
 export class ExcursoesComponent implements OnInit {
-  private baseUrl = 'http://168.231.94.195:8080/ ';
+  private baseUrl = `${environment.apiUrl}/excursao`;
 
   excursoes: Excursao[] = [];
   errorMsg: string | null = null;

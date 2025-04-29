@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { PLATFORM_ID } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 /**
  * Representa um veículo na frota.
@@ -61,7 +62,7 @@ export class FrotaComponent implements OnInit {
   cardsGerados: Veiculo[] = [];
   errorMsg: string | null = null;
 
-  private apiUrl = 'http://168.231.94.195:8080/';
+  private apiUrl = `${environment.apiUrl}/veiculo`;
 
 
   constructor(

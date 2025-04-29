@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 
 interface Viagem {
@@ -32,7 +33,8 @@ export class ClienteComponent implements OnInit {
 editarClienteCliente(_t41: Cliente) {
 throw new Error('Method not implemented.');
 }
-  private baseUrl = 'http://localhost:8080/cliente';
+
+  private baseUrl = `${environment.apiUrl}/cliente`;
 
   clientes: Cliente[] = [];
   isModalOpen = false;
