@@ -19,7 +19,11 @@ export class Excursoes2Component {
       roteiro: "Cidade A → Praia X",
       preco: 120.00,
       veiculos: [
+<<<<<<< Updated upstream
         { nome: "Van", capacidade: 15, placa: "XYZ-5678", imagem: "logo.png" }
+=======
+        { nome: "Van", capacidade: 15, placa: "XYZ-5678", imagem: "bus.jpg" } // Resolução do conflito, utilizando 'bus.jpg'
+>>>>>>> Stashed changes
       ],
       mostrarInfo: false
     },
@@ -30,7 +34,11 @@ export class Excursoes2Component {
       roteiro: "Cidade B → Cidade C",
       preco: 200.00,
       veiculos: [
+<<<<<<< Updated upstream
         { nome: "Ônibus Executivo", capacidade: 40, placa: "LMN-2345", imagem: "logo.png" }
+=======
+        { nome: "Ônibus Executivo", capacidade: 40, placa: "LMN-2345", imagem: "bus.jpg" } // Resolução do conflito, utilizando 'bus.jpg'
+>>>>>>> Stashed changes
       ],
       mostrarInfo: false
     },
@@ -41,7 +49,11 @@ export class Excursoes2Component {
       roteiro: "Cidade D → Montanhas Z",
       preco: 250.00,
       veiculos: [
+<<<<<<< Updated upstream
         { nome: "Micro-ônibus", capacidade: 20, placa: "OPQ-6789", imagem: "logo.png" }
+=======
+        { nome: "Micro-ônibus", capacidade: 20, placa: "OPQ-6789", imagem: "bus.jpg" } // Resolução do conflito, utilizando 'bus.jpg'
+>>>>>>> Stashed changes
       ],
       mostrarInfo: false
     }
@@ -50,6 +62,11 @@ export class Excursoes2Component {
   // Método para alternar a exibição dos detalhes da excursão
   mostrarDetalhes(excursao: any) {
     excursao.mostrarInfo = !excursao.mostrarInfo;
+<<<<<<< Updated upstream
   }
 }
 
+=======
+  }
+}
+>>>>>>> Stashed changes
