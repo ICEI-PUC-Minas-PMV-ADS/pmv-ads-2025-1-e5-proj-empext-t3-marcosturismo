@@ -5,31 +5,30 @@
     <h2>Cada destino é uma nova história para contar.</h2>
   </header>
 
-  <section class="veiculos">
+  <section class="excursao-cards">
     <!-- Usando *ngFor para exibir cada excursão -->
     <div class="excursao-card" *ngFor="let excursao of excursaoList">
-      <div class="veiculo" *ngFor="let veiculo of excursao.veiculos">
-        <img [src]="veiculo.imagem" alt="{{ veiculo.nome }}">
+      <div class="excursao">
+        <img [src]="excursao.imagem || 'assets/imagens/placeholder.jpg'" alt="{{ excursao.nome }}">
         <h2>{{ excursao.nome }}</h2>
-        <h4>{{ veiculo.nome }}</h4>
-        <p><strong>Capacidade:</strong> {{ veiculo.capacidade }} passageiros</p>
-        <p><strong>Placa:</strong> {{ veiculo.placa }}</p>
+        <p><strong>Descrição:</strong> {{ excursao.descricao }}</p>
+        <p><strong>Data da Excursão:</strong> {{ excursao.data }}</p>
 
         <button (click)="mostrarDetalhes(excursao)">Ver Detalhes</button>
 
         <!-- Exibir detalhes apenas se mostrarInfo for true -->
         <div *ngIf="excursao.mostrarInfo">
           <h3>Detalhes da Excursão</h3>
-          <p><strong>Descrição:</strong> {{ excursao.descricao }}</p>
           <p><strong>Data:</strong> {{ excursao.data }}</p>
-          <p><strong>Roteiro:</strong> {{ excursao.roteiro }}</p>
-          <p><strong>Preço:</strong> R$ {{ excursao.preco }}</p>
+          <p><strong>Roteiro:</strong> {{ excursao.roteiro || 'Sem informações de roteiro.' }}</p>
+          <p><strong>Preço:</strong> R$ {{ excursao.preco || '0,00' }}</p>
         </div>
       </div>
     </div>
   </section>
 </div>
 
+<!-- WhatsApp -->
 <div class="whatsapp-container">
   <a href="https://wa.me/558791103345" target="_blank">
     <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">

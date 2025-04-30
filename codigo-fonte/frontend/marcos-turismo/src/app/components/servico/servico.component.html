@@ -1,86 +1,127 @@
 <app-sidebar></app-sidebar>
 
 <div class="container-principal">
-  <!-- Botão flutuante para abrir o modal -->
+  <h1>Serviços</h1>
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+
+  <table *ngIf="servicos.length; else emptyList" class="table">
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>KM</th>
+        <th>Fornecedor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of servicos">
+        <td>{{ s.placa }}</td>
+        <td>{{ s.km }} km</td>
+        <td>{{ s.fornecedor }}</td>
+        <td>
+          <button (click)="editarServico(s)">Editar</button>
+          <button (click)="excluirServico(s.id!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #emptyList>
+    <p>Não há serviços cadastrados.</p>
+  </ng-template>
+
   <button class="btn-mais" (click)="openModal()">+</button>
 
-  <!-- Modal de cadastro de serviço -->
   <div class="modal" [class.show]="showModal">
     <div class="modal-content">
       <span class="close" (click)="closeModal()">&times;</span>
-      <h2>Adicionar Serviço</h2>
-      <form>
-        <!-- Dados do veículo -->
+      <h2>{{ editingId ? 'Editar Serviço' : 'Adicionar Serviço' }}</h2>
+      <form (ngSubmit)="salvar()" #f="ngForm">
         <label>
           Placa:
-          <input type="text" #placa name="placa" placeholder="Informe a placa">
-        </label>
-        <label>
-          Kilometragem:
-          <input type="text" #km name="km" placeholder="Informe a quilometragem">
-        </label>
-        <label>
-          Fornecedor:
-          <input type="text" #fornecedor name="fornecedor" placeholder="Informe o fornecedor">
-        </label>
-        <label>
-          Nota:
-          <input type="text" #nota name="nota" placeholder="Número da nota ou identificação">
+          <input type="text" [(ngModel)]="servicoForm.placa" name="placa" required placeholder="Informe a placa" mask="AAA-0A00">
         </label>
 
-        <!-- Informações de Troca de Óleo -->
+        <label>
+          Kilometragem:
+          <div class="input-group">
+            <input type="text" [(ngModel)]="servicoForm.km" name="km" required placeholder="Informe a quilometragem" mask="separator.0" thousandSeparator=".">
+            <span class="suffix">km</span>
+          </div>
+        </label>
+
+        <label>
+          Fornecedor:
+          <input type="text" [(ngModel)]="servicoForm.fornecedor" name="fornecedor" placeholder="Informe o fornecedor">
+        </label>
+
+        <label>
+          Nota:
+          <input type="text" [(ngModel)]="servicoForm.nota" name="nota" placeholder="Número da nota">
+        </label>
+
         <div class="row">
           <label>
             Última troca de óleo:
-            <input type="text" #ultimaTrocaOleo name="ultimaTrocaOleo" placeholder="DD/MM/AAAA">
+            <input type="date" [(ngModel)]="servicoForm.ultimaTrocaOleo" name="ultimaTrocaOleo">
           </label>
+
           <label>
             Km da última troca:
-            <input type="text" #kmUltimaTroca name="kmUltimaTroca" placeholder="Quilometragem">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="servicoForm.kmUltimaTroca" name="kmUltimaTroca" mask="separator.0" thousandSeparator=".">
+              <span class="suffix">km</span>
+            </div>
           </label>
+
           <label>
             Valor do óleo:
-            <input type="text" #valorOleo name="valorOleo">
+            <div class="input-group">
+              <span class="prefix">R$</span>
+              <input type="text" [(ngModel)]="servicoForm.valorOleo" name="valorOleo" placeholder="0,00" mask="separator.2" thousandSeparator="." decimalMarker=",">
+            </div>
           </label>
         </div>
 
-        <!-- Próxima troca de óleo -->
         <label>
-          Próxima troca de óleo (Km):
-          <input type="text" #proximaTrocaOleo name="proximaTrocaOleo" placeholder="Quilometragem prevista">
+          Próxima troca de óleo:
+          <div class="input-group">
+            <input type="text" [(ngModel)]="servicoForm.proximaTrocaOleo" name="proximaTrocaOleo" mask="separator.0" thousandSeparator="." placeholder="Km prevista">
+            <span class="suffix">km</span>
+          </div>
         </label>
 
-        <!-- Informações das Pastilhas de Freio -->
         <div class="row">
           <label>
             Data da pastilha de freio:
-            <input type="text" #pastilhaFreio name="pastilhaFreio" placeholder="DD/MM/AAAA">
+            <input type="date" [(ngModel)]="servicoForm.pastilhaFreio" name="pastilhaFreio">
           </label>
+
           <label>
             Valor da pastilha:
-            <input type="text" #valorPastilhaFreio name="valorPastilhaFreio">
+            <div class="input-group">
+              <span class="prefix">R$</span>
+              <input type="text" [(ngModel)]="servicoForm.valorPastilhaFreio" name="valorPastilhaFreio" placeholder="0,00" mask="separator.2" thousandSeparator="." decimalMarker=",">
+            </div>
           </label>
         </div>
 
-        <!-- Checkup do Motor -->
         <label>
           Checkup do motor:
-          <textarea #checkupMotor name="checkupMotor" rows="2" placeholder="Descreva o checkup do motor"></textarea>
-        </label>
-        <label>
-          Valor do Checkup:
-          <input type="text" #valorCheckup name="valorCheckup">
+          <textarea [(ngModel)]="servicoForm.checkupMotor" name="checkupMotor" rows="2" placeholder="Descreva o checkup do motor"></textarea>
         </label>
 
-        <!-- Botões de ação -->
+        <label>
+          Valor do Checkup:
+          <div class="input-group">
+            <span class="prefix">R$</span>
+            <input type="text" [(ngModel)]="servicoForm.valorCheckup" name="valorCheckup" placeholder="0,00" mask="separator.2" thousandSeparator="." decimalMarker=",">
+          </div>
+        </label>
+
         <div class="buttons">
           <button type="button" (click)="closeModal()">Cancelar</button>
-          <button type="button" (click)="salvar(
-            placa.value, km.value, fornecedor.value, nota.value,
-            ultimaTrocaOleo.value, kmUltimaTroca.value, valorOleo.value,
-            proximaTrocaOleo.value, pastilhaFreio.value, valorPastilhaFreio.value,
-            checkupMotor.value, valorCheckup.value
-          )">Salvar</button>
+          <button type="submit">{{ editingId ? 'Atualizar' : 'Salvar' }}</button>
         </div>
       </form>
     </div>

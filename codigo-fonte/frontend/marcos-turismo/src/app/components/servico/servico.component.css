@@ -161,3 +161,15 @@
     background-color: #28a745;
     color: #fff;
 }
+
+/* Novos estilos para input-group com prefixo e sufixo */
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group .prefix,
+.input-group .suffix {
+    margin: 0 4px;
+    font-weight: bold;
+}

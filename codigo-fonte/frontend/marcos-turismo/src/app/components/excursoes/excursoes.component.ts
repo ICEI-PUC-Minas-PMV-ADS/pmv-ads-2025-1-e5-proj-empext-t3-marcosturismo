@@ -21,8 +21,10 @@ import { environment } from '../../../environments/environment';
  */
 interface Excursao {
   id?: string;
-  imagem: string;
+  titulo: string;
   descricao: string;
+  dataExcursao?: number;
+  imagem?: string;
   isNew?: boolean;
 }
 
@@ -38,6 +40,8 @@ export class ExcursoesComponent implements OnInit {
 
   excursoes: Excursao[] = [];
   errorMsg: string | null = null;
+  mensagem: string = '';
+  tipoMensagem: 'sucesso' | 'erro' = 'sucesso';
 
   @ViewChildren('inputUpload') uploads!: QueryList<ElementRef>;
 
@@ -50,35 +54,51 @@ export class ExcursoesComponent implements OnInit {
     this.carregarExcursoes(); // GET inicial
   }
 
-  /**
-   * Monta cabeçalhos de autenticação (apenas Authorization).
-   */
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token') || localStorage.getItem('auth_token') || '';
-    console.log('Token:', token);
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  /**
-   * GET: carrega todas as excursões.
-   */
+  private mostrarMensagem(texto: string, tipo: 'sucesso' | 'erro') {
+    this.mensagem = texto;
+    this.tipoMensagem = tipo;
+    setTimeout(() => {
+      this.mensagem = '';
+      this.tipoMensagem = 'sucesso';
+    }, 5000);
+  }
+
+  /** GET: carrega todas as excursões. */
   carregarExcursoes(): void {
     this.http.get<Excursao[]>(this.baseUrl, { headers: this.getAuthHeaders() })
       .subscribe({
         next: data => {
-          console.log('Excursões carregadas:', data);
-          this.excursoes = Array.isArray(data) ? data : [];
+          this.excursoes = Array.isArray(data)
+            ? data.map(e => ({
+                ...e,
+                imagem: e.imagem || 'assets/imagens/placeholder.jpg',
+                isNew: false
+              }))
+            : [];
           this.cdref.detectChanges();
         },
         error: err => {
           console.error('Erro ao carregar excursões:', err);
           this.errorMsg = 'Erro ao carregar excursões.';
+          this.mostrarMensagem(this.errorMsg, 'erro');
         }
       });
   }
 
+  /** Adiciona um card vazio (nova excursão). */
   adicionarCard(): void {
-    this.excursoes.push({ imagem: 'placeholder.jpg', descricao: '', isNew: true });
+    this.excursoes.push({
+      titulo: '',
+      descricao: '',
+      dataExcursao: new Date().getTime(),
+      imagem: 'assets/imagens/placeholder.jpg',
+      isNew: true
+    });
   }
 
   abrirUpload(index: number): void {
@@ -94,34 +114,42 @@ export class ExcursoesComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  /**
-   * POST ou PUT: cria ou atualiza excursão.
-   */
+  /** POST/PUT: cria ou atualiza excursão. */
   confirmarCard(index: number): void {
     const excursao = this.excursoes[index];
     const headers = this.getAuthHeaders();
 
+    const payload = {
+      titulo: excursao.titulo,
+      descricao: excursao.descricao,
+      dataExcursao: excursao.dataExcursao!
+    };
+
     if (excursao.isNew) {
-      // Cria nova excursão
-      this.http.post<Excursao>(this.baseUrl, excursao, { headers })
+      this.http.post<Excursao>(this.baseUrl, payload, { headers })
         .subscribe({
           next: res => {
             console.log('Excursão criada:', res);
-            this.excursoes[index] = { ...res };
+            this.excursoes[index] = { ...res, imagem: excursao.imagem, isNew: false };
+            this.mostrarMensagem('Excursão criada com sucesso!', 'sucesso');
           },
           error: err => {
-            console.error('Erro ao salvar excursão:', err);
+            console.error('Erro ao salvar excursão:', err.error || err);
             this.errorMsg = 'Erro ao salvar excursão.';
+            this.mostrarMensagem(this.errorMsg, 'erro');
           }
         });
     } else if (excursao.id) {
-      // Atualiza existente
-      this.http.put<Excursao>(`${this.baseUrl}/${excursao.id}`, excursao, { headers })
+      this.http.put<Excursao>(`${this.baseUrl}/${excursao.id}`, payload, { headers })
         .subscribe({
-          next: res => console.log('Excursão atualizada:', res),
+          next: res => {
+            console.log('Excursão atualizada:', res);
+            this.mostrarMensagem('Excursão atualizada com sucesso!', 'sucesso');
+          },
           error: err => {
-            console.error('Erro ao atualizar excursão:', err);
+            console.error('Erro ao atualizar excursão:', err.error || err);
             this.errorMsg = 'Erro ao atualizar excursão.';
+            this.mostrarMensagem(this.errorMsg, 'erro');
           }
         });
     }
@@ -129,9 +157,6 @@ export class ExcursoesComponent implements OnInit {
     delete excursao.isNew;
   }
 
-  /**
-   * Cancela edição/criação e recarrega lista se necessário.
-   */
   cancelarCard(index: number): void {
     const excursao = this.excursoes[index];
     if (excursao.isNew) {
@@ -141,9 +166,7 @@ export class ExcursoesComponent implements OnInit {
     }
   }
 
-  /**
-   * DELETE: exclui excursão no backend e no array local.
-   */
+  /** DELETE: exclui excursão. */
   apagarCard(index: number): void {
     const excursao = this.excursoes[index];
     if (excursao.id) {
@@ -153,10 +176,12 @@ export class ExcursoesComponent implements OnInit {
           next: () => {
             console.log(`Excursão ${excursao.id} excluída`);
             this.excursoes.splice(index, 1);
+            this.mostrarMensagem('Excursão excluída com sucesso!', 'sucesso');
           },
           error: err => {
-            console.error('Erro ao excluir excursão:', err);
+            console.error('Erro ao excluir excursão:', err.error || err);
             this.errorMsg = 'Erro ao excluir excursão.';
+            this.mostrarMensagem(this.errorMsg, 'erro');
           }
         });
     } else {
