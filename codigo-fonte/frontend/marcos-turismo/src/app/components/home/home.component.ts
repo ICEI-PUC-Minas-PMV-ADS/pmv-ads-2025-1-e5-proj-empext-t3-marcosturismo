@@ -8,27 +8,26 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, NavbarComponent, RouterModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   imagens: string[] = [
     'logo.jpg',
-    'logo.jpg',
-    'logo.jpg',
+    'excursao.jpg',
+    'poderosoUno.jpg',
     'logo.jpg',
     'logo.jpg',
     'logo.jpg'
   ];
+
+  // ✅ Definindo corretamente a variável videos
   videos: { src: string }[] = [
     { src: 'video.mp4' },
     { src: 'video.mp4' },
     { src: 'video.mp4' }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    // Pode ser algum código adicional se necessário para preencher a lista de imagens
-  }
-
+  
 }
