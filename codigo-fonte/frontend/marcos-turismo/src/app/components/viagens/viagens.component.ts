@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-viagens',
   standalone: true,
   imports: [FormsModule, CommonModule, SidebarComponent],
   templateUrl: './viagens.component.html',
-  styleUrl: './viagens.component.css'
+  styleUrls: ['./viagens.component.css']
 })
-export class ViagensComponent {
+export class ViagensComponent implements OnInit, OnDestroy {
   motorista: string = '';
   tipoServico: string = 'excursao';
   dataInicio: string = '';
@@ -26,6 +27,30 @@ export class ViagensComponent {
     geladeira: false,
     espacoMalas: false
   };
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      // Carregar dados do Local Storage (se existirem)
+      this.motorista = localStorage.getItem('motorista') || '';
+      this.tipoServico = localStorage.getItem('tipoServico') || 'excursao';
+      this.dataInicio = localStorage.getItem('dataInicio') || '';
+      this.dataVolta = localStorage.getItem('dataVolta') || '';
+      this.avarias = localStorage.getItem('avarias') || '';
+    }
+  }
+
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      // Salvar dados no Local Storage
+      localStorage.setItem('motorista', this.motorista);
+      localStorage.setItem('tipoServico', this.tipoServico);
+      localStorage.setItem('dataInicio', this.dataInicio);
+      localStorage.setItem('dataVolta', this.dataVolta);
+      localStorage.setItem('avarias', this.avarias);
+    }
+  }
 
   openModal() {
     this.isModalVisible = true;
@@ -44,23 +69,5 @@ export class ViagensComponent {
       };
       reader.readAsDataURL(file);
     }
-  }
-
-  ngOnInit() {
-    // Carregar dados do Local Storage (se existirem)
-    this.motorista = localStorage.getItem('motorista') || '';
-    this.tipoServico = localStorage.getItem('tipoServico') || 'excursao';
-    this.dataInicio = localStorage.getItem('dataInicio') || '';
-    this.dataVolta = localStorage.getItem('dataVolta') || '';
-    this.avarias = localStorage.getItem('avarias') || '';
-  }
-
-  ngOnDestroy() {
-    // Salvar dados no Local Storage
-    localStorage.setItem('motorista', this.motorista);
-    localStorage.setItem('tipoServico', this.tipoServico);
-    localStorage.setItem('dataInicio', this.dataInicio);
-    localStorage.setItem('dataVolta', this.dataVolta);
-    localStorage.setItem('avarias', this.avarias);
   }
 }

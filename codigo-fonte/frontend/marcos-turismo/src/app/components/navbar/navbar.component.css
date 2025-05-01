@@ -35,11 +35,8 @@
   text-decoration: none;
   font-weight: bold;
   padding: 10px 20px;
-<<<<<<< Updated upstream
   border-radius: 5px;
-=======
   border-radius: 30%;
->>>>>>> Stashed changes
   background-color: rgba(0, 55, 125, 0.6); /* Azul mais escuro e transparente */
   border: 2px solid rgba(0, 45, 100, 0.8); /* Borda um pouco mais escura */
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -55,10 +52,6 @@
   background-color: rgba(255, 215, 0, 0.8); /* Amarelo dourado translúcido */
   color: #00266b; /* Azul escuro para contraste */
   border: 2px solid rgba(255, 215, 0, 1); /* Borda dourada */
-<<<<<<< Updated upstream
-=======
-  border-radius: 30%;
->>>>>>> Stashed changes
 }
 
 /* Responsividade */
