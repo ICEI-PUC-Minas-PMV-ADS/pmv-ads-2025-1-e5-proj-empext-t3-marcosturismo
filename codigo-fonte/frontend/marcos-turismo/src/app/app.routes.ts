@@ -16,6 +16,7 @@ import { ContatosComponent } from './components/contatos/contatos.component';
 import { Excursoes2Component } from './components/excursoes2/excursoes2.component';
 import { NossahistoriaComponent } from './components/nossahistoria/nossahistoria.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ServicoComponent } from './components/servico/servico.component';
 
 export const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent },
@@ -36,5 +37,6 @@ export const routes: Routes = [
   { path: 'contatos', component: ContatosComponent },
   { path: 'excursoes2', component: Excursoes2Component },
   { path: 'frotas', component: FrotasComponent },
+  { path: 'servico', component: ServicoComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Redireciona para 'home' ao acessar a raiz
 ];

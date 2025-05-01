@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,7 @@ export class LoginComponent {
     const email = this.loginForm.get('login')?.value;
     const senha = this.loginForm.get('senha')?.value;
 
-    this.http.post<any>('http://localhost:8080/auth/login', { email, senha }, { withCredentials: true })
+    this.http.post<any>(`${environment.apiUrl}/auth/login`, { email, senha }, { withCredentials: true })
       .subscribe({
         next: (response: { token: string }) => {
           console.log('Resposta do servidor:', response);

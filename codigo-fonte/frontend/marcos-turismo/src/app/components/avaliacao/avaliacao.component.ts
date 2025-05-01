@@ -4,6 +4,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { PLATFORM_ID, Inject } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-avaliacao',
@@ -17,9 +18,9 @@ export class AvaliacaoComponent implements OnInit {
   avaliacoes: any[] = [];
   avaliacoesValidas: any[] = [];
 
-  private apiUrl = 'http://localhost:8080/avaliacao';  // URL da API
+  private apiUrl = `${environment.apiUrl}/avaliacao`;
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit(): void {
     this.carregarAvaliacoes();
@@ -29,13 +30,13 @@ export class AvaliacaoComponent implements OnInit {
   carregarAvaliacoes(): void {
     forkJoin([
       this.http.get(`${this.apiUrl}`, { headers: this.getAuthHeaders() }),  // Endereço correto da API
-      this.http.get(`${this.apiUrl}/validas`, { headers: this.getAuthHeaders() })
+      this.http.get(`${this.apiUrl}/validas`, {})
     ]).subscribe(
       ([avaliacoes, avaliacoesValidas]) => {
         console.log('Avaliações:', avaliacoes);
         console.log('Avaliações válidas:', avaliacoesValidas);
-        
-        // Verificando se a resposta é um array e atualizando o estado
+
+        //Verificando se a resposta é um array e atualizando o estado
         this.avaliacoes = Array.isArray(avaliacoes) ? avaliacoes : [];
         this.avaliacoesValidas = Array.isArray(avaliacoesValidas) ? avaliacoesValidas : [];
       },
@@ -48,14 +49,14 @@ export class AvaliacaoComponent implements OnInit {
 
   // Função para validar avaliação
   validarAvaliacao(avaliacaoId: string): void {
-    this.http.put(`${this.apiUrl}/validar/${avaliacaoId}`, {}, { 
+    this.http.put(`${this.apiUrl}/validar/${avaliacaoId}`, {}, {
       headers: this.getAuthHeaders(),
       responseType: 'text'  // Mudança para tratar a resposta como texto
     }).subscribe(
       (response) => {
         console.log('Resposta da API (texto):', response);
         console.log('Avaliação validada com sucesso!');
-        
+
         // Atualizando a lista de avaliações e movendo para a lista de válidas
         const avaliacao = this.avaliacoes.find(a => a.id === avaliacaoId);
         if (avaliacao) {
