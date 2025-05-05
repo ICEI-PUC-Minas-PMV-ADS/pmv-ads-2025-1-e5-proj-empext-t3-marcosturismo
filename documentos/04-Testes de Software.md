@@ -418,7 +418,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo Junior </td>
+    <td width="430">Leonardo De Paula </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1076,7 +1076,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Jefferson Freitas </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo Junior</td>
+    <td width="430">Leonardo De Paula</td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1105,7 +1105,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Jefferson Freitas </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo Junior </td>
+    <td width="430">Leonardo De Paula </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1611,7 +1611,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Leonardo Junior</td>
+    <td width="430">Leonardo De Paula</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -1662,7 +1662,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Leonardo Junior</td>
+    <td width="430">Leonardo De Paula</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -1686,6 +1686,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td>
       - <strong>Credencial:</strong> Usuário colaborador (e-mail e senha válidos, sem privilégios administrativos).<br>
       - <strong>Dados para Operação</strong> Quaisquer dados válidos para simular a tentativa de cadastro, edição ou exclusão de uma excursão.
+    </td>
   </tr>
      
   </tr>
@@ -1718,7 +1719,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Leonardo Junior</td>
+    <td width="430">Leonardo De Paula</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1752,7 +1753,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Leonardo Junior</td>
+    <td width="430">Leonardo De Paula</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1782,7 +1783,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Leonardo Junior </td>
+    <td width="430">Leonardo De Paula </td>
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
@@ -1811,7 +1812,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Leonardo Junior </td>
+    <td width="430">Leonardo De Paula </td>
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
