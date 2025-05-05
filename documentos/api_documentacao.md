@@ -1155,3 +1155,382 @@ Possíveis mensagens:
 2. `Não é possível deletar uma viagem que está em andamento ou não inciada. Cancele-a para excluir.` -> Sea viagem ainda não foi concluída ou cancelada.
 2. `Viagem excluída com sucesso` -> Se deu tudo certo.
 3. `Erro ao registrar viagem` -> Erro interno da API.
+
+## Tipos de serviços
+
+### Endpoint: Adicionar tipo de serviço
+```
+POST /servico/tipo_servico
+```
+
+**Descrição:**  
+Insere um novo tipo de serviço. Somente o usuário administrador tem permissão para adicionar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+```json
+{
+	"descricao": "Troca de pastilha de freio" // Tipo: VARCHAR(255)
+}
+```
+
+**Return:**
+Possíveis mensagens:
+1. `Esse tipo de serviço já está cadastrado` -> Se essa descrição já pertence a outro tipo de serviço.
+2. `Tipo de serviço registrado com sucesso` -> Se foi inserido com sucesso.
+3. `Erro ao registrar tipo de serviço` -> Algum erro interno da API.
+
+### Endpoint: Deletar tipo de serviço
+```
+DELETE /servico/tipo_servico/22b77d20-22d2-4cec-8458-2d9b628cc495
+```
+
+**Descrição:**  
+Deleta um tipo de serviço. Só é possível deletar se o tipo de serviço não está registrado em um Serviço. Somente o usuário administrador tem permissão para deletar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. `Não é possível excluir este tipo de serviço, pois ele está sendo utilizado em outros registros` -> Se o tipo de serviço está em registrado em um Serviço.
+2. `Tipo de serviço excluído com sucesso` -> Se foi deletado com sucesso.
+3. `(erro)` -> Algum erro interno da API.
+
+### Endpoint: Listar tipo de serviço
+```
+GET /servico/tipo_servico
+```
+
+**Descrição:**  
+Lista os tipos de serviço registrados no sistema. Somente o usuário administrador tem permissão para visualizar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. `Erro ao buscar tipo de serviço` -> Algum erro interno da API.
+2. Se der tudo certo:
+```json
+[
+	{
+		"id": "14a1f134-66bd-4719-a290-65246bb35aab", // ID do serviço
+		"descricao": "Abastecimento", // Descrição do tipo de serviço
+		"dataCriacao": "2025-04-27T15:08:21.034094" // Timestamp da data de criação
+	},
+	{
+		"id": "7ceeac45-9275-4da9-9df9-fb078985fb53",
+		"descricao": "Troca de óleo",
+		"dataCriacao": "2025-04-27T15:08:21.034094"
+	},
+	{
+		"id": "d0161509-ed21-4034-98f4-721d4778be1e",
+		"descricao": "Troca de pneus",
+		"dataCriacao": "2025-04-27T15:08:21.034094"
+	}
+]
+```
+
+## Serviço
+
+### Endpoint: Adicionar serviço
+```
+POST /servico
+```
+
+**Descrição:**  
+Insere um novo serviço com o ID do veículo e tipos de serviçoes. Somente o usuário administrador tem permissão para adicionar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+```json
+{
+	"dataServico": "2025-04-29", // Data do serviço
+	"kmVeiculo": 200000, // KM do serviço atual
+	"kmProxTrocaOleo": 205000, // KM da próxima troca de óleo
+	"kmProxTrocaPneu": 210000, // KM da próxima troca de pneu
+	"descricao": "Revisão completa do veículo", // Descrição do serviço
+	"veiculoId": "7e838f19-c328-4c60-bbf7-657d5f5eb5f8", // ID do veículo
+	"servicosRealizados": [ // Lista de serviços realizados
+	  {
+	    "tipoServicoId": "14a1f134-66bd-4719-a290-65246bb35aab", // ID do tipo de serviço
+	    "custo": 1200.0 // Custo deste serviço
+	  },
+	  {
+	    "tipoServicoId": "7ceeac45-9275-4da9-9df9-fb078985fb53", // ID do tipo de serviço/
+	    "custo": 200.00 // Custo deste serviço
+	  }
+	]
+}
+```
+
+**Return:**
+Possíveis mensagens:
+1. `Usuário não encontrado` -> Se não encontrou o usuário que está inserindo o serviço (falha de token).
+2. `Veículo não encontrado` -> Se não encontrou o veículo.
+3. `Tipo de serviço não encontrado` -> Se não encontrou o tipo de serviço.
+4. `Serviço registrado com sucesso` -> Se foi inserido com sucesso.
+5. `Erro ao registrar serviço` -> Algum erro interno da API.
+
+### Endpoint: Listar serviço
+```
+GET /servico
+```
+
+**Descrição:**  
+Lista os serviços registrados no sistema. Somente o usuário administrador tem permissão para visualizar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. `Erro ao buscar serviço` -> Algum erro interno da API.
+2. Se der tudo certo:
+```json
+[
+	{
+		"id": "9c5137a7-85dc-4407-9816-835288def291", // ID do serviço
+		"dataServico": "2025-04-29", // Data que o serviço foi realizado
+		"kmVeiculo": 200000, // KM atual do veículo
+		"descricao": "Revisão completa do veículo", // Descrição do serviço
+		"dataCriacao": "2025-04-29T23:10:09.250517", // Data que foi inserido esse serviço
+		"veiculo": { // Objeto veículo com suas informações
+			"id": "7e838f19-c328-4c60-bbf7-657d5f5eb5f8",
+			"numeracao": "1002",
+			"modelo": "Paradiso 1200 G7",
+			"marca": "Marcopolo",
+			"anoModelo": "2013/2013",
+			"kmAtual": 200000,
+			"situacao": "Ativo",
+			"kmProxTrocaOleo": 205000,
+			"kmProxTrocaPneu": 210000
+		},
+		"responsavel": { // Responsável que inseriu o serviço
+			"id": "5d7208ef-6a27-4904-9a82-23b1b120ef38",
+			"status": "Ativo",
+			"nome": "Marcos Turismo",
+			"tipo": "Administrador",
+			"dataCriacao": "2025-04-27T15:08:21.034094"
+		},
+		"custoTotal": 1400, // Soma de tipo de serviços
+		"servicosRealizados": [ // Os tipos de serviços realizados
+			{
+				"id": "5a3ebdf5-88fb-4526-9b61-7c15d29765ba", // Id da relação
+				"tipoServico": { // O tipo de serviço em si
+					"id": "14a1f134-66bd-4719-a290-65246bb35aab",
+					"descricao": "Abastecimento",
+					"dataCriacao": "2025-04-27T15:08:21.034094"
+				},
+				"custo": 1200, // Custo do tipo de serviço
+				"dataCriacao": "2025-04-29T23:10:09.266934"
+			},
+			{
+				"id": "68478ce3-4c1a-4129-8beb-ec089adc45e5", 
+				"tipoServico": {
+					"id": "7ceeac45-9275-4da9-9df9-fb078985fb53",
+					"descricao": "Troca de óleo",
+					"dataCriacao": "2025-04-27T15:08:21.034094"
+				},
+				"custo": 200,
+				"dataCriacao": "2025-04-29T23:10:09.273055"
+			}
+		]
+	}
+]
+```
+
+### Endpoint: Deletar serviço
+```
+DELETE /servico/f82bd27b-d24f-4152-8bbd-3c3216ccab54
+```
+
+**Descrição:**  
+Deleta um serviço. Somente o usuário administrador tem permissão para deletar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. `Serviço excluído com sucesso` -> Se foi deletado com sucesso.
+2. `(erro)` -> Algum erro interno da API.
+
+## Dashboard
+
+### Endpoint: Listar gastos de manutenção nos últimos 6 meses
+```
+GET /dashboard/gastos-manutencao
+```
+
+**Descrição:**  
+Lista os gastos de manutenção nos últimos 6 meses. Somente o usuário administrador tem permissão para visualizar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. Se der tudo certo:
+```json
+{
+	"12-2024": 0,
+	"01-2025": 0,
+	"02-2025": 0,
+	"03-2025": 0,
+	"04-2025": 1400,
+	"05-2025": 0
+}
+```
+2. Caso der erro, irá retornar a contagem como 0.
+
+### Endpoint: Listar gastos de manutenção por tipo de serviço
+```
+GET /dashboard/gastos-manutencao/f91871bd-3965-4688-89a9-b962bf56d071
+```
+
+**Descrição:**  
+Lista os gastos de manutenção nos últimos 6 meses por tipo de serviço. Somente o usuário administrador tem permissão para visualizar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. Se der tudo certo:
+```json
+{
+	"12-2024": 0,
+	"01-2025": 0,
+	"02-2025": 0,
+	"03-2025": 0,
+	"04-2025": 1400,
+	"05-2025": 0
+}
+```
+2. Caso der erro, irá retornar a contagem como 0.
+
+### Endpoint: Listar veículos ativos
+```
+GET /dashboard/veiculos-ativos
+```
+
+**Descrição:**  
+Lista a quantidade de veículos ativos. Somente o usuário administrador tem permissão para visualizar.
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. Se der tudo certo:
+```json
+3
+```
+2. Caso der erro, irá retornar 0.
+
+### Endpoint: Listar manutenções pendentes
+```
+GET /dashboard/manutencoes-pendentes
+```
+
+**Descrição:**  
+Lista de veículos com manutenções pendentes. Somente o usuário administrador tem permissão para visualizar.
+Critérios para o veículo aparecer:
+
+Se falta 3.000 km para a troca de óleo.
+ou
+Se falta 3.000 km para a troca de pneus.
+e
+Se veículo for ativo ou está em manutenção.
+
+```sql
+SELECT v FROM Veiculo v 
+    WHERE 
+        (v.kmProxTrocaOleo IS NOT NULL AND v.kmAtual >= v.kmProxTrocaOleo - 3000)
+        OR
+        (v.kmProxTrocaPneu IS NOT NULL AND v.kmAtual >= v.kmProxTrocaPneu - 3000)
+        AND
+        v.situacao <> 'Inativo'
+```
+
+**Autenticação:**  
+Necessário o AUTH Bearer Token
+
+**Headers**
+```Content-Type: application/json```
+
+**Body:**
+Nenhuma
+
+**Return:**
+Possíveis mensagens:
+1. Se der tudo certo:
+```json
+[
+	{
+		"id": "2e6eecef-ebd7-4e7c-83ca-d422e7d71864", // Id do veículo
+		"numeracao": "1000", // Numeração do veículo
+		"modelo": "Paradiso G7 1200", // Modelo do veículo
+		"marca": "Marcopolo", // Marca do véiculo
+		"anoModelo": "2011/2011", // Ano e modelo
+		"kmAtual": 203000, // KM atual do veículo
+		"situacao": "Ativo", // Situação
+		"kmProxTrocaOleo": 205000, // Km da próxima troca de óleo
+		"kmProxTrocaPneu": 210000 // Km da próxima troca de pneu
+	}
+]
+```
