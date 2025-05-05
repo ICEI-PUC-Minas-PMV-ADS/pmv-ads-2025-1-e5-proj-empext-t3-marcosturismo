@@ -29,7 +29,7 @@ A solução será desenvolvida utilizando tecnologias modernas para garantir des
 - Framework de design responsivo para garantir uma experiência consistente em dispositivos diferentes.
 
 ### Hospedagem:
-***AWS (Amazon Web Services):***
+***Hostinger***
 - Plataforma escalável e confiável, garantindo alta disponibilidade, desempenho e segurança para a aplicação.
 
 ## Project Model Canvas
