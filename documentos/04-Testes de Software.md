@@ -20,7 +20,7 @@ Apresente os casos de testes utilizados na realização da verificação e valid
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Israel Cunha da Silva</td>
+    <td width="430">Israel Cunha</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -124,7 +124,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td><strong>Responsável pelo Teste</strong></td>
     <td width="430"> Cunha</td>
     <td width="100"><strong>Data do Teste</strong></td>
-    <td width="150">02/04/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
   <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -151,7 +151,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td><strong>Responsável pelo Teste</strong></td>
     <td width="430">Israel Cunha</td>
     <td width="100"><strong>Data do Teste</strong></td>
-    <td width="150">02/04/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
   <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -183,7 +183,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Davi Reis </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/04/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -211,7 +211,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Israel Cunha da Silva</td>
+    <td width="430">Maria Lourder</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -250,9 +250,10 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     </td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="INSIRA O VÍDEO AQUI"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
   </tr>
 </table>
+
 
 #### Caso de Teste de Insucesso
 <table>
@@ -265,7 +266,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430"> Israel Cunha</td>
+    <td width="430"> Maria de Lourdes</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -324,7 +325,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Maria de Lourdes</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -334,6 +335,9 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
   </tr>
   <tr>
     <td ></td>
@@ -353,9 +357,9 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Maria de Lourdes</td>
     <td width="100"><strong>Data do Teste</strong></td>
-    <td width="150">02/04/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
   <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -363,6 +367,9 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
   </tr>
   <tr>
     <td ></td>
@@ -384,11 +391,11 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Israel Cunha </td>
+    <td width="430">Maria de Loudes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Davi Reis </td>
+    <td width="430">Lernardo Junior </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -409,11 +416,11 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Israel Cunha </td>
+    <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Davi Reis </td>
+    <td width="430">Leonardo Junior </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -437,7 +444,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Jefferson Freitas da Silva</td>
+    <td width="430">Jefferson Freitas</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -549,7 +556,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Jefferson Freitas</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -579,7 +586,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Jefferson Freitas</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -609,11 +616,11 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Israel Cunha </td>
+    <td width="430">Jefferson Freitas </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Davi Reis </td>
+    <td width="430">Israel Cunha </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/04/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -635,11 +642,11 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Israel Cunha </td>
+    <td width="430">Jefferson Freitas </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Davi Reis </td>
+    <td width="430">Israel Cunha </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -775,7 +782,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Jefferson Freitas</td>
+    <td width="430">Davi Reis</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -787,7 +794,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
   </tr>
 </table>
 
@@ -807,7 +814,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Davi Reis</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -819,10 +826,9 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
   </tr>
 </table>
-
 
 ## Parte 2 - Testes por pares
 A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade deve ser testada por um colega e os testes devem ser evidenciados. O colega "Tester" deve utilizar o caso de teste criado pelo desenvolvedor responsável pela funcionalidade (desenvolveu a funcionalidade e criou o caso de testes descrito no plano de testes).
@@ -841,7 +847,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -851,7 +857,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
   </tr>
 </table>
 
@@ -871,7 +877,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -881,7 +887,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
   </tr>
 </table>
 
@@ -1040,7 +1046,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td><strong>Responsável pelo Teste</strong></td>
     <td width="430">Jefferson Freitas</td>
     <td width="100"><strong>Data do Teste</strong></td>
-    <td width="150">02/04/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
   <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1072,7 +1078,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Leonardo Junior</td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1085,8 +1091,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
   </tr>
 </table>
-
-
+      
 <table>
   ##Falha
   <tr>
@@ -1100,9 +1105,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Jefferson Freitas </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Davi Reis </td>
+    <td width="430">Leonardo Junior </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1115,8 +1120,6 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
   </tr>
 </table>
-
-
 
 ## CT-006 
 #### Caso de Teste de Sucesso 
@@ -1243,7 +1246,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Jefferson Freitas</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1275,7 +1278,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Jefferson Freitas</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1309,7 +1312,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Maria de Lourdes </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1319,7 +1322,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/92e25d4e-d0ad-41cd-aa64-e4319bd5405e"/></td>
+    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
   </tr>
 
   ##Falha    
@@ -1338,7 +1341,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Maria de Lourdes </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1348,7 +1351,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/92e25d4e-d0ad-41cd-aa64-e4319bd5405e"/></td>
+    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
   </tr>
 </table>
 
@@ -1359,7 +1362,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 #### Caso de Teste de Sucesso 
 <table>
   <tr>
-    <th colspan="2" width="1000">CT-006 Registro de Serviço Realizado no Veículo</th>
+    <th colspan="2" width="1000">CT-007 Registro de Serviço Realizado no Veículo</th>
   </tr>
   <tr>
     <td width="150"><strong>Descrição</strong></td>
@@ -1369,7 +1372,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Davi Reis </td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -1421,7 +1424,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430"> Israel Cunha </td>
+    <td width="430"> Davi Reis </td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -1483,7 +1486,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Davi Reis</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1517,7 +1520,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Davi Reis</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1547,11 +1550,11 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Israel Cunha </td>
-      <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Davi Reis </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Israel Cunha </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1576,9 +1579,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Israel Cunha </td>
-      <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Davi Reis </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Israel Cunha </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">05/05/2025</td>
   </tr>
@@ -1715,7 +1718,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Israel Cunha</td>
+    <td width="430">Leonardo Junior</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1731,7 +1734,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
   </tr>
 </table>
 
@@ -1749,7 +1752,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Jefferson Freitas</td>
+    <td width="430">Leonardo Junior</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1761,7 +1764,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
   </tr>
 </table>
 
@@ -1783,7 +1786,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1793,7 +1796,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
   </tr>
 </table>
 
@@ -1812,7 +1815,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/05/2025</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -1822,7 +1825,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
   </tr>
 </table>
 
@@ -1960,10 +1963,9 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
-
 
 <table>
   <tr>
@@ -1978,7 +1980,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Jefferson Freitas</td>
+    <td width="430">Israel Cunha</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1990,7 +1992,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
 
@@ -2012,7 +2014,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Davi Reis </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/04/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -2022,7 +2024,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
 
@@ -2041,7 +2043,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Davi Reis </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/04/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -2051,7 +2053,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
 
@@ -2194,7 +2196,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
 
@@ -2213,7 +2215,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Jefferson Freitas</td>
+    <td width="430">Israel Cunha</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2232,7 +2234,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
 
@@ -2254,7 +2256,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Davi Reis </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/04/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -2264,7 +2266,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
 
@@ -2283,7 +2285,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Davi Reis </td>
      <td width="100"><strong>Data do teste</strong></td>
-    <td width="150">05/04/2024</td>
+    <td width="150">04/05/2025</td>
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
@@ -2293,6 +2295,6 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
