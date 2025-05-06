@@ -1,3 +1,4 @@
+/* CSS */
 .card {
   background-color: #002f6c;
   color: white;
@@ -11,86 +12,46 @@
   transform: translate(-50%, -50%);
 }
 
+.input-group,
+.select-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group input,
+.select-group input,
+.select-group select {
+  width: 80%;
+  padding: 8px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 5px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+  margin: 10px auto;
+  gap: 10px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: white;
+}
+
 .image-container img {
   width: 100%;
   max-height: 150px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
-}
-
-input {
-  width: 85%;
-  padding: 8px;
-  margin: 5px 0;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-
-}
-.input-container {
-  display: flex;
-  align-items: center;
-  width: auto;
-  justify-content: flex-start;
-}
-
-.input-container label {
-  margin-right: 20px; /* Ajuste o espaço entre o label e o input */
-}
-
-.input-container .input-number {
-  width: 25%;
-}
-
-
-.adicional-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.adicional-item input {
-  flex: 1;
-}
-
-.add-btn {
-  background-color: white;
-  color: black;
-  font-size: 18px;
-  width: 50px;               /* Aumentei para dar mais visibilidade */
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  position: fixed;           /* Fixa o botão na janela de visualização */
-  bottom: 20px;              /* Distância do fundo da tela */
-  right: 20px;               /* Distância da borda direita */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombrinha básica para destacar */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 5px;
-  transition: transform 0.3s ease;
-}
-
-
-.add-btn:hover {
-  transform: scale(1.1);    /* Efeito suave ao passar o mouse */
-}
-.ad-btn {
-  border-radius: 50%;
-}
-.trash-btn {
-  background-color: red;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  margin-left: 5px;
 }
 
 .buttons {
@@ -113,4 +74,38 @@ input {
 
 .red {
   background-color: red;
+}
+
+.add-btn {
+  background-color: white;
+  color: black;
+  font-size: 18px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.add-btn:hover {
+  transform: scale(1.1);
+}
+
+.trash-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
 }
