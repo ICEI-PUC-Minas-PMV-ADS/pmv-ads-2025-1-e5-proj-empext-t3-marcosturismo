@@ -26,7 +26,16 @@ Contudo, com o crescimento das operações e o aumento da demanda por soluções
 
 ## Instruções de utilização
 
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+O sistema está disponível através da URL
+```
+https://marcosturismo.com.br
+```
+
+Para fazer o login no painel corporativo, é necessário este login:
+```
+E-mail -> administrador@marcosturismo.com.br
+Senha -> marcos_turismo@2025_admin
+```
 
 # Documentação
 
