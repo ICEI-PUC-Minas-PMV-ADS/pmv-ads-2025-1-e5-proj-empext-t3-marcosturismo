@@ -1,9 +1,5 @@
 .content {
-    margin-left: 60px;
+    margin-left: 0px;
     transition: margin-left 0.3s ease;
-  }
-  
-  .content.expanded {
-    margin-left: 200px;
   }
   

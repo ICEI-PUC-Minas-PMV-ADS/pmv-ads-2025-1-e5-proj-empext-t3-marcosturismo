@@ -1,0 +1,78 @@
+/* servico.component.html */
+<app-sidebar></app-sidebar>
+<div class="container-principal">
+  <h1>Serviços</h1>
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+
+  <table *ngIf="servicos.length; else emptyList" class="table">
+    <thead>
+      <tr>
+        <th>Data</th><th>KM Veículo</th><th>Descrição</th><th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of servicos">
+        <td>{{ s.dataServico }}</td>
+        <td>{{ s.kmVeiculo }} km</td>
+        <td>{{ s.descricao }}</td>
+        <td>
+          <button (click)="editarServico(s)">Editar</button>
+          <button (click)="excluirServico(s.id!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #emptyList><p>Não há serviços cadastrados.</p></ng-template>
+
+  <button class="btn-mais" (click)="openModal()">+</button>
+
+  <div class="modal" [class.show]="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ editingId ? 'Editar Serviço' : 'Adicionar Serviço' }}</h2>
+      <form (ngSubmit)="salvar()" #f="ngForm">
+        <label>Data do Serviço:
+          <input type="date" [(ngModel)]="servicoForm.dataServico" name="dataServico" required>
+        </label>
+        <label>KM Veículo:
+          <input type="number" [(ngModel)]="servicoForm.kmVeiculo" name="kmVeiculo" required>
+        </label>
+        <label>KM Próx. Troca Óleo:
+          <input type="number" [(ngModel)]="servicoForm.kmProxTrocaOleo" name="kmProxTrocaOleo" required>
+        </label>
+        <label>KM Próx. Troca Pneus:
+          <input type="number" [(ngModel)]="servicoForm.kmProxTrocaPneu" name="kmProxTrocaPneu" required>
+        </label>
+        <label>Descrição:
+          <textarea [(ngModel)]="servicoForm.descricao" name="descricao" rows="2" required></textarea>
+        </label>
+        <label>Veículo:
+          <select [(ngModel)]="servicoForm.veiculoId" name="veiculoId" required>
+            <option *ngFor="let v of veiculos" [value]="v.id">{{ v.numeracao }} - {{ v.modelo }}</option>
+          </select>
+        </label>
+
+        <div class="servicos-realizados">
+          <h3>Serviços Realizados</h3>
+          <button type="button" (click)="addRealizado()">+ Adicionar</button>
+          <div *ngFor="let r of servicoForm.servicosRealizados; let i = index" class="realizado-item">
+            <label>Tipo de Serviço:
+              <select [(ngModel)]="r.tipoServicoId" name="tipoServicoId-{{i}}" required>
+                <option *ngFor="let t of tipos" [value]="t.id">{{ t.descricao }}</option>
+              </select>
+            </label>
+            <label>Custo:
+              <input type="number" step="0.01" [(ngModel)]="r.custo" name="custo-{{i}}" required>
+            </label>
+            <button type="button" (click)="removeRealizado(i)">Remover</button>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button type="button" (click)="closeModal()">Cancelar</button>
+          <button type="submit">{{ editingId ? 'Atualizar' : 'Salvar' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

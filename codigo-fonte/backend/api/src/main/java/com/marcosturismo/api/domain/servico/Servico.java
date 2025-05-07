@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.security.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -23,9 +24,8 @@ public class Servico {
     @GeneratedValue
     private UUID id;
 
-    private Date dataServico;
+    private LocalDate dataServico;
     private Integer kmVeiculo;
-    private Double custo;
     private String descricao;
 
     @CreationTimestamp

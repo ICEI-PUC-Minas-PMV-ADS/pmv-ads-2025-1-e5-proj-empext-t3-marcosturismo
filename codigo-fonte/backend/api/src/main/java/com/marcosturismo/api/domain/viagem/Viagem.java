@@ -1,8 +1,10 @@
 package com.marcosturismo.api.domain.viagem;
 
+import com.marcosturismo.api.domain.cheklist_veiculo.ChecklistVeiculo;
 import com.marcosturismo.api.domain.cliente.Cliente;
 import com.marcosturismo.api.domain.usuario.Usuario;
 import com.marcosturismo.api.domain.veiculo.Veiculo;
+import com.marcosturismo.api.repositories.ChecklistRepository;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.security.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Entity
@@ -68,7 +71,7 @@ public class Viagem {
         this.cliente = cliente;
     }
 
-    public ViagemResponseDTO toResponseDTO() {
+    public ViagemResponseDTO toResponseDTO(ChecklistVeiculo check) {
         return new ViagemResponseDTO(
                 this.id,
                 this.status,
@@ -88,7 +91,8 @@ public class Viagem {
                 motorista.getStatus(),
                 motorista.getNome(),
                 cliente.getId(),
-                cliente.getNome()
+                cliente.getNome(),
+                check != null ? check.toResponseDTO() : null
         );
     }
 }

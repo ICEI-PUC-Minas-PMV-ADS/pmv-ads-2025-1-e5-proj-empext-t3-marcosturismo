@@ -1,0 +1,94 @@
+.historia-container {
+  background-color: rgba(0, 38, 107, 0.8);
+  margin: 2rem auto;       /* 2rem vertical e centralizado horizontalmente */
+  border-radius: 4px;
+  padding: 2rem;
+  max-width: 73rem;        /* Largura máxima para melhor leitura */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
+  margin-top: 30px;
+  height: 385px;
+}
+
+/* Div para "Missão", "Visão" e "Valores" */
+.missao-visao-valores {
+  background-color: rgba(0, 38, 107, 0.8);
+  margin: 2rem auto;       /* 2rem vertical e centralizado horizontalmente */
+  border-radius: 4px;
+  padding: 2rem;
+  max-width: 73rem;        /* Largura máxima para melhor leitura */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
+  height: 250px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 10);
+  color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
+}
+
+/* Título centralizado */
+h1.text-center {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+/* Parágrafos */
+p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.missao-visao-valores p{
+  line-height: 0.5;
+}
+
+.container p strong {
+  font-size: 1.5rem;
+}
+
+/* Subtítulos (Missão, Visão, etc.) */
+h2 {
+  font-weight: 600;
+  margin-top: 1rem;
+  color: #ffffff;
+  text-align: left;
+}
+
+/* Listas (Valores) */
+ul {
+  margin-left: 0.5rem;
+  margin-bottom: 3rem;
+  color: #ffffff;
+}
+
+/* Rodapé fixo no final da tela */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+/* ======================
+   Estilos do WhatsApp
+   ====================== */
+.whatsapp-container {
+  position: fixed;
+  bottom: 80px; /* Ajusta para que o botão fique acima do rodapé */
+  /* Ajustamos o bottom para que o botão fique acima do rodapé */
+  bottom: 80px;
+  bottom: 80px; /* Ajusta para que o botão fique acima do rodapé */
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
+}
+
+.whatsapp-icon {
+  width: 50px;
+  height: 50px;
+}

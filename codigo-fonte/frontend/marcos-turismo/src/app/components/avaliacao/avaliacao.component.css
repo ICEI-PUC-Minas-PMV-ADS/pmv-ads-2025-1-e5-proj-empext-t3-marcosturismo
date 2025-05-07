@@ -1,11 +1,14 @@
+/* Estilo para o container */
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 10px;
+    flex-direction: column; /* Para empilhar os itens na vertical */
 }
 
+/* Estilo para os cards de avaliação */
 .card {
     background-color: #002f6c;
     padding: 10px;
@@ -14,13 +17,18 @@
     text-align: center;
     width: 90%;
     max-width: 250px;
+    margin: 10px 0;  /* Espaço entre os cards */
+    color: white;
 }
 
+/* Estilo para os botões */
 .botoes {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px; /* Espaçamento entre os botões e o conteúdo acima */
 }
 
+/* Botões de confirmar (validar) e excluir */
 .confirmar, .excluir {
     font-size: 14px;
     padding: 8px;
@@ -30,20 +38,40 @@
     width: 45%;
 }
 
+/* Estilo para o botão de confirmação (validar) */
 .confirmar {
     background-color: #28a745;
     color: white;
 }
 
+/* Estilo para o botão de exclusão */
 .excluir {
     background-color: #dc3545;
     color: white;
 }
 
+/* Efeito de hover para o botão de confirmação */
 .confirmar:hover {
     background-color: #218838;
 }
 
+/* Efeito de hover para o botão de exclusão */
 .excluir:hover {
     background-color: #c82333;
+}
+
+/* Estilo para o título das avaliações válidas */
+h3 {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 30px;
+    font-size: 30px;
+}
+
+/* Estilo para as avaliações válidas */
+div > div {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: white;
+    text-align: center;
 }

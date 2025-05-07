@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<div class="hero-section">
+  <h1>"Cada viagem é uma nova história. Vamos escrevê-la juntos!"</h1>
+  <p>Viaje com conforto e segurança. Explore nossos pacotes e solicite um orçamento agora mesmo!</p>
+  <div class="cta-buttons">
+    <a routerLink="/excursoes2" class="btn">Excursões</a>
+    <a href="https://wa.me/558791103345" target="_blank" class="btn whatsapp">Solicitar Orçamento</a>
+  </div>
+</div>
+
+<!-- Video Section (Agora com 3 vídeos lado a lado) -->
+<div class="video-section">
+  <div class="video-container">
+    <div class="video-wrapper" *ngFor="let video of videos">
+      <video controls width="100%">
+        <source [src]="video.src" type="video/mp4">
+        Seu navegador não suporta o elemento de vídeo.
+      </video>
+    </div>
+  </div>
+</div>
+
+<!-- Image Section -->
+<div class="image-section">
+  <div class="carousel-container">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let imagem of imagens">
+          <div class="image-container">
+            <img [src]="imagem" alt="Foto da galeria">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp Button -->
+<div class="whatsapp-container">
+  <a href="https://wa.me/558791103345" target="_blank">
+    <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+</div>

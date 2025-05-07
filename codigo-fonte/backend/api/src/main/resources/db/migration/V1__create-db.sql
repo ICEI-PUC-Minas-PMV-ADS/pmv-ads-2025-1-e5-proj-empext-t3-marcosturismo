@@ -32,30 +32,6 @@ CREATE TABLE imagem_veiculo (
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
 );
 
--- Tabela Checklist Veículo
-CREATE TABLE checklist_veiculo (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    data_checklist DATE NOT NULL,
-    pneus_ok BOOLEAN,
-    limpeza_ok BOOLEAN,
-    avarias_ok BOOLEAN,
-    farois_ok BOOLEAN,
-    documento_ok BOOLEAN,
-    ocorrencias TEXT,
-    veiculo_id UUID NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
-);
-
--- Tabela Imagem Checklist
-CREATE TABLE imagem_checklist (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    img_url VARCHAR(500) NOT NULL,
-    checklist_veiculo_id UUID NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (checklist_veiculo_id) REFERENCES checklist_veiculo(id) ON DELETE CASCADE
-);
-
 -- Tabela Serviço
 CREATE TABLE servico (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -83,7 +59,7 @@ CREATE TABLE servico_realizado (
     custo DOUBLE PRECISION,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (servico_id) REFERENCES servico(id) ON DELETE CASCADE,
-    FOREIGN KEY (tipos_servicos_id) REFERENCES tipo_servico(id) ON DELETE CASCADE
+    FOREIGN KEY (tipos_servicos_id) REFERENCES tipo_servico(id) ON DELETE RESTRICT
 );
 
 -- Tabela Cliente
@@ -128,6 +104,32 @@ CREATE TABLE viagem (
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
 );
 
+-- Tabela Checklist Veículo
+CREATE TABLE checklist_veiculo (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    data_checklist DATE NOT NULL,
+    pneus_ok BOOLEAN,
+    limpeza_ok BOOLEAN,
+    avarias_ok BOOLEAN,
+    farois_ok BOOLEAN,
+    documento_ok BOOLEAN,
+    ocorrencias TEXT,
+    viagem_id UUID NOT NULL,
+    veiculo_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (viagem_id) REFERENCES viagem(id) ON DELETE CASCADE,
+    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
+);
+
+-- Tabela Imagem Checklist
+CREATE TABLE imagem_checklist (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    img_url VARCHAR(500) NOT NULL,
+    checklist_veiculo_id UUID NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (checklist_veiculo_id) REFERENCES checklist_veiculo(id) ON DELETE CASCADE
+);
+
 -- Tabela CNH
 CREATE TABLE cnh (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -170,3 +172,13 @@ CREATE TABLE excursao (
     data_excursao TIMESTAMP NOT NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Insere o administrador master Marcos Turismo
+INSERT INTO usuario (id, nome, status, tipo, email, senha)
+VALUES ('5d7208ef-6a27-4904-9a82-23b1b120ef38', 'Marcos Turismo', 'Ativo', 'Administrador', 'administrador@marcosturismo.com.br', '$2a$10$HRB01PHbdpmqPhmhbbvjcuXXyqvyCN4PLOhBKlWzHH1yPch9se.v6');
+
+-- Insere tipos de serviço fixo
+INSERT INTO tipo_servico (id, descricao)
+VALUES ('14a1f134-66bd-4719-a290-65246bb35aab', 'Abastecimento'),
+('7ceeac45-9275-4da9-9df9-fb078985fb53', 'Troca de óleo'),
+('d0161509-ed21-4034-98f4-721d4778be1e', 'Troca de pneus');

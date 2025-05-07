@@ -1,8 +1,20 @@
+<app-sidebar></app-sidebar>
+
 <div class="container">
-    <div class="card">
-        <div class="botoes">
-            <button class="confirmar" (click)="confirmarAvaliacao()">✔</button>
-            <button class="excluir" (click)="excluirAvaliacao()">✖</button>
-        </div>
+  <h3>Avaliações Pendentes</h3>
+
+  <div *ngFor="let avaliacao of avaliacoes" class="card">
+    <p>{{ avaliacao.titulo }} - {{ avaliacao.autor }}</p>
+    <div class="botoes">
+      <button class="confirmar" (click)="validarAvaliacao(avaliacao.id)">Validar</button>
+      <button class="excluir" (click)="excluirAvaliacao(avaliacao.id)">Excluir</button>
     </div>
+  </div>
+
+  <h3>Avaliações Válidas</h3>
+
+  <div *ngFor="let avaliacao of avaliacoesValidas" class="card">
+    <p>{{ avaliacao.titulo }} - {{ avaliacao.autor }}</p>
+  </div>
 </div>
+ 

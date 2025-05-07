@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Chart } from 'chart.js/auto';
-
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { environment } from '../../../environments/environment';
 
@@ -14,13 +13,14 @@ import { environment } from '../../../environments/environment';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
   isSidebarActive: boolean = true;
   activeVehicles: number = 0;
   pendingMaintenances: any[] = [];
   maintenanceCosts: any = {};
   fuelCosts: any = {};
 
+  // Variável para controlar o estado da sidebar
+  isSidebarActive: boolean = true;
   private maintenanceChart: any;
   private fuelChart: any;
 

@@ -1,0 +1,234 @@
+/* Estilo Geral */
+.hero-section {
+  text-align: center;
+  padding: 50px 0;
+  background-color: #f8f8f8;
+  margin-top: 80px;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Botões CTA */
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cta-buttons .btn {
+  padding: 10px 20px;
+  background-color: #f39c12;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.cta-buttons .btn:hover {
+  background-color: #e67e22;
+}
+
+.cta-buttons .whatsapp {
+  background-color: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-buttons .whatsapp:hover {
+  background-color: #128c7e;
+}
+
+/* Seção de Vídeo */
+.video-section {
+  display: flex;
+  justify-content: center; /* Centraliza os vídeos */
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap; /* Mantém os vídeos lado a lado */
+  margin-top: 50px;
+  max-width: 1200px; /* Limita a largura da seção */
+  margin: 0 auto;
+  width: 100%;
+}
+
+.video-wrapper {
+  flex: 0 1 48%; /* Controla o tamanho dos vídeos */
+  max-width: 48%;
+}
+
+video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .video-section {
+    flex-wrap: wrap; /* Em telas menores, os vídeos ficarão um abaixo do outro */
+  }
+
+  .video-wrapper {
+    flex: 1 1 100%; /* Ocupa 100% da largura da tela */
+    max-width: 100%;
+  }
+}
+
+/* Seção de Imagens */
+.image-section {
+  margin-top: 50px;
+  width: 100%; 
+}
+
+.carousel-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.swiper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.swiper-wrapper {
+  display: flex;
+  animation: slide 12s infinite linear;
+}
+
+.swiper-slide {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.image-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Animação do Carrossel */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-100%);
+  }
+  40% {
+    transform: translateX(-200%);
+  }
+  60% {
+    transform: translateX(-300%);
+  }
+  80% {
+    transform: translateX(-400%);
+  }
+  100% {
+    transform: translateX(-500%);
+  }
+}
+
+/* Botão do WhatsApp */
+.whatsapp-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.whatsapp-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+/* Seção de Vídeo */
+.video-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.video-wrapper {
+  flex: 0 1 32%; /* Garante que três vídeos fiquem lado a lado */
+  max-width: 32%;
+}
+
+video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 992px) {
+  .video-container {
+    flex-wrap: wrap; /* Permite que os vídeos fiquem um abaixo do outro em telas pequenas */
+  }
+
+  .video-wrapper {
+    flex: 1 1 48%; /* Em telas menores, dois vídeos por linha */
+    max-width: 48%;
+  }
+}
+
+@media (max-width: 600px) {
+  .video-wrapper {
+    flex: 1 1 100%; /* Em telas muito pequenas, um vídeo por linha */
+    max-width: 100%;
+  }
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: lightblue;
+}
+
+#bus-container {
+  position: fixed; /* Colocando o bus-container em posição fixa */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999; /* Garante que os ônibus fiquem acima de todo o conteúdo */
+}
+
+.bus {
+  position: absolute;
+  width: 100px;
+  cursor: grab;
+  transition: transform 0.3s;
+}
+
+.bus:active {
+  cursor: grabbing;
+}

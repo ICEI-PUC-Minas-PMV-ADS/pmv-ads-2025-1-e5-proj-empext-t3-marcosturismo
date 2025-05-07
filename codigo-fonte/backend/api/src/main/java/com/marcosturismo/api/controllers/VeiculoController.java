@@ -3,6 +3,7 @@ package com.marcosturismo.api.controllers;
 import com.marcosturismo.api.domain.veiculo.Veiculo;
 import com.marcosturismo.api.domain.veiculo.VeiculoDTO;
 import com.marcosturismo.api.domain.veiculo.VeiculoFrotaResponseDTO;
+import com.marcosturismo.api.domain.veiculo.VeiculoResponseDTO;
 import com.marcosturismo.api.services.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class VeiculoController {
     @GetMapping
     public ResponseEntity<?> getAllVeiculos() {
         try {
-            List<Veiculo> response = this.veiculoService.getAllVeiculos();
+            List<VeiculoResponseDTO> response = this.veiculoService.getAllVeiculos();
             if (response.isEmpty()) {
                 return ResponseEntity.noContent().build(); // Retorna 204 se não houver veículos
             }

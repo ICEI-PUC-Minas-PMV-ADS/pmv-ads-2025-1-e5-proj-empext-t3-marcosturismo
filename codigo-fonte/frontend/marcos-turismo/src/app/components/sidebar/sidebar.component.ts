@@ -10,30 +10,30 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  @Output() toggleSidebar = new EventEmitter<boolean>();
-  isSidebarActive = true;  // Variable to control sidebar state
+  @Output() toggleSidebar = new EventEmitter<boolean>();  // Emitir estado da sidebar
+  isSidebarActive = false;  // Inicializa a sidebar como fechada
 
   constructor(private router: Router) {}
 
   ngOnInit() {}
 
-  // Method to toggle the sidebar visibility and emit the state to the parent component
+  // Alterna a visibilidade da sidebar e emite o novo estado
   toggleSidebarFunction() {
     this.isSidebarActive = !this.isSidebarActive;
-    this.toggleSidebar.emit(this.isSidebarActive);  // Emit the new state to parent
+    this.toggleSidebar.emit(this.isSidebarActive);  // Emite para o componente pai
   }
 
-  // General method for navigation (reuse this for other links too)
+  // Método de navegação para outras rotas
   navigate(route: string) {
     this.router.navigate([route]);
   }
 
-  // Handle user logout
+  // Lógica de logout
   logout() {
-    localStorage.removeItem('authToken');
-    sessionStorage.clear();
+    localStorage.removeItem('authToken');  // Remove o token de autenticação
+    sessionStorage.clear();  // Limpa a sessão
 
     console.log('User logged out successfully');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);  // Redireciona para a página inicial ou login
   }
 }

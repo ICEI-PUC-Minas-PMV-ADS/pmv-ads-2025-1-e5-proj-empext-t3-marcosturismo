@@ -1,15 +1,22 @@
+/* usuario.component.css */
+
 /* CARD DO USUÁRIO */
 .user-card {
   background: #002366;
   color: white;
   padding: 20px;
-  width: 300px;
+  width: 320px;
   text-align: center;
   border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 40px auto; /* centraliza verticalmente menos invasivo */
+  position: relative; /* retirado absolute para fluxo normal */
+}
+
+/* botão para listar */
+.btn.listar {
+  width: 100%;
+  margin-bottom: 16px;
+  background-color: #FFD700;
 }
 
 /* LABELS E INPUTS */
@@ -17,20 +24,23 @@ label {
   display: block;
   text-align: left;
   margin-top: 10px;
+  color: white;
 }
 
-input {
+input,
+select {
   width: 100%;
-  padding: 5px;
-  margin-top: 5px;
-  border: none;
+  padding: 10px;
+  margin-top: 10px;
   border-radius: 5px;
+  border: 1px solid #ccc;
   box-sizing: border-box;
+  background-color: white;
+  color: black;
 }
 
-/* CLASSE DE ERRO NOS INPUTS */
 input.erro,
-input.ng-invalid.ng-touched {
+select.erro {
   border: 2px solid red !important;
 }
 
@@ -43,13 +53,17 @@ input.ng-invalid.ng-touched {
 
 /* ESTILOS DOS BOTÕES */
 .btn {
-  width: 48%;
+  flex: 1;
   padding: 8px;
   font-size: 14px;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
 }
 
 .btn.cadastrar {
@@ -59,50 +73,58 @@ input.ng-invalid.ng-touched {
 .btn.cancelar {
   background-color: red;
 }
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 16px;
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.form {
-  margin-bottom: 24px;
-  padding: 16px;
-  border: 1px solid #ccc;
+.modal-show {
+  display: flex;
+}
+
+.modal-hide {
+  display: none;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #002366;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+/* Cards dentro do modal */
+.usuario-card {
+  background-color: #f9f9f9;
+  color: #002366;
+  border: 1px solid #ddd;
+  padding: 12px;
   border-radius: 8px;
-}
-
-.form-group {
   margin-bottom: 12px;
 }
 
-.form-group input {
+/* Botão fechar modal */
+.btn.fechar {
   width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-}
-
-.button-group button {
-  margin-right: 8px;
-  padding: 8px 16px;
-}
-
-.erro {
-  border: 1px solid red;
-}
-
-.usuarios-container {
-  margin-top: 32px;
-}
-
-.usuario-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-.usuario-card h3 {
-  margin-top: 0;
+  margin-top: 12px;
 }

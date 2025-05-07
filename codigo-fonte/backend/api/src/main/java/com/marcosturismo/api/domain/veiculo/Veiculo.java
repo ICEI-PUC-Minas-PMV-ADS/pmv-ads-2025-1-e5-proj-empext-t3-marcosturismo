@@ -1,5 +1,7 @@
 package com.marcosturismo.api.domain.veiculo;
 
+import com.marcosturismo.api.domain.cheklist_veiculo.ChecklistVeiculo;
+import com.marcosturismo.api.domain.viagem.ViagemResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -70,6 +72,27 @@ public class Veiculo {
         this.tv = data.tv();
         this.geladeira = data.geladeira();
         this.sanitarios = data.sanitarios();
+    }
+
+    public VeiculoResponseDTO toResponseDTO(ChecklistVeiculo check) {
+        return new VeiculoResponseDTO(
+                this,
+                check != null ? check.toResponseDTO() : null
+        );
+    }
+
+    public VeiculoResponseServicoDTO toResponseServicoDTO() {
+        return new VeiculoResponseServicoDTO(
+                this.id,
+                this.numeracao,
+                this.modelo,
+                this.marca,
+                this.anoModelo,
+                this.kmAtual,
+                this.situacao,
+                this.kmProxTrocaOleo,
+                this.kmProxTrocaPneu
+        );
     }
 }
 
