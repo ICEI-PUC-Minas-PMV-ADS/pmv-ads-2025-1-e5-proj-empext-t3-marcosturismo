@@ -1,6 +1,6 @@
 # Planos de Testes de Software
 
-Apresente os casos de testes utilizados na realização da verificação e validação da aplicação. Escolha cenários de testes que demonstrem os requisitos sendo satisfeitos bem como o tratamento de erros (robustez da aplicação).
+ etapa, vamos apresentar os casos de teste que utilizamos para verificar e validar a aplicação. Vamos focar em cenários que comprovam o atendimento aos requisitos e também em situações que demonstram como o sistema lida com erros, assegurando sua robustez.
 
 ### Tipo de Teste
 - **Sucesso**: Tem o objetivo de verificar se as funcionalidades funcionam corretamente.
@@ -14,7 +14,7 @@ Apresente os casos de testes utilizados na realização da verificação e valid
   </tr>
   <tr>
     <td width="150"><strong>Descrição</strong></td>
-    <td>Este caso de teste verifica se apenas colaboradores e o administrador podem se autenticar e acessar o painel de gestão com credenciais válidas.
+    <td>Este caso de teste verifica se apenas colaboradores e o administrador podem autenticar e acessar o painel de gestão com credenciais válidas.
 
 </td>
   </tr>
