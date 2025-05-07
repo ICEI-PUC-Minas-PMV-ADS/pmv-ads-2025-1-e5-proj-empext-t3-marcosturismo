@@ -626,7 +626,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 
    ## Falha
-  <th colspan="6" width="1000">CT-002<br>Gerenciar Viagens</th>
+  <th colspan="6" width="1000">CT-003<br>Gerenciar Viagens</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -1931,7 +1931,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
+    <th colspan="6" width="1000">CT-009<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -1965,7 +1965,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
+    <th colspan="6" width="1000">CT-009<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2001,7 +2001,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 ## Sucesso
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+    <th colspan="6" width="1000">CT-009<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2026,7 +2026,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td></td>
   </tr>
   ## Falha
-  <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  <th colspan="6" width="1000">CT-009<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2628,7 +2628,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
+    <th colspan="6" width="1000">CT-012<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2662,7 +2662,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
+    <th colspan="6" width="1000">CT-012<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2698,7 +2698,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 ## Sucesso
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+    <th colspan="6" width="1000">CT-012<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2723,7 +2723,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td></td>
   </tr>
   ## Falha
-  <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  <th colspan="6" width="1000">CT-012<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2853,7 +2853,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
+    <th colspan="6" width="1000">CT-013<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2887,7 +2887,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
+    <th colspan="6" width="1000">CT-013<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2923,7 +2923,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 ## Sucesso
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+    <th colspan="6" width="1000">CT-013<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
@@ -2948,7 +2948,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td></td>
   </tr>
   ## Falha
-  <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  <th colspan="6" width="1000">CT-013<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
     <td width="170"><strong>Critérios de êxito</strong></td>
