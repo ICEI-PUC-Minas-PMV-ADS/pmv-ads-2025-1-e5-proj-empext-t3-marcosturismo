@@ -1,68 +1,91 @@
-import { Component, OnInit } from '@angular/core';
+/* servico.component.ts */
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { ChangeDetectorRef } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+
+interface TipoServico {
+  id: string;
+  descricao: string;
+  dataCriacao: string;
+}
+
+interface Veiculo {
+  id: string;
+  numeracao: string;
+  modelo: string;
+}
+
+interface ServicoRealizado {
+  tipoServicoId: string;
+  custo: number;
+}
 
 interface Servico {
   id?: string;
-  placa: string;
-  km: string;
-  fornecedor: string;
-  nota: string;
-  ultimaTrocaOleo: string;
-  kmUltimaTroca: string;
-  valorOleo: string;
-  proximaTrocaOleo: string;
-  pastilhaFreio: string;
-  valorPastilhaFreio: string;
-  checkupMotor: string;
-  valorCheckup: string;
+  dataServico: string;
+  kmVeiculo: number;
+  kmProxTrocaOleo: number;
+  kmProxTrocaPneu: number;
+  descricao: string;
+  veiculoId: string;
+  servicosRealizados: ServicoRealizado[];
 }
 
 @Component({
   selector: 'app-servico',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, SidebarComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    HttpClientModule,
+    SidebarComponent,
+    NgxMaskDirective,
+    NgxMaskPipe
+  ],
+  providers: [provideNgxMask()],
   templateUrl: './servico.component.html',
   styleUrls: ['./servico.component.css']
 })
 export class ServicoComponent implements OnInit {
   private baseUrl = `${environment.apiUrl}/servico`;
+  private tipoUrl = `${environment.apiUrl}/servico/tipo_servico`;
+  private veiculoUrl = `${environment.apiUrl}/frota`;
 
   servicos: Servico[] = [];
-  showModal = false;                // antes era isModalOpen
+  tipos: TipoServico[] = [];
+  veiculos: Veiculo[] = [];
+  showModal = false;
   errorMsg: string | null = null;
-  public editingId: string | null = null;  // agora público
+  editingId: string | null = null;
 
   servicoForm: Partial<Servico> = {
-    placa: '',
-    km: '',
-    fornecedor: '',
-    nota: '',
-    ultimaTrocaOleo: '',
-    kmUltimaTroca: '',
-    valorOleo: '',
-    proximaTrocaOleo: '',
-    pastilhaFreio: '',
-    valorPastilhaFreio: '',
-    checkupMotor: '',
-    valorCheckup: ''
+    dataServico: '',
+    kmVeiculo: 0,
+    kmProxTrocaOleo: 0,
+    kmProxTrocaPneu: 0,
+    descricao: '',
+    veiculoId: '',
+    servicosRealizados: []
   };
 
-  constructor(private http: HttpClient, private cdref: ChangeDetectorRef) {}
+  constructor(
+    private http: HttpClient,
+    private cdref: ChangeDetectorRef
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.carregarServicos();
+    this.carregarTipos();
+    this.carregarVeiculos();
   }
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    if (!token) {
-      alert('Token não encontrado!');
-    }
+    if (!token) alert('Token não encontrado!');
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: token ? `Bearer ${token}` : ''
@@ -78,82 +101,113 @@ export class ServicoComponent implements OnInit {
           this.errorMsg = null;
         },
         error: err => {
-          console.error('Erro GET Servicos:', err);
-          this.errorMsg = 'Erro ao buscar serviços.';
+          console.error('Erro ao buscar serviços:', err);
+          this.errorMsg = err.error?.message || 'Erro ao buscar serviço.';
         }
       });
   }
 
-  openModal(edit: boolean = false, servico?: Servico): void {
+  carregarTipos(): void {
+    this.http.get<TipoServico[]>(this.tipoUrl, { headers: this.getAuthHeaders() })
+      .subscribe({
+        next: data => this.tipos = Array.isArray(data) ? data : [],
+        error: err => console.error('Erro ao buscar tipos de serviço:', err)
+      });
+  }
+
+  carregarVeiculos(): void {
+    this.http.get<Veiculo[]>(this.veiculoUrl, { headers: this.getAuthHeaders() })
+      .subscribe({
+        next: data => this.veiculos = Array.isArray(data) ? data : [],
+        error: err => console.error('Erro ao buscar veículos:', err)
+      });
+  }
+
+  openModal(edit = false, servico?: Servico): void {
     this.showModal = true;
     if (edit && servico) {
-      this.editingId = servico.id || null;
+      this.editingId = servico.id!;
       this.servicoForm = { ...servico };
     } else {
+      this.editingId = null;
       this.clearForm();
     }
   }
 
   closeModal(): void {
     this.showModal = false;
+    this.editingId = null;
     this.clearForm();
   }
 
+  addRealizado(): void {
+    (this.servicoForm.servicosRealizados ||= []).push({ tipoServicoId: this.tipos[0]?.id || '', custo: 0 });
+  }
+
+  removeRealizado(index: number): void {
+    this.servicoForm.servicosRealizados?.splice(index, 1);
+  }
+
   salvar(): void {
-    const url = this.editingId
-      ? `${this.baseUrl}/${this.editingId}`
-      : this.baseUrl;
+    const body = {
+      dataServico: this.servicoForm.dataServico,
+      kmVeiculo: Number(this.servicoForm.kmVeiculo),
+      kmProxTrocaOleo: Number(this.servicoForm.kmProxTrocaOleo),
+      kmProxTrocaPneu: Number(this.servicoForm.kmProxTrocaPneu),
+      descricao: this.servicoForm.descricao,
+      veiculoId: this.servicoForm.veiculoId,
+      servicosRealizados: this.servicoForm.servicosRealizados?.map(r => ({
+        tipoServicoId: r.tipoServicoId,
+        custo: Number(r.custo)
+      }))
+    };
+
     const request$ = this.editingId
-      ? this.http.put<string>(url, this.servicoForm, { headers: this.getAuthHeaders() })
-      : this.http.post<string>(url, this.servicoForm, { headers: this.getAuthHeaders() });
+      ? this.http.put(`${this.baseUrl}/${this.editingId}`, body, { headers: this.getAuthHeaders() })
+      : this.http.post(this.baseUrl, body, { headers: this.getAuthHeaders() });
 
     request$.subscribe({
       next: () => {
         this.carregarServicos();
         this.closeModal();
+        this.errorMsg = null;
       },
       error: err => {
-        console.error('Erro Salvar Servico:', err);
-        this.errorMsg = this.editingId ? 'Erro ao atualizar serviço.' : 'Erro ao registrar serviço.';
+        console.error('Falha ao salvar serviço:', err);
+        this.errorMsg = err.error?.message || 'Erro ao registrar serviço.';
       }
     });
   }
 
-  editarServico(servico: Servico): void {
-    this.openModal(true, servico);
+  editarServico(s: Servico): void {
+    this.openModal(true, s);
   }
 
   excluirServico(id: string): void {
-    const servico = this.servicos.find(s => s.id === id);
-    if (!servico) {
-      this.errorMsg = 'Serviço não encontrado.';
-      return;
-    }
-    this.http.delete<string>(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders(), responseType: 'text' as 'json' })
-      .subscribe({
-        next: () => this.carregarServicos(),
-        error: err => {
-          console.error('Erro DELETE Servico:', err);
-          this.errorMsg = 'Erro ao excluir serviço.';
-        }
-      });
+    this.http.delete(`${this.baseUrl}/${id}`, {
+      headers: this.getAuthHeaders(),
+      responseType: 'text'
+    }).subscribe({
+      next: () => {
+        this.carregarServicos();
+        this.errorMsg = null;
+      },
+      error: err => {
+        console.error('Erro ao excluir serviço:', err);
+        this.errorMsg = err.error?.message || 'Erro ao excluir serviço.';
+      }
+    });
   }
 
   private clearForm(): void {
-    this.editingId = null;
     this.servicoForm = {
-      placa: '',
-      km: '',
-      fornecedor: '',
-      nota: '',
-      ultimaTrocaOleo: '',
-      kmUltimaTroca: '',
-      valorOleo: '',
-      proximaTrocaOleo: '',
-      pastilhaFreio: '',
-      valorPastilhaFreio: '',
-      checkupMotor: '',
-      valorCheckup: ''
+      dataServico: '',
+      kmVeiculo: 0,
+      kmProxTrocaOleo: 0,
+      kmProxTrocaPneu: 0,
+      descricao: '',
+      veiculoId: '',
+      servicosRealizados: []
     };
   }
 }

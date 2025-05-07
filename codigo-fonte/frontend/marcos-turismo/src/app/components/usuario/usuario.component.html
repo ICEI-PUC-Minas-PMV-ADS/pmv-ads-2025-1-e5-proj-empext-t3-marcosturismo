@@ -1,6 +1,11 @@
+<!-- usuario.component.html -->
 <app-sidebar></app-sidebar>
 
 <div class="user-card">
+  <!-- Botão que abre o modal de listagem -->
+  <button class="btn listar" (click)="isModalOpen = true">Listar Usuários</button>
+
+  <!-- Formulário de criação/edição de usuário -->
   <label for="nome">Nome</label>
   <input
     type="text"
@@ -47,5 +52,24 @@
   <div class="button-container">
     <button class="btn cadastrar" (click)="cadastrar()">Cadastrar</button>
     <button class="btn cancelar" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Modal de listagem -->
+<div class="modal" [ngClass]="{'modal-show': isModalOpen, 'modal-hide': !isModalOpen}">
+  <div class="modal-content">
+    <h2>Usuários Cadastrados</h2>
+    <div *ngFor="let usuario of usuarios" class="usuario-card">
+      <h3>{{ usuario.nome }}</h3>
+      <p><strong>Status:</strong> {{ usuario.status }}</p>
+      <p><strong>Categoria:</strong> {{ usuario.tipo }}</p>
+      <p><strong>Documento:</strong> {{ usuario.documento }}</p>
+      <p><strong>E-mail:</strong> {{ usuario.email }}</p>
+      <div class="button-container">
+        <button class="btn cadastrar" (click)="editarUsuario(usuario); isModalOpen=false">✏️</button>
+        <button class="btn cancelar" (click)="excluirUsuario(usuario.id)">🗑️</button>
+      </div>
+    </div>
+    <button class="btn cancelar fechar" (click)="isModalOpen = false">Fechar</button>
   </div>
 </div>

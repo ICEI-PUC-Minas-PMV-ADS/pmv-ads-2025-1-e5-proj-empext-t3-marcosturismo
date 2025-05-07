@@ -32,6 +32,9 @@ export class UsuarioComponent implements OnInit {
   errorMsg: string | null = null;
   private editingId: string | null = null;
 
+  // NOVO: controla o usuário selecionado no dropdown
+  selectedUserId: string | null = null;
+
   usuarioForm: Partial<Usuario> = {
     nome: '',
     tipo: 'Administrador',
@@ -63,7 +66,7 @@ export class UsuarioComponent implements OnInit {
     this.http.get<Usuario[]>(`${this.baseUrl}`, { headers: this.getAuthHeaders() })
       .subscribe({
         next: data => {
-          this.usuarios = [...(Array.isArray(data) ? data : [])];
+          this.usuarios = Array.isArray(data) ? data : [];
           this.cdref.detectChanges();
           this.errorMsg = null;
         },
@@ -94,20 +97,41 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
+  // Método existente (usa quando clica em um card)
   editarUsuario(usuario: Usuario): void {
     this.editingId = usuario.id;
     this.usuarioForm = { ...usuario };
   }
 
+  // NOVO: editar a partir do dropdown
+  editarUsuarioSelecionado(): void {
+    if (!this.selectedUserId) {
+      return;
+    }
+    const usuario = this.usuarios.find(u => u.id === this.selectedUserId);
+    if (usuario) {
+      this.editarUsuario(usuario);
+      this.isModalOpen = false;
+    }
+  }
+
   excluirUsuario(id: string): void {
-    this.http.delete<string>(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders(), responseType: 'text' as 'json' })
-      .subscribe({
-        next: () => this.carregarUsuarios(),
-        error: err => {
-          console.error('Erro DELETE:', err);
-          this.errorMsg = 'Erro ao excluir usuário.';
+    this.http.delete<string>(`${this.baseUrl}/${id}`, {
+      headers: this.getAuthHeaders(),
+      responseType: 'text' as 'json'
+    }).subscribe({
+      next: () => {
+        this.carregarUsuarios();
+        // se estiver usando dropdown, limpa seleção
+        if (this.selectedUserId === id) {
+          this.selectedUserId = null;
         }
-      });
+      },
+      error: err => {
+        console.error('Erro DELETE:', err);
+        this.errorMsg = 'Erro ao excluir usuário.';
+      }
+    });
   }
 
   clearForm(): void {

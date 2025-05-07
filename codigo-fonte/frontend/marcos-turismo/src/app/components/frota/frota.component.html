@@ -1,4 +1,9 @@
+
+<!-- Botão para abrir o modal -->
+<button id="openModalBtn" class="add-btn" (click)="abrirModal()">+</button>
+
 <!-- HTML -->
+
 <app-sidebar></app-sidebar>
 <button class="add-btn" (click)="abrirModal()">+</button>
 
@@ -71,6 +76,28 @@
 
   </div>
 </div>
+<div class="cards-container">
+  <div class="veiculo-card" *ngFor="let veiculo of cardsGerados; let i = index">
+    <img [src]="veiculo.imagem || 'assets/imagens/sem-imagem.jpg'" alt="Imagem do veículo" class="veiculo-img">
+    
+    <div class="veiculo-info">
+      <h3>{{ veiculo.modelo }} - {{ veiculo.marca }}</h3>
+      <p><strong>Numeração:</strong> {{ veiculo.numeracao }}</p>
+      <p><strong>Ano Modelo:</strong> {{ veiculo.anoModelo }}</p>
+      <p><strong>KM Atual:</strong> {{ veiculo.kmAtual }}</p>
+      <p><strong>Situação:</strong> {{ veiculo.situacao }}</p>
+      <p><strong>Placa:</strong> {{ veiculo.placa }}</p>
+      <p><strong>Lotação:</strong> {{ veiculo.lotacao }}</p>
+      <p><strong>Categoria:</strong> {{ veiculo.categoria }}</p>
+      <p><strong>Opcionais:</strong>
+        <span *ngIf="veiculo.arCondicionado">❄ Ar Condicionado </span>
+        <span *ngIf="veiculo.wifi">📶 Wi-Fi </span>
+        <span *ngIf="veiculo.poltronaReclinavel">💺 Poltrona </span>
+        <span *ngIf="veiculo.tv">📺 TV </span>
+        <span *ngIf="veiculo.geladeira">🧊 Geladeira </span>
+        <span *ngIf="veiculo.sanitarios">🚻 Sanitários </span>
+      </p>
+    </div>
 
 <!-- Grupo: Cards gerados -->
 <div id="generatedCards">
@@ -89,8 +116,19 @@
       <li *ngIf="v.geladeira">Geladeira</li>
       <li *ngIf="v.sanitarios">Sanitários</li>
     </ul>
+
+    <button class="delete-card-btn" (click)="excluirCard(i)">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+
+    <div class="card-actions">
+      <button class="btn red" (click)="excluirCard(i)">Excluir</button>
+      <button class="btn blue" (click)="editarCard(i)">Editar</button>
+    </div>
+
     <img [src]="v.imagem" alt="Imagem do veículo">
     <button class="delete-card-btn" (click)="excluirCard(i)">Excluir</button>
     <button class="btn blue" (click)="atualizarCard(i)">Atualizar</button>
+
   </div>
 </div>
