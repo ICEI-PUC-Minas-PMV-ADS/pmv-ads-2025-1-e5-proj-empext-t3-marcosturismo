@@ -178,7 +178,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td width="170"><strong>Comentário</strong></td>
-    <td colspan="5">O sistema está permitindo o login corretamente e redirecionando o usuário para o painel administrativo.</td>
+    <td colspan="5">O sistema está permitindo o login corretamente e redirecionando o usuário para o painel administrativo, conforme esperado.</td>
   </tr>
   <tr>
     <td colspan="6" align="center"><strong>Evidência</strong></td>
@@ -197,12 +197,12 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   <tr>
     <td width="150"><strong>Descrição</strong></td>
     <td>
-      Este caso de teste verifica se o administrador pode cadastrar, editar e excluir colaboradores com sucesso.     
+     Verificar se o administrador pode cadastrar, editar e excluir colaboradores com sucesso.     
     </td>
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Maria Lourder</td>
+    <td width="430">Maria Lourdes</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -253,7 +253,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td width="150"><strong>Descrição</strong></td>
-    <td> Este caso de teste verifica se o sistema impede que usuários que não sejam administradores realizem operações de cadastro, edição e exclusão de colaboradores.</td>
+    <td> Verificar se o sistema impede que usuários que não sejam administradores realizem operações de cadastro, edição e exclusão de colaboradores.</td>
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
@@ -371,6 +371,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 ## Parte 2 - Testes por pares
 A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade deve ser testada por um colega e os testes devem ser evidenciados. O colega "Tester" deve utilizar o caso de teste criado pelo desenvolvedor responsável pela funcionalidade (desenvolveu a funcionalidade e criou o caso de testes descrito no plano de testes).
 
+
 ## Sucesso
 <table>
   <tr>
@@ -409,7 +410,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo De Paula </td>
+    <td width="430">Leonardo Junior </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -703,7 +704,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 </table>
 
-#### Exemplo de Caso de Teste de Insucesso
+#### Teste de Insucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-004<br>
@@ -715,7 +716,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Devi Reis</td>
+    <td width="430">Davi Reis</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -884,7 +885,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 
 
 ## CT-005
-#### Exemplo de Caso de Teste de Sucesso
+#### Teste de Sucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-005 Início de Viagem Após Realização do Checklist
@@ -934,7 +935,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 </table>
 
-#### Exemplo de Caso de Teste de Insucesso
+#### Teste de Insucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-005<br>
@@ -1067,7 +1068,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Jefferson Freitas </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo De Paula</td>
+    <td width="430">Leonardo Junio</td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1096,7 +1097,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Jefferson Freitas </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo De Paula </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1589,7 +1590,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 </table>
 
 ## CT-008
-#### Exemplo de Caso de Teste de Sucesso
+#### Teste de Sucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-008<br>Gerenciamento de Excursões com Acesso de Administrador
@@ -1602,7 +1603,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Leonardo De Paula</td>
+    <td width="430">Leonardo Junio</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -1641,7 +1642,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 </table>
 
-#### Exemplo de Caso de Teste de Insucesso
+#### Teste de Insucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-008<br>
@@ -1653,7 +1654,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Leonardo De Paula</td>
+    <td width="430">Leonardo Junio</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -1710,7 +1711,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Leonardo De Paula</td>
+    <td width="430">Leonardo Junio</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1744,7 +1745,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430">Leonardo De Paula</td>
+    <td width="430">Leonardo Junio</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -1774,7 +1775,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Leonardo De Paula </td>
+    <td width="430">Leonardo Junio </td>
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
@@ -1803,7 +1804,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Leonardo De Paula </td>
+    <td width="430">Leonardo Junio </td>
       <td><strong>Responsável pelo teste</strong></td>
     <td width="430">Jefferson Freitas </td>
      <td width="100"><strong>Data do teste</strong></td>
@@ -2008,9 +2009,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Maria de Loudes </td>
+    <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Lernardo Junior </td>
+    <td width="430">Lernardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2035,7 +2036,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo De Paula </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2050,7 +2051,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 
 
 ## CT-010
-#### Exemplo de Caso de Teste de Sucesso
+#### Teste de Sucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-010<br>Validação de Avaliações pelo Administrador
@@ -2099,7 +2100,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 </table>
 
-#### Exemplo de Caso de Teste de Insucesso
+#### Teste de Insucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-010<br>
@@ -2279,7 +2280,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 
 
 ## CT-011
-#### Exemplo de Caso de Teste de Sucesso
+#### Teste de Sucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-011<br>Registro de Avaliação por Visitante
@@ -2327,7 +2328,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 </table>
 
-#### Exemplo de Caso de Teste de Insucesso
+#### Teste de Insucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-011<br>
@@ -2705,9 +2706,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Maria de Loudes </td>
+    <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Lernardo Junior </td>
+    <td width="430">Lernardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2732,7 +2733,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo De Paula </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2759,7 +2760,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Leoanrdo De Paula</td>
+    <td width="430">Leoanrdo Junio</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -2809,7 +2810,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430"> Leonardo De Paula</td>
+    <td width="430"> Leonardo Junio</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -2930,9 +2931,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Maria de Loudes </td>
+    <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Lernardo Junior </td>
+    <td width="430">Lernardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2957,7 +2958,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo De Paula </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
