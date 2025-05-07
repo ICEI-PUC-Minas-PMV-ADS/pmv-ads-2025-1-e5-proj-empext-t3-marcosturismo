@@ -1,6 +1,6 @@
 # Planos de Testes de Software
 
- etapa, vamos apresentar os casos de teste que utilizamos para verificar e validar a aplicação. Vamos focar em cenários que comprovam o atendimento aos requisitos e também em situações que demonstram como o sistema lida com erros, assegurando sua robustez.
+Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e validar a aplicação. Vamos focar em cenários que comprovam o atendimento aos requisitos e também em situações que demonstram como o sistema lida com erros, assegurando sua robustez.
 
 ### Tipo de Teste
 - **Sucesso**: Tem o objetivo de verificar se as funcionalidades funcionam corretamente.
