@@ -1830,6 +1830,234 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 </table>
 
+
+## CT-009 
+#### Caso de Teste de Sucesso 
+<table>
+  <tr>
+    <th colspan="2" width="1000">CT-009 Redirecionamento para WhatsApp com Dados Válidos</th>
+  </tr>
+  <tr>
+    <td width="150"><strong>Descrição</strong></td>
+    <td>
+      Este caso de teste verifica se o sistema redireciona o usuário para o WhatsApp com o número do cliente corretamente informado, permitindo o contato via URL.     
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Responsável Caso de Teste </strong></td>
+    <td width="430">Maria de Lourdes</td>
+  </tr>
+ <tr>
+    <td><strong>Tipo do Teste</strong></td>
+    <td width="430">Sucesso</td>
+  </tr> 
+  <tr>
+    <td><strong>Requisitos associados</strong></td>
+    <td>RF-009: O sistema deve permitir que o usuário entre em contato pelo WhatsApp com o cliente por meio de um redirecionamento de URL.</td>
+  </tr>
+  <tr>
+    <td><strong>Passos</strong></td>
+    <td>
+      1.	Acessar o sistema e navegar até o módulo ou opção "Contato".<br>
+      2.	Selecionar a opção "Entrar em contato via WhatsApp".<br>
+      3.	O sistema realiza o redirecionamento para a URL do WhatsApp, utilizando o número de telefone do cliente configurado.<br>
+    </td>
+  </tr>
+    <tr>
+    <td><strong>Dados de teste</strong></td>
+    <td>
+      •	Número do Cliente: Número de telefone válido e formatado corretamente (ex.: +5511999999999).<br>
+      •	URL de Redirecionamento: Formato correto para abrir o WhatsApp (ex.: https://wa.me/5511999999999).<br>
+    </tr>
+  
+  <tr>
+    <td><strong>Critérios de êxito</strong></td>
+    <td> 
+      •	O sistema redireciona o usuário para a URL do WhatsApp, abrindo o aplicativo ou a versão web com a conversa iniciada para o número informado.<br>
+      •	Não há erros durante o redirecionamento e o redirecionamento ocorre dentro de um tempo aceitável.<br>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+</table>
+
+
+#### Caso de Teste de Insucesso
+<table>
+  <tr>
+    <th colspan="2" width="1000">CT-009 Tentativa de Redirecionamento para WhatsApp com Dados Inválidos</th>
+  </tr>
+  <tr>
+    <td width="150"><strong>Descrição</strong></td>
+    <td>Este caso de teste verifica se o sistema impede o redirecionamento para o WhatsApp quando os dados do cliente estão ausentes ou inválidos.</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável Caso de Teste </strong></td>
+    <td width="430"> Maria de Lourdes</td>
+  </tr>
+ <tr>
+    <td><strong>Tipo do Teste</strong></td>
+    <td width="430">Falha</td>
+  </tr> 
+  <tr>
+    <td><strong>Requisitos associados</strong></td>
+    <td>RF-009: O sistema deve permitir que o usuário entre em contato pelo WhatsApp com o cliente por meio de um redirecionamento de URL.</td>
+  </tr>
+  <tr>
+    <td><strong>Passos</strong></td>
+    <td>
+      1.	Acessar o sistema e navegar até o módulo ou opção "Contato".<br>
+      2.	Tentar clicar na opção "Entrar em contato via WhatsApp" sem que o número do cliente seja informado ou utilizando um número em formato incorreto.<br>
+      </td>
+  </tr>
+    <tr>
+    <td><strong>Dados de teste</strong></td>
+    <td>
+    •	Número do Cliente:<br>
+      o	Caso 1: Número em branco.<br>
+      o	Caso 2: Número com formato inválido (ex.: “123abc”).<br>
+    </tr>
+  
+  <tr>
+    <td><strong>Critérios de êxito</strong></td>
+    <td>
+      •	O sistema não efetua o redirecionamento para o WhatsApp.<br>
+      •	Uma mensagem de erro é exibida informando que o contato não pôde ser estabelecido por falta de um número válido.<br>
+      •	O usuário permanece na tela atual, sem ser redirecionado.<br>
+    </td>
+  </tr>
+</table>
+
+ 
+# Evidências de Testes de Software
+
+Apresente imagens e/ou vídeos que comprovam que um determinado teste foi executado, e o resultado esperado foi obtido. Normalmente são screenshots de telas, ou vídeos do software em funcionamento.
+
+## Parte 1 - Testes Unitários
+Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes (sucesso e insucesso) criados pelo responsável pela funcionalidade. Todos os testes devem ser evidenciados.
+
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">•	O sistema permite o cadastro de um novo colaborador e exibe uma mensagem de sucesso.
+      •	As alterações realizadas na edição são salvas e refletidas na listagem.
+      •	A exclusão do colaborador é efetivada e o registro não aparece mais na listagem.
+      •	Todas as ações são permitidas somente quando acessadas com credenciais de administrador.
+</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável pelo Teste</strong></td>
+    <td width="430">Maria de Lourdes</td>
+    <td width="100"><strong>Data do Teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+  <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O teste confirmou que o sistema executa corretamente as operações de cadastro, edição e exclusão quando realizadas por um usuário com privilégios de administrador.</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+  <tr>
+    <td ></td>
+  </tr>
+</table>
+
+
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">•	O sistema deve impedir o acesso às funcionalidades de gerenciamento de colaboradores para usuários não administrativos.
+      •	Caso o usuário tente acessar tais funcionalidades, o sistema deve exibir uma mensagem de erro informando “Acesso Negado” ou equivalente.
+      •	Nenhuma alteração (cadastro, edição ou exclusão) deve ser realizada no módulo de colaboradores por um usuário não autorizado.</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável pelo Teste</strong></td>
+    <td width="430">Maria de Lourdes</td>
+    <td width="100"><strong>Data do Teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+  <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O teste demonstrou que usuários sem privilégios administrativos não conseguem acessar nem executar operações de gerenciamento de colaboradores, sendo apresentada a mensagem de erro apropriada quando há tentativa de acesso</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+  <tr>
+    <td ></td>
+  </tr>
+</table>
+
+
+## Parte 2 - Testes por pares
+A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade deve ser testada por um colega e os testes devem ser evidenciados. O colega "Tester" deve utilizar o caso de teste criado pelo desenvolvedor responsável pela funcionalidade (desenvolveu a funcionalidade e criou o caso de testes descrito no plano de testes).
+
+## Sucesso
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">O administrador deve conseguir cadastrar, editar e excluir colaboradores.</td>
+  </tr>
+    <tr>
+    <td><strong>Responsável pela funcionalidade</strong></td>
+    <td width="430">Maria de Loudes </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Lernardo Junior </td>
+     <td width="100"><strong>Data do teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+    <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O administrador conseguiu gerenciar colaboradores com sucesso.</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+  ## Falha
+  <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">Usuários não administradores não devem conseguir gerenciar colaboradores.</td>
+  </tr>
+    <tr>
+    <td><strong>Responsável pela funcionalidade</strong></td>
+    <td width="430">Maria de Lourdes </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Leonardo De Paula </td>
+     <td width="100"><strong>Data do teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+    <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O sistema bloqueou corretamente as ações de gerenciamento para usuários não administradores.
+</td>
+  </tr>
+  <tr>
+</table>
+
+
+
 ## CT-010
 #### Exemplo de Caso de Teste de Sucesso
 <table>
@@ -2299,3 +2527,454 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1a09d82b-6642-4914-ad42-aece68766a39"/></td>
   </tr>
 </table>
+
+
+## CT-012
+#### Caso de Teste de Sucesso 
+<table>
+  <tr>
+    <th colspan="2" width="1000">CT-012 Visualização da Frota por Usuário Visitante</th>
+  </tr>
+  <tr>
+    <td width="150"><strong>Descrição</strong></td>
+    <td>
+      Este caso de teste verifica se um usuário visitante consegue visualizar corretamente a lista de veículos da frota da empresa.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Responsável Caso de Teste </strong></td>
+    <td width="430">Davi Reis</td>
+  </tr>
+ <tr>
+    <td><strong>Tipo do Teste</strong></td>
+    <td width="430">Sucesso</td>
+  </tr> 
+  <tr>
+    <td><strong>Requisitos associados</strong></td>
+    <td>RF-012: O sistema deve permitir que o usuário visitante veja a lista de frotas da empresa.</td>
+  </tr>
+  <tr>
+    <td><strong>Passos</strong></td>
+    <td>
+      1.	Acessar o sistema sem realizar login.<br>
+      2.	Navegar até a seção "Nossa Frota" ou equivalente.<br>
+      3.	Visualizar a lista de veículos exibidos na página.<br>
+      4.	Confirmar se as informações dos veículos (modelo, capacidade, fotos, etc.) são exibidas corretamente.<br>
+    </td>
+  </tr>
+    <tr>
+    <td><strong>Dados de teste</strong></td>
+    <td>
+      •	Não aplicável (visualização pública, sem necessidade de dados específicos).<br>
+    </tr>
+  
+  <tr>
+    <td><strong>Critérios de êxito</strong></td>
+    <td> 
+      •	O sistema exibe a lista completa de veículos cadastrados na frota.<br>
+      •	As informações de cada veículo estão visíveis e corretas.<br>
+      •	A página carrega sem erros ou lentidão.<br>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+</table>
+
+
+#### Caso de Teste de Insucesso
+<table>
+  <tr>
+    <th colspan="2" width="1000">CT-012 Tentativa de Visualização da Frota com Erro de Carregamento</th>
+  </tr>
+  <tr>
+    <td width="150"><strong>Descrição</strong></td>
+    <td>Este caso de teste verifica se o sistema trata adequadamente uma falha ao carregar a lista de frotas.</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável Caso de Teste </strong></td>
+    <td width="430">Davi Reis</td>
+  </tr>
+ <tr>
+    <td><strong>Tipo do Teste</strong></td>
+    <td width="430">Falha</td>
+  </tr> 
+  <tr>
+    <td><strong>Requisitos associados</strong></td>
+    <td>RF-012: O sistema deve permitir que o usuário visitante veja a lista de frotas da empresa.</td>
+  </tr>
+  <tr>
+    <td><strong>Passos</strong></td>
+    <td>
+      1.	Acessar o sistema como visitante.<br>
+      2.	Navegar até a seção "Nossa Frota".<br>
+      3.	Simular falha no carregamento de dados (por exemplo, desconexão de internet ou erro do servidor).<br>
+      </td>
+  </tr>
+    <tr>
+    <td><strong>Dados de teste</strong></td>
+    <td>
+      •	Simulação de erro no backend ou interrupção da rede.<br>
+    </tr>
+  
+  <tr>
+    <td><strong>Critérios de êxito</strong></td>
+    <td>
+      •	O sistema deve exibir uma mensagem de erro amigável (ex.: "Não foi possível carregar a lista de veículos. Tente novamente mais tarde.").<br>
+      •	O sistema não deve travar nem exibir páginas em branco.<br>
+    </td>
+  </tr>
+</table>
+
+ 
+# Evidências de Testes de Software
+
+Apresente imagens e/ou vídeos que comprovam que um determinado teste foi executado, e o resultado esperado foi obtido. Normalmente são screenshots de telas, ou vídeos do software em funcionamento.
+
+## Parte 1 - Testes Unitários
+Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes (sucesso e insucesso) criados pelo responsável pela funcionalidade. Todos os testes devem ser evidenciados.
+
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">•	O sistema permite o cadastro de um novo colaborador e exibe uma mensagem de sucesso.
+      •	As alterações realizadas na edição são salvas e refletidas na listagem.
+      •	A exclusão do colaborador é efetivada e o registro não aparece mais na listagem.
+      •	Todas as ações são permitidas somente quando acessadas com credenciais de administrador.
+</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável pelo Teste</strong></td>
+    <td width="430">Maria de Lourdes</td>
+    <td width="100"><strong>Data do Teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+  <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O teste confirmou que o sistema executa corretamente as operações de cadastro, edição e exclusão quando realizadas por um usuário com privilégios de administrador.</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+  <tr>
+    <td ></td>
+  </tr>
+</table>
+
+
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">•	O sistema deve impedir o acesso às funcionalidades de gerenciamento de colaboradores para usuários não administrativos.
+      •	Caso o usuário tente acessar tais funcionalidades, o sistema deve exibir uma mensagem de erro informando “Acesso Negado” ou equivalente.
+      •	Nenhuma alteração (cadastro, edição ou exclusão) deve ser realizada no módulo de colaboradores por um usuário não autorizado.</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável pelo Teste</strong></td>
+    <td width="430">Maria de Lourdes</td>
+    <td width="100"><strong>Data do Teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+  <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O teste demonstrou que usuários sem privilégios administrativos não conseguem acessar nem executar operações de gerenciamento de colaboradores, sendo apresentada a mensagem de erro apropriada quando há tentativa de acesso</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+  <tr>
+    <td ></td>
+  </tr>
+</table>
+
+
+## Parte 2 - Testes por pares
+A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade deve ser testada por um colega e os testes devem ser evidenciados. O colega "Tester" deve utilizar o caso de teste criado pelo desenvolvedor responsável pela funcionalidade (desenvolveu a funcionalidade e criou o caso de testes descrito no plano de testes).
+
+## Sucesso
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">O administrador deve conseguir cadastrar, editar e excluir colaboradores.</td>
+  </tr>
+    <tr>
+    <td><strong>Responsável pela funcionalidade</strong></td>
+    <td width="430">Maria de Loudes </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Lernardo Junior </td>
+     <td width="100"><strong>Data do teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+    <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O administrador conseguiu gerenciar colaboradores com sucesso.</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+  ## Falha
+  <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">Usuários não administradores não devem conseguir gerenciar colaboradores.</td>
+  </tr>
+    <tr>
+    <td><strong>Responsável pela funcionalidade</strong></td>
+    <td width="430">Maria de Lourdes </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Leonardo De Paula </td>
+     <td width="100"><strong>Data do teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+    <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O sistema bloqueou corretamente as ações de gerenciamento para usuários não administradores.
+</td>
+  </tr>
+  <tr>
+</table>
+
+
+## CT-013 
+#### Caso de Teste de Sucesso 
+<table>
+  <tr>
+    <th colspan="2" width="1000">CT-013 Visualização de Excursões por Usuário Visitante</th>
+  </tr>
+  <tr>
+    <td width="150"><strong>Descrição</strong></td>
+    <td>
+      Este caso de teste verifica se um usuário visitante consegue visualizar corretamente a lista de próximas excursões disponíveis.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Responsável Caso de Teste </strong></td>
+    <td width="430">Leoanrdo De Paula</td>
+  </tr>
+ <tr>
+    <td><strong>Tipo do Teste</strong></td>
+    <td width="430">Sucesso</td>
+  </tr> 
+  <tr>
+    <td><strong>Requisitos associados</strong></td>
+    <td>RF-013: O sistema deve permitir que o usuário visitante veja as próximas excursões.</td>
+  </tr>
+  <tr>
+    <td><strong>Passos</strong></td>
+    <td>
+      1.	Acessar o sistema sem realizar login.<br>
+      2.	Navegar até a seção "Excursões" ou equivalente.<br>
+      3.	Visualizar a lista de excursões disponíveis.<br>
+      4.	Confirmar se as informações sobre cada excursão (destino, data, horário, valor, etc.) são exibidas corretamente.<br>
+    </td>
+  </tr>
+    <tr>
+    <td><strong>Dados de teste</strong></td>
+    <td>
+      •	Não aplicável (visualização pública, sem necessidade de inserção de dados).<br>
+    </tr>
+  
+  <tr>
+    <td><strong>Critérios de êxito</strong></td>
+    <td> 
+      •	O sistema exibe a lista de excursões cadastradas.<br>
+      •	As informações de cada excursão (destino, data, valor, etc.) estão completas e corretas.<br>
+      •	A página carrega normalmente e sem erros.<br>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+</table>
+
+
+#### Caso de Teste de Insucesso
+<table>
+  <tr>
+    <th colspan="2" width="1000">CT-013 Tentativa de Visualização de Excursões com Erro de Carregamento</th>
+  </tr>
+  <tr>
+    <td width="150"><strong>Descrição</strong></td>
+    <td>Este caso de teste verifica se o sistema trata adequadamente uma falha ao carregar a lista de excursões.</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável Caso de Teste </strong></td>
+    <td width="430"> Leonardo De Paula</td>
+  </tr>
+ <tr>
+    <td><strong>Tipo do Teste</strong></td>
+    <td width="430">Falha</td>
+  </tr> 
+  <tr>
+    <td><strong>Requisitos associados</strong></td>
+    <td>RF-013: O sistema deve permitir que o usuário visitante veja as próximas excursões.</td>
+  </tr>
+  <tr>
+    <td><strong>Passos</strong></td>
+    <td>
+      1.	Acessar o sistema como visitante.<br>
+      2.	Navegar até a seção "Excursões".<br>
+      3.	Simular uma falha no carregamento das excursões (por exemplo, interrupção de internet ou erro no servidor).<br>
+      </td>
+  </tr>
+    <tr>
+    <td><strong>Dados de teste</strong></td>
+    <td>
+      •	Simulação de falha de conexão ou indisponibilidade do banco de dados de excursões.<br>
+    </tr>
+  
+  <tr>
+    <td><strong>Critérios de êxito</strong></td>
+    <td>
+      •	O sistema deve exibir uma mensagem amigável de erro (ex.: "Não foi possível carregar as excursões no momento. Tente novamente mais tarde.").<br>
+      •	O sistema não deve travar ou apresentar comportamento inesperado.<br>
+    </td>
+  </tr>
+</table>
+
+ 
+# Evidências de Testes de Software
+
+Apresente imagens e/ou vídeos que comprovam que um determinado teste foi executado, e o resultado esperado foi obtido. Normalmente são screenshots de telas, ou vídeos do software em funcionamento.
+
+## Parte 1 - Testes Unitários
+Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes (sucesso e insucesso) criados pelo responsável pela funcionalidade. Todos os testes devem ser evidenciados.
+
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Gerenciamento de Colaboradores com Acesso de Administrador</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">•	O sistema permite o cadastro de um novo colaborador e exibe uma mensagem de sucesso.
+      •	As alterações realizadas na edição são salvas e refletidas na listagem.
+      •	A exclusão do colaborador é efetivada e o registro não aparece mais na listagem.
+      •	Todas as ações são permitidas somente quando acessadas com credenciais de administrador.
+</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável pelo Teste</strong></td>
+    <td width="430">Maria de Lourdes</td>
+    <td width="100"><strong>Data do Teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+  <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O teste confirmou que o sistema executa corretamente as operações de cadastro, edição e exclusão quando realizadas por um usuário com privilégios de administrador.</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+  <tr>
+    <td ></td>
+  </tr>
+</table>
+
+
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Tentativa de Gerenciamento de Colaboradores com Acesso Não Administrativo</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">•	O sistema deve impedir o acesso às funcionalidades de gerenciamento de colaboradores para usuários não administrativos.
+      •	Caso o usuário tente acessar tais funcionalidades, o sistema deve exibir uma mensagem de erro informando “Acesso Negado” ou equivalente.
+      •	Nenhuma alteração (cadastro, edição ou exclusão) deve ser realizada no módulo de colaboradores por um usuário não autorizado.</td>
+  </tr>
+  <tr>
+    <td><strong>Responsável pelo Teste</strong></td>
+    <td width="430">Maria de Lourdes</td>
+    <td width="100"><strong>Data do Teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+  <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O teste demonstrou que usuários sem privilégios administrativos não conseguem acessar nem executar operações de gerenciamento de colaboradores, sendo apresentada a mensagem de erro apropriada quando há tentativa de acesso</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+    <tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+  </tr>
+  <tr>
+    <td ></td>
+  </tr>
+</table>
+
+
+## Parte 2 - Testes por pares
+A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade deve ser testada por um colega e os testes devem ser evidenciados. O colega "Tester" deve utilizar o caso de teste criado pelo desenvolvedor responsável pela funcionalidade (desenvolveu a funcionalidade e criou o caso de testes descrito no plano de testes).
+
+## Sucesso
+<table>
+  <tr>
+    <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">O administrador deve conseguir cadastrar, editar e excluir colaboradores.</td>
+  </tr>
+    <tr>
+    <td><strong>Responsável pela funcionalidade</strong></td>
+    <td width="430">Maria de Loudes </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Lernardo Junior </td>
+     <td width="100"><strong>Data do teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+    <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O administrador conseguiu gerenciar colaboradores com sucesso.</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center"><strong>Evidência</strong></td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+  ## Falha
+  <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
+  </tr>
+  <tr>
+    <td width="170"><strong>Critérios de êxito</strong></td>
+    <td colspan="5">Usuários não administradores não devem conseguir gerenciar colaboradores.</td>
+  </tr>
+    <tr>
+    <td><strong>Responsável pela funcionalidade</strong></td>
+    <td width="430">Maria de Lourdes </td>
+      <td><strong>Responsável pelo teste</strong></td>
+    <td width="430">Leonardo De Paula </td>
+     <td width="100"><strong>Data do teste</strong></td>
+    <td width="150">04/05/2025</td>
+  </tr>
+    <tr>
+    <td width="170"><strong>Comentário</strong></td>
+    <td colspan="5">O sistema bloqueou corretamente as ações de gerenciamento para usuários não administradores.
+</td>
+  </tr>
+  <tr>
+</table>
+
