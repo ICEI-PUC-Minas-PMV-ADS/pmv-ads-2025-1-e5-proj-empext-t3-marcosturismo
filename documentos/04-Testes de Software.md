@@ -383,9 +383,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
     <tr>
     <td><strong>Responsável pela funcionalidade</strong></td>
-    <td width="430">Maria de Loudes </td>
+    <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Lernardo Junior </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -399,7 +399,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   <tr>
     <td></td>
   </tr>
-  ## Falha
+  
   <th colspan="6" width="1000">CT-002<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
@@ -410,7 +410,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Leonardo Junior </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -625,7 +625,6 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td></td>
   </tr>
 
-   ## Falha
   <th colspan="6" width="1000">CT-003<br>Gerenciar Viagens</th>
   </tr>
   <tr>
@@ -793,7 +792,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-004<br>: Tentativa de Gerenciamento de Frota com Acesso Não Administrativo</th>
+    <th colspan="6" width="1000">CT-004<br>Tentativa de Gerenciamento de Frota com Acesso Não Administrativo</th>
   </tr>
   <tr>
     <td width="170"><strong>Descrição</strong></td>
@@ -855,7 +854,6 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 
 
 <table>
-  ##Falha
   <tr>
     <th colspan="6" width="1000">CT-004<br>Gerenciar Frotas</th>
   </tr>
@@ -1085,7 +1083,6 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 </table>
       
 <table>
-  ##Falha
   <tr>
     <th colspan="6" width="1000">CT-005<br>Autenticação com Credenciais Válidas</th>
   </tr>
@@ -1224,7 +1221,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
 
 <table>
   <tr>
-    <th colspan="6" width="1000">CT-006<br>: Finalização de Viagem com Quilometragem Inserida</th>
+    <th colspan="6" width="1000">CT-006<br>Finalização de Viagem com Quilometragem Inserida</th>
   </tr>
   <tr>
     <td width="170"><strong>Descrição</strong></td>
@@ -1316,8 +1313,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   <tr>
     <td colspan="6" align="center"><video src="COLOCAR VIDEO"/></td>
   </tr>
-
-  ##Falha    
+      
 </table>
 <table>
   <tr>
@@ -1560,7 +1556,6 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
 </table>
 
-##Falha
 <table>
   <tr>
     <th colspan="6" width="1000">CT-007<br>Serviços</th>
@@ -2011,7 +2006,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Lernardo Junio </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2025,7 +2020,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   <tr>
     <td></td>
   </tr>
-  ## Falha
+
   <th colspan="6" width="1000">CT-009<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
@@ -2708,7 +2703,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Lernardo Junio </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2722,7 +2717,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   <tr>
     <td></td>
   </tr>
-  ## Falha
+
   <th colspan="6" width="1000">CT-012<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
@@ -2760,7 +2755,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430">Leoanrdo Junio</td>
+    <td width="430">Leonardo Junio</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -2933,7 +2928,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td><strong>Responsável pela funcionalidade</strong></td>
     <td width="430">Maria de Lourdes </td>
       <td><strong>Responsável pelo teste</strong></td>
-    <td width="430">Lernardo Junio </td>
+    <td width="430">Leonardo Junio </td>
      <td width="100"><strong>Data do teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
@@ -2947,7 +2942,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
   <tr>
     <td></td>
   </tr>
-  ## Falha
+
   <th colspan="6" width="1000">CT-013<br>Gerenciar Colaboradores</th>
   </tr>
   <tr>
