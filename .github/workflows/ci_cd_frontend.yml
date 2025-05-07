@@ -1,0 +1,60 @@
+name: CI/CD Frontend
+
+#on:
+#  pull_request:
+#    branches:
+#      - release
+#    types:
+#      - closed
+#    paths-ignore:
+#      - pubspec.yaml
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        run: npm ci
+     
+      - name: Build Angular app
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        run: ng build --configuration=production
+   
+      - name: Rename CSR index file to index.html
+        run: mv codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.csr.html codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
+
+      - name: Upload build files to VPS (Apache)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          source: "codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/*"
+          target: ${{ secrets.HOST_DEPLOY_DIR }}
+
+      - name: Reload Apache
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: |
+            sudo systemctl reload apache2 || echo "Apache not reloaded"
