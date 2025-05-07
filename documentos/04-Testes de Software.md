@@ -14,7 +14,7 @@ Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e 
   </tr>
   <tr>
     <td width="150"><strong>Descrição</strong></td>
-    <td>Este caso de teste verifica se apenas colaboradores e o administrador podem autenticar e acessar o painel de gestão com credenciais válidas.
+    <td> Verifica se apenas colaboradores e o administrador podem autenticar e acessar o painel de gestão com credenciais válidas.
 
 </td>
   </tr>
