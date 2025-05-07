@@ -1,11 +1,40 @@
 <!-- dashboard.component.html -->
 <h1>Bem-vindo ao SIGF</h1>
 <p>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</p>
+<app-sidebar></app-sidebar>
+
+<div class="main-content" [class.active]="isSidebarActive">
+  <h1>Bem-vindo ao SIGF</h1>
+  <p>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</p>
+
+  <div class="cards-container">
+    <!-- Card de veículos ativos -->
+    <div class="card">
+      <h2>Veículos Ativos</h2>
+      <p>Quantidade: {{ activeVehicles }}</p>
+    </div>
+    
+    <!-- Card de manutenções pendentes -->
+    <div class="card">
+      <h2>Manutenções Pendentes</h2>
+      <p>Quantidade: {{ pendingMaintenances.length }}</p>
+    </div>
+    
+     <div class="charts-container">
+    <div class="chart-card">
+      <canvas id="maintenanceChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <canvas id="fuelChart"></canvas>
+    </div>
+  </div>
 
 <div class="cards-container">
   <div class="card">
     <h2>Veículos Ativos</h2>
     <p>Quantidade: 50</p>
+    <h2>Gastos com Manutenção</h2>
+    <p>Custos com Manutenção: {{ maintenanceCosts | json }}</p>
   </div>
   <div class="card">
     <h2>Manutenções Pendentes</h2>
@@ -14,6 +43,8 @@
   <div class="card">
     <h2>Últimos Relatórios</h2>
     <button>Clique para ver detalhes</button>
+    <h2>Gastos com Abastecimento</h2>
+    <p>Custos com Abastecimentos: {{ fuelCosts | json }}</p>
   </div>
 </div>
 
