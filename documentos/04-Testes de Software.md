@@ -3,10 +3,10 @@
 Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e validar a aplicação. Vamos focar em cenários que comprovam o atendimento aos requisitos e também em situações que demonstram como o sistema lida com erros, assegurando sua robustez.
 
 ### Tipo de Teste
-- **Sucesso**: Tem o objetivo de verificar se as funcionalidades funcionam corretamente.
-- **Insucesso**: Tem o objetivo de verificar se o sistema trata erros de maneira correta.
+- **Sucesso**: Verificar se as funcionalidades estão funcionando corretamente.
+- **Insucesso**: Verificar se o sistema trata os erros de forma adequada.
 
-#### Exemplo de Caso de Teste de Sucesso
+#### Caso de Teste de Sucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-001<br>Autenticação e Acesso ao Painel de Gestão
@@ -42,8 +42,9 @@ Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e 
     <tr>
     <td><strong>Dados de teste</strong></td>
     <td>
-      - <strong>E-mail:</strong> Colocar e-mail cadastrado na base de colaboradores ou administradores.<br>
-      - <strong>Senha:</strong> Colocar senha válida correspondente ao e-mail informado.
+      - <strong>E-mail:</strong> E-mail cadastrado na base de colaboradores ou administradores.<br>
+      - <strong>Senha:</strong> Senha válida correspondente ao e-mail informado.
+
   </tr>
     <tr>
     <td><strong>Critérios de êxito</strong></td>
@@ -51,18 +52,18 @@ Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e 
   </tr>
 </table>
 
-#### Exemplo de Caso de Teste de Insucesso
+#### Caso de Teste de Insucesso
 <table>
   <tr>
     <th colspan="2" width="1000">CT-001<br>Autenticação com Credenciais Inválidas</th>
   </tr>
   <tr>
     <td width="150"><strong>Descrição</strong></td>
-    <td>Este caso de teste verifica se o sistema impede a autenticação de usuários com credenciais inválidas.</td>
+    <td>Verifica se o sistema impede a autenticação de usuários com credenciais inválidas e exibe mensagens de erro adequadas.</td>
   </tr>
   <tr>
     <td><strong>Responsável Caso de Teste </strong></td>
-    <td width="430"> Cunha</td>
+    <td width="430"> Israel Cunha</td>
   </tr>
  <tr>
     <td><strong>Tipo do Teste</strong></td>
@@ -84,19 +85,10 @@ Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e 
     <tr>
     <td><strong>Dados de teste</strong></td>
     <td>
-      - <strong>E-mail:</strong> Colocar um e-mail válido de colaborador ou administrador.<br>
-      - <strong>Senha:</strong> Colocar uma senha incorreta.
+      - <strong>E-mail:</strong> E-mail não cadastrado ou em formato inválido.<br>
+      - <strong>Senha:</strong>Senha incorreta ou vazia.
   </tr>
-     - <strong>E-mail:</strong> Colocar um e-mail não cadastrado.<br>
-      - <strong>Senha:</strong> Colocar uma senha válida correspondente a um usuário real.
-  </tr>
-   - <strong>E-mail:</strong>  Inserir um e-mail inválido.<br>
-      - <strong>Senha:</strong> Inserir uma senha incorreta.
-  </tr>
-   - <strong>Ambos:</strong> Deixar o campo de e-mail ou senha vazio e tentar autenticar.<br>
-     
-  </tr>
-    <tr>
+     <tr>
     <td><strong>Critérios de êxito</strong></td>
     <td> - O sistema deve exibir uma mensagem de erro informando que as credenciais são inválidas.
     <br>
@@ -107,10 +99,9 @@ Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e 
  
 # Evidências de Testes de Software
 
-Apresente imagens e/ou vídeos que comprovam que um determinado teste foi executado, e o resultado esperado foi obtido. Normalmente são screenshots de telas, ou vídeos do software em funcionamento.
+A apresentação de evidências de teste é fundamental para comprovar que os testes foram executados conforme o planejado. Essas evidências podem ser imagens ou vídeos que demonstram os resultados obtidos.
 
 ## Parte 1 - Testes Unitários
-Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes (sucesso e insucesso) criados pelo responsável pela funcionalidade. Todos os testes devem ser evidenciados.
 
 <table>
   <tr>
@@ -122,7 +113,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
   </tr>
   <tr>
     <td><strong>Responsável pelo Teste</strong></td>
-    <td width="430"> Cunha</td>
+    <td width="430"> Israel Cunha</td>
     <td width="100"><strong>Data do Teste</strong></td>
     <td width="150">04/05/2025</td>
   </tr>
