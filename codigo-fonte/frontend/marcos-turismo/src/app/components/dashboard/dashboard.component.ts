@@ -8,19 +8,17 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
   imports: [SidebarComponent, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+export class DashboardComponent implements OnInit {
   isSidebarActive: boolean = true;
   activeVehicles: number = 0;
   pendingMaintenances: any[] = [];
   maintenanceCosts: any = {};
   fuelCosts: any = {};
 
-  // Variável para controlar o estado da sidebar
-  isSidebarActive: boolean = true;
   private maintenanceChart: any;
   private fuelChart: any;
 
@@ -28,7 +26,7 @@ import { environment } from '../../../environments/environment';
 
   ngOnInit(): void {
     this.loadMaintenanceCosts();
-    this.loadVehicleStats();
+    this.loadFuelCosts();
     this.loadActiveVehicles();
     this.loadPendingMaintenances();
   }
@@ -57,17 +55,17 @@ import { environment } from '../../../environments/environment';
     );
   }
 
-  loadVehicleStats(): void {
+  loadFuelCosts(): void {
     const headers = this.getAuthHeaders();
 
-    this.http.get(`${environment.apiUrl}/dashboard/gastos-manutencao/{tipoId}`, { headers }).subscribe(
+    this.http.get(`${environment.apiUrl}/dashboard/gastos-abastecimento`, { headers }).subscribe(
       (response: any) => {
         this.fuelCosts = response;
         const months: string[] = Object.keys(response);
         const values: number[] = Object.values(response).map(Number);
         this.updateFuelChart(months, values);
       },
-      (error) => console.error('Erro ao carregar gastos por tipo de serviço:', error)
+      (error) => console.error('Erro ao carregar gastos com abastecimento:', error)
     );
   }
 

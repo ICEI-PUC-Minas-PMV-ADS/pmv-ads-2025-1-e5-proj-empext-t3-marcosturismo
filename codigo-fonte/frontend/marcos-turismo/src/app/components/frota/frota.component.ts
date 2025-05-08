@@ -1,6 +1,3 @@
-
-import { Component } from '@angular/core';
-
 // frota.component.ts
 
 import { Component, OnInit, Inject } from '@angular/core';
@@ -11,9 +8,6 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { PLATFORM_ID } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
-/**
- * Representa um veículo na frota.
- */
 interface Veiculo {
   id?: string;
   numeracao: string;
@@ -44,44 +38,8 @@ interface Veiculo {
 export class FrotaComponent implements OnInit {
 
   modalAberto = false;
-  selectedCardIndex: number | null = null; // Variável para armazenar o índice do card selecionado
+  selectedCardIndex: number | null = null;
 
-  // Campos do formulário
-  numeracao = '';
-  modelo = '';
-  marca = '';
-  anoModelo = '';
-  kmAtual: number | '' = '';
-  situacao: 'Ativo' | 'Inativo' | 'Manutencao' = 'Ativo';
-  placa = '';
-  lotacao: number | '' = '';
-  categoria: 'Rodoviario' | 'Urbano' = 'Rodoviario';
-  arCondicionado = false;
-  wifi = false;
-  poltronaReclinavel = false;
-  tv = false;
-  geladeira = false;
-  sanitarios = false;
-
-  imagemPreview = '';
-  cardsGerados: Veiculo[] = [];
-  errorMsg: string | null = null;
-
-  private apiUrl = `${environment.apiUrl}/veiculo`;
-
-
-  constructor(
-    private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
-
-  ngOnInit(): void {
-    this.carregarFrota();
-  }
-
-
-  fecharModal() {
-  // Campos do formulário
   numeracao = '';
   modelo = '';
   marca = '';
@@ -98,6 +56,7 @@ export class FrotaComponent implements OnInit {
   geladeira = false;
   sanitarios = false;
   imagemPreview = '';
+
   cardsGerados: Veiculo[] = [];
   errorMsg: string | null = null;
   mensagem: string = '';
@@ -120,14 +79,9 @@ export class FrotaComponent implements OnInit {
   }
 
   private getHttpOptions() {
-    const rawToken = localStorage.getItem('token');
-    if (!rawToken) throw new Error('Token ausente');
-
-    const token = rawToken.startsWith('Bearer ') ? rawToken : `Bearer ${rawToken}`;
-    return {
-      headers: new HttpHeaders({ Authorization: token }),
-      withCredentials: true
-    };
+    const raw = localStorage.getItem('token') || '';
+    const headerValue = raw.startsWith('Bearer ') ? raw : `Bearer ${raw}`;
+    return { headers: new HttpHeaders({ Authorization: headerValue }) };
   }
 
   carregarFrota(): void {
@@ -136,6 +90,7 @@ export class FrotaComponent implements OnInit {
       this.errorMsg = 'Usuário não autenticado.';
       return;
     }
+
     this.http.get<Veiculo[]>(this.apiUrl, options).subscribe({
       next: lista => this.cardsGerados = Array.isArray(lista) ? lista : [],
       error: (err: HttpErrorResponse) => this.handleError(err, 'carregar frota')
@@ -148,33 +103,6 @@ export class FrotaComponent implements OnInit {
     this.mensagem = '';
   }
 
-  fecharModal(): void {
-    this.modalAberto = false;
-    this.resetarFormulario();
-
-  private getHttpOptions() {
-    const raw = localStorage.getItem('token') || localStorage.getItem('auth_token') || '';
-    // evita prefixar “Bearer ” duas vezes, caso você já tenha salvo com prefixo
-    const headerValue = raw.startsWith('Bearer ') ? raw : `Bearer ${raw}`;
-    console.log('Enviando Authorization:', headerValue);
-    return { headers: new HttpHeaders({ Authorization: headerValue }) };
-
-  }
-  
-
-  carregarFrota(): void {
-    let options;
-    try { options = this.getHttpOptions(); } catch {
-      this.errorMsg = 'Usuário não autenticado.';
-      return;
-    }
-    this.http.get<Veiculo[]>(this.apiUrl, options).subscribe({
-      next: lista => this.cardsGerados = Array.isArray(lista) ? lista : [],
-      error: (err: HttpErrorResponse) => this.handleError(err, 'carregar frota')
-    });
-  }
-
-  abrirModal(): void { this.modalAberto = true; }
   fecharModal(): void {
     this.modalAberto = false;
     this.resetarFormulario();
@@ -208,75 +136,6 @@ export class FrotaComponent implements OnInit {
       imagem: this.imagemPreview
     };
 
-
-    this.cardsGerados.push(card);
-
-    let options;
-    try { options = this.getHttpOptions(); } catch {
-      this.errorMsg = 'Usuário não autenticado.';
-      return;
-    }
-
-    this.http.post<Veiculo>(this.apiUrl, novo, options).subscribe({
-      next: veic => this.cardsGerados.push(veic),
-      error: (err: HttpErrorResponse) => this.handleError(err, 'salvar veículo')
-    });
-
-    this.fecharModal();
-  }
-
-  atualizarCard(index: number): void {
-    const veiculo = this.cardsGerados[index];
-    if (!veiculo.id) return;
-
-    let options;
-    try { options = this.getHttpOptions(); } catch {
-      this.errorMsg = 'Usuário não autenticado.';
-      return;
-    }
-    this.http.put<Veiculo>(`${this.apiUrl}/${veiculo.id}`, veiculo, options)
-      .subscribe({ next: () => {}, error: (err: HttpErrorResponse) => this.handleError(err, 'atualizar veículo') });
-  }
-
-  excluirCard(index: number): void {
-    const veiculo = this.cardsGerados[index];
-    if (!veiculo.id) { this.cardsGerados.splice(index, 1); return; }
-    if (!confirm('Confirma exclusão deste veículo?')) return;
-
-    let options;
-    try { options = this.getHttpOptions(); } catch {
-      this.errorMsg = 'Usuário não autenticado.';
-      return;
-    }
-    this.http.delete(`${this.apiUrl}/${veiculo.id}`, options)
-      .subscribe({ next: () => this.cardsGerados.splice(index, 1), error: (err: HttpErrorResponse) => this.handleError(err, 'excluir veículo') });
-  }
-
-  private handleError(err: HttpErrorResponse, context: string) {
-    console.error(`Erro ao ${context}:`, err);
-    this.errorMsg = `Erro ao ${context}. ${err.status === 403 ? 'Acesso negado.' : ''}`;
-    if (err.status === 403) alert('Acesso negado!');
-  }
-
-  private resetarFormulario(): void {
-    this.numeracao = '';
-    this.modelo = '';
-    this.marca = '';
-    this.anoModelo = '';
-    this.kmAtual = '';
-    this.situacao = 'Ativo';
-    this.placa = '';
-    this.lotacao = '';
-    this.categoria = 'Rodoviario';
-    this.arCondicionado = false;
-    this.wifi = false;
-    this.poltronaReclinavel = false;
-    this.tv = false;
-    this.geladeira = false;
-    this.sanitarios = false;
-    this.imagemPreview = '';
-  }
-
     let options;
     try { options = this.getHttpOptions(); } catch {
       this.errorMsg = 'Usuário não autenticado.';
@@ -288,14 +147,11 @@ export class FrotaComponent implements OnInit {
         this.cardsGerados.push(veic);
         this.mensagem = 'Veículo adicionado com sucesso!';
         this.mensagemTipo = 'success';
-        this.carregarFrota(); // Recarrega os veículos salvos
-        this.fecharModal();   // Fecha o modal e limpa o formulário
-      
+        this.carregarFrota();
+        this.fecharModal();
       },
       error: (err: HttpErrorResponse) => this.handleError(err, 'salvar veículo')
     });
-
-    this.fecharModal();
   }
 
   atualizarCard(index: number): void {
@@ -308,14 +164,13 @@ export class FrotaComponent implements OnInit {
       return;
     }
 
-    this.http.put<Veiculo>(`${this.apiUrl}/${veiculo.id}`, veiculo, options)
-      .subscribe({
-        next: () => {
-          this.mensagem = 'Veículo atualizado com sucesso!';
-          this.mensagemTipo = 'success';
-        },
-        error: (err: HttpErrorResponse) => this.handleError(err, 'atualizar veículo')
-      });
+    this.http.put<Veiculo>(`${this.apiUrl}/${veiculo.id}`, veiculo, options).subscribe({
+      next: () => {
+        this.mensagem = 'Veículo atualizado com sucesso!';
+        this.mensagemTipo = 'success';
+      },
+      error: (err: HttpErrorResponse) => this.handleError(err, 'atualizar veículo')
+    });
   }
 
   excluirCard(index: number): void {
@@ -333,22 +188,20 @@ export class FrotaComponent implements OnInit {
       return;
     }
 
-    this.http.delete(`${this.apiUrl}/${veiculo.id}`, options)
-      .subscribe({
-        next: () => {
-          this.cardsGerados.splice(index, 1);
-          this.mensagem = 'Veículo excluído com sucesso!';
-          this.mensagemTipo = 'success';
-        },
-        error: (err: HttpErrorResponse) => this.handleError(err, 'excluir veículo')
-      });
+    this.http.delete(`${this.apiUrl}/${veiculo.id}`, options).subscribe({
+      next: () => {
+        this.cardsGerados.splice(index, 1);
+        this.mensagem = 'Veículo excluído com sucesso!';
+        this.mensagemTipo = 'success';
+      },
+      error: (err: HttpErrorResponse) => this.handleError(err, 'excluir veículo')
+    });
   }
 
   editarCard(index: number): void {
     const veiculo = this.cardsGerados[index];
     this.selectedCardIndex = index;
 
-    // Preenche os campos do formulário com os dados do veículo
     this.numeracao = veiculo.numeracao;
     this.modelo = veiculo.modelo;
     this.marca = veiculo.marca;
@@ -364,8 +217,9 @@ export class FrotaComponent implements OnInit {
     this.tv = veiculo.tv;
     this.geladeira = veiculo.geladeira;
     this.sanitarios = veiculo.sanitarios;
-    this.imagemPreview = veiculo.imagem; // Define a imagem no preview
-    this.modalAberto = true; // Abre o modal para editar
+    this.imagemPreview = veiculo.imagem;
+
+    this.modalAberto = true;
   }
 
   private resetarFormulario(): void {
@@ -385,6 +239,7 @@ export class FrotaComponent implements OnInit {
     this.geladeira = false;
     this.sanitarios = false;
     this.imagemPreview = '';
+    this.selectedCardIndex = null;
   }
 
   private handleError(err: HttpErrorResponse, contexto: string): void {
@@ -396,6 +251,3 @@ export class FrotaComponent implements OnInit {
     if (err.status === 403) alert('Acesso negado!');
   }
 }
-
-}
-
