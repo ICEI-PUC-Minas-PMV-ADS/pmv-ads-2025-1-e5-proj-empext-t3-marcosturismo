@@ -1,0 +1,74 @@
+.navbar {
+  background-color: rgba(0, 38, 107, 0.8);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.logo {
+  width: 140px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.menu-navbar {
+  background: none;
+  border-radius: 30%;
+  color: white;
+  font-size: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.menu-navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border-radius: 30%;
+  background-color: rgba(0, 55, 125, 0.6); /* Azul mais escuro e transparente */
+  border: 2px solid rgba(0, 45, 100, 0.8); /* Borda um pouco mais escura */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.menu-navbar a:hover {
+  background-color: rgba(0, 45, 100, 0.8); /* Tom mais escuro no hover */
+  color: #FFD700;
+}
+
+/* Estilo para o link ativo */
+.menu-navbar a.active {
+  background-color: rgba(255, 215, 0, 0.8); /* Amarelo dourado translúcido */
+  color: #00266b; /* Azul escuro para contraste */
+  border: 2px solid rgba(255, 215, 0, 1); /* Borda dourada */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo {
+    margin: 10px 0;
+  }
+
+  .menu-navbar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 100%; /* Adiciona largura total ao menu para ficar bem centralizado */
+  }
+}
