@@ -1,40 +1,91 @@
-
-<!-- Botão para abrir o modal -->
-<button id="openModalBtn" class="add-btn" (click)="abrirModal()">+</button>
-
-<!-- HTML -->
-
 <app-sidebar></app-sidebar>
-<button class="add-btn" (click)="abrirModal()">+</button>
+
+<button class="add-btn" (click)="modalAberto = true">+</button>
 
 <div class="modal" [style.display]="modalAberto ? 'flex' : 'none'">
   <div class="card">
-    
-    <!-- Grupo: Campos de texto -->
+    <!-- Campos de texto -->
     <div class="input-group">
-      <input type="text" [(ngModel)]="numeracao" placeholder="Numeração">
-      <input type="text" [(ngModel)]="modelo" placeholder="Modelo">
-      <input type="text" [(ngModel)]="marca" placeholder="Marca">
-      <input type="text" [(ngModel)]="anoModelo" placeholder="Ano Modelo">
-      <input type="number" [(ngModel)]="kmAtual" placeholder="KM Atual">
+      <div class="input-item">
+        <input type="text" [(ngModel)]="numeracao" placeholder="Numeração" #numeracaoInput="ngModel" required>
+        <div *ngIf="numeracaoInput.invalid && numeracaoInput.touched" class="error-message">
+          Numeração é obrigatória.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="text" [(ngModel)]="modelo" placeholder="Modelo" #modeloInput="ngModel" required>
+        <div *ngIf="modeloInput.invalid && modeloInput.touched" class="error-message">
+          Modelo é obrigatório.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="text" [(ngModel)]="marca" placeholder="Marca" #marcaInput="ngModel" required>
+        <div *ngIf="marcaInput.invalid && marcaInput.touched" class="error-message">
+          Marca é obrigatória.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="text" [(ngModel)]="anoModelo" placeholder="Ano Modelo" #anoModeloInput="ngModel" required>
+        <div *ngIf="anoModeloInput.invalid && anoModeloInput.touched" class="error-message">
+          Ano Modelo é obrigatório.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="number" [(ngModel)]="kmAtual" placeholder="KM Atual" #kmAtualInput="ngModel" required>
+        <div *ngIf="kmAtualInput.invalid && kmAtualInput.touched" class="error-message">
+          KM Atual é obrigatório.
+        </div>
+      </div>
     </div>
 
-    <!-- Grupo: Selects -->
+    <!-- Selects -->
     <div class="select-group">
-      <select [(ngModel)]="situacao">
-        <option value="Ativo">Ativo</option>
-        <option value="Inativo">Inativo</option>
-        <option value="Manutencao">Manutenção</option>
-      </select>
-      <input type="text" [(ngModel)]="placa" placeholder="Placa">
-      <input type="number" [(ngModel)]="lotacao" placeholder="Lotação">
-      <select [(ngModel)]="categoria">
-        <option value="Rodoviario">Rodoviário</option>
-        <option value="Urbano">Urbano</option>
-      </select>
+      <div class="select-item">
+        <select [(ngModel)]="situacao" #situacaoInput="ngModel" required>
+          <option value="Ativo">Ativo</option>
+          <option value="Inativo">Inativo</option>
+          <option value="Manutencao">Manutenção</option>
+        </select>
+        <div *ngIf="situacaoInput.invalid && situacaoInput.touched" class="error-message">
+          Situação é obrigatória.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="text" [(ngModel)]="placa" placeholder="Placa" #placaInput="ngModel" required>
+        <div *ngIf="placaInput.invalid && placaInput.touched" class="error-message">
+          Placa é obrigatória.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="number" [(ngModel)]="lotacao" placeholder="Lotação" #lotacaoInput="ngModel" required>
+        <div *ngIf="lotacaoInput.invalid && lotacaoInput.touched" class="error-message">
+          Lotação é obrigatória.
+        </div>
+      </div>
+      <div class="select-item">
+        <select [(ngModel)]="categoria" #categoriaInput="ngModel" required>
+          <option value="Rodoviario">Rodoviário</option>
+          <option value="Urbano">Urbano</option>
+        </select>
+        <div *ngIf="categoriaInput.invalid && categoriaInput.touched" class="error-message">
+          Categoria é obrigatória.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="number" [(ngModel)]="kmProxTrocaOleo" placeholder="KM Próxima Troca de Óleo" #kmProxTrocaOleoInput="ngModel" required>
+        <div *ngIf="kmProxTrocaOleoInput.invalid && kmProxTrocaOleoInput.touched" class="error-message">
+          Próxima Troca de Óleo é obrigatória.
+        </div>
+      </div>
+      <div class="input-item">
+        <input type="number" [(ngModel)]="kmProxTrocaPneu" placeholder="KM Próxima Troca de Pneu" #kmProxTrocaPneuInput="ngModel" required>
+        <div *ngIf="kmProxTrocaPneuInput.invalid && kmProxTrocaPneuInput.touched" class="error-message">
+          Próxima Troca de Pneu é obrigatória.
+        </div>
+      </div>
     </div>
 
-    <!-- Grupo: Checkbox de opcionais -->
+    <!-- Checkbox de opcionais -->
     <div class="checkbox-group">
       <div class="checkbox-item">
         <input type="checkbox" [(ngModel)]="arCondicionado">
@@ -62,73 +113,52 @@
       </div>
     </div>
 
-    <!-- Grupo: Imagem -->
+    <!-- Imagem -->
     <div class="image-container" (click)="fileInput.click()">
-      <img [src]="imagemPreview || 'assets/imagens/sem-imagem.jpg'" alt="Inserir imagem">
+      <img [src]="imagemPreview || '/logo.jpg'" alt="Inserir imagem">
       <input type="file" #fileInput (change)="selecionarImagem($event)" accept="image/*" hidden>
     </div>
 
-    <!-- Grupo: Botões -->
+    <!-- Botões -->
     <div class="buttons">
-      <button class="btn green" (click)="gerarCard()">Salvar</button>
-      <button class="btn red" (click)="fecharModal()">Cancelar</button>
+      <button class="btn green" (click)="adicionarCard()" [disabled]="loading">Salvar</button>
+      <button class="btn red" (click)="modalAberto = false">Cancelar</button>
     </div>
-
   </div>
 </div>
+
 <div class="cards-container">
   <div class="veiculo-card" *ngFor="let veiculo of cardsGerados; let i = index">
-    <img [src]="veiculo.imagem || 'assets/imagens/sem-imagem.jpg'" alt="Imagem do veículo" class="veiculo-img">
-    
-    <div class="veiculo-info">
-      <h3>{{ veiculo.modelo }} - {{ veiculo.marca }}</h3>
-      <p><strong>Numeração:</strong> {{ veiculo.numeracao }}</p>
-      <p><strong>Ano Modelo:</strong> {{ veiculo.anoModelo }}</p>
-      <p><strong>KM Atual:</strong> {{ veiculo.kmAtual }}</p>
-      <p><strong>Situação:</strong> {{ veiculo.situacao }}</p>
-      <p><strong>Placa:</strong> {{ veiculo.placa }}</p>
-      <p><strong>Lotação:</strong> {{ veiculo.lotacao }}</p>
-      <p><strong>Categoria:</strong> {{ veiculo.categoria }}</p>
-      <p><strong>Opcionais:</strong>
-        <span *ngIf="veiculo.arCondicionado">❄ Ar Condicionado </span>
-        <span *ngIf="veiculo.wifi">📶 Wi-Fi </span>
-        <span *ngIf="veiculo.poltronaReclinavel">💺 Poltrona </span>
-        <span *ngIf="veiculo.tv">📺 TV </span>
-        <span *ngIf="veiculo.geladeira">🧊 Geladeira </span>
-        <span *ngIf="veiculo.sanitarios">🚻 Sanitários </span>
+    <div class="card-header">
+      <img [src]="'/logo.jpg'" alt="Imagem do veículo" class="veiculo-img">
+      <div class="veiculo-info">
+        <h3>{{ veiculo.veiculo.modelo }} - {{ veiculo.veiculo.marca }}</h3>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <p><i class="fa fa-cogs"></i> <strong> Numeração:</strong> {{ veiculo.veiculo.numeracao }}</p>
+      <p><i class="fa fa-calendar"></i> <strong> Ano Modelo:</strong> {{ veiculo.veiculo.anoModelo }}</p>
+      <p><i class="fa fa-tachometer-alt"></i> <strong> KM Atual:</strong> {{ veiculo.veiculo.kmAtual }}</p>
+      <p><i class="fa fa-truck"></i> <strong> Situação:</strong> {{ veiculo.veiculo.situacao }}</p>
+     <p><i class="fa fa-tachometer-alt"></i> <strong> Próxima Troca de Óleo:</strong> {{ veiculo.veiculo.kmProxTrocaOleo }} </p>
+      <p><i class="fa fa-circle"></i> <strong> Próxima Troca de Pneu:</strong> {{ veiculo.veiculo.kmProxTrocaPneu }}</p>
+      <p><i class="fa fa-car"></i> <strong> Placa:</strong> {{ veiculo.veiculo.placa }}</p>
+      <p><i class="fa fa-users"></i> <strong> Lotação:</strong> {{ veiculo.veiculo.lotacao }}</p>
+      <p><i class="fa fa-cogs"></i> <strong> Categoria:</strong> {{ veiculo.veiculo.categoria }}</p>
+      <p><i class="fa fa-check-circle"></i> <strong> Opcionais:</strong><br/>
+        <span *ngIf="veiculo.veiculo.arCondicionado">❄ Ar Condicionado </span><br/>
+        <span *ngIf="veiculo.veiculo.wifi">📶 Wi-Fi </span><br/>
+        <span *ngIf="veiculo.veiculo.poltronaReclinavel">💺 Poltrona </span><br/>
+        <span *ngIf="veiculo.veiculo.tv">📺 TV </span><br/>
+        <span *ngIf="veiculo.veiculo.geladeira">🧊 Geladeira </span><br/>
+        <span *ngIf="veiculo.veiculo.sanitarios">🚻 Sanitários </span><br/>
       </p>
     </div>
 
-<!-- Grupo: Cards gerados -->
-<div id="generatedCards">
-  <div class="card generated-card" *ngFor="let v of cardsGerados; let i = index">
-    <h3>{{ v.numeracao }} - {{ v.modelo }}</h3>
-    <p>{{ v.marca }} / {{ v.anoModelo }}</p>
-    <p>KM: {{ v.kmAtual }}</p>
-    <p>Situacao: {{ v.situacao }}</p>
-    <p>Placa: {{ v.placa }}</p>
-    <p>Lotação: {{ v.lotacao }} ({{ v.categoria }})</p>
-    <ul>
-      <li *ngIf="v.arCondicionado">Ar Condicionado</li>
-      <li *ngIf="v.wifi">Wi-Fi</li>
-      <li *ngIf="v.poltronaReclinavel">Poltrona Reclinável</li>
-      <li *ngIf="v.tv">TV</li>
-      <li *ngIf="v.geladeira">Geladeira</li>
-      <li *ngIf="v.sanitarios">Sanitários</li>
-    </ul>
-
-    <button class="delete-card-btn" (click)="excluirCard(i)">
-      <i class="fas fa-trash-alt"></i>
-    </button>
-
-    <div class="card-actions">
-      <button class="btn red" (click)="excluirCard(i)">Excluir</button>
-      <button class="btn blue" (click)="editarCard(i)">Editar</button>
+    <div class="card-footer">
+      <button class="btn red" (click)="excluirCard(i)" [disabled]="loading">Excluir</button>
+      <button class="btn green" (click)="editarCard(i)">Editar</button>
     </div>
-
-    <img [src]="v.imagem" alt="Imagem do veículo">
-    <button class="delete-card-btn" (click)="excluirCard(i)">Excluir</button>
-    <button class="btn blue" (click)="atualizarCard(i)">Atualizar</button>
-
   </div>
 </div>
