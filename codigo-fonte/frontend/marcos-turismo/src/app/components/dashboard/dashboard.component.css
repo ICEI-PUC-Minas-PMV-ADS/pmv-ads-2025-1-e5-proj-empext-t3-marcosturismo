@@ -35,28 +35,34 @@ body {
 }
 
 h1 {
-    color: #04257d;
+    color: white;
     margin-bottom: 5px;
 }
 
+h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
 p {
-    color: #04257d;
+    color: #2a52be;
     margin-bottom: 20px;
+    font-size: 20px;
 }
 
 .cards-container {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
 .card {
-    background: white;
+    background: #d9d9d9;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 1.1);
     width: calc(33.33% - 10px); /* Ajuste dinâmico */
     min-width: 250px;
     text-align: center;
@@ -71,16 +77,25 @@ p {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .chart-card {
-    background: white;
+    background: #d9d9d9;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 1.1);
     width: calc(50% - 10px); /* Ajuste dinâmico */
-    min-width: 300px;
+    min-width: 1200px;
+}
+
+.chart-card2 {
+    background: #d9d9d9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 1.1);
+    width: calc(50% - 10px); /* Ajuste dinâmico */
+    min-width: 100px;
 }
 
 .legend {
@@ -101,6 +116,7 @@ p {
     color: #b30000;
 }
 
+
 @media (max-width: 768px) {
     .sidebar {
         width: 200px;
@@ -120,7 +136,6 @@ p {
     }
 }
 .main-content {
-    margin-left: 100px;  /* Aumentando a distância da sidebar */
     width: calc(100% - 500px);  /* Ajuste para manter a largura correta */
     padding: 20px;
     transition: margin-left 0.3s ease;

@@ -15,6 +15,8 @@ public class CorsConfig {
         configuration.setAllowCredentials(true); // Allow credentials (cookies, authorization headers)
         configuration.addAllowedOrigin("http://127.0.0.1:5500"); // Allow your frontend origin
         configuration.addAllowedOrigin("http://localhost:4200");
+        configuration.addAllowedOrigin("https://www.marcosturismo.com.br");
+        configuration.addAllowedOrigin("https://marcosturismo.com.br");
 
         configuration.addAllowedMethod("*"); // Allow all HTTP methods
         configuration.addAllowedHeader("*"); // Allow all headers

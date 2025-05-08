@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMaintenanceCosts();
-    this.loadVehicleStats();
+    this.loadFuelCosts();
     this.loadActiveVehicles();
     this.loadPendingMaintenances();
   }
@@ -55,17 +55,17 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  loadVehicleStats(): void {
+  loadFuelCosts(): void {
     const headers = this.getAuthHeaders();
 
-    this.http.get(`${environment.apiUrl}/dashboard/gastos-manutencao/{tipoId}`, { headers }).subscribe(
+    this.http.get(`${environment.apiUrl}/dashboard/gastos-abastecimento`, { headers }).subscribe(
       (response: any) => {
         this.fuelCosts = response;
         const months: string[] = Object.keys(response);
         const values: number[] = Object.values(response).map(Number);
         this.updateFuelChart(months, values);
       },
-      (error) => console.error('Erro ao carregar gastos por tipo de serviço:', error)
+      (error) => console.error('Erro ao carregar gastos com abastecimento:', error)
     );
   }
 

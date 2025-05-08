@@ -8,13 +8,8 @@ Alguns endpoints públicos **NÃO** são necessários a autenticação. Eles ser
 Dependendo do nível do usuário, poderá retornar informações diferentes.
 
 ### Uso
-1. Acesse a API em: `codigo-fonte\backend`
-2. Instale o `PostgresSQL 17`.
-3. Abra o pgAdmin 4 e crie um banco de dados chamado `marcosturismo`.
-4. Em `codigo\backend\api\src\main\resources\application.properties`, modifique o `spring.datasource.password` para a senha do seu postgres.
-5. Inicie a aplicação com Mavem
-6. A API estará acessível em http://localhost:8080
-7. Login do administrador master:
+1. A API estará acessível em https://api.marcosturismo.com.br/
+2. Login do administrador master:
 ```
 E-mail -> administrador@marcosturismo.com.br
 Senha -> marcos_turismo@2025_admin

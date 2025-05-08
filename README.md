@@ -28,7 +28,8 @@ Contudo, com o crescimento das operações e o aumento da demanda por soluções
 
 O sistema está disponível através da URL
 ```
-https://marcosturismo.com.br
+Front-end -> https://www.marcosturismo.com.br
+Back-end -> https://api.marcosturismo.com.br
 ```
 
 Para fazer o login no painel corporativo, é necessário este login:

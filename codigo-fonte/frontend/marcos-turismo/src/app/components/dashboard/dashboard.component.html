@@ -1,10 +1,8 @@
-
-<!-- dashboard.component.html -->
 <app-sidebar></app-sidebar>
 
 <div class="main-content" [class.active]="isSidebarActive">
-  <h1>Bem-vindo ao SIGF</h1>
-  <p>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</p>
+  <h1>Bem-vindo ao ISO-MT</h1>
+  <h3>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</h3>
 
   <div class="cards-container">
     <!-- Card de veículos ativos -->
@@ -23,15 +21,17 @@
     <div class="chart-card">
       <canvas id="maintenanceChart"></canvas>
     </div>
-    <div class="chart-card">
-      <canvas id="fuelChart"></canvas>
-    </div>
-  </div>
 
-<div class="cards-container">
+    <div class="cards-container">
   <div class="card">
     <h2>Veículos Ativos</h2>
     <p>Quantidade: 50</p>
     <h2>Gastos com Manutenção</h2>
     <p>Custos com Manutenção: {{ maintenanceCosts | json }}</p>
+
+  </div>
+  <div class="chart-card2">
+    <canvas id="fuelChart"></canvas>
+  </div>
+  
 
