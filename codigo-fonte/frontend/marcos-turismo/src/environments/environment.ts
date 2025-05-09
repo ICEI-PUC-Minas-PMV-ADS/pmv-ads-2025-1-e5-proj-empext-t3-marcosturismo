@@ -3,5 +3,5 @@ export const environment = {
   //apiUrl: 'http://localhost:8080',
   
   // Produção
-  apiUrl: 'http://168.231.94.195:8080',
+  apiUrl: 'https://api.marcosturismo.com.br',
 };

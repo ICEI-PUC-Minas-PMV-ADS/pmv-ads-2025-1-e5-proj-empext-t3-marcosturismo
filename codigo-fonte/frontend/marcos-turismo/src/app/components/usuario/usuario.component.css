@@ -1,15 +1,22 @@
+/* usuario.component.css */
+
 /* CARD DO USUÁRIO */
 .user-card {
   background: #002366;
   color: white;
   padding: 20px;
-  width: 300px;
+  width: 320px;
   text-align: center;
   border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 40px auto; /* centraliza verticalmente menos invasivo */
+  position: relative; /* retirado absolute para fluxo normal */
+}
+
+/* botão para listar */
+.btn.listar {
+  width: 100%;
+  margin-bottom: 16px;
+  background-color: #FFD700;
 }
 
 /* LABELS E INPUTS */
@@ -17,7 +24,7 @@ label {
   display: block;
   text-align: left;
   margin-top: 10px;
-  color: white;  /* Cor das labels */
+  color: white;
 }
 
 input,
@@ -29,18 +36,11 @@ select {
   border: 1px solid #ccc;
   box-sizing: border-box;
   background-color: white;
+  color: black;
 }
 
 input.erro,
 select.erro {
-  border: 2px solid red !important;
-}
-
-/* CLASSE DE ERRO NOS INPUTS */
-input.erro,
-input.ng-invalid.ng-touched,
-select.erro,
-select.ng-invalid.ng-touched {
   border: 2px solid red !important;
 }
 
@@ -53,13 +53,17 @@ select.ng-invalid.ng-touched {
 
 /* ESTILOS DOS BOTÕES */
 .btn {
-  width: 48%;
+  flex: 1;
   padding: 8px;
   font-size: 14px;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
 }
 
 .btn.cadastrar {
@@ -77,119 +81,50 @@ select.ng-invalid.ng-touched {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0,0,0,0.5);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  transition: opacity 0.3s ease;
 }
 
 .modal-show {
   display: flex;
-  opacity: 1;
 }
 
 .modal-hide {
   display: none;
-  opacity: 0;
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #002366;  /* Cor de fundo do modal */
-  color: white;  /* Cor do texto */
+  background-color: #002366;
+  color: white;
   padding: 20px;
   border-radius: 10px;
-  width: 80%;
+  width: 90%;
   max-width: 500px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Botões dentro do Modal */
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
+.modal-content h2 {
+  margin-top: 0;
 }
 
-button.btn.cadastrar {
-  background-color: green;  /* Cor do botão de cadastrar */
-  color: white;
-}
-
-button.btn.cancelar {
-  background-color: red;  /* Cor do botão de cancelar */
-  color: white;
-}
-
-/* Botão Incluir Documento */
-.btn {
-  background-color: #FFD700;  /* Cor amarela para o botão */
-  color: white;  /* Cor do texto do botão */
-  font-size: 16px;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #FFC107;  /* Cor mais intensa quando passar o mouse */
-}
-
-/* Estilos gerais para os Inputs e Selects */
-select {
-  background-color: white;
-  color: black;
-  font-family: inherit;
-}
-
-/* Layout de container */
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 16px;
-}
-
-.form {
-  margin-bottom: 24px;
-  padding: 16px;
-  border: 1px solid #ccc;
+/* Cards dentro do modal */
+.usuario-card {
+  background-color: #f9f9f9;
+  color: #002366;
+  border: 1px solid #ddd;
+  padding: 12px;
   border-radius: 8px;
-}
-
-.form-group {
   margin-bottom: 12px;
 }
 
-.form-group input {
+/* Botão fechar modal */
+.btn.fechar {
   width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-}
-
-.button-group button {
-  margin-right: 8px;
-  padding: 8px 16px;
-}
-
-/* Cards de usuário */
-.usuarios-container {
-  margin-top: 32px;
-}
-
-.usuario-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-.usuario-card h3 {
-  margin-top: 0;
+  margin-top: 12px;
 }

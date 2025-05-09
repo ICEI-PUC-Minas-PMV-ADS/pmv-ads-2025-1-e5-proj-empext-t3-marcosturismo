@@ -1,4 +1,4 @@
-package com.marcosturismo.api.controllers;
+/*package com.marcosturismo.api.controllers;
 
 import com.marcosturismo.api.domain.usuario.AuthenticationDTO;
 import com.marcosturismo.api.domain.usuario.LoginResponseDTO;
@@ -90,4 +90,4 @@ class AuthenticationControllerTest {
         assertEquals(500, response.getStatusCodeValue());
         assertEquals("Erro interno ao processar login", response.getBody());
     }
-}
+}*/

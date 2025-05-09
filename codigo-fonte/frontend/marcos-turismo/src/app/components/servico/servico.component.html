@@ -1,5 +1,5 @@
-<app-sidebar></app-sidebar>
 
+<app-sidebar></app-sidebar>
 <div class="container-principal">
   <h1>Serviços</h1>
   <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
@@ -7,17 +7,14 @@
   <table *ngIf="servicos.length; else emptyList" class="table">
     <thead>
       <tr>
-        <th>Placa</th>
-        <th>KM</th>
-        <th>Fornecedor</th>
-        <th>Ações</th>
+        <th>Data</th><th>KM Veículo</th><th>Descrição</th><th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let s of servicos">
-        <td>{{ s.placa }}</td>
-        <td>{{ s.km }} km</td>
-        <td>{{ s.fornecedor }}</td>
+        <td>{{ s.dataServico }}</td>
+        <td>{{ s.kmVeiculo }} km</td>
+        <td>{{ s.descricao }}</td>
         <td>
           <button (click)="editarServico(s)">Editar</button>
           <button (click)="excluirServico(s.id!)">Excluir</button>
@@ -25,10 +22,7 @@
       </tr>
     </tbody>
   </table>
-
-  <ng-template #emptyList>
-    <p>Não há serviços cadastrados.</p>
-  </ng-template>
+  <ng-template #emptyList><p>Não há serviços cadastrados.</p></ng-template>
 
   <button class="btn-mais" (click)="openModal()">+</button>
 
@@ -37,87 +31,42 @@
       <span class="close" (click)="closeModal()">&times;</span>
       <h2>{{ editingId ? 'Editar Serviço' : 'Adicionar Serviço' }}</h2>
       <form (ngSubmit)="salvar()" #f="ngForm">
-        <label>
-          Placa:
-          <input type="text" [(ngModel)]="servicoForm.placa" name="placa" required placeholder="Informe a placa" mask="AAA-0A00">
+        <label>Data do Serviço:
+          <input type="date" [(ngModel)]="servicoForm.dataServico" name="dataServico" required>
+        </label>
+        <label>KM Veículo:
+          <input type="number" [(ngModel)]="servicoForm.kmVeiculo" name="kmVeiculo" required>
+        </label>
+        <label>KM Próx. Troca Óleo:
+          <input type="number" [(ngModel)]="servicoForm.kmProxTrocaOleo" name="kmProxTrocaOleo" required>
+        </label>
+        <label>KM Próx. Troca Pneus:
+          <input type="number" [(ngModel)]="servicoForm.kmProxTrocaPneu" name="kmProxTrocaPneu" required>
+        </label>
+        <label>Descrição:
+          <textarea [(ngModel)]="servicoForm.descricao" name="descricao" rows="2" required></textarea>
+        </label>
+        <label>Veículo:
+          <select [(ngModel)]="servicoForm.veiculoId" name="veiculoId" required>
+            <option *ngFor="let v of veiculos" [value]="v.id">{{ v.numeracao }} - {{ v.modelo }}</option>
+          </select>
         </label>
 
-        <label>
-          Kilometragem:
-          <div class="input-group">
-            <input type="text" [(ngModel)]="servicoForm.km" name="km" required placeholder="Informe a quilometragem" mask="separator.0" thousandSeparator=".">
-            <span class="suffix">km</span>
+        <div class="servicos-realizados">
+          <h3>Serviços Realizados</h3>
+          <button type="button" (click)="addRealizado()">+ Adicionar</button>
+          <div *ngFor="let r of servicoForm.servicosRealizados; let i = index" class="realizado-item">
+            <label>Tipo de Serviço:
+              <select [(ngModel)]="r.tipoServicoId" name="tipoServicoId-{{i}}" required>
+                <option *ngFor="let t of tipos" [value]="t.id">{{ t.descricao }}</option>
+              </select>
+            </label>
+            <label>Custo:
+              <input type="number" step="0.01" [(ngModel)]="r.custo" name="custo-{{i}}" required>
+            </label>
+            <button type="button" (click)="removeRealizado(i)">Remover</button>
           </div>
-        </label>
-
-        <label>
-          Fornecedor:
-          <input type="text" [(ngModel)]="servicoForm.fornecedor" name="fornecedor" placeholder="Informe o fornecedor">
-        </label>
-
-        <label>
-          Nota:
-          <input type="text" [(ngModel)]="servicoForm.nota" name="nota" placeholder="Número da nota">
-        </label>
-
-        <div class="row">
-          <label>
-            Última troca de óleo:
-            <input type="date" [(ngModel)]="servicoForm.ultimaTrocaOleo" name="ultimaTrocaOleo">
-          </label>
-
-          <label>
-            Km da última troca:
-            <div class="input-group">
-              <input type="text" [(ngModel)]="servicoForm.kmUltimaTroca" name="kmUltimaTroca" mask="separator.0" thousandSeparator=".">
-              <span class="suffix">km</span>
-            </div>
-          </label>
-
-          <label>
-            Valor do óleo:
-            <div class="input-group">
-              <span class="prefix">R$</span>
-              <input type="text" [(ngModel)]="servicoForm.valorOleo" name="valorOleo" placeholder="0,00" mask="separator.2" thousandSeparator="." decimalMarker=",">
-            </div>
-          </label>
         </div>
-
-        <label>
-          Próxima troca de óleo:
-          <div class="input-group">
-            <input type="text" [(ngModel)]="servicoForm.proximaTrocaOleo" name="proximaTrocaOleo" mask="separator.0" thousandSeparator="." placeholder="Km prevista">
-            <span class="suffix">km</span>
-          </div>
-        </label>
-
-        <div class="row">
-          <label>
-            Data da pastilha de freio:
-            <input type="date" [(ngModel)]="servicoForm.pastilhaFreio" name="pastilhaFreio">
-          </label>
-
-          <label>
-            Valor da pastilha:
-            <div class="input-group">
-              <span class="prefix">R$</span>
-              <input type="text" [(ngModel)]="servicoForm.valorPastilhaFreio" name="valorPastilhaFreio" placeholder="0,00" mask="separator.2" thousandSeparator="." decimalMarker=",">
-            </div>
-          </label>
-        </div>
-
-        <label>
-          Checkup do motor:
-          <textarea [(ngModel)]="servicoForm.checkupMotor" name="checkupMotor" rows="2" placeholder="Descreva o checkup do motor"></textarea>
-        </label>
-
-        <label>
-          Valor do Checkup:
-          <div class="input-group">
-            <span class="prefix">R$</span>
-            <input type="text" [(ngModel)]="servicoForm.valorCheckup" name="valorCheckup" placeholder="0,00" mask="separator.2" thousandSeparator="." decimalMarker=",">
-          </div>
-        </label>
 
         <div class="buttons">
           <button type="button" (click)="closeModal()">Cancelar</button>
