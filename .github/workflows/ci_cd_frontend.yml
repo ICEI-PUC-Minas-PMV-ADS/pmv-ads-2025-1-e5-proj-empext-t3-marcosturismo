@@ -58,4 +58,3 @@ jobs:
           key: ${{ secrets.HOST_SSH_KEY }}
           script: |
             sudo systemctl reload apache2 || echo "Apache not reloaded"
-            
