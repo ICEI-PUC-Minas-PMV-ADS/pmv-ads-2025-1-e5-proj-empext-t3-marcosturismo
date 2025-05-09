@@ -47,9 +47,9 @@ jobs:
           host: ${{ secrets.HOST_SSH_IP }}
           username: ${{ secrets.HOST_SSH_USER }}
           key: ${{ secrets.HOST_SSH_KEY }}
-          source: "codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser"
+          source: "./codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/*"
           target: ${{ secrets.HOST_DEPLOY_DIR }}
-          strip_components: 1
+          strip_components: 0
 
       - name: Reload Apache
         uses: appleboy/ssh-action@v0.1.10
