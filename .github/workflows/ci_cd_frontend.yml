@@ -15,6 +15,44 @@ on:
       - release
 
 jobs:
+  increment-version:
+    #if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    outputs:
+      app-version: ${{ steps.increment-version.outputs.app-version }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Incrementa a versão do software
+      - name: Increment app version, commit and push changes
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: increment-version
+        run: |
+          PACKAGE_JSON_PATH="package.json"
+
+          currentVersion=$(jq -r '.version' $PACKAGE_JSON_PATH)
+
+          echo "Versao atual $currentVersion"
+
+          IFS='.' read -r -a versionParts <<< "$currentVersion"
+
+          versionParts[2]=$((versionParts[2] + 1))
+
+          newVersion="${versionParts[0]}.${versionParts[1]}.${versionParts[2]}"
+
+          echo "Nova versao $newVersion"
+          jq ".version = \"$newVersion\"" $PACKAGE_JSON_PATH > temp.json && mv temp.json $PACKAGE_JSON_PATH
+
+          echo "app-version=$newVersion" >> $GITHUB_OUTPUT
+
+          echo $PACKAGE_JSON_PATH
+
+
+
   build-and-deploy:
     runs-on: ubuntu-latest
 
