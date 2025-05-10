@@ -40,13 +40,18 @@ jobs:
    
       - name: Rename CSR index file to index.html
         run: mv codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.csr.html codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
+      
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
       - name: Upload build files manually via SCP
         run: |
           cd codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
           scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no * ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.HOST_SSH_KEY }}
+
 
       - name: Reload Apache
         uses: appleboy/ssh-action@v0.1.10
