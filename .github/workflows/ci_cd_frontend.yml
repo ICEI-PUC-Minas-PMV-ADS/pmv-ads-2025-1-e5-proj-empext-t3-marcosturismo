@@ -1,22 +1,15 @@
 name: CI/CD Frontend
 
-#on:
-#  pull_request:
-#    branches:
-#      - release
-#    types:
-#      - closed
-#    paths-ignore:
-#      - pubspec.yaml
-
 on:
-  push:
+  pull_request:
     branches:
       - release
+    types:
+      - closed
 
 jobs:
   increment-version:
-    #if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     outputs:
       app-version: ${{ steps.increment-version.outputs.app-version }}
@@ -55,11 +48,10 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add $PACKAGE_JSON_PATH
-          git commit -m "Update de versão v${newVersion}"
+          git commit -m "DEPLOY FRONTEND - v${newVersion}"
           git push origin
 
   cherry-pick-to-main:
-    #if: ${{ github.event.pull_request.merged }}
     needs: increment-version
     runs-on: ubuntu-latest
     permissions:
@@ -82,7 +74,7 @@ jobs:
           git checkout main
           git pull origin main
 
-          # Pega o último commit da branch anterior
+          # Pega o último commit da branch
           git checkout release
           git pull origin release
           LAST_COMMIT=$(git rev-parse HEAD)
