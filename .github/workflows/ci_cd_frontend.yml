@@ -51,9 +51,50 @@ jobs:
 
           echo $PACKAGE_JSON_PATH
 
+          # Commit e push das alterações
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add $PACKAGE_JSON_PATH
+          git commit -m "Update de versão v${newVersion}"
+          git push origin
 
+  cherry-pick-to-main:
+    #if: ${{ github.event.pull_request.merged }}
+    needs: increment-version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Cherry-pick last commit to main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git checkout main
+          git pull origin main
+
+          # Pega o último commit da branch anterior
+          git checkout release
+          git pull origin release
+          LAST_COMMIT=$(git rev-parse HEAD)
+
+          git checkout main
+          git cherry-pick $LAST_COMMIT
+
+          # Push para a main
+          git push origin main
 
   build-and-deploy:
+    needs: cherry-pick-to-main
     runs-on: ubuntu-latest
 
     steps:
