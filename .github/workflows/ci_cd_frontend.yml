@@ -1,0 +1,137 @@
+name: CI/CD Frontend
+
+on:
+  pull_request:
+    branches:
+      - release
+    types:
+      - closed
+
+jobs:
+  increment-version:
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    outputs:
+      app-version: ${{ steps.increment-version.outputs.app-version }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Incrementa a versão do software
+      - name: Increment app version, commit and push changes
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: increment-version
+        run: |
+          PACKAGE_JSON_PATH="package.json"
+
+          currentVersion=$(jq -r '.version' $PACKAGE_JSON_PATH)
+
+          echo "Versao atual $currentVersion"
+
+          IFS='.' read -r -a versionParts <<< "$currentVersion"
+
+          versionParts[2]=$((versionParts[2] + 1))
+
+          newVersion="${versionParts[0]}.${versionParts[1]}.${versionParts[2]}"
+
+          echo "Nova versao $newVersion"
+          jq ".version = \"$newVersion\"" $PACKAGE_JSON_PATH > temp.json && mv temp.json $PACKAGE_JSON_PATH
+
+          echo "app-version=$newVersion" >> $GITHUB_OUTPUT
+
+          echo $PACKAGE_JSON_PATH
+
+          # Commit e push das alterações
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add $PACKAGE_JSON_PATH
+          git commit -m "DEPLOY FRONTEND - v${newVersion}"
+          git push origin
+
+  cherry-pick-to-main:
+    needs: increment-version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Cherry-pick last commit to main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git checkout main
+          git pull origin main
+
+          # Pega o último commit da branch
+          git checkout release
+          git pull origin release
+          LAST_COMMIT=$(git rev-parse HEAD)
+
+          git checkout main
+          git cherry-pick $LAST_COMMIT
+
+          # Push para a main
+          git push origin main
+
+  build-and-deploy:
+    needs: cherry-pick-to-main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        run: npm ci
+     
+      - name: Build Angular app
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        run: ng build --configuration=production
+   
+      - name: Rename CSR index file to index.html
+        run: mv codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.csr.html codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
+      
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Clear remote folder before upload
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "rm -rf ${{ secrets.HOST_DEPLOY_DIR }}/*"
+
+      - name: Upload build files manually via SCP
+        run: |
+          cd codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
+      
+      - name: Reload Apache
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: |
+            sudo systemctl reload apache2 || echo "Apache not reloaded"
