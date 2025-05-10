@@ -41,15 +41,12 @@ jobs:
       - name: Rename CSR index file to index.html
         run: mv codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.csr.html codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
 
-      - name: Upload build files to VPS (Apache)
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOST_SSH_IP }}
-          username: ${{ secrets.HOST_SSH_USER }}
-          key: ${{ secrets.HOST_SSH_KEY }}
-          source: "."
-          target: ${{ secrets.HOST_DEPLOY_DIR }}
-          working-directory: codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
+      - name: Upload build files manually via SCP
+        run: |
+          cd codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no * ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HOST_SSH_KEY }}
 
       - name: Reload Apache
         uses: appleboy/ssh-action@v0.1.10
