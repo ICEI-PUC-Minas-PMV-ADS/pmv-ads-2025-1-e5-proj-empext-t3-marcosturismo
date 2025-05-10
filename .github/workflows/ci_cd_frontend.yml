@@ -47,12 +47,15 @@ jobs:
           echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+      - name: Clear remote folder before upload
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "rm -rf ${{ secrets.HOST_DEPLOY_DIR }}/*"
+
       - name: Upload build files manually via SCP
         run: |
           cd codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
-          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no * ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
-
-
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
+      
       - name: Reload Apache
         uses: appleboy/ssh-action@v0.1.10
         with:
