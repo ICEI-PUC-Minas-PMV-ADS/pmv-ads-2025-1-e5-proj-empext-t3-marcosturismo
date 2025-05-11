@@ -162,16 +162,16 @@ jobs:
           script: |
             VERSION=${{ env.version }}
             echo "Parando backend em execução..."
-            pid=$(ps aux | grep '[j]ava' | awk '{print $2}')
+            pid=$(ps aux | grep 'api-.*\.jar' | grep -v grep | awk '{print $2}')
             if [ -n "$pid" ]; then
-              kill $pid
+              kill "$pid"
               echo "Processo $pid finalizado."
             else
-              echo "Nenhum processo Java encontrado."
+              echo "Nenhum processo da API encontrado."
             fi
-      
+
             echo "Executando nova versão..."
             nohup java -jar "/home/api-${VERSION}.jar" > /home/output.log 2>&1 &
-      
+
             echo "API iniciada com sucesso."
             exit 0
