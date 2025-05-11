@@ -103,53 +103,64 @@ jobs:
 #          # Push para a main
 #          git push origin main
 #
-#  build-and-deploy:
-#    needs: cherry-pick-to-main
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: '22'
-#
-#      - name: Install Angular CLI
-#        run: npm install -g @angular/cli
-#
-#      - name: Install dependencies
-#        working-directory: codigo-fonte/frontend/marcos-turismo
-#        run: npm ci
-#     
-#      - name: Build Angular app
-#        working-directory: codigo-fonte/frontend/marcos-turismo
-#        run: ng build --configuration=production
-#   
-#      - name: Rename CSR index file to index.html
-#        run: mv codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.csr.html codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
-#      
-#      - name: Set up SSH key
-#        run: |
-#          mkdir -p ~/.ssh
-#          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
-#          chmod 600 ~/.ssh/id_rsa
-#
-#      - name: Clear remote folder before upload
-#        run: |
-#          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "rm -rf ${{ secrets.HOST_DEPLOY_DIR }}/*"
-#
-#      - name: Upload build files manually via SCP
-#        run: |
-#          cd codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
-#          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
-#      
-#      - name: Reload Apache
-#        uses: appleboy/ssh-action@v0.1.10
-#        with:
-#          host: ${{ secrets.HOST_SSH_IP }}
-#          username: ${{ secrets.HOST_SSH_USER }}
-#          key: ${{ secrets.HOST_SSH_KEY }}
-#          script: |
-#            sudo systemctl reload apache2 || echo "Apache not reloaded"
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: increment-version
+    env:
+      version: ${{ needs.increment-version.outputs.app-version }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build Spring Boot application
+        working-directory: codigo-fonte/backend/api
+        run: mvn clean package -DskipTests
+
+      - name: Remove JAR via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          password: ${{ secrets.HOST_SSH_KEY }}
+          script: |
+            echo "Removendo qualquer api-*.jar da pasta /home"
+            rm -f /home/api-*.jar
+      
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Upload Spring Boot jar via SCP
+        run: |
+          VERSION=${{ env.version }}
+          sshpass -p "${{ secrets.HOST_SSH_KEY }}" scp -o StrictHostKeyChecking=no "target/api-${VERSION}.jar" "${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:/home/api-${VERSION}.jar"
+      
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          password: ${{ secrets.HOST_SSH_KEY }}
+          script: |
+            VERSION=${{ env.version }}
+            echo "Parando backend em execução..."
+            pid=$(ps aux | grep '[j]ava' | awk '{print $2}')
+            if [ -n "$pid" ]; then
+              kill $pid
+              echo "Processo $pid finalizado."
+            else
+              echo "Nenhum processo Java encontrado."
+            fi
+
+            echo "Executando nova versão..."
+            nohup java -jar "/home/api-${VERSION}.jar" > /home/output.log 2>&1 &
+            echo "API iniciada com sucesso."
