@@ -34,22 +34,32 @@ jobs:
         run: |
           POM_FILE="pom.xml"
 
-          currentVersion=$(xmlstarlet sel -t -v "/project/version" $POM_FILE)
+          # Extrai a versão atual considerando o namespace Maven
+          currentVersion=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "/x:project/x:version" "$POM_FILE")
+          
+          if [[ -z "$currentVersion" ]]; then
+            echo "Erro: versão não encontrada no pom.xml"
+            exit 1
+          fi
           
           echo "Versão atual: $currentVersion"
-
+          
+          # Remove o sufixo "-SNAPSHOT" e incrementa o patch
           numericVersion="${currentVersion%-SNAPSHOT}"
           IFS='.' read -r major minor patch <<< "$numericVersion"
-
+          
           patch=$((patch + 1))
           newVersion="${major}.${minor}.${patch}-SNAPSHOT"
-
+          
           echo "Nova versão: $newVersion"
-
+          
+          # Atualiza o campo <version> no pom.xml
           xmlstarlet ed -L \
-            -u "/project/version" \
-            -v "$newVersion" $POM_FILE
-
+            -N x="http://maven.apache.org/POM/4.0.0" \
+            -u "/x:project/x:version" \
+            -v "$newVersion" "$POM_FILE"
+          
+          # Define a nova versão como saída para o GitHub Actions
           echo "app-version=$newVersion" >> $GITHUB_OUTPUT
 
           # Commit e push das alterações
