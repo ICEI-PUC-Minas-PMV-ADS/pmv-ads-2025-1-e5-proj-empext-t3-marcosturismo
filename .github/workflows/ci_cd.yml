@@ -77,11 +77,19 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
+      - name: Fetch all branches
+        run: git fetch origin
+  
+      - name: Update release branch
+        run: |
+          git checkout release
+          git pull origin release
+  
       - name: Merge release into main
         run: |
           git checkout main
           git pull origin main
-          git merge origin/release --no-ff -m "[CI/CD] DEPLOY FULL STACK - Frontend v${{ env.front-version }} | Backend v${{ env.back-version }}"
+          git merge release --no-ff -m "[CI/CD] DEPLOY FULL STACK - Frontend v${{ env.front-version }} | Backend v${{ env.back-version }}"
           git push origin main
 
   build-deploy-frontend:
