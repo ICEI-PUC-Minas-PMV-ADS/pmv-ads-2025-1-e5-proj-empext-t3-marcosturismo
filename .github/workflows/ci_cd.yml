@@ -57,7 +57,7 @@ jobs:
           git commit -m "DEPLOY FULL STACK - Frontend v$newFrontendVersion | Backend v$newBackendVersion"
           git push origin
 
-  cherry-pick:
+  merge-main:
     needs: versioning
     runs-on: ubuntu-latest
     permissions:
@@ -72,19 +72,15 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Cherry-pick last commit to main
+      - name: Merge release into main
         run: |
           git checkout main
           git pull origin main
-          git checkout release
-          git pull origin release
-          LAST_COMMIT=$(git rev-parse HEAD)
-          git checkout main
-          git cherry-pick $LAST_COMMIT
+          git merge origin/release --no-ff -m "Merge release into main [CI]"
           git push origin main
 
   build-deploy-frontend:
-    needs: cherry-pick
+    needs: versioning
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
