@@ -149,6 +149,10 @@ jobs:
       - name: Upload Spring Boot jar via SCP
         run: |
           VERSION=${{ env.version }}
+          echo "pasta atual"
+          ls
+          echo "pasta target"
+          ls target
           sshpass -p "${{ secrets.HOST_SSH_KEY }}" scp -o StrictHostKeyChecking=no "target/api-${VERSION}.jar" "${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:/home/api-${VERSION}.jar"
       
       - name: Deploy via SSH
