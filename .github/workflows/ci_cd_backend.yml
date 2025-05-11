@@ -169,7 +169,9 @@ jobs:
             else
               echo "Nenhum processo Java encontrado."
             fi
-
+      
             echo "Executando nova versão..."
             nohup java -jar "/home/api-${VERSION}.jar" > /home/output.log 2>&1 &
+      
             echo "API iniciada com sucesso."
+            exit 0
