@@ -141,18 +141,16 @@ jobs:
             rm -f /home/api-*.jar
       
       - name: Set up SSH key
+        working-directory: codigo-fonte/backend/api
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
       - name: Upload Spring Boot jar via SCP
+        working-directory: codigo-fonte/backend/api
         run: |
           VERSION=${{ env.version }}
-          echo "pasta atual"
-          ls
-          echo "pasta target"
-          ls target
           sshpass -p "${{ secrets.HOST_SSH_KEY }}" scp -o StrictHostKeyChecking=no "target/api-${VERSION}.jar" "${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:/home/api-${VERSION}.jar"
       
       - name: Deploy via SSH
