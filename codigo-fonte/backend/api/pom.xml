@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.marcosturismo</groupId>
   <artifactId>api</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>api</name>
   <description>Projeto da API do projeto Marcos Turismo</description>
   <url/>
