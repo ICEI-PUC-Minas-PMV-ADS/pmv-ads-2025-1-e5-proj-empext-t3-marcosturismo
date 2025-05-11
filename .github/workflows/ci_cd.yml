@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       backend-version: ${{ steps.increment.outputs.backend-version }}
-      frontend-version: ${{ steps.increment.outputs.frontend-version }}
     permissions:
       contents: write
     steps:
@@ -50,7 +49,6 @@ jobs:
             -v "$newBackendVersion" "$POM_FILE"
           echo "Backend version: $newBackendVersion"
           echo "backend-version=$newBackendVersion" >> $GITHUB_OUTPUT
-          echo "frontend-version=$newFrontendVersion" >> $GITHUB_OUTPUT
 
           # COMMIT
           git config user.name "GitHub Actions"
@@ -62,9 +60,6 @@ jobs:
   merge-main:
     needs: versioning
     runs-on: ubuntu-latest
-    env:
-      back-version: ${{ needs.versioning.outputs.backend-version }}
-      front-version: ${{ needs.versioning.outputs.frontend-version }}
     permissions:
       contents: write
     steps:
@@ -79,17 +74,17 @@ jobs:
 
       - name: Fetch all branches
         run: git fetch origin
-  
+
       - name: Update release branch
         run: |
           git checkout release
           git pull origin release
-  
+
       - name: Merge release into main
         run: |
           git checkout main
           git pull origin main
-          git merge release --no-ff -m "[CI/CD] DEPLOY FULL STACK - Frontend v${{ env.front-version }} | Backend v${{ env.back-version }}"
+          git merge release --no-ff -m "[CI/CD] MERGE RELEASE"
           git push origin main
 
   build-deploy-frontend:
