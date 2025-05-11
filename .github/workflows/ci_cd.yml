@@ -1,0 +1,192 @@
+name: CI/CD Full Stack
+
+on:
+  pull_request:
+    branches:
+      - release
+    types:
+      - closed
+
+jobs:
+  versioning:
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    outputs:
+      backend-version: ${{ steps.increment.outputs.backend-version }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up XMLStarlet
+        run: sudo apt-get install -y xmlstarlet
+
+      - name: Increment frontend and backend versions
+        id: increment
+        run: |
+          # FRONTEND
+          FRONTEND_DIR="codigo-fonte/frontend/marcos-turismo"
+          PACKAGE_JSON="$FRONTEND_DIR/package.json"
+
+          currentFrontendVersion=$(jq -r '.version' $PACKAGE_JSON)
+          IFS='.' read -r -a f_parts <<< "$currentFrontendVersion"
+          f_parts[2]=$((f_parts[2] + 1))
+          newFrontendVersion="${f_parts[0]}.${f_parts[1]}.${f_parts[2]}"
+          jq ".version = \"$newFrontendVersion\"" $PACKAGE_JSON > temp.json && mv temp.json $PACKAGE_JSON
+          echo "Frontend version: $newFrontendVersion"
+
+          # BACKEND
+          BACKEND_DIR="codigo-fonte/backend/api"
+          POM_FILE="$BACKEND_DIR/pom.xml"
+          currentBackendVersion=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "/x:project/x:version" "$POM_FILE")
+          numericBackend="${currentBackendVersion%-SNAPSHOT}"
+          IFS='.' read -r major minor patch <<< "$numericBackend"
+          patch=$((patch + 1))
+          newBackendVersion="${major}.${minor}.${patch}-SNAPSHOT"
+          xmlstarlet ed -L \
+            -N x="http://maven.apache.org/POM/4.0.0" \
+            -u "/x:project/x:version" \
+            -v "$newBackendVersion" "$POM_FILE"
+          echo "Backend version: $newBackendVersion"
+          echo "backend-version=$newBackendVersion" >> $GITHUB_OUTPUT
+
+          # COMMIT
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add $PACKAGE_JSON $POM_FILE
+          git commit -m "DEPLOY FULL STACK - Frontend v$newFrontendVersion | Backend v$newBackendVersion"
+          git push origin
+
+  cherry-pick:
+    needs: versioning
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Cherry-pick last commit to main
+        run: |
+          git checkout main
+          git pull origin main
+          git checkout release
+          git pull origin release
+          LAST_COMMIT=$(git rev-parse HEAD)
+          git checkout main
+          git cherry-pick $LAST_COMMIT
+          git push origin main
+
+  build-deploy-frontend:
+    needs: cherry-pick
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest release changes
+        run: |
+          git fetch origin
+          git pull origin release
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        run: npm ci
+
+      - name: Build Angular app
+        working-directory: codigo-fonte/frontend/marcos-turismo
+        run: ng build --configuration=production
+
+      - name: Rename CSR index file to index.html
+        run: mv codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.csr.html codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Clear remote folder
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "rm -rf ${{ secrets.HOST_DEPLOY_DIR }}/*"
+
+      - name: Upload frontend via SCP
+        run: |
+          cd codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
+
+      - name: Reload Apache
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: sudo systemctl reload apache2 || echo "Apache not reloaded"
+
+  build-deploy-backend:
+    needs: versioning
+    runs-on: ubuntu-latest
+    env:
+      version: ${{ needs.versioning.outputs.backend-version }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest release changes
+        run: |
+          git fetch origin
+          git pull origin release
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build Spring Boot application
+        working-directory: codigo-fonte/backend/api
+        run: mvn clean package -DskipTests
+
+      - name: Remove old jar from server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: rm -f /home/api-*.jar
+
+      - name: Upload new JAR via SCP
+        working-directory: codigo-fonte/backend/api
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no "target/api-${{ env.version }}.jar" "${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:/home/api-${{ env.version }}.jar"
+
+      - name: Start new backend
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: |
+            VERSION=${{ env.version }}
+            pid=$(ps aux | grep 'api-.*\.jar' | grep -v grep | awk '{print $2}')
+            if [ -n "$pid" ]; then kill "$pid"; fi
+            nohup java -jar "/home/api-${VERSION}.jar" > /home/output.log 2>&1 &
