@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       backend-version: ${{ steps.increment.outputs.backend-version }}
-      front-version: ${{ steps.increment.outputs.frontend-version }}
+      frontend-version: ${{ steps.increment.outputs.frontend-version }}
     permissions:
       contents: write
     steps:
