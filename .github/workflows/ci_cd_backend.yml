@@ -128,7 +128,7 @@ jobs:
         with:
           host: ${{ secrets.HOST_SSH_IP }}
           username: ${{ secrets.HOST_SSH_USER }}
-          password: ${{ secrets.HOST_SSH_KEY }}
+          key: ${{ secrets.HOST_SSH_KEY }}
           script: |
             echo "Removendo qualquer api-*.jar da pasta /home"
             rm -f /home/api-*.jar
@@ -149,7 +149,7 @@ jobs:
         with:
           host: ${{ secrets.HOST_SSH_IP }}
           username: ${{ secrets.HOST_SSH_USER }}
-          password: ${{ secrets.HOST_SSH_KEY }}
+          key: ${{ secrets.HOST_SSH_KEY }}
           script: |
             VERSION=${{ env.version }}
             echo "Parando backend em execução..."
