@@ -35,17 +35,14 @@ body {
 }
 
 h1 {
-    color: white;
     margin-bottom: 5px;
 }
 
 h3 {
-    color: white;
     margin-bottom: 10px;
 }
 
 p {
-    color: #2a52be;
     margin-bottom: 20px;
     font-size: 20px;
 }
@@ -70,7 +67,6 @@ p {
 
 .card h2 {
     margin-top: 0;
-    color: #2a52be;
 }
 
 .charts-container {
