@@ -1,0 +1,57 @@
+name: CI/CD Teste
+
+on:
+  push:
+    branches:
+     - feature/78-backend-inserir-imagens-de-veículos
+
+jobs:
+  build-deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest release changes
+        run: |
+          git fetch origin
+          git pull origin release
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build Spring Boot application
+        working-directory: codigo-fonte/backend/api
+        run: mvn clean package -DskipTests
+
+      - name: Remove old jar from server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: rm -f /home/api-*.jar
+
+      - name: Upload new JAR via SCP
+        working-directory: codigo-fonte/backend/api
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no "target/api-0.0.7-SNAPSHOT.jar" "${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:/home/api-0.0.7-SNAPSHOT.jar"
+
+      - name: Start new backend
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: |
+            VERSION="0.0.7-SNAPSHOT"
+            pid=$(ps aux | grep 'api-.*\.jar' | grep -v grep | awk '{print $2}')
+            if [ -n "$pid" ]; then kill "$pid"; fi
+            nohup java -jar "/home/api-${VERSION}.jar" > /home/output.log 2>&1 &

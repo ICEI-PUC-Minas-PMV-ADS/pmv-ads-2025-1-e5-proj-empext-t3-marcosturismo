@@ -1,10 +1,8 @@
 package com.marcosturismo.api.services;
 
-import com.marcosturismo.api.domain.veiculo.SituacaoVeiculo;
-import com.marcosturismo.api.domain.veiculo.Veiculo;
-import com.marcosturismo.api.domain.veiculo.VeiculoDTO;
-import com.marcosturismo.api.domain.veiculo.VeiculoResponseDTO;
+import com.marcosturismo.api.domain.veiculo.*;
 import com.marcosturismo.api.repositories.ChecklistRepository;
+import com.marcosturismo.api.repositories.ImagemVeiculoRepository;
 import com.marcosturismo.api.repositories.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +15,9 @@ import java.util.UUID;
 public class VeiculoService {
     @Autowired
     VeiculoRepository veiculoRepository;
+
+    @Autowired
+    ImagemVeiculoRepository imagemVeiculoRepository;
 
     @Autowired
     ChecklistRepository checklistRepository;
@@ -34,6 +35,17 @@ public class VeiculoService {
                     return veiculo.toResponseDTO(checklistOptional.orElse(null));
                 })
                 .toList();
+    }
+
+    public ImagemVeiculo saveImagemVeiculo(String url, UUID veiculoId){
+        Optional<Veiculo> veiculo = veiculoRepository.findById(veiculoId);
+        if (!veiculo.isEmpty()) {
+            throw new RuntimeException("Veículo não encontrado");
+        }
+
+        ImagemVeiculo imagem = new ImagemVeiculo(url, veiculo.get());
+
+        return imagemVeiculoRepository.save(imagem);
     }
 
     public List<Veiculo> getAllFrota() {

@@ -1,15 +1,20 @@
 package com.marcosturismo.api.controllers;
 
-import com.marcosturismo.api.domain.veiculo.Veiculo;
-import com.marcosturismo.api.domain.veiculo.VeiculoDTO;
-import com.marcosturismo.api.domain.veiculo.VeiculoFrotaResponseDTO;
-import com.marcosturismo.api.domain.veiculo.VeiculoResponseDTO;
+import com.marcosturismo.api.domain.veiculo.*;
+import com.marcosturismo.api.repositories.VeiculoRepository;
 import com.marcosturismo.api.services.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +24,9 @@ public class VeiculoController {
 
     @Autowired
     private VeiculoService veiculoService;
+
+    @Autowired
+    private VeiculoRepository veiculoRepository;
 
     @GetMapping
     public ResponseEntity<?> getAllVeiculos() {
@@ -77,6 +85,38 @@ public class VeiculoController {
             return ResponseEntity.status(201).body(response);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erro ao criar veículo: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/upload/{veiculoId}")
+    public ResponseEntity<?> uploadImagem(@PathVariable UUID veiculoId, @RequestParam("file") MultipartFile file) {
+        try {
+            if (!veiculoRepository.existsById(veiculoId)) {
+                throw new RuntimeException("Veículo não encontrado");
+            }
+            // Verifica o tamanho (em bytes) — 10MB = 10 * 1024 * 1024
+            if (file.getSize() > 10 * 1024 * 1024) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Arquivo excede o tamanho máximo permitido de 10MB.");
+            }
+
+            String contentType = file.getContentType();
+            if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
+                return ResponseEntity.badRequest().body("Tipo de imagem não suportado.");
+            }
+            String pasta = "/var/www/marcosturismo.com.br/public_html/storage/"; // Local no servidor
+            String nomeArquivo = UUID.randomUUID() + "_" + file.getOriginalFilename();
+            Path caminho = Paths.get(pasta + nomeArquivo);
+            Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
+
+            String urlImagem = "https://marcosturismo.com.br/storage/" + nomeArquivo;
+
+            var imagem = veiculoService.saveImagemVeiculo(urlImagem, veiculoId);
+
+            return ResponseEntity.ok(imagem);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar imagem.");
         }
     }
 

@@ -1,4 +1,5 @@
 package com.marcosturismo.api.domain.veiculo;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,5 +31,11 @@ public class ImagemVeiculo {
     @CreationTimestamp
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
+
+    public ImagemVeiculo(String imgUrl, Veiculo veiculo) {
+        this.imgUrl = imgUrl;
+        this.veiculo = veiculo;
+
+    }
 }
 
