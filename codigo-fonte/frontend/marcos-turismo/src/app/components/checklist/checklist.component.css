@@ -1,0 +1,125 @@
+/* Estilo para o card */
+.card {
+    background-color: #002f6c;
+    color: white;
+    width: 350px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0; /* Remove a margem para garantir centralização */
+}
+
+/* Estilo para os botões */
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #004aad;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background-color: #003580;
+}
+
+/* Estilo para o modal */
+/* Modal com centralização */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 50%;  /* Posiciona no meio verticalmente */
+    left: 50%;  /* Posiciona no meio horizontalmente */
+    transform: translate(-50%, -50%);  /* Ajusta o modal para que ele fique completamente centralizado */
+    width: 400px;  /* Largura do modal */
+    height: auto;  /* Ajusta a altura automaticamente */
+    background-color: rgba(0, 0, 0, 0.5);  /* Fundo escurecido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #002f6c;
+    padding: 10px;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+    border-radius: 15px;
+}
+
+/* Estilo para o botão de fechar do modal */
+.close {
+    color: red;
+    font-size: 25px;
+    cursor: pointer;
+    float: right;
+}
+
+/* Estilos para o checklist */
+.checklist-card {
+    background-color: #002f6c;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Estilo da imagem no modal */
+.image-container img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para a lista de itens */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* Estilos para os botões dentro do modal */
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.iniciar {
+    background-color: green;
+}
+
+.cancelar {
+    background-color: red;
+}
+
+/* Estilo para o campo de preenchimento de avarias */
+textarea {
+    width: 100%;               /* Largura de 100% */
+    padding: 10px;             /* Padding interno */
+    border-radius: 5px;        /* Bordas arredondadas */
+    border: none;              /* Remove a borda */
+    background-color: #f1f1f1; /* Cor de fundo para o campo */
+    font-size: 14px;           /* Tamanho da fonte */
+    box-sizing: border-box;    /* Inclui o padding no cálculo da largura */
+    resize: vertical;          /* Permite redimensionamento vertical */
+}
+
+
+/* Estilo para centralizar e ajustar a logo */
+.logo {
+    width: 100px;              /* Define a largura da logo como 100px */
+    height: auto;              /* Mantém a proporção da imagem */
+    display: block;            /* Garante que a imagem seja um bloco */
+    margin: 0 auto 20px;       /* Centraliza a imagem horizontalmente e adiciona um espaçamento abaixo */
+    border-radius: 25px;
+}
