@@ -37,13 +37,9 @@ public class VeiculoService {
                 .toList();
     }
 
-    public ImagemVeiculo saveImagemVeiculo(String url, UUID veiculoId){
-        Optional<Veiculo> veiculo = veiculoRepository.findById(veiculoId);
-        if (!veiculo.isEmpty()) {
-            throw new RuntimeException("Veículo não encontrado");
-        }
+    public ImagemVeiculo saveImagemVeiculo(String url, Veiculo veiculo){
 
-        ImagemVeiculo imagem = new ImagemVeiculo(url, veiculo.get());
+        ImagemVeiculo imagem = new ImagemVeiculo(url, veiculo);
 
         return imagemVeiculoRepository.save(imagem);
     }

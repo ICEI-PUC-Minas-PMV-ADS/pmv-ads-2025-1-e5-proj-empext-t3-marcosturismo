@@ -91,9 +91,9 @@ public class VeiculoController {
     @PostMapping("/upload/{veiculoId}")
     public ResponseEntity<?> uploadImagem(@PathVariable UUID veiculoId, @RequestParam("file") MultipartFile file) {
         try {
-            if (!veiculoRepository.existsById(veiculoId)) {
-                throw new RuntimeException("Veículo não encontrado");
-            }
+            var veiculo = veiculoRepository.findById(veiculoId)
+                    .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+
             // Verifica o tamanho (em bytes) — 10MB = 10 * 1024 * 1024
             if (file.getSize() > 10 * 1024 * 1024) {
                 return ResponseEntity
@@ -101,21 +101,31 @@ public class VeiculoController {
                         .body("Arquivo excede o tamanho máximo permitido de 10MB.");
             }
 
+            // Verifica extensão (opcional)
+            String originalFilename = file.getOriginalFilename();
+            String extensao = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extensao = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+
             String contentType = file.getContentType();
             if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
                 return ResponseEntity.badRequest().body("Tipo de imagem não suportado.");
             }
             String pasta = "/var/www/marcosturismo.com.br/public_html/storage/"; // Local no servidor
-            String nomeArquivo = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+            // Gera UUID com extensão
+            String nomeArquivo = UUID.randomUUID().toString() + extensao;
+
             Path caminho = Paths.get(pasta + nomeArquivo);
             Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
 
             String urlImagem = "https://marcosturismo.com.br/storage/" + nomeArquivo;
 
-            var imagem = veiculoService.saveImagemVeiculo(urlImagem, veiculoId);
+            var imagem = veiculoService.saveImagemVeiculo(urlImagem, veiculo);
 
-            return ResponseEntity.ok(imagem);
-        } catch (IOException e) {
+            return ResponseEntity.ok(imagem.getImgUrl());
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar imagem.");
         }
     }
