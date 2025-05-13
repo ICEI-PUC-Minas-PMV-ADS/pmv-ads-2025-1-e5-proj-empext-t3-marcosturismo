@@ -1,4 +1,6 @@
 package com.marcosturismo.api.domain.veiculo;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,10 +27,16 @@ public class ImagemVeiculo {
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
+    @JsonBackReference
     private Veiculo veiculo;
 
     @CreationTimestamp
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
+
+    public ImagemVeiculo(String imgUrl, Veiculo veiculo) {
+        this.imgUrl = imgUrl;
+        this.veiculo = veiculo;
+    }
 }
 
