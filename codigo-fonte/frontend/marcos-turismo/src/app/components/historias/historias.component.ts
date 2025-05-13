@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-historias',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FormsModule, HttpClientModule], 
+  imports: [CommonModule, NavbarComponent, FormsModule, HttpClientModule],
   templateUrl: './historias.component.html',
   styleUrls: ['./historias.component.css']
 })
@@ -34,7 +34,7 @@ export class HistoriasComponent implements OnInit {
   }
 
   carregarAvaliacoes(): void {
-    this.http.get<any[]>(`${this.apiUrl}/validas`, { headers: this.getAuthHeaders() }).subscribe(
+    this.http.get<any[]>(`${this.apiUrl}/validas`).subscribe(
       (avaliacoes: any[]) => {
         this.avaliacoesValidas = avaliacoes;
         console.log('Avaliações válidas:', this.avaliacoesValidas);
@@ -64,13 +64,13 @@ export class HistoriasComponent implements OnInit {
   }
 
   sendAvaliacaoRequest(payload: any) {
-    this.http.post<HttpResponse<any>>(this.apiUrl, payload).subscribe(
+    this.http.post(this.apiUrl, payload).subscribe(
       (response) => this.handleSuccess(response),
-      (error) => this.handleError(error)
+      (error: HttpErrorResponse) => this.handleError(error)
     );
   }
 
-  handleSuccess(response: HttpResponse<any>) {
+  handleSuccess(response: any) {
     console.log('Avaliação registrada com sucesso:', response);
     this.mostrarMensagem('Sua avaliação foi registrada com sucesso!', 'sucesso');
     this.cancelarAvaliacao();
@@ -98,17 +98,6 @@ export class HistoriasComponent implements OnInit {
       this.mensagem = '';
       this.tipoMensagem = '';
     }, 5000);
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    console.log('Token:', token);
-    if (!token) {
-      alert("Token não encontrado!");
-    }
-    return new HttpHeaders({
-      'Authorization': token ? `Bearer ${token}` : ''
-    });
   }
 
   onFileSelected(event: any): void {
