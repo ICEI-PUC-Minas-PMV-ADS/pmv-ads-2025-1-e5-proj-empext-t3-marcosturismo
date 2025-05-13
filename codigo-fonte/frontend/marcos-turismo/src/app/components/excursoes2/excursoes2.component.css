@@ -79,10 +79,13 @@ button:hover {
 }
 
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  background-color: var(--footer-bg);
   color: white;
   text-align: center;
+  font-size: 14px;
 }
 
 /* Responsividade para telas pequenas */

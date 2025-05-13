@@ -89,9 +89,11 @@
     height: 60px;
 }
 footer {
-    width: 100%;
-    background-color: var(--footer-bg);
-    color: var(--footer-text-color);
-    text-align: center;
-    color: #ffffff;
-  }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+}
