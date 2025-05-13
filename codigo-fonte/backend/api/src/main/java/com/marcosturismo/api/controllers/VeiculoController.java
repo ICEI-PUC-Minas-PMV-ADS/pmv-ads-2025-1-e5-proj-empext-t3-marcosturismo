@@ -1,15 +1,22 @@
 package com.marcosturismo.api.controllers;
 
-import com.marcosturismo.api.domain.veiculo.Veiculo;
-import com.marcosturismo.api.domain.veiculo.VeiculoDTO;
-import com.marcosturismo.api.domain.veiculo.VeiculoFrotaResponseDTO;
-import com.marcosturismo.api.domain.veiculo.VeiculoResponseDTO;
+import com.marcosturismo.api.domain.veiculo.*;
+import com.marcosturismo.api.repositories.ImagemVeiculoRepository;
+import com.marcosturismo.api.repositories.VeiculoRepository;
 import com.marcosturismo.api.services.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +26,15 @@ public class VeiculoController {
 
     @Autowired
     private VeiculoService veiculoService;
+
+    @Autowired
+    private VeiculoRepository veiculoRepository;
+
+    @Autowired
+    private ImagemVeiculoRepository imagemVeiculoRepository;
+
+    private String path = "/var/www/marcosturismo.com.br/public_html/storage/";
+    private String urlStorage = "https://marcosturismo.com.br/storage/";
 
     @GetMapping
     public ResponseEntity<?> getAllVeiculos() {
@@ -77,6 +93,71 @@ public class VeiculoController {
             return ResponseEntity.status(201).body(response);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erro ao criar veículo: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/upload/{veiculoId}")
+    public ResponseEntity<?> uploadImagem(@PathVariable UUID veiculoId, @RequestParam("file") MultipartFile file) {
+        try {
+            var veiculo = veiculoRepository.findById(veiculoId)
+                    .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+
+            // Verifica o tamanho (em bytes) — 10MB = 10 * 1024 * 1024
+            if (file.getSize() > 10 * 1024 * 1024) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Arquivo excede o tamanho máximo permitido de 10MB.");
+            }
+
+            // Verifica extensão (opcional)
+            String originalFilename = file.getOriginalFilename();
+            String extensao = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extensao = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+
+            String contentType = file.getContentType();
+            if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
+                return ResponseEntity.badRequest().body("Tipo de imagem não suportado.");
+            }
+
+            // Gera UUID com extensão
+            String nomeArquivo = UUID.randomUUID().toString() + extensao;
+
+            Path caminho = Paths.get(path + nomeArquivo);
+            Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
+
+            String urlImagem = urlStorage + nomeArquivo;
+
+            var imagem = veiculoService.saveImagemVeiculo(urlImagem, veiculo);
+
+            return ResponseEntity.ok(imagem.getImgUrl());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar imagem.");
+        }
+    }
+
+    @DeleteMapping("/imagem/{imagemId}")
+    public ResponseEntity<?> deleteImagem(@PathVariable UUID imagemId) {
+        try {
+            var imagem = imagemVeiculoRepository.findById(imagemId)
+                    .orElseThrow(() -> new RuntimeException("Imagem não encontrada"));
+            String filename = imagem.getImgUrl().substring(imagem.getImgUrl().lastIndexOf("/") + 1);
+            String caminhoFisico = path + filename;
+
+            File arquivo = new File(caminhoFisico);
+            if (arquivo.exists()) {
+                if (!arquivo.delete()) {
+                    return ResponseEntity.status(500).body("Erro ao deletar o arquivo físico");
+                }
+            } else {
+                System.out.println("Arquivo físico não encontrado, continuando...");
+            }
+
+            veiculoService.deleteImagem(imagemId);
+            return ResponseEntity.ok().body("Imagem excluída com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 

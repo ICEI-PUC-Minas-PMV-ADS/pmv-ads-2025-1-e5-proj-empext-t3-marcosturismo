@@ -127,7 +127,8 @@ jobs:
 
       - name: Clear remote folder
         run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "rm -rf ${{ secrets.HOST_DEPLOY_DIR }}/*"
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "\
+            find ${{ secrets.HOST_DEPLOY_DIR }} -mindepth 1 -maxdepth 1 ! -name 'storage' -exec rm -rf {} +"
 
       - name: Upload frontend via SCP
         run: |
