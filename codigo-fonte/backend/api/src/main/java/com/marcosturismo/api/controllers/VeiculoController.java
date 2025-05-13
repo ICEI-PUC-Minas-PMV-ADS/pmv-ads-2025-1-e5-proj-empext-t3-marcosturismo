@@ -1,6 +1,7 @@
 package com.marcosturismo.api.controllers;
 
 import com.marcosturismo.api.domain.veiculo.*;
+import com.marcosturismo.api.repositories.ImagemVeiculoRepository;
 import com.marcosturismo.api.repositories.VeiculoRepository;
 import com.marcosturismo.api.services.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,6 +29,12 @@ public class VeiculoController {
 
     @Autowired
     private VeiculoRepository veiculoRepository;
+
+    @Autowired
+    private ImagemVeiculoRepository imagemVeiculoRepository;
+
+    private String path = "/var/www/marcosturismo.com.br/public_html/storage/";
+    private String urlStorage = "https://marcosturismo.com.br/storage/";
 
     @GetMapping
     public ResponseEntity<?> getAllVeiculos() {
@@ -112,21 +120,44 @@ public class VeiculoController {
             if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
                 return ResponseEntity.badRequest().body("Tipo de imagem não suportado.");
             }
-            String pasta = "/var/www/marcosturismo.com.br/public_html/storage/"; // Local no servidor
 
             // Gera UUID com extensão
             String nomeArquivo = UUID.randomUUID().toString() + extensao;
 
-            Path caminho = Paths.get(pasta + nomeArquivo);
+            Path caminho = Paths.get(path + nomeArquivo);
             Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
 
-            String urlImagem = "https://marcosturismo.com.br/storage/" + nomeArquivo;
+            String urlImagem = urlStorage + nomeArquivo;
 
             var imagem = veiculoService.saveImagemVeiculo(urlImagem, veiculo);
 
             return ResponseEntity.ok(imagem.getImgUrl());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar imagem.");
+        }
+    }
+
+    @DeleteMapping("/imagem/{imagemId}")
+    public ResponseEntity<?> deleteImagem(@PathVariable UUID imagemId) {
+        try {
+            var imagem = imagemVeiculoRepository.findById(imagemId)
+                    .orElseThrow(() -> new RuntimeException("Imagem não encontrada"));
+            String filename = imagem.getImgUrl().substring(imagem.getImgUrl().lastIndexOf("/") + 1);
+            String caminhoFisico = path + filename;
+
+            File arquivo = new File(caminhoFisico);
+            if (arquivo.exists()) {
+                if (!arquivo.delete()) {
+                    return ResponseEntity.status(500).body("Erro ao deletar o arquivo físico");
+                }
+            } else {
+                System.out.println("Arquivo físico não encontrado, continuando...");
+            }
+
+            veiculoService.deleteImagem(imagemId);
+            return ResponseEntity.ok().body("Imagem excluída com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 

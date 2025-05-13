@@ -40,6 +40,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/veiculo/upload/{veiculoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/veiculo/{veiculoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/veiculo/{veiculoId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/veiculo/imagem/{imagemId}").hasRole("ADMIN")
                         ///  Avaliações
                         .requestMatchers(HttpMethod.POST, "/avaliacao").permitAll()
                         .requestMatchers(HttpMethod.GET, "/avaliacao/validas").permitAll()

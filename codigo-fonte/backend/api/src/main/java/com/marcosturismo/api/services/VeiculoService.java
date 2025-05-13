@@ -60,6 +60,10 @@ public class VeiculoService {
         veiculoRepository.deleteById(id);
     }
 
+    public void deleteImagem(UUID id) {
+        imagemVeiculoRepository.deleteById(id);
+    }
+
     public Veiculo updateVeiculo(VeiculoDTO data, UUID id) {
         Veiculo veiculo = veiculoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
