@@ -2,18 +2,7 @@
 
 <div class="container">
     <div class="card">
-        <h2>Motorista: 
-            <input type="text" placeholder="Digite o nome do motorista" [(ngModel)]="motorista">
-        </h2>
-        <p>Tipo de Serviço: 
-            <select [(ngModel)]="tipoServico">
-                <option value="excursao">Excursão</option>
-                <option value="fretamento">Fretamento</option>
-            </select>
-        </p>
-        <p>Data de Início: <input type="date" [(ngModel)]="dataInicio"></p>
-        <p>Data de Volta: <input type="date" [(ngModel)]="dataVolta"></p>
-        
+        <button class="btn checklist-btn" (click)="openModal()">Check-List</button>
     </div>
 </div>
 
@@ -47,4 +36,3 @@
         </div>
     </div>
 </div>
-

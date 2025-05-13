@@ -37,8 +37,10 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/veiculo/frota").permitAll()
                         .requestMatchers(HttpMethod.GET, "/veiculo").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/veiculo").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/veiculo/upload/{veiculoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/veiculo/{veiculoId}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/veiculo/{veiculoId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/veiculo/imagem/{imagemId}").hasRole("ADMIN")
                         ///  Avaliações
                         .requestMatchers(HttpMethod.POST, "/avaliacao").permitAll()
                         .requestMatchers(HttpMethod.GET, "/avaliacao/validas").permitAll()
