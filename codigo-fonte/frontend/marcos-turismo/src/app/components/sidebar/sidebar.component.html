@@ -30,6 +30,11 @@
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Viagens</span>
     </button>
 
+    <button class="menu-item" (click)="navigate('/checklist')" routerLinkActive="active">
+      <i class="fas fa-check"></i>&nbsp;
+      <span [ngClass]="{ 'hidden': !isSidebarActive }">Check-List</span>
+    </button>
+
     <button class="menu-item" (click)="navigate('/excursoes')" routerLinkActive="active">
       <i class="fas fa-map-marker-alt"></i>&nbsp;
       <span [ngClass]="{ 'hidden': !isSidebarActive }">Excursões</span>
