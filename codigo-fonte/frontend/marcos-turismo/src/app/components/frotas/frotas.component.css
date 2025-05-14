@@ -1,6 +1,6 @@
 /* Estilo para a seção da frota */
 .fleet-container {
-  margin-top: 80px;
+  margin-top: 80px; /* Espaço para evitar que o conteúdo fique coberto pela navbar */
   padding: 20px;
   text-align: center;
 }
@@ -11,42 +11,36 @@
   margin-bottom: 20px;
 }
 
-/* 403-style alert */
-.alert.error {
-  color: #b00;
-  margin-bottom: 20px;
-}
-
-/* Grid: 3 colunas, quebra automática */
-.fleet-grid {
+/* Grid responsivo: usa mínimo de 280px por coluna */
+.fleet-container ul.fleet-grid {
   list-style: none;
   padding: 0;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   max-width: 1200px;
 }
 
 /* Card */
-.fleet-card {
+.fleet-container ul.fleet-grid li {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.fleet-card:hover {
+.fleet-container ul.fleet-grid li:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Imagem do veículo */
-.fleet-img {
+.fleet-container .fleet-img {
   width: 100%;
   height: auto;
   border-radius: 8px;
@@ -54,14 +48,14 @@
 }
 
 /* Meta (ano/categoria/lotação) */
-.meta {
+.fleet-container .meta {
   font-size: 14px;
   color: #555;
   margin: 8px 0 12px;
 }
 
 /* Lista de opcionais */
-.fleet-options {
+.fleet-container .fleet-options {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -69,111 +63,62 @@
   text-align: left;
 }
 
-.fleet-options li {
+.fleet-container .fleet-options li {
   font-size: 14px;
   margin: 4px 0;
 }
 
-/* Responsividade: tablets (2 colunas) */
-@media (max-width: 992px) {
-  .fleet-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Título e descrição dentro do card */
+.fleet-container h2 {
+  font-size: 24px;
+  color: #002f6c;
+  margin: 10px 0;
 }
 
+.fleet-container p {
+  font-size: 16px;
+  color: #555;
+}
 
-    margin-top: 80px; /* Espaço para evitar que o conteúdo fique coberto pela navbar */
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .fleet-container h1 {
-    font-size: 32px;
-    color: #002f6c;
-    margin-bottom: 20px;
-  }
-  
-  .fleet-container ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .fleet-container li {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: calc(33.33% - 20px);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .fleet-container li:hover {
-    transform: scale(1.05);
-  }
-  
-  .fleet-container .onibus-img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .fleet-container h2 {
-    font-size: 24px;
-    color: #002f6c;
-    margin: 10px 0;
-  }
-  
-  .fleet-container p {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
-    .fleet-container ul {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .fleet-container li {
-      width: 90%; /* Ajuste a largura dos itens */
-    }
-  
-    .fleet-container h1 {
-      font-size: 24px;
-    }
-  
-    .fleet-container h2 {
-      font-size: 20px;
-    }
-  }
-  .whatsapp-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  
+/* 403-style alert */
+.alert.error {
+  color: #b00;
+  margin-bottom: 20px;
+}
+
+/* WhatsApp flutuante */
+.whatsapp-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .whatsapp-icon {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
+
+/* Footer */
 footer {
-    width: 100%;
-    background-color: var(--footer-bg);
-    color: var(--footer-text-color);
-    text-align: center;
-    color: #ffffff;
+  width: 100%;
+  background-color: var(--footer-bg);
+  color: var(--footer-text-color);
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Ajustes tipográficos em telas menores */
+@media (max-width: 768px) {
+  .fleet-container h1 {
+    font-size: 24px;
   }
+  .fleet-container h2 {
+    font-size: 20px;
+  }
+}
