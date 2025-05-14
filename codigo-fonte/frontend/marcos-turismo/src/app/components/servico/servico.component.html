@@ -1,23 +1,41 @@
-
 <app-sidebar></app-sidebar>
 <div class="container-principal">
   <h1>Serviços</h1>
   <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
-  <table *ngIf="servicos.length; else emptyList" class="table">
+  <table *ngIf="servicos?.length; else emptyList" class="table">
     <thead>
       <tr>
-        <th>Data</th><th>KM Veículo</th><th>Descrição</th><th>Ações</th>
+        <th>Data</th>
+        <th>KM Veículo</th>
+        <th>KM Próx. Troca Óleo</th>
+        <th>KM Próx. Troca Pneus</th>
+        <th>Descrição</th>
+        <th>ID Veículo</th>
+        <th>Serviços Realizados</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let s of servicos">
         <td>{{ s.dataServico }}</td>
         <td>{{ s.kmVeiculo }} km</td>
+        <td>{{ s.kmProxTrocaOleo }} km</td>
+        <td>{{ s.kmProxTrocaPneu }} km</td>
         <td>{{ s.descricao }}</td>
+        <td>{{ s.veiculoId }}</td>
         <td>
-          <button (click)="editarServico(s)">Editar</button>
-          <button (click)="excluirServico(s.id!)">Excluir</button>
+          <ul>
+            <li *ngFor="let r of s.servicosRealizados">
+              Tipo: {{ getDescricaoTipoServico(r.tipoServicoId) }} - Custo: R$ {{ r.custo | number: '1.2-2' }}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <div class="acoes-btns">
+            <button (click)="editarServico(s)">Editar</button>
+            <button (click)="excluirServico(s.id!)">Excluir</button>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -26,6 +44,7 @@
 
   <button class="btn-mais" (click)="openModal()">+</button>
 
+  <!-- Modal para adicionar ou editar serviço -->
   <div class="modal" [class.show]="showModal">
     <div class="modal-content">
       <span class="close" (click)="closeModal()">&times;</span>
@@ -48,7 +67,7 @@
         </label>
         <label>Veículo:
           <select [(ngModel)]="servicoForm.veiculoId" name="veiculoId" required>
-            <option *ngFor="let v of veiculos" [value]="v.id">{{ v.numeracao }} - {{ v.modelo }}</option>
+            <option *ngFor="let v of veiculos" [value]="v.veiculo.id">{{ v.veiculo.id }} - {{ v.veiculo.numeracao }} - {{ v.veiculo.modelo }}</option>
           </select>
         </label>
 

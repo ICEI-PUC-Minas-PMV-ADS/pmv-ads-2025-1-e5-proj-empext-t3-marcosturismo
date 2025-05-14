@@ -9,8 +9,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 97%;
+    margin-inline: auto;
     background: linear-gradient(to right, rgba(0, 32, 96, 0.9), rgba(0, 32, 96, 0.7));
+    border-radius: 10px;
 }
 
 /* Estilo da galeria */
