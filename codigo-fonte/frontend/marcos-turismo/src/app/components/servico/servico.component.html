@@ -32,8 +32,10 @@
           </ul>
         </td>
         <td>
-          <button (click)="editarServico(s)">Editar</button>
-          <button (click)="excluirServico(s.id!)">Excluir</button>
+          <div class="acoes-btns">
+            <button (click)="editarServico(s)">Editar</button>
+            <button (click)="excluirServico(s.id!)">Excluir</button>
+          </div>
         </td>
       </tr>
     </tbody>
