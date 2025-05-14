@@ -1,4 +1,3 @@
-/* servico.component.ts */
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,17 +5,13 @@ import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http'
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { environment } from '../../../environments/environment';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { Router } from '@angular/router'; // Importação do Router
 
+// Interfaces
 interface TipoServico {
   id: string;
   descricao: string;
   dataCriacao: string;
-}
-
-interface Veiculo {
-  id: string;
-  numeracao: string;
-  modelo: string;
 }
 
 interface ServicoRealizado {
@@ -35,6 +30,17 @@ interface Servico {
   servicosRealizados: ServicoRealizado[];
 }
 
+interface Veiculo {
+  id: string;
+  numeracao: string;
+  modelo: string;
+}
+
+interface ResultadoVeiculo {
+  veiculo: Veiculo;
+  checkList: null;
+}
+
 @Component({
   selector: 'app-servico',
   standalone: true,
@@ -51,17 +57,25 @@ interface Servico {
   styleUrls: ['./servico.component.css']
 })
 export class ServicoComponent implements OnInit {
+  // URLs de API
   private baseUrl = `${environment.apiUrl}/servico`;
   private tipoUrl = `${environment.apiUrl}/servico/tipo_servico`;
-  private veiculoUrl = `${environment.apiUrl}/frota`;
+  private veiculoUrl = `${environment.apiUrl}/veiculo`;
 
+  // Propriedades de dados
   servicos: Servico[] = [];
   tipos: TipoServico[] = [];
-  veiculos: Veiculo[] = [];
+  veiculos: ResultadoVeiculo[] = [];
+
+  // Modal e erro
   showModal = false;
   errorMsg: string | null = null;
   editingId: string | null = null;
 
+  // Mensagem de erro e tipo de mensagem
+  mensagemTipo?: string;
+
+  // Formulário
   servicoForm: Partial<Servico> = {
     dataServico: '',
     kmVeiculo: 0,
@@ -72,10 +86,7 @@ export class ServicoComponent implements OnInit {
     servicosRealizados: []
   };
 
-  constructor(
-    private http: HttpClient,
-    private cdref: ChangeDetectorRef
-  ) {}
+  constructor(private http: HttpClient, private cdref: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit(): void {
     this.carregarServicos();
@@ -83,26 +94,38 @@ export class ServicoComponent implements OnInit {
     this.carregarVeiculos();
   }
 
+  // Cabeçalhos de autenticação
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    if (!token) alert('Token não encontrado!');
+    if (!token) {
+      this.mensagemTipo = 'error';
+      this.errorMsg = 'Sessão expirada. Faça login novamente.';
+      console.log(this.errorMsg);
+      this.router.navigate(['/login']).then(() => {
+        // Impede qualquer outra ação no código após o redirecionamento
+        throw new Error('Token ausente.');
+      });
+    }
     return new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : ''
+      Authorization: `Bearer ${token}`
     });
   }
 
+  // Métodos de carregamento de dados
   carregarServicos(): void {
     this.http.get<Servico[]>(this.baseUrl, { headers: this.getAuthHeaders() })
       .subscribe({
         next: data => {
-          this.servicos = Array.isArray(data) ? data : [];
+          this.servicos = data;
           this.cdref.detectChanges();
-          this.errorMsg = null;
         },
         error: err => {
           console.error('Erro ao buscar serviços:', err);
-          this.errorMsg = err.error?.message || 'Erro ao buscar serviço.';
+          if (err.status === 403) {
+            this.errorMsg = 'Você não tem permissão para acessar os serviços.';
+          } else {
+            this.errorMsg = err.error?.message || 'Erro ao buscar serviços';
+          }
         }
       });
   }
@@ -110,23 +133,54 @@ export class ServicoComponent implements OnInit {
   carregarTipos(): void {
     this.http.get<TipoServico[]>(this.tipoUrl, { headers: this.getAuthHeaders() })
       .subscribe({
-        next: data => this.tipos = Array.isArray(data) ? data : [],
-        error: err => console.error('Erro ao buscar tipos de serviço:', err)
+        next: data => {
+          this.tipos = data;
+        },
+        error: err => {
+          console.error('Erro ao buscar tipos de serviço:', err);
+          if (err.status === 403) {
+            this.errorMsg = 'Você não tem permissão para acessar os tipos de serviço.';
+          } else {
+            this.errorMsg = err.error?.message || 'Erro ao buscar tipos de serviço';
+          }
+        }
       });
   }
 
   carregarVeiculos(): void {
-    this.http.get<Veiculo[]>(this.veiculoUrl, { headers: this.getAuthHeaders() })
+    this.http.get<ResultadoVeiculo[]>(this.veiculoUrl, { headers: this.getAuthHeaders() })
       .subscribe({
-        next: data => this.veiculos = Array.isArray(data) ? data : [],
-        error: err => console.error('Erro ao buscar veículos:', err)
+        next: data => {
+          this.veiculos = data;
+        },
+        error: err => {
+          console.error('Erro ao buscar veículos:', err);
+          this.errorMsg = err.error?.message || 'Erro ao buscar veículos';
+        }
       });
   }
 
+  // Métodos de manipulação de serviços realizados
+  addRealizado(): void {
+    const novoRealizado: ServicoRealizado = {
+      tipoServicoId: this.tipos[0]?.id || '',
+      custo: 0
+    };
+
+    this.servicoForm.servicosRealizados?.push(novoRealizado);
+  }
+
+  removeRealizado(index: number): void {
+    if (this.servicoForm.servicosRealizados) {
+      this.servicoForm.servicosRealizados.splice(index, 1);
+    }
+  }
+
+  // Métodos de modal
   openModal(edit = false, servico?: Servico): void {
     this.showModal = true;
     if (edit && servico) {
-      this.editingId = servico.id!;
+      this.editingId = servico.id ?? null;
       this.servicoForm = { ...servico };
     } else {
       this.editingId = null;
@@ -136,67 +190,7 @@ export class ServicoComponent implements OnInit {
 
   closeModal(): void {
     this.showModal = false;
-    this.editingId = null;
     this.clearForm();
-  }
-
-  addRealizado(): void {
-    (this.servicoForm.servicosRealizados ||= []).push({ tipoServicoId: this.tipos[0]?.id || '', custo: 0 });
-  }
-
-  removeRealizado(index: number): void {
-    this.servicoForm.servicosRealizados?.splice(index, 1);
-  }
-
-  salvar(): void {
-    const body = {
-      dataServico: this.servicoForm.dataServico,
-      kmVeiculo: Number(this.servicoForm.kmVeiculo),
-      kmProxTrocaOleo: Number(this.servicoForm.kmProxTrocaOleo),
-      kmProxTrocaPneu: Number(this.servicoForm.kmProxTrocaPneu),
-      descricao: this.servicoForm.descricao,
-      veiculoId: this.servicoForm.veiculoId,
-      servicosRealizados: this.servicoForm.servicosRealizados?.map(r => ({
-        tipoServicoId: r.tipoServicoId,
-        custo: Number(r.custo)
-      }))
-    };
-
-    const request$ = this.editingId
-      ? this.http.put(`${this.baseUrl}/${this.editingId}`, body, { headers: this.getAuthHeaders() })
-      : this.http.post(this.baseUrl, body, { headers: this.getAuthHeaders() });
-
-    request$.subscribe({
-      next: () => {
-        this.carregarServicos();
-        this.closeModal();
-        this.errorMsg = null;
-      },
-      error: err => {
-        console.error('Falha ao salvar serviço:', err);
-        this.errorMsg = err.error?.message || 'Erro ao registrar serviço.';
-      }
-    });
-  }
-
-  editarServico(s: Servico): void {
-    this.openModal(true, s);
-  }
-
-  excluirServico(id: string): void {
-    this.http.delete(`${this.baseUrl}/${id}`, {
-      headers: this.getAuthHeaders(),
-      responseType: 'text'
-    }).subscribe({
-      next: () => {
-        this.carregarServicos();
-        this.errorMsg = null;
-      },
-      error: err => {
-        console.error('Erro ao excluir serviço:', err);
-        this.errorMsg = err.error?.message || 'Erro ao excluir serviço.';
-      }
-    });
   }
 
   private clearForm(): void {
@@ -209,5 +203,95 @@ export class ServicoComponent implements OnInit {
       veiculoId: '',
       servicosRealizados: []
     };
+  }
+
+  // Método de validação do formulário
+  validarFormulario(): boolean {
+    if (!this.servicoForm.dataServico || !this.servicoForm.kmVeiculo || !this.servicoForm.veiculoId) {
+      this.errorMsg = 'Por favor, preencha todos os campos obrigatórios.';
+      return false;
+    }
+    return true;
+  }
+
+  // Método para salvar ou atualizar o serviço
+  salvar(): void {
+    if (this.validarFormulario()) {
+      if (this.editingId) {
+        this.atualizarServico();
+      } else {
+        this.adicionarServico();
+      }
+    }
+  }
+
+  // Método para atualizar um serviço
+  private atualizarServico(): void {
+    this.http.put<Servico>(`${this.baseUrl}/${this.editingId}`, this.servicoForm, { headers: this.getAuthHeaders() })
+      .subscribe({
+        next: (updatedServico) => {
+          // Atualiza o serviço na lista localmente
+          const index = this.servicos.findIndex(servico => servico.id === this.editingId);
+          if (index !== -1) {
+            this.servicos[index] = { ...updatedServico };
+          }
+          this.closeModal();  // Fecha o modal após a atualização
+        },
+        error: (err) => {
+          console.error('Erro ao atualizar serviço:', err);
+          this.errorMsg = err.error?.message || 'Erro ao atualizar serviço';
+        }
+      });
+  }
+
+  // Método para adicionar um serviço
+  private adicionarServico(): void {
+    // Verifica se o tipo de serviço foi selecionado corretamente
+    if (this.servicoForm.servicosRealizados?.length === 0) {
+      this.errorMsg = 'Por favor, adicione pelo menos um tipo de serviço realizado.';
+      return;
+    }
+
+    this.http.post<Servico>(this.baseUrl, this.servicoForm, { headers: this.getAuthHeaders() })
+      .subscribe({
+        next: (novoServico) => {
+          // Adiciona o novo serviço à lista localmente
+          this.servicos.push(novoServico);
+          this.closeModal();  // Fecha o modal após a adição
+        },
+        error: (err) => {
+          console.error('Erro ao adicionar serviço:', err);
+          this.errorMsg = err.error?.message || 'Erro ao adicionar serviço';
+        }
+      });
+  }
+
+  // Método para excluir um serviço
+  excluirServico(id: string): void {
+    if (confirm('Você tem certeza que deseja excluir este serviço?')) {
+      this.http.delete(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() })
+        .subscribe({
+          next: () => {
+            // Remove o serviço da lista localmente após a exclusão
+            this.servicos = this.servicos.filter(servico => servico.id !== id);
+            this.cdref.detectChanges();  // Atualiza a tela
+          },
+          error: (err) => {
+            console.error('Erro ao excluir serviço:', err);
+            this.errorMsg = err.error?.message || 'Erro ao excluir serviço';
+          }
+        });
+    }
+  }
+
+  // Método para editar o serviço
+  editarServico(servico: Servico): void {
+    this.openModal(true, servico);
+  }
+
+  // Função de descrição de tipo de serviço
+  getDescricaoTipoServico(tipoServicoId: string): string {
+    const tipoServico = this.tipos.find(t => t.id === tipoServicoId);
+    return tipoServico ? tipoServico.descricao : 'Descrição não encontrada';
   }
 }

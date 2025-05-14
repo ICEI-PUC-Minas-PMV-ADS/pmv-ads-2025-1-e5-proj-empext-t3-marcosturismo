@@ -81,12 +81,3 @@
   }
 }
 
-/* Responsividade: celulares (1 coluna) */
-@media (max-width: 600px) {
-  .fleet-grid {
-    grid-template-columns: 1fr;
-  }
-  .fleet-container h1 {
-    font-size: 24px;
-  }
-}
