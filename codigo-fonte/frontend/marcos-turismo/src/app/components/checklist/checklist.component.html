@@ -1,38 +1,79 @@
 <app-sidebar></app-sidebar>
 
 <div class="container">
-    <div class="card">
-        <button class="btn checklist-btn" (click)="openModal()">Check-List</button>
-    </div>
+  <div class="card">
+    <h3>Viagens Salvas</h3>
+    <select [(ngModel)]="selectedViagemId">
+      <option value="">-- Selecione uma viagem --</option>
+      <option *ngFor="let viagem of viagens" [value]="viagem.id">
+        {{ viagem.motorista }} - {{ viagem.tipoServico }} - {{ viagem.dataInicio }} até {{ viagem.dataVolta }}
+      </option>
+    </select>
+
+    <button class="btn checklist-btn" (click)="openModal()" [disabled]="!selectedViagemId">Check-List</button>
+  </div>
 </div>
 
 <!-- Modal do Check-List -->
-<div id="modal" class="modal" [ngStyle]="{display: isModalVisible ? 'block' : 'none'}">
-    <div class="modal-content">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <div class="checklist-card">
-            <img src="logo.jpg" alt="Logo" class="logo">
-            <h1>Micro-ônibus</h1>
-            <h2>Plus Service</h2>
-            <label for="upload-image" class="image-container">
-                <img id="preview-image" [src]="imagePreview" alt="Imagem do veículo">
-            </label>
-            <input type="file" id="upload-image" (change)="onFileChange($event)" accept="image/*" style="display: none">
-            <h3>Check-List</h3>
-            <ul>
-                <li><input type="checkbox" [(ngModel)]="checklist.pneus"> Pneus</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.farois"> Faróis</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.banheiro"> Banheiro</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.luzes"> Luzes internas</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.geladeira"> Geladeira</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.espacoMalas"> Espaço para malas</li>
-            </ul>
-            <p>Avarias Registradas:</p>
-            <textarea [(ngModel)]="avarias" placeholder="Descreva as avarias registradas..." rows="4"></textarea>
-            <div class="button-container">
-                <button class="btn iniciar">Iniciar</button>
-                <button class="btn cancelar" (click)="closeModal()">Cancelar</button>
-            </div>
-        </div>
+<div
+  id="modal"
+  class="modal"
+  [ngStyle]="{ display: isModalVisible ? 'block' : 'none' }"
+>
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="checklist-card">
+      <img src="logo.jpg" alt="Logo" class="logo" />
+      <h1>Micro-ônibus</h1>
+      <h2>Plus Service</h2>
+
+      <label for="upload-image" class="image-container">
+        <img
+          id="preview-image"
+          [src]="imagePreview"
+          alt="Imagem do veículo"
+        />
+      </label>
+      <input
+        type="file"
+        id="upload-image"
+        (change)="onFileChange($event)"
+        accept="image/*"
+        style="display: none"
+      />
+
+      <h3>Check-List</h3>
+      <ul>
+        <li><input type="checkbox" [(ngModel)]="checklist.pneus" /> Pneus</li>
+        <li>
+          <input type="checkbox" [(ngModel)]="checklist.farois" /> Faróis
+        </li>
+        <li>
+          <input type="checkbox" [(ngModel)]="checklist.banheiro" /> Banheiro
+        </li>
+        <li>
+          <input type="checkbox" [(ngModel)]="checklist.luzes" /> Luzes internas
+        </li>
+        <li>
+          <input type="checkbox" [(ngModel)]="checklist.geladeira" /> Geladeira
+        </li>
+        <li>
+          <input type="checkbox" [(ngModel)]="checklist.espacoMalas" />
+          Espaço para malas
+        </li>
+      </ul>
+
+      <p>Avarias Registradas:</p>
+      <textarea
+        [(ngModel)]="avarias"
+        placeholder="Descreva as avarias registradas..."
+        rows="4"
+      ></textarea>
+
+      <div class="button-container">
+        <button class="btn iniciar" (click)="submitChecklist()">Iniciar</button>
+        <button class="btn cancelar" (click)="closeModal()">Cancelar</button>
+      </div>
     </div>
+  </div>
 </div>

@@ -13,38 +13,10 @@
         </p>
         <p>Data de Início: <input type="date" [(ngModel)]="dataInicio"></p>
         <p>Data de Volta: <input type="date" [(ngModel)]="dataVolta"></p>
-        
-    </div>
-</div>
 
-<!-- Modal do Check-List -->
-<div id="modal" class="modal" [ngStyle]="{display: isModalVisible ? 'block' : 'none'}">
-    <div class="modal-content">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <div class="checklist-card">
-            <img src="logo.jpg" alt="Logo" class="logo">
-            <h1>Micro-ônibus</h1>
-            <h2>Plus Service</h2>
-            <label for="upload-image" class="image-container">
-                <img id="preview-image" [src]="imagePreview" alt="Imagem do veículo">
-            </label>
-            <input type="file" id="upload-image" (change)="onFileChange($event)" accept="image/*" style="display: none">
-            <h3>Check-List</h3>
-            <ul>
-                <li><input type="checkbox" [(ngModel)]="checklist.pneus"> Pneus</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.farois"> Faróis</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.banheiro"> Banheiro</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.luzes"> Luzes internas</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.geladeira"> Geladeira</li>
-                <li><input type="checkbox" [(ngModel)]="checklist.espacoMalas"> Espaço para malas</li>
-            </ul>
-            <p>Avarias Registradas:</p>
-            <textarea [(ngModel)]="avarias" placeholder="Descreva as avarias registradas..." rows="4"></textarea>
-            <div class="button-container">
-                <button class="btn iniciar">Iniciar</button>
-                <button class="btn cancelar" (click)="closeModal()">Cancelar</button>
-            </div>
+        <div class="button-container">
+            <button class="btn incluir" (click)="incluir()">Salvar</button>
+            <button class="btn excluir" (click)="excluir()">Excluir</button>
         </div>
     </div>
 </div>
-
