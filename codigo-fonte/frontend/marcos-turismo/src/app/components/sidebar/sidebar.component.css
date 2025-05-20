@@ -1,5 +1,11 @@
-/* sidebar.component.css */
+/* ------------------------------------------- */
+/* 1. Estilos base (desktop/tablet/normal)    */
+/* ------------------------------------------- */
+
 .sidebar {
+  position: fixed;           /* Já estava fixo */
+  left: 0;
+  top: 0;
   width: 50px;
   background-color: rgba(0, 38, 107, 0.8);
   color: white;
@@ -7,23 +13,23 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  transition: width 0.3s;
+  transition: width 0.3s, height 0.3s, border-radius 0.3s;
   overflow: hidden;
-  z-index: 2;
+  z-index: 2;                /* Valor padrão, suficiente para desktop */
 }
 
 .sidebar.active {
-  width: 120px; /* Aumenta a largura da sidebar quando ativa */
+  width: 120px;              /* Ao abrir, expande para 120px */
+  border-radius: 0;          /* Remove o arredondamento */
+  padding: 10px;
+  height: 100%;
 }
 
 .menu {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  flex-grow: 1;
 }
 
 .menu-item {
@@ -46,20 +52,6 @@
   background-color: #34495e;
 }
 
-#hamburguer {
-  width: 50px;
-  padding: 15px;
-  text-align: center;
-  cursor: pointer;
-}
-
-#hamburguer {
-  cursor: pointer;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
 .logo img {
   width: 90%;
   max-width: 100px;
@@ -68,22 +60,84 @@
   display: block;
 }
 
-.footer .logo {
-  margin-right: 20px; /* Espaçamento entre logo e o hambúrguer (ajuste conforme necessário) */
-}
-
-footer img {
-  max-height: 50px; /* Ajuste o tamanho da imagem conforme necessário */
-}
-
 .hidden {
   display: none;
 }
 
 .footer {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center;     /* Centraliza verticalmente */
-  height: 100px;           /* Ajuste a altura conforme necessário */
+  justify-content: center;
+  align-items: center;
+  height: 100px;   /* Normalmente, ocupa 100px de altura */
+  margin-top: auto; /* Fica sempre no final da sidebar */
+}
 
+/* Botão hamburguer — ficará centralizado dentro da .footer */
+#hamburguer {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* ------------------------------------------- */
+/* 2. Media query para smartphones/tablets    */
+/*    (telas ≤ 768px)                          */
+/* ------------------------------------------- */
+
+@media (max-width: 768px) {
+  /* 2.1. Transformar toda a sidebar num círculo de 50×50px e sobrepor conteúdo */
+  .sidebar {
+    width: 50px;              
+    height: 50px;             
+    border-radius: 50%;       
+    padding: 0;               
+    overflow: hidden;         
+    position: fixed;          /* garante que fique flutuando */
+    top: 20px;                /* (opcional) você pode ajustar a distância do topo */
+    left: 20px;               /* (opcional) distância da esquerda */
+    z-index: 9999;            /* z-index alto para sempre ficar por cima */
+  }
+
+  /* 2.2. Ao abrir (.active), voltar ao sidebar completo, ainda sobreposto */
+  .sidebar.active {
+    width: 120px;             
+    height: 100%;             
+    border-radius: 0;         
+    padding: 10px;            
+    position: fixed;          /* mantém fixo sobre o conteúdo */
+    top: 0;                   /* volta a ocupar do topo ao rodapé */
+    left: 0;                  /* e da esquerda */
+    z-index: 9999;            /* ainda sobreposto */
+  }
+
+  /* 2.3. Esconder, por padrão, menu e logo dentro do círculo */
+  .sidebar .menu,
+  .sidebar .logo {
+    display: none;
+  }
+
+  /* 2.4. Quando tiver .active, mostrar menu e logo novamente */
+  .sidebar.active .menu,
+  .sidebar.active .logo {
+    display: flex;            
+    flex-direction: column;
+  }
+
+  /* 2.5. Ajustar .footer para ocupar o círculo inteiro e centralizar o ícone */
+  .sidebar .footer {
+    height: 100%;             
+    justify-content: center;  
+    align-items: center;      
+    margin-top: 0;            
+  }
+
+  /* 2.6. Ajustar tamanho do ícone de hamburguer para caber no círculo */
+  #hamburguer {
+    width: 100%;              
+    height: 100%;             
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

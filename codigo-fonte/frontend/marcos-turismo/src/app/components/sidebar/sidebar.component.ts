@@ -10,30 +10,45 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  @Output() toggleSidebar = new EventEmitter<boolean>();  // Emitir estado da sidebar
-  isSidebarActive = false;  // Inicializa a sidebar como fechada
+  @Output() toggleSidebar = new EventEmitter<boolean>();
+  isSidebarActive = true;  // em desktop, inicia aberta
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Se for dispositivo móvel/tablet (≤ 768px), inicia fechada (círculo)
+    if (window.innerWidth <= 768) {
+      this.isSidebarActive = false;
+      this.toggleSidebar.emit(this.isSidebarActive);
+    }
 
-  // Alterna a visibilidade da sidebar e emite o novo estado
-  toggleSidebarFunction() {
-    this.isSidebarActive = !this.isSidebarActive;
-    this.toggleSidebar.emit(this.isSidebarActive);  // Emite para o componente pai
+    // (Opcional) Se o usuário redimensionar a janela:
+    window.addEventListener('resize', () => {
+      const isMobileNow = window.innerWidth <= 768;
+      if (isMobileNow && this.isSidebarActive) {
+        // Se passar para mobile com sidebar aberta, fecha ela
+        this.isSidebarActive = false;
+        this.toggleSidebar.emit(this.isSidebarActive);
+      }
+      // (Você pode adicionar lógica inversa se quiser que em desktop fique sempre aberta,
+      // mas isso já está coberto pelo valor padrão isSidebarActive=true)
+    });
   }
 
-  // Método de navegação para outras rotas
+  // Ao clicar no círculo (hambúrguer), alterna para “sidebar aberta”
+  toggleSidebarFunction() {
+    this.isSidebarActive = !this.isSidebarActive;
+    this.toggleSidebar.emit(this.isSidebarActive);
+  }
+
   navigate(route: string) {
     this.router.navigate([route]);
   }
 
-  // Lógica de logout
   logout() {
-    localStorage.removeItem('authToken');  // Remove o token de autenticação
-    sessionStorage.clear();  // Limpa a sessão
-
+    localStorage.removeItem('authToken');
+    sessionStorage.clear();
     console.log('User logged out successfully');
-    this.router.navigate(['/home']);  // Redireciona para a página inicial ou login
+    this.router.navigate(['/home']);
   }
 }
