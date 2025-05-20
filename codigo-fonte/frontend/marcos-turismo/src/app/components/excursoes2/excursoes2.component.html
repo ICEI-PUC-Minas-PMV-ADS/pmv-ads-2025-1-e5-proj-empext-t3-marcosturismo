@@ -1,34 +1,54 @@
 <app-navbar></app-navbar>
+
 <div class="container">
   <header class="header">
     <h1>Excursões</h1>
     <h2>Cada destino é uma nova história para contar.</h2>
   </header>
 
-  <section class="excursao-cards">
-    <!-- Usando *ngFor para exibir cada excursão -->
+  <!-- Estado de carregamento -->
+  <div *ngIf="carregando" class="my-4 text-center">
+    <p>Carregando excursões...</p>
+  </div>
+
+  <!-- Mensagem de erro -->
+  <div *ngIf="erro" class="alert alert-danger my-3">
+    {{ erro }}
+  </div>
+
+  <!-- Caso não haja erro e nem dados -->
+  <div *ngIf="!carregando && !erro && nenhumEncontrado" class="alert alert-info my-3">
+    Nenhuma excursão encontrada no momento.
+  </div>
+
+  <!-- Lista de cards de excursões -->
+  <section class="excursao-cards" *ngIf="!carregando && !erro && !nenhumEncontrado">
     <div class="excursao-card" *ngFor="let excursao of excursaoList">
       <div class="excursao">
-        <img [src]="excursao.imagem || 'assets/imagens/placeholder.jpg'" alt="{{ excursao.nome }}">
+        <img
+          [src]="excursao.imagem"
+          alt="{{ excursao.nome }}"
+          class="excursao-img"
+        >
         <h2>{{ excursao.nome }}</h2>
         <p><strong>Descrição:</strong> {{ excursao.descricao }}</p>
         <p><strong>Data da Excursão:</strong> {{ excursao.data }}</p>
 
-        <button (click)="mostrarDetalhes(excursao)">Ver Detalhes</button>
+        <button class="btn btn-outline-primary btn-sm" (click)="mostrarDetalhes(excursao)">
+          {{ excursao.mostrarInfo ? 'Ocultar detalhes' : 'Ver detalhes' }}
+        </button>
 
-        <!-- Exibir detalhes apenas se mostrarInfo for true -->
-        <div *ngIf="excursao.mostrarInfo">
+        <div *ngIf="excursao.mostrarInfo" class="detalhes-excursao mt-2">
           <h3>Detalhes da Excursão</h3>
           <p><strong>Data:</strong> {{ excursao.data }}</p>
-          <p><strong>Roteiro:</strong> {{ excursao.roteiro || 'Sem informações de roteiro.' }}</p>
-          <p><strong>Preço:</strong> R$ {{ excursao.preco || '0,00' }}</p>
+          <!-- Caso você tenha mais campos na API, pode exibi-los aqui -->
         </div>
       </div>
     </div>
   </section>
 </div>
 
-<!-- WhatsApp -->
+<!-- Botão flutuante do WhatsApp -->
 <div class="whatsapp-container">
   <a href="https://wa.me/558791103345" target="_blank">
     <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">

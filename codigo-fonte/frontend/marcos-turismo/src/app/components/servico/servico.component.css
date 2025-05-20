@@ -1,37 +1,50 @@
-/* Estilos do container principal */
+/* ======================
+   Container Geral
+   ====================== */
+
 .container-principal {
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-    background-color: #f4f4f4;
-    margin-left: 90px;
-    margin-top: 30px;
-    margin-right: 20px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 1.1);
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  margin: 30px 20px 20px 150px; /* margem padrão, ajustada no media query */
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-/* Botão flutuante de "mais" */
+/* Ajuste de margem em telas pequenas */
+@media (max-width: 768px) {
+  .container-principal {
+    margin: 20px 10px; /* remove margem lateral grande em smartphones/tablets */
+    padding: 10px;
+  }
+}
+
+/* ======================
+   Botão “+” Flutuante
+   ====================== */
+
 .btn-mais {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background-color: #04257d;
-    color: #fff;
-    font-size: 24px;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #04257d;
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1100;
 }
 
 .btn-mais:hover {
-    background-color: #2a52be;
+  background-color: #2a52be;
 }
 
-/* Ajustes para telas menores */
 @media (max-width: 600px) {
   .btn-mais {
     bottom: 16px;
@@ -42,114 +55,262 @@
   }
 }
 
-/* Modal: overlay que cobre toda a tela */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    padding: 16px;
-    box-sizing: border-box;
-    z-index: 1000;
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-content {
-    background-color: rgba(4, 37, 125, 0.9);
-    color: #fff;
-    width: 90%;
-    max-width: 500px;
-    padding: 20px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    max-height: 90vh;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #fff;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 16px;
-}
-
-.btn-action {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-save {
-    background-color: #28a745;
-    color: #fff;
-}
-
-.btn-cancel {
-    background-color: #dc3545;
-    color: #fff;
-}
-
-.btn-action:hover {
-    opacity: 0.9;
-}
+/* ======================
+   Mensagem de Erro
+   ====================== */
 
 .error-msg {
-    padding: 10px;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
+/* ======================
+   Títulos
+   ====================== */
+
 h1, h2, h3 {
-    text-align: center;
-    color: #04257d;
+  text-align: center;
+  color: #04257d;
+  margin-bottom: 16px;
 }
 
 p {
-    text-align: center;
-    color: #2a52be;
+  text-align: center;
+  color: #2a52be;
 }
 
+/* ======================
+   Responsividade da Tabela
+   ====================== */
+
+/* Container que permitirá scroll horizontal em telas muito pequenas */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+/* Tabela em si */
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* Garantir largura mínima antes de ativar scroll */
 }
 
-.table th, .table td {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    text-align: left;
+/* Células gerais (truncam texto além de certa largura) */
+.table th,
+.table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+  max-width: 150px;       /* largura máxima antes de truncar */
+  white-space: nowrap;    /* não quebrar linha dentro da célula */
+  overflow: hidden;       /* ocultar conteúdo que ultrapassar a célula */
+  text-overflow: ellipsis;/* exibir reticências (...) quando truncado */
 }
 
 .table th {
-    background-color: #04257d;
-    color: #fff;
+  background-color: #04257d;
+  color: #fff;
 }
 
+/* Ajuste de fontes em dispositivos menores */
+@media (max-width: 600px) {
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 0.85rem;
+    max-width: 120px;
+  }
+}
+
+/* ======================
+   Células com rolagem interna
+   ====================== */
+
+/* Override para permitir wrap e scroll vertical em células específicas */
+.table td .scrollable-cell {
+  white-space: normal;      /* permite quebra de linha */
+  max-height: 80px;         /* altura fixa antes de aparecer scroll */
+  overflow-y: auto;         /* rolagem vertical */
+  padding-right: 4px;       /* espaço para scrollbar */
+  font-size: 0.9rem;        /* ajustar fonte para caber mais texto */
+  line-height: 1.4;
+}
+
+/* ======================
+   Botões na Tabela
+   ====================== */
+
 .acoes-btns {
-  color: red;
+  display: flex;
+  gap: 8px;
+}
+
+/* ======================
+   Modal
+   ====================== */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background-color: rgba(4, 37, 125, 0.9);
+  color: #fff;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 90vh;
+  text-align: center;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ======================
+   Formulário dentro do Modal
+   ====================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.form-group > label {
+  margin-bottom: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.form-group > input,
+.form-group > select,
+.form-group > textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Bloco de “Serviços Realizados” no modal */
+.servicos-realizados {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.btn-add-realizado {
+  background-color: #04a;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.btn-remove-realizado {
+  background-color: #c00;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+/* ======================
+   Botões de Ação (Salvar / Cancelar)
+   ====================== */
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.buttons .btn-action {
+  flex: 1;
+  max-width: 120px;
+  padding: 10px 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: #000;
+}
+
+.buttons .btn-action + .btn-action {
+  margin-left: 12px;
+}
+
+.btn-save {
+  background-color: #28a745; /* verde */
+  border-radius: 4px;
+  flex: 1;
+  max-width: 120px;
+  padding: 10px 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: #000;
+}
+
+.btn-cancel {
+  background-color: #dc3545; /* vermelho */
+  border-radius: 4px;
+  flex: 1;
+  max-width: 120px;
+  padding: 10px 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: #000;
+}
+
+.btn-action:hover {
+  opacity: 0.9;
 }
