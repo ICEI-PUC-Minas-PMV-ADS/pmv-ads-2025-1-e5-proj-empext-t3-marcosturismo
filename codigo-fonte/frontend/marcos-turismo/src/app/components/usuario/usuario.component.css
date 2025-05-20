@@ -16,7 +16,8 @@
 .btn.listar {
   width: 100%;
   margin-bottom: 16px;
-  background-color: #FFD700;
+  background-color: #47649b;
+  font-size: 25px;
 }
 
 /* LABELS E INPUTS */
