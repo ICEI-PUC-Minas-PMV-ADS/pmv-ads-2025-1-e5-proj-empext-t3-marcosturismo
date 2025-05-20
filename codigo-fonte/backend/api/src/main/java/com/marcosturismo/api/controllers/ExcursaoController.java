@@ -6,10 +6,18 @@ import com.marcosturismo.api.domain.usuario.Usuario;
 import com.marcosturismo.api.repositories.ExcursaoRepository;
 import com.marcosturismo.api.services.ExcursaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,19 +27,65 @@ import java.util.UUID;
 @RequestMapping("excursao")
 public class ExcursaoController {
 
+    @Value("${storage.path}")
+    private String path;
+
+    @Value("${storage.urlStorage}")
+    private String urlStorage;
+
     @Autowired
     ExcursaoService excursaoService;
 
     @Autowired
     ExcursaoRepository excursaoRepository;
 
-    @PostMapping
-    public ResponseEntity<?> createExcursao(@RequestBody @Validated ExcursaoDTO data) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createExcursao(
+            @RequestParam("titulo") String titulo,
+            @RequestParam("descricao") String descricao,
+            @RequestParam("dataExcursao") String dataExcursao,
+            @RequestParam("file") MultipartFile file
+    ) {
         try {
-            Excursao newExcursao = new Excursao(data);
-            this.excursaoRepository.save(newExcursao);
+            // Verifica tamanho
+            if (file.getSize() > 10 * 1024 * 1024) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Arquivo excede o tamanho máximo permitido de 10MB.");
+            }
 
-            return ResponseEntity.ok().body("Excursão registrada com sucesso");
+            // Verifica extensão
+            String originalFilename = file.getOriginalFilename();
+            String extensao = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extensao = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+
+            String contentType = file.getContentType();
+            if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
+                return ResponseEntity.badRequest().body("Tipo de imagem não suportado.");
+            }
+
+            // Gera nome do arquivo
+            String nomeArquivo = UUID.randomUUID().toString() + extensao;
+
+            // Salva o arquivo
+            Path caminho = Paths.get(path + nomeArquivo);
+            Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
+
+            String urlImagem = urlStorage + nomeArquivo;
+
+            // Cria excursão com a URL da imagem
+            Excursao excursao = Excursao.builder()
+                    .titulo(titulo)
+                    .descricao(descricao)
+                    .dataExcursao(new Date(dataExcursao))
+                    .imgUrl(urlImagem)
+                    .build();
+
+            excursaoRepository.save(excursao);
+
+            return ResponseEntity.ok("Excursão registrada com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erro ao registrar excursão: " + e.getMessage());
         }
@@ -50,23 +104,67 @@ public class ExcursaoController {
         }
     }
 
-    @PutMapping("/{excursaoId}")
-    public ResponseEntity<?> updateExcursao(@PathVariable UUID excursaoId, @RequestBody @Validated ExcursaoDTO data) {
+    @PutMapping(value = "/{excursaoId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateExcursao(
+            @PathVariable UUID excursaoId,
+            @RequestParam("titulo") String titulo,
+            @RequestParam("descricao") String descricao,
+            @RequestParam("dataExcursao") String dataExcursao,
+            @RequestParam(value = "file", required = false) MultipartFile file
+    ) {
         try {
-
-            Optional<Excursao> currentExcursao = this.excursaoRepository.findById(excursaoId);
-
-            if (currentExcursao.isEmpty()) {
+            Optional<Excursao> optionalExcursao = excursaoRepository.findById(excursaoId);
+            if (optionalExcursao.isEmpty()) {
                 return ResponseEntity.badRequest().body("Excursão não encontrada");
             }
 
-            this.excursaoService.updateExcursao(excursaoId, data);
+            Excursao excursao = optionalExcursao.get();
 
+            // Atualiza campos básicos
+            excursao.setTitulo(titulo);
+            excursao.setDescricao(descricao);
+            excursao.setDataExcursao(new Date(dataExcursao));
+
+            if (file != null && !file.isEmpty()) {
+                // Verificações do tipo e tamanho do arquivo
+                if (file.getSize() > 10 * 1024 * 1024) {
+                    return ResponseEntity.badRequest().body("Arquivo excede 10MB.");
+                }
+
+                String contentType = file.getContentType();
+                if (!List.of("image/jpeg", "image/png", "image/webp").contains(contentType)) {
+                    return ResponseEntity.badRequest().body("Tipo de imagem não suportado.");
+                }
+
+                // Apagar imagem antiga, se houver
+                if (excursao.getImgUrl() != null) {
+                    String nomeAntigo = excursao.getImgUrl().replace(urlStorage, "");
+                    Path caminhoAntigo = Paths.get(path, nomeAntigo);
+                    Files.deleteIfExists(caminhoAntigo);
+                }
+
+                // Salvar nova imagem
+                String extensao = "";
+                String originalFilename = file.getOriginalFilename();
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    extensao = originalFilename.substring(originalFilename.lastIndexOf("."));
+                }
+
+                String nomeNovo = UUID.randomUUID().toString() + extensao;
+                Path caminhoNovo = Paths.get(path, nomeNovo);
+                Files.copy(file.getInputStream(), caminhoNovo, StandardCopyOption.REPLACE_EXISTING);
+
+                // Atualiza URL
+                excursao.setImgUrl(urlStorage + nomeNovo);
+            }
+
+            excursaoRepository.save(excursao);
             return ResponseEntity.ok().body("Excursão alterada com sucesso");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Erro ao registrar excursão: " + e.getMessage());
+            return ResponseEntity.status(500).body("Erro ao atualizar excursão: " + e.getMessage());
         }
     }
+
 
     @DeleteMapping("/{excursaoId}")
     public ResponseEntity<?> deleteExcursao(@PathVariable UUID excursaoId) {

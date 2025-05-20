@@ -1,3 +1,4 @@
+<!-- HTML -->
 <app-sidebar></app-sidebar>
 
 <div class="main-content" [class.active]="isSidebarActive">
@@ -7,11 +8,13 @@
   </div>
 
   <!-- Cabeçalho -->
-  <h1>Bem-vindo ao ISO-MT</h1>
-  <h3>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</h3>
+  <header class="page-header">
+    <h1>Bem-vindo ao ISO-MT</h1>
+    <h3>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</h3>
+  </header>
 
   <!-- Cards de informações -->
-  <div class="cards-container">
+  <section class="cards-container">
     <div class="card">
       <h2>Veículos Ativos</h2>
       <p>Quantidade: {{ activeVehicles }}</p>
@@ -20,10 +23,10 @@
       <h2>Manutenções Pendentes</h2>
       <p>Quantidade: {{ pendingMaintenances.length }}</p>
     </div>
-  </div>
+  </section>
 
   <!-- Gráficos -->
-  <div class="charts-container">
+  <section class="charts-container">
     <div class="chart-card">
       <h3>Custos de Manutenção</h3>
       <canvas id="maintenanceChart"></canvas>
@@ -32,17 +35,16 @@
       <h3>Custos de Abastecimento</h3>
       <canvas id="fuelChart"></canvas>
     </div>
-  </div>
+  </section>
 
   <!-- Lista de manutenções pendentes -->
-  <div class="chart-card">
+  <section class="list-container">
     <h3>Manutenções Pendentes</h3>
     <ul class="list">
       <li *ngFor="let maintenance of pendingMaintenances">
-        {{ maintenance.veiculo }} - {{ maintenance.data }}
+        {{ maintenance.veiculo }} – {{ maintenance.data }}
       </li>
       <li *ngIf="pendingMaintenances.length === 0">Nenhuma manutenção pendente.</li>
     </ul>
-  </div>
-
-  
+  </section>
+</div>

@@ -86,7 +86,11 @@ export class ServicoComponent implements OnInit {
     servicosRealizados: []
   };
 
-  constructor(private http: HttpClient, private cdref: ChangeDetectorRef, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private cdref: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.carregarServicos();
@@ -207,8 +211,16 @@ export class ServicoComponent implements OnInit {
 
   // Método de validação do formulário
   validarFormulario(): boolean {
-    if (!this.servicoForm.dataServico || !this.servicoForm.kmVeiculo || !this.servicoForm.veiculoId) {
+    if (
+      !this.servicoForm.dataServico ||
+      !this.servicoForm.kmVeiculo ||
+      !this.servicoForm.veiculoId
+    ) {
       this.errorMsg = 'Por favor, preencha todos os campos obrigatórios.';
+      return false;
+    }
+    if ((this.servicoForm.servicosRealizados?.length || 0) === 0) {
+      this.errorMsg = 'Por favor, adicione pelo menos um tipo de serviço realizado.';
       return false;
     }
     return true;
@@ -216,6 +228,7 @@ export class ServicoComponent implements OnInit {
 
   // Método para salvar ou atualizar o serviço
   salvar(): void {
+    this.errorMsg = null; // limpa mensagem anterior
     if (this.validarFormulario()) {
       if (this.editingId) {
         this.atualizarServico();
@@ -227,7 +240,8 @@ export class ServicoComponent implements OnInit {
 
   // Método para atualizar um serviço
   private atualizarServico(): void {
-    this.http.put<Servico>(`${this.baseUrl}/${this.editingId}`, this.servicoForm, { headers: this.getAuthHeaders() })
+    this.http
+      .put<Servico>(`${this.baseUrl}/${this.editingId}`, this.servicoForm, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (updatedServico) => {
           // Atualiza o serviço na lista localmente
@@ -246,13 +260,8 @@ export class ServicoComponent implements OnInit {
 
   // Método para adicionar um serviço
   private adicionarServico(): void {
-    // Verifica se o tipo de serviço foi selecionado corretamente
-    if (this.servicoForm.servicosRealizados?.length === 0) {
-      this.errorMsg = 'Por favor, adicione pelo menos um tipo de serviço realizado.';
-      return;
-    }
-
-    this.http.post<Servico>(this.baseUrl, this.servicoForm, { headers: this.getAuthHeaders() })
+    this.http
+      .post<Servico>(this.baseUrl, this.servicoForm, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (novoServico) => {
           // Adiciona o novo serviço à lista localmente
@@ -269,7 +278,8 @@ export class ServicoComponent implements OnInit {
   // Método para excluir um serviço
   excluirServico(id: string): void {
     if (confirm('Você tem certeza que deseja excluir este serviço?')) {
-      this.http.delete(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() })
+      this.http
+        .delete(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() })
         .subscribe({
           next: () => {
             // Remove o serviço da lista localmente após a exclusão
