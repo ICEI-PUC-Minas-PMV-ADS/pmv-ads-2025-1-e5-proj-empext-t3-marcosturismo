@@ -79,7 +79,7 @@ public class ExcursaoController {
             Excursao excursao = Excursao.builder()
                     .titulo(titulo)
                     .descricao(descricao)
-                    .dataExcursao(new Date(dataExcursao))
+                    .dataExcursao(new Date(Long.parseLong(dataExcursao)))
                     .imgUrl(urlImagem)
                     .build();
 
@@ -123,7 +123,7 @@ public class ExcursaoController {
             // Atualiza campos básicos
             excursao.setTitulo(titulo);
             excursao.setDescricao(descricao);
-            excursao.setDataExcursao(new Date(dataExcursao));
+            excursao.setDataExcursao(new Date(Long.parseLong(dataExcursao)));
 
             if (file != null && !file.isEmpty()) {
                 // Verificações do tipo e tamanho do arquivo
