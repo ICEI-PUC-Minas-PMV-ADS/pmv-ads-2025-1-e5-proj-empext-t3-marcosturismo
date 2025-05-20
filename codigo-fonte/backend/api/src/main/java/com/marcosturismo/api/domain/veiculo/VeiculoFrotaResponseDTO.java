@@ -1,5 +1,6 @@
 package com.marcosturismo.api.domain.veiculo;
 
+import java.util.List;
 import java.util.UUID;
 
 public record VeiculoFrotaResponseDTO(
@@ -13,6 +14,7 @@ public record VeiculoFrotaResponseDTO(
         Boolean poltronaReclinavel,
         Boolean tv,
         Boolean geladeira,
-        Boolean sanitarios
+        Boolean sanitarios,
+        List<String> imagens
 ) {
 }
