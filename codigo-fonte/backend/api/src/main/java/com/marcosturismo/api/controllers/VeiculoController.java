@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,8 +34,12 @@ public class VeiculoController {
     @Autowired
     private ImagemVeiculoRepository imagemVeiculoRepository;
 
-    private String path = "/var/www/marcosturismo.com.br/public_html/storage/";
-    private String urlStorage = "https://marcosturismo.com.br/storage/";
+    @Value("${storage.path}")
+    private String path;
+
+    @Value("${storage.urlStorage}")
+    private String urlStorage;
+
 
     @GetMapping
     public ResponseEntity<?> getAllVeiculos() {
@@ -69,7 +74,10 @@ public class VeiculoController {
                             element.getPoltronaReclinavel(),
                             element.getTv(),
                             element.getGeladeira(),
-                            element.getSanitarios()
+                            element.getSanitarios(),
+                            element.getImagens().stream()
+                                    .map(ImagemVeiculo::getImgUrl)
+                                    .toList()
                     ))
                     .toList();
             return ResponseEntity.ok(veiculoFrotaResponseDTOList);
