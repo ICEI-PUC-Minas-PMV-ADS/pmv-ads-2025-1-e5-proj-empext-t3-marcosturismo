@@ -3,44 +3,63 @@
   <h1>Serviços</h1>
   <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
-  <table *ngIf="servicos?.length; else emptyList" class="table">
-    <thead>
-      <tr>
-        <th>Data</th>
-        <th>KM Veículo</th>
-        <th>KM Próx. Troca Óleo</th>
-        <th>KM Próx. Troca Pneus</th>
-        <th>Descrição</th>
-        <th>ID Veículo</th>
-        <th>Serviços Realizados</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let s of servicos">
-        <td>{{ s.dataServico }}</td>
-        <td>{{ s.kmVeiculo }} km</td>
-        <td>{{ s.kmProxTrocaOleo }} km</td>
-        <td>{{ s.kmProxTrocaPneu }} km</td>
-        <td>{{ s.descricao }}</td>
-        <td>{{ s.veiculoId }}</td>
-        <td>
-          <ul>
-            <li *ngFor="let r of s.servicosRealizados">
-              Tipo: {{ getDescricaoTipoServico(r.tipoServicoId) }} - Custo: R$ {{ r.custo | number: '1.2-2' }}
-            </li>
-          </ul>
-        </td>
-        <td>
-          <div class="acoes-btns">
-            <button (click)="editarServico(s)">Editar</button>
-            <button (click)="excluirServico(s.id!)">Excluir</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <ng-template #emptyList><p>Não há serviços cadastrados.</p></ng-template>
+  <!-- Container responsivo para a tabela -->
+  <div class="table-responsive">
+    <table *ngIf="servicos?.length; else emptyList" class="table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>KM Veículo</th>
+          <th>KM Próx. Troca Óleo</th>
+          <th>KM Próx. Troca Pneus</th>
+          <th>Descrição</th>
+          <th>ID Veículo</th>
+          <th>Serviços Realizados</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of servicos">
+          <td>{{ s.dataServico }}</td>
+          <td>{{ s.kmVeiculo }} km</td>
+          <td>{{ s.kmProxTrocaOleo }} km</td>
+          <td>{{ s.kmProxTrocaPneu }} km</td>
+
+          <!-- Descrição: agora dentro de uma div scrollable -->
+          <td>
+            <div class="scrollable-cell">
+              {{ s.descricao }}
+            </div>
+          </td>
+
+          <td>{{ s.veiculoId }}</td>
+
+          <!-- Serviços Realizados: caixa rolável -->
+          <td>
+            <div class="scrollable-cell">
+              <ul>
+                <li *ngFor="let r of s.servicosRealizados">
+                  Tipo: {{ getDescricaoTipoServico(r.tipoServicoId) }} –
+                  Custo: R$ {{ r.custo | number: '1.2-2' }}
+                </li>
+              </ul>
+            </div>
+          </td>
+
+          <td>
+            <div class="acoes-btns">
+              <button class="btn-action btn-save" (click)="editarServico(s)">Editar</button>
+              <button class="btn-action btn-cancel" (click)="excluirServico(s.id!)">Excluir</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #emptyList>
+    <p>Não há serviços cadastrados.</p>
+  </ng-template>
 
   <button class="btn-mais" (click)="openModal()">+</button>
 
@@ -49,47 +68,127 @@
     <div class="modal-content">
       <span class="close" (click)="closeModal()">&times;</span>
       <h2>{{ editingId ? 'Editar Serviço' : 'Adicionar Serviço' }}</h2>
-      <form (ngSubmit)="salvar()" #f="ngForm">
-        <label>Data do Serviço:
-          <input type="date" [(ngModel)]="servicoForm.dataServico" name="dataServico" required>
-        </label>
-        <label>KM Veículo:
-          <input type="number" [(ngModel)]="servicoForm.kmVeiculo" name="kmVeiculo" required>
-        </label>
-        <label>KM Próx. Troca Óleo:
-          <input type="number" [(ngModel)]="servicoForm.kmProxTrocaOleo" name="kmProxTrocaOleo" required>
-        </label>
-        <label>KM Próx. Troca Pneus:
-          <input type="number" [(ngModel)]="servicoForm.kmProxTrocaPneu" name="kmProxTrocaPneu" required>
-        </label>
-        <label>Descrição:
-          <textarea [(ngModel)]="servicoForm.descricao" name="descricao" rows="2" required></textarea>
-        </label>
-        <label>Veículo:
-          <select [(ngModel)]="servicoForm.veiculoId" name="veiculoId" required>
-            <option *ngFor="let v of veiculos" [value]="v.veiculo.id">{{ v.veiculo.id }} - {{ v.veiculo.numeracao }} - {{ v.veiculo.modelo }}</option>
-          </select>
-        </label>
 
+      <form (ngSubmit)="salvar()" #f="ngForm">
+        <!-- Data do Serviço -->
+        <div class="form-group">
+          <label for="dataServico">Data do Serviço:</label>
+          <input
+            id="dataServico"
+            type="date"
+            [(ngModel)]="servicoForm.dataServico"
+            name="dataServico"
+            required
+          />
+        </div>
+
+        <!-- KM Veículo -->
+        <div class="form-group">
+          <label for="kmVeiculo">KM Veículo:</label>
+          <input
+            id="kmVeiculo"
+            type="number"
+            [(ngModel)]="servicoForm.kmVeiculo"
+            name="kmVeiculo"
+            required
+          />
+        </div>
+
+        <!-- KM Próxima Troca de Óleo -->
+        <div class="form-group">
+          <label for="kmProxTrocaOleo">KM Próx. Troca Óleo:</label>
+          <input
+            id="kmProxTrocaOleo"
+            type="number"
+            [(ngModel)]="servicoForm.kmProxTrocaOleo"
+            name="kmProxTrocaOleo"
+            required
+          />
+        </div>
+
+        <!-- KM Próxima Troca de Pneus -->
+        <div class="form-group">
+          <label for="kmProxTrocaPneu">KM Próx. Troca Pneus:</label>
+          <input
+            id="kmProxTrocaPneu"
+            type="number"
+            [(ngModel)]="servicoForm.kmProxTrocaPneu"
+            name="kmProxTrocaPneu"
+            required
+          />
+        </div>
+
+        <!-- Descrição -->
+        <div class="form-group">
+          <label for="descricao">Descrição:</label>
+          <textarea
+            id="descricao"
+            [(ngModel)]="servicoForm.descricao"
+            name="descricao"
+            rows="2"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Seleção de Veículo -->
+        <div class="form-group">
+          <label for="veiculoId">Veículo:</label>
+          <select
+            id="veiculoId"
+            [(ngModel)]="servicoForm.veiculoId"
+            name="veiculoId"
+            required
+          >
+            <option *ngFor="let v of veiculos" [value]="v.veiculo.id">
+              {{ v.veiculo.id }} – {{ v.veiculo.numeracao }} – {{ v.veiculo.modelo }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Serviços Realizados -->
         <div class="servicos-realizados">
           <h3>Serviços Realizados</h3>
-          <button type="button" (click)="addRealizado()">+ Adicionar</button>
-          <div *ngFor="let r of servicoForm.servicosRealizados; let i = index" class="realizado-item">
-            <label>Tipo de Serviço:
-              <select [(ngModel)]="r.tipoServicoId" name="tipoServicoId-{{i}}" required>
-                <option *ngFor="let t of tipos" [value]="t.id">{{ t.descricao }}</option>
+          <button type="button" class="btn-add-realizado" (click)="addRealizado()">+ Adicionar</button>
+          <div
+            *ngFor="let r of servicoForm.servicosRealizados; let i = index"
+            class="realizado-item"
+          >
+            <div class="form-group">
+              <label for="tipoServicoId-{{ i }}">Tipo de Serviço:</label>
+              <select
+                id="tipoServicoId-{{ i }}"
+                [(ngModel)]="r.tipoServicoId"
+                name="tipoServicoId-{{ i }}"
+                required
+              >
+                <option *ngFor="let t of tipos" [value]="t.id">
+                  {{ t.descricao }}
+                </option>
               </select>
-            </label>
-            <label>Custo:
-              <input type="number" step="0.01" [(ngModel)]="r.custo" name="custo-{{i}}" required>
-            </label>
-            <button type="button" (click)="removeRealizado(i)">Remover</button>
+            </div>
+            <div class="form-group">
+              <label for="custo-{{ i }}">Custo:</label>
+              <input
+                id="custo-{{ i }}"
+                type="number"
+                step="0.01"
+                [(ngModel)]="r.custo"
+                name="custo-{{ i }}"
+                required
+              />
+            </div>
+            <button type="button" class="btn-remove-realizado" (click)="removeRealizado(i)">Remover</button>
           </div>
         </div>
 
+        <!-- Botões de Ação -->
         <div class="buttons">
-          <button type="button" (click)="closeModal()">Cancelar</button>
-          <button type="submit">{{ editingId ? 'Atualizar' : 'Salvar' }}</button>
+          <button type="button" class="btn-action btn-cancel" (click)="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-action btn-save">
+            {{ editingId ? 'Atualizar' : 'Salvar' }}
+          </button>
         </div>
       </form>
     </div>
