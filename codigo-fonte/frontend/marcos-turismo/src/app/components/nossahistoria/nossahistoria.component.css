@@ -1,67 +1,91 @@
+/* ===== Estilos Gerais ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Container de História */
 .historia-container {
   background-color: rgba(0, 38, 107, 0.8);
-  margin: 2rem auto;       /* 2rem vertical e centralizado horizontalmente */
+  margin: 32px auto;
   border-radius: 4px;
-  padding: 2rem;
-  max-width: 73rem;        /* Largura máxima para melhor leitura */
+  padding: 32px;
+  max-width: 1168px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
-  margin-top: 30px;
-  height: 385px;
+  color: #ffffff;
+  height: auto;
 }
 
-/* Div para "Missão", "Visão" e "Valores" */
+/* Div para Missão, Visão e Valores */
 .missao-visao-valores {
   background-color: rgba(0, 38, 107, 0.8);
-  margin: 2rem auto;       /* 2rem vertical e centralizado horizontalmente */
+  margin: 32px auto;
   border-radius: 4px;
-  padding: 2rem;
-  max-width: 73rem;        /* Largura máxima para melhor leitura */
+  padding: 32px;
+  max-width: 1168px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
-  height: 250px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 10);
-  color: #ffffff;          /* Garante que os textos dentro do container sejam brancos */
+  color: #ffffff;
+  height: auto;
 }
 
-/* Título centralizado */
+/* Títulos */
 h1.text-center {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
   color: #ffffff;
+  font-size: 60px;
 }
 
-/* Parágrafos */
+h2 {
+  font-weight: 600;
+  margin-top: 16px;
+  color: #ffffff;
+  font-size: 38px;
+}
+
+/* Parágrafos e Listas */
 p {
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   color: #ffffff;
+  font-size: 23px;
 }
 
-.missao-visao-valores p{
-  line-height: 0.5;
+.missao-visao-valores p {
+  line-height: 1.0;
+  font-size: 23px;
 }
 
 .container p strong {
-  font-size: 1.5rem;
+  font-size: 38px;
 }
 
-/* Subtítulos (Missão, Visão, etc.) */
-h2 {
-  font-weight: 600;
-  margin-top: 1rem;
-  color: #ffffff;
-  text-align: left;
-}
-
-/* Listas (Valores) */
 ul {
-  margin-left: 0.5rem;
-  margin-bottom: 3rem;
+  margin-left: 8px;
+  margin-bottom: 48px;
   color: #ffffff;
+  font-size: 23px;
 }
 
-/* Rodapé fixo no final da tela */
+/* WhatsApp Flutuante */
+.whatsapp-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
+}
+
+.whatsapp-icon {
+  width: 50px;
+  height: 50px;
+}
+
+/* Rodapé */
 footer {
   position: fixed;
   bottom: 0;
@@ -71,25 +95,73 @@ footer {
   text-align: center;
   font-size: 14px;
 }
-/* ======================
-   Estilos do WhatsApp
-   ====================== */
-.whatsapp-container {
-  position: fixed;
-  bottom: 80px; /* Ajusta para que o botão fique acima do rodapé */
-  /* Ajustamos o bottom para que o botão fique acima do rodapé */
-  bottom: 80px;
-  bottom: 80px; /* Ajusta para que o botão fique acima do rodapé */
-  right: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
+
+/* ===== Media Queries para Responsividade ===== */
+/* Tablets e celulares maiores */
+@media (max-width: 768px) {
+  .historia-container,
+  .missao-visao-valores {
+    padding: 16px;
+    margin: 16px;
+  }
+
+  .container p strong {
+    font-size: 19.2px;
+  }
+
+  .whatsapp-container {
+    right: 10px;
+    bottom: 90px;
+  }
+
+  .whatsapp-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  h1.text-center {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 19.2px;
+  }
+
+  p,
+  li {
+    font-size: 15.2px;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 10px;
+    position: relative;
+  }
 }
 
-.whatsapp-icon {
-  width: 50px;
-  height: 50px;
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  .historia-container,
+  .missao-visao-valores {
+    margin: 8px;
+    padding: 16px;
+  }
+
+  .whatsapp-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  h1.text-center {
+    font-size: 20.8px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  p,
+  li {
+    font-size: 14.4px;
+  }
 }

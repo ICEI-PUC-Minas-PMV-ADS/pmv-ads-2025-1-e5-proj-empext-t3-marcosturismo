@@ -1,3 +1,9 @@
+/* ===== Estilos Gerais ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
 /* Container principal */
 .container {
   max-width: 1200px;
@@ -11,9 +17,10 @@
 .header {
   background-color: rgba(0, 38, 107, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 40px 20px;
   border-radius: 10px;
-  height: 250px; /* Altura maior para chamar atenção */
+  min-height: 250px;       /* Mantém altura mínima */
+  height: auto;            /* Ajusta conforme o conteúdo */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +30,7 @@
 .header h1 {
   color: #ffffff;
   font-size: 50px;
-  margin: 0;
+  margin: 0 0 10px;
 }
 
 .header h2 {
@@ -73,9 +80,9 @@
   flex-direction: column;
 }
 
-.excursao-card .excursao-img {
+.excursao-img {
   width: 100%;
-  height: 200px; /* Altura fixa para manter uniformidade */
+  height: 200px; /* Altura fixa para uniformidade */
   object-fit: cover;
 }
 
@@ -130,16 +137,15 @@
 
 /* Botão flutuante do WhatsApp */
 .whatsapp-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #ffffff;
-  border-radius: 50px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
 }
 
 .whatsapp-icon {
@@ -149,32 +155,111 @@
 
 /* Rodapé fixo */
 footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #00236b;
   color: #ffffff;
   text-align: center;
   font-size: 14px;
   padding: 10px 0;
 }
 
-/* Responsividade para telas pequenas */
-@media (max-width: 768px) {
-  .excursao-card {
-    width: 100%; /* Cards ocupam toda a largura em dispositivos móveis */
+/* ===== Media Queries para Responsividade ===== */
+
+/* Tablets e celulares maiores */
+@media (max-width: 992px) {
+  /* Ajusta container */
+  .container {
+    padding: 15px;
+    margin-top: 120px;
   }
 
+  /* Cabeçalho */
+  .header {
+    padding: 30px 15px;
+  }
   .header h1 {
-    font-size: 36px;
+    font-size: 40px;
   }
-
   .header h2 {
-    font-size: 28px;
+    font-size: 32px;
   }
 
+  /* Cards ocupam 45% da largura */
+  .excursao-card {
+    width: calc(50% - 20px);
+  }
+}
+
+/* Tablets e celulares médios */
+@media (max-width: 768px) {
+  /* Container */
+  .container {
+    padding: 10px;
+    margin-top: 100px;
+  }
+
+  /* Cabeçalho */
+  .header {
+    padding: 25px 10px;
+  }
+  .header h1 {
+    font-size: 32px;
+  }
+  .header h2 {
+    font-size: 24px;
+  }
+
+  /* Cards em largura total */
+  .excursao-card {
+    width: 100%;
+    max-width: 400px;
+  }
   .detalhes-excursao {
     font-size: 13px;
+  }
+
+  /* WhatsApp */
+  .whatsapp-container {
+    bottom: 15px;
+    right: 15px;
+  }
+  .whatsapp-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+    margin-top: 80px;
+  }
+
+  .header {
+    padding: 20px 8px;
+  }
+  .header h1 {
+    font-size: 28px;
+  }
+  .header h2 {
+    font-size: 20px;
+  }
+
+  .excursao-card {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .whatsapp-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 8px 0;
   }
 }
