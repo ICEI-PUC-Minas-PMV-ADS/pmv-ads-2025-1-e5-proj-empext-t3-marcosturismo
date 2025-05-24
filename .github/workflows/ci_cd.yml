@@ -1,8 +1,11 @@
 name: CI/CD Full Stack
 
 on:
-  push:
-    branches: [ "release" ]
+  pull_request:
+    branches:
+      - release
+    types:
+      - closed
 
 jobs:
   versioning:
