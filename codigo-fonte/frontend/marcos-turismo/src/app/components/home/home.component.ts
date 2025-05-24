@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment'; // ajuste o caminho
 
 @Component({
   selector: 'app-home',
@@ -20,14 +21,13 @@ export class HomeComponent {
     'logo.jpg'
   ];
 
-  // ✅ Definindo corretamente a variável videos
   videos: { src: string }[] = [
     { src: 'video.mp4' },
     { src: 'video.mp4' },
     { src: 'video.mp4' }
   ];
 
-  constructor() {}
+  apiUrl: string = `${environment.apiUrl}/upcoming`;
 
-  
+  constructor() {}
 }

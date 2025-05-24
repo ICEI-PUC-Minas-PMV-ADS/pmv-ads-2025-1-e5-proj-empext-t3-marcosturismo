@@ -1,25 +1,43 @@
 <app-sidebar></app-sidebar>
+
 <div id="cards-container">
   <div *ngFor="let excursao of excursoes; let i = index" class="excursao-card">
-    
+
+      <!-- Imagem -->
     <div class="image-container" (click)="abrirUpload(i)">
       <img class="preview" [src]="excursao.imagem" alt="Imagem da excursão">
       <input type="file" class="upload" #inputUpload (change)="selecionarImagem($event, i)" hidden>
     </div>
 
-    <textarea [(ngModel)]="excursao.descricao" placeholder="Digite a descrição da excursão..."></textarea>
+    <!-- Formulário da excursão -->
+    <div class="form-fields">
+      <!-- Campo Título -->
+      <input type="text" [(ngModel)]="excursao.titulo" placeholder="Título da excursão..." *ngIf="excursao.isNew" />
 
-    <div class="button-container">
+      <!-- Campo Descrição -->
+      <textarea [(ngModel)]="excursao.descricao" placeholder="Digite a descrição da excursão..."></textarea>
+
+      <!-- Campo Data -->
+      <input type="date"
+             [(ngModel)]="excursao.dataExcursao"
+             [value]="excursao.dataExcursao | date:'yyyy-MM-dd'"
+             *ngIf="excursao.isNew" />
+    </div>
+
+    <!-- Botões inferiores -->
+    <div class="button-container bottom">
       <button class="confirmar" (click)="confirmarCard(i)">Confirmar</button>
       <button class="cancelar" (click)="cancelarCard(i)">Cancelar</button>
     </div>
 
+    <!-- Botão excluir -->
     <button class="delete-card" (click)="apagarCard(i)">
       <i class="fas fa-trash-alt"></i> Apagar
     </button>
   </div>
 </div>
 
+<!-- Botão adicionar nova excursão -->
 <button class="add-card" (click)="adicionarCard()">
   <i class="fa-solid fa-plus"></i>
 </button>
