@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { environment } from '../../../environments/environment';
 
 interface Checklist {
   pneus: boolean;
@@ -19,7 +20,6 @@ interface Viagem {
   tipoServico: string;
   dataInicio: string;
   dataVolta: string;
-  // Outros campos se precisar...
 }
 
 interface ChecklistData {
@@ -40,14 +40,19 @@ interface ChecklistData {
   styleUrls: ['./checklist.component.css'],
 })
 export class ChecklistComponent implements OnInit, OnDestroy {
+  // URLs da API baseadas no environment
+  private readonly apiUrlViagem = `${environment.apiUrl}/viagem`;
+  private readonly apiUrlChecklist = `${environment.apiUrl}/viagem/checklist`;
+
+  // Dados de viagens e checklist
   viagens: Viagem[] = [];
   selectedViagemId: string = '';
 
-  motorista: string = '';
-  tipoServico: string = 'excursao';
-  dataInicio: string = '';
-  dataVolta: string = '';
-  avarias: string = '';
+  motorista = '';
+  tipoServico = 'excursao';
+  dataInicio = '';
+  dataVolta = '';
+  avarias = '';
   checklist: Checklist = {
     pneus: false,
     farois: false,
@@ -56,67 +61,49 @@ export class ChecklistComponent implements OnInit, OnDestroy {
     geladeira: false,
     espacoMalas: false,
   };
+
   imagePreview: string = 'placeholder.jpg';
-
-  apiUrlViagem = 'http://localhost:8080/viagem';
-  apiUrlChecklist = 'http://localhost:8080/viagem/checklist';
-
-  isModalVisible: boolean = false;
+  isModalVisible = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.loadViagens();
     }
   }
 
-  ngOnDestroy() {
-    if (isPlatformBrowser(this.platformId)) {
-      // Aqui você pode salvar estado no localStorage se quiser
-    }
-  }
+  ngOnDestroy(): void {}
 
-  loadViagens() {
+  loadViagens(): void {
     this.http.get<Viagem[]>(this.apiUrlViagem).subscribe({
-      next: (data) => {
-        this.viagens = data;
-      },
-      error: (err) => {
-        console.error('Erro ao carregar viagens:', err);
-      }
+      next: (data) => (this.viagens = data),
+      error: (err) => console.error('Erro ao carregar viagens:', err),
     });
   }
 
-  onSelectViagem() {
+  onSelectViagem(): void {
     if (!this.selectedViagemId) {
       this.resetForm();
       return;
     }
 
-    const viagem = this.viagens.find(v => v.id === this.selectedViagemId);
+    const viagem = this.viagens.find((v) => v.id === this.selectedViagemId);
     if (viagem) {
       this.motorista = viagem.motorista;
       this.tipoServico = viagem.tipoServico;
       this.dataInicio = viagem.dataInicio;
       this.dataVolta = viagem.dataVolta;
       this.avarias = '';
-      this.checklist = {
-        pneus: false,
-        farois: false,
-        banheiro: false,
-        luzes: false,
-        geladeira: false,
-        espacoMalas: false,
-      };
+      this.resetChecklist();
       this.imagePreview = 'placeholder.jpg';
     }
   }
 
-  openModal() {
+  openModal(): void {
     if (!this.selectedViagemId) {
       alert('Selecione uma viagem antes de abrir o checklist.');
       return;
@@ -125,11 +112,11 @@ export class ChecklistComponent implements OnInit, OnDestroy {
     this.isModalVisible = true;
   }
 
-  closeModal() {
+  closeModal(): void {
     this.isModalVisible = false;
   }
 
-  submitChecklist() {
+  submitChecklist(): void {
     if (!this.selectedViagemId) {
       alert('Selecione uma viagem para enviar o checklist.');
       return;
@@ -159,12 +146,17 @@ export class ChecklistComponent implements OnInit, OnDestroy {
     });
   }
 
-  resetForm() {
+  resetForm(): void {
     this.motorista = '';
     this.tipoServico = 'excursao';
     this.dataInicio = '';
     this.dataVolta = '';
     this.avarias = '';
+    this.resetChecklist();
+    this.imagePreview = 'placeholder.jpg';
+  }
+
+  resetChecklist(): void {
     this.checklist = {
       pneus: false,
       farois: false,
@@ -173,11 +165,11 @@ export class ChecklistComponent implements OnInit, OnDestroy {
       geladeira: false,
       espacoMalas: false,
     };
-    this.imagePreview = 'placeholder.jpg';
   }
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input?.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {

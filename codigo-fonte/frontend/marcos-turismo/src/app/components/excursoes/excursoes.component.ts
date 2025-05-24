@@ -8,23 +8,18 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpClientModule
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { environment } from '../../../environments/environment';
 
-/**
- * Representa uma excursão.
- */
 interface Excursao {
   id?: string;
   titulo: string;
   descricao: string;
-  dataExcursao?: number;
+  dataExcursao?: number;        // timestamp em ms
+  dataExcursaoString?: string;  // string 'yyyy-MM-dd' para input date
   imagem?: string;
+  imgUrl?: string;
   isNew?: boolean;
 }
 
@@ -51,11 +46,15 @@ export class ExcursoesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.carregarExcursoes(); // GET inicial
+    this.carregarExcursoes();
+  }
+
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token') || localStorage.getItem('auth_token') || '';
+    const token = this.isBrowser() ? localStorage.getItem('token') || '' : '';
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
@@ -68,7 +67,6 @@ export class ExcursoesComponent implements OnInit {
     }, 5000);
   }
 
-  /** GET: carrega todas as excursões. */
   carregarExcursoes(): void {
     this.http.get<Excursao[]>(this.baseUrl, { headers: this.getAuthHeaders() })
       .subscribe({
@@ -76,8 +74,11 @@ export class ExcursoesComponent implements OnInit {
           this.excursoes = Array.isArray(data)
             ? data.map(e => ({
                 ...e,
-                imagem: e.imagem || 'assets/imagens/placeholder.jpg',
-                isNew: false
+                imagem: e.imgUrl || 'assets/imagens/placeholder.jpg',
+                isNew: false,
+                dataExcursaoString: e.dataExcursao
+                  ? new Date(e.dataExcursao).toISOString().substring(0, 10)
+                  : ''
               }))
             : [];
           this.cdref.detectChanges();
@@ -90,12 +91,12 @@ export class ExcursoesComponent implements OnInit {
       });
   }
 
-  /** Adiciona um card vazio (nova excursão). */
   adicionarCard(): void {
+    const hojeStr = new Date().toISOString().substring(0, 10);
     this.excursoes.push({
       titulo: '',
       descricao: '',
-      dataExcursao: new Date().getTime(),
+      dataExcursaoString: hojeStr,
       imagem: 'assets/imagens/placeholder.jpg',
       isNew: true
     });
@@ -110,51 +111,55 @@ export class ExcursoesComponent implements OnInit {
     const file = event.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (e: any) => this.excursoes[index].imagem = e.target.result;
+    reader.onload = (e: any) => {
+      this.excursoes[index].imagem = e.target.result;
+      this.cdref.detectChanges();
+    };
     reader.readAsDataURL(file);
   }
 
-  /** POST/PUT: cria ou atualiza excursão. */
   confirmarCard(index: number): void {
     const excursao = this.excursoes[index];
     const headers = this.getAuthHeaders();
+    const formData = new FormData();
 
-    const payload = {
-      titulo: excursao.titulo,
-      descricao: excursao.descricao,
-      dataExcursao: excursao.dataExcursao!
-    };
-
-    if (excursao.isNew) {
-      this.http.post<Excursao>(this.baseUrl, payload, { headers })
-        .subscribe({
-          next: res => {
-            console.log('Excursão criada:', res);
-            this.excursoes[index] = { ...res, imagem: excursao.imagem, isNew: false };
-            this.mostrarMensagem('Excursão criada com sucesso!', 'sucesso');
-          },
-          error: err => {
-            console.error('Erro ao salvar excursão:', err.error || err);
-            this.errorMsg = 'Erro ao salvar excursão.';
-            this.mostrarMensagem(this.errorMsg, 'erro');
-          }
-        });
-    } else if (excursao.id) {
-      this.http.put<Excursao>(`${this.baseUrl}/${excursao.id}`, payload, { headers })
-        .subscribe({
-          next: res => {
-            console.log('Excursão atualizada:', res);
-            this.mostrarMensagem('Excursão atualizada com sucesso!', 'sucesso');
-          },
-          error: err => {
-            console.error('Erro ao atualizar excursão:', err.error || err);
-            this.errorMsg = 'Erro ao atualizar excursão.';
-            this.mostrarMensagem(this.errorMsg, 'erro');
-          }
-        });
+    // Converte dataExcursaoString para timestamp
+    if (excursao.dataExcursaoString) {
+      excursao.dataExcursao = new Date(excursao.dataExcursaoString).getTime();
     }
 
-    delete excursao.isNew;
+    formData.append('titulo', excursao.titulo);
+    formData.append('descricao', excursao.descricao);
+    formData.append('dataExcursao', excursao.dataExcursao ? excursao.dataExcursao.toString() : '');
+
+    const inputEl = this.uploads.toArray()[index]?.nativeElement;
+    if (inputEl?.files && inputEl.files[0]) {
+      formData.append('file', inputEl.files[0]);
+    }
+
+    if (excursao.isNew) {
+      this.http.post(this.baseUrl, formData, { headers }).subscribe({
+        next: () => {
+          this.mostrarMensagem('Excursão criada com sucesso!', 'sucesso');
+          this.carregarExcursoes();
+        },
+        error: err => {
+          console.error('Erro ao salvar excursão:', err.error || err);
+          this.mostrarMensagem('Erro ao salvar excursão.', 'erro');
+        }
+      });
+    } else if (excursao.id) {
+      this.http.put(`${this.baseUrl}/${excursao.id}`, formData, { headers }).subscribe({
+        next: () => {
+          this.mostrarMensagem('Excursão atualizada com sucesso!', 'sucesso');
+          this.carregarExcursoes();
+        },
+        error: err => {
+          console.error('Erro ao atualizar excursão:', err.error || err);
+          this.mostrarMensagem('Erro ao atualizar excursão.', 'erro');
+        }
+      });
+    }
   }
 
   cancelarCard(index: number): void {
@@ -166,7 +171,6 @@ export class ExcursoesComponent implements OnInit {
     }
   }
 
-  /** DELETE: exclui excursão. */
   apagarCard(index: number): void {
     const excursao = this.excursoes[index];
     if (excursao.id) {
@@ -174,14 +178,12 @@ export class ExcursoesComponent implements OnInit {
       this.http.delete(`${this.baseUrl}/${excursao.id}`, { headers: this.getAuthHeaders() })
         .subscribe({
           next: () => {
-            console.log(`Excursão ${excursao.id} excluída`);
             this.excursoes.splice(index, 1);
             this.mostrarMensagem('Excursão excluída com sucesso!', 'sucesso');
           },
           error: err => {
             console.error('Erro ao excluir excursão:', err.error || err);
-            this.errorMsg = 'Erro ao excluir excursão.';
-            this.mostrarMensagem(this.errorMsg, 'erro');
+            this.mostrarMensagem('Erro ao excluir excursão.', 'erro');
           }
         });
     } else {
