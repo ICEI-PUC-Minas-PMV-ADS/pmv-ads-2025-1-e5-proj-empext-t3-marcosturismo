@@ -1,132 +1,227 @@
-
-#cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
-}
-
-.excursao-card {
-    position: relative;
-    background: #002f6c;
-    padding: 10px;
-    border-radius: 8px;
-    width: 250px;
+/* Container principal */
+.container-principal {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  h1 {
     text-align: center;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.image-container {
-    width: 100%;
-    height: 120px;
-    background: #ddd;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-textarea {
-    width: 90%;
-    height: 50px;
-    margin-top: 10px;
-    padding: 5px;
+    margin-bottom: 20px;
+  }
+  
+  /* Mensagem de erro */
+  .error-msg {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+    padding: 10px;
+    margin-bottom: 20px;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    resize: none;
-}
-
-.button-container {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-button {
-    width: 30%;
-    padding: 6px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-    font-size: 12px;
-}
-
-.confirmar {
-    background-color: green;
-}
-
-.cancelar {
-    background-color: red;
-}
-
-.delete-card {
-    margin-top: 10px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
+    text-align: center;
+  }
+  
+  /* Tabela responsiva */
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table {
     width: 100%;
-    cursor: pointer;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th, .table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: middle;
     font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-
-.add-card {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+  }
+  
+  .table th {
     background-color: #002f6c;
     color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    font-weight: 600;
+  }
+  
+  .scrollable-cell {
+    max-height: 60px;
+    overflow-y: auto;
+    white-space: normal;
+  }
+  
+  /* Imagem na tabela */
+  .table img {
+    border-radius: 5px;
+    object-fit: cover;
+    max-height: 60px;
+  }
+  
+  /* Botões de ação */
+  .acoes-btns {
     display: flex;
-    align-items: center;
+    gap: 8px;
+  }
+  
+  .btn-action {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-save {
+    background-color: #28a745; /* verde */
+  }
+  
+  .btn-save:hover {
+    background-color: #218838;
+  }
+  
+  .btn-cancel {
+    background-color: #dc3545; /* vermelho */
+  }
+  
+  .btn-cancel:hover {
+    background-color: #c82333;
+  }
+  
+  /* Botão para abrir o modal */
+  .btn-mais {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #1DA1F2;
+    color: white;
+    font-size: 36px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  .btn-mais:hover {
+    background-color: #1a91da;
+  }
+  
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
     justify-content: center;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-}
-button {
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
+    align-items: center;
+    z-index: 2000;
   }
   
-  button.confirmar {
+  .modal-content {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #002f6c;
+    text-align: center;
+  }
+  
+  /* Botão fechar modal */
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .close:hover {
+    color: #000;
+  }
+  
+  /* Formulário dentro do modal */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="date"],
+  .form-group input[type="number"],
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+  }
+  
+  /* Botões do formulário */
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .buttons button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-save {
     background-color: #28a745;
-    color: white;
   }
   
-  button.cancelar {
+  .btn-save:hover {
+    background-color: #218838;
+  }
+  
+  .btn-cancel {
     background-color: #dc3545;
-    color: white;
   }
   
-  button.delete-card {
-    background-color: #ffc107;
-    color: black;
+  .btn-cancel:hover {
+    background-color: #c82333;
   }
-  
-  .add-card {
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
   

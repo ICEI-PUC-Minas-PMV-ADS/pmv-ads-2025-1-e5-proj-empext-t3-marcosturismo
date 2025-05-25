@@ -1,4 +1,131 @@
 <app-sidebar></app-sidebar>
+<div class="container-principal">
+  <h1>Excursões</h1>
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+
+  <div class="table-responsive">
+    <table *ngIf="excursoes?.length; else emptyList" class="table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Título</th> <!-- trocado Destino por Título -->
+          <th>Descrição</th>
+          <th>Veículo</th>
+          <th>Imagem</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of excursoes">
+          <td>{{ e.data | date:'dd/MM/yyyy' }}</td>
+          <td>{{ e.titulo }}</td> <!-- mudou para titulo -->
+          <td>
+            <div class="scrollable-cell">{{ e.descricao }}</div>
+          </td>
+          <td>{{ e.veiculo?.modelo }} - {{ e.veiculo?.placa }}</td>
+          <td>
+            <img [src]="e.imagemUrl" alt="Imagem da excursão" width="80" *ngIf="e.imagemUrl" />
+          </td>
+          <td>
+            <div class="acoes-btns">
+              <button class="btn-action btn-save" (click)="editarExcursao(e)">Editar</button>
+              <button class="btn-action btn-cancel" (click)="excluirExcursao(e.id!)">Excluir</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #emptyList>
+    <p>Não há excursões cadastradas.</p>
+  </ng-template>
+
+  <button class="btn-mais" (click)="openModal()">+</button>
+
+  <!-- Modal -->
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ editingId ? 'Editar Excursão' : 'Adicionar Excursão' }}</h2>
+
+      <form (ngSubmit)="salvar()" #f="ngForm" enctype="multipart/form-data" novalidate>
+        <div class="form-group">
+          <label for="data">Data da Excursão:</label>
+          <input
+            id="data"
+            type="date"
+            [(ngModel)]="excursaoForm.data"
+            name="data"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="titulo">Título (Destino):</label>
+          <input
+            id="titulo"
+            type="text"
+            [(ngModel)]="excursaoForm.titulo"
+            name="titulo"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição:</label>
+          <textarea
+            id="descricao"
+            [(ngModel)]="excursaoForm.descricao"
+            name="descricao"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="veiculoId">Veículo:</label>
+          <select
+            id="veiculoId"
+            [(ngModel)]="excursaoForm.veiculoId"
+            name="veiculoId"
+            required
+          >
+            <option value="" disabled [selected]="!excursaoForm.veiculoId">
+              Selecione um veículo
+            </option>
+            <option *ngFor="let v of veiculos" [value]="v.id">
+              {{ v.numeracao }} – {{ v.modelo }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="imagem">Imagem da Excursão:</label>
+          <input id="imagem" type="file" (change)="onFileChange($event)" />
+        </div>
+
+        <div class="buttons">
+          <button
+            type="button"
+            class="btn-action btn-cancel"
+            (click)="closeModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="btn-action btn-save"
+            [disabled]="f.invalid"
+          >
+            {{ editingId ? 'Atualizar' : 'Salvar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <div id="cards-container">
   <div *ngFor="let excursao of excursoes; let i = index" class="excursao-card">
