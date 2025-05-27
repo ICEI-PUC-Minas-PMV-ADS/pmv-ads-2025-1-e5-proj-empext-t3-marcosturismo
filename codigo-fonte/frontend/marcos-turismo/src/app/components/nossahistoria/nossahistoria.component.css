@@ -1,167 +1,173 @@
-/* ===== Estilos Gerais ===== */
-body {
+/* ===== Reset e Base ===== */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Container de História */
-.historia-container {
-  background-color: rgba(0, 38, 107, 0.8);
-  margin: 32px auto;
-  border-radius: 4px;
-  padding: 32px;
-  max-width: 1168px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #ffffff;
-  height: auto;
-}
-
-/* Div para Missão, Visão e Valores */
-.missao-visao-valores {
-  background-color: rgba(0, 38, 107, 0.8);
-  margin: 32px auto;
-  border-radius: 4px;
-  padding: 32px;
-  max-width: 1168px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #ffffff;
-  height: auto;
-}
-
-/* Títulos */
-h1.text-center {
-  text-align: center;
-  margin-bottom: 24px;
-  color: #ffffff;
-  font-size: 60px;
-}
-
-h2 {
-  font-weight: 600;
-  margin-top: 16px;
-  color: #ffffff;
-  font-size: 38px;
-}
-
-/* Parágrafos e Listas */
-p {
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f9fc;
+  color: #1e1e2f;
   line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== Container Principal ===== */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* ===== Título Principal ===== */
+.sobre-nos h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #002c5f;
+  position: relative;
+}
+
+.sobre-nos h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background-color: #1e90ff;
+  margin: 16px auto 0;
+  border-radius: 4px;
+}
+
+/* ===== Parágrafo de Introdução ===== */
+.intro {
+  font-size: 1.25rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+  color: #000;
+}
+
+/* ===== Cards de Conteúdo ===== */
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background-color: #d9d9d9;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 1.0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  color: #002c5f;
   margin-bottom: 16px;
-  color: #ffffff;
-  font-size: 23px;
 }
 
-.missao-visao-valores p {
-  line-height: 1.0;
-  font-size: 23px;
+.card p,
+.card li {
+  font-size: 1rem;
+  color: #000;
 }
 
-.container p strong {
-  font-size: 38px;
+.card ul {
+  padding-left: 20px;
+  list-style: disc;
 }
 
-ul {
-  margin-left: 8px;
-  margin-bottom: 48px;
-  color: #ffffff;
-  font-size: 23px;
-}
-
-/* WhatsApp Flutuante */
+/* ===== WhatsApp Flutuante ===== */
 .whatsapp-container {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 1000;
 }
 
 .whatsapp-icon {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
+  transition: transform 0.3s ease;
 }
 
-/* Rodapé */
+.whatsapp-icon:hover {
+  transform: scale(1.1);
+}
+
+/* ===== Rodapé ===== */
 footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
-  color: white;
+  color: #ffffff;
   text-align: center;
   font-size: 14px;
+  padding: 10px 0;
 }
 
-/* ===== Media Queries para Responsividade ===== */
-/* Tablets e celulares maiores */
+/* ===== Responsividade ===== */
 @media (max-width: 768px) {
-  .historia-container,
-  .missao-visao-valores {
-    padding: 16px;
-    margin: 16px;
+  .sobre-nos h1 {
+    font-size: 2rem;
   }
 
-  .container p strong {
-    font-size: 19.2px;
+  .intro {
+    font-size: 1.1rem;
   }
 
-  .whatsapp-container {
-    right: 10px;
-    bottom: 90px;
+  .card h2 {
+    font-size: 1.5rem;
+  }
+
+  .card p,
+  .card li {
+    font-size: 0.95rem;
   }
 
   .whatsapp-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  h1.text-center {
-    font-size: 24px;
-  }
-
-  h2 {
-    font-size: 19.2px;
-  }
-
-  p,
-  li {
-    font-size: 15.2px;
-  }
-
-  footer {
-    font-size: 12px;
-    padding: 10px;
-    position: relative;
+    width: 50px;
+    height: 50px;
   }
 }
 
-/* Celulares pequenos */
 @media (max-width: 480px) {
-  .historia-container,
-  .missao-visao-valores {
-    margin: 8px;
-    padding: 16px;
+  .container {
+    padding: 20px 16px;
+  }
+
+  .card {
+    padding: 20px;
   }
 
   .whatsapp-icon {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
   }
+}
 
-  h1.text-center {
-    font-size: 20.8px;
-  }
+.shadow-box {
+  background-color: #d9d9d9;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 1.0);
+  margin-bottom: 48px;
+  transition: box-shadow 0.3s ease;
+}
 
-  h2 {
-    font-size: 16px;
-  }
-
-  p,
-  li {
-    font-size: 14.4px;
-  }
+.shadow-box:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }

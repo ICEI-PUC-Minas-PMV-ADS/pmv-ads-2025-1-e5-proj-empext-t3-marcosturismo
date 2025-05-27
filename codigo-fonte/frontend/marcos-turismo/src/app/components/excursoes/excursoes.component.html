@@ -1,14 +1,16 @@
 <app-sidebar></app-sidebar>
+
 <div class="container-principal">
   <h1>Excursões</h1>
   <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
+  <!-- ========== TABELA DE EXCURSÕES ========== -->
   <div class="table-responsive">
     <table *ngIf="excursoes?.length; else emptyList" class="table">
       <thead>
         <tr>
           <th>Data</th>
-          <th>Título</th> <!-- trocado Destino por Título -->
+          <th>Título</th>
           <th>Descrição</th>
           <th>Veículo</th>
           <th>Imagem</th>
@@ -17,19 +19,34 @@
       </thead>
       <tbody>
         <tr *ngFor="let e of excursoes">
-          <td>{{ e.data | date:'dd/MM/yyyy' }}</td>
-          <td>{{ e.titulo }}</td> <!-- mudou para titulo -->
+          <td>{{ e.data | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ e.titulo }}</td>
           <td>
             <div class="scrollable-cell">{{ e.descricao }}</div>
           </td>
           <td>{{ e.veiculo?.modelo }} - {{ e.veiculo?.placa }}</td>
           <td>
-            <img [src]="e.imagemUrl" alt="Imagem da excursão" width="80" *ngIf="e.imagemUrl" />
+            <img
+              [src]="e.imagemUrl"
+              alt="Imagem da excursão"
+              width="80"
+              *ngIf="e.imagemUrl"
+            />
           </td>
           <td>
             <div class="acoes-btns">
-              <button class="btn-action btn-save" (click)="editarExcursao(e)">Editar</button>
-              <button class="btn-action btn-cancel" (click)="excluirExcursao(e.id!)">Excluir</button>
+              <button
+                class="btn-action btn-save"
+                (click)="abrirModalParaEditar(e)"
+              >
+                Editar
+              </button>
+              <button
+                class="btn-action btn-cancel"
+                (click)="excluirExcursao(e.id!)"
+              >
+                Excluir
+              </button>
             </div>
           </td>
         </tr>
@@ -41,15 +58,18 @@
     <p>Não há excursões cadastradas.</p>
   </ng-template>
 
-  <button class="btn-mais" (click)="openModal()">+</button>
-
-  <!-- Modal -->
+  <!-- ========== MODAL DE ADICIONAR / EDITAR ========== -->
   <div class="modal" *ngIf="showModal">
     <div class="modal-content">
       <span class="close" (click)="closeModal()">&times;</span>
       <h2>{{ editingId ? 'Editar Excursão' : 'Adicionar Excursão' }}</h2>
 
-      <form (ngSubmit)="salvar()" #f="ngForm" enctype="multipart/form-data" novalidate>
+      <form
+        (ngSubmit)="salvarViaModal()"
+        #f="ngForm"
+        enctype="multipart/form-data"
+        novalidate
+      >
         <div class="form-group">
           <label for="data">Data da Excursão:</label>
           <input
@@ -91,7 +111,11 @@
             name="veiculoId"
             required
           >
-            <option value="" disabled [selected]="!excursaoForm.veiculoId">
+            <option
+              value=""
+              disabled
+              [selected]="!excursaoForm.veiculoId"
+            >
               Selecione um veículo
             </option>
             <option *ngFor="let v of veiculos" [value]="v.id">
@@ -126,45 +150,5 @@
   </div>
 </div>
 
-
-<div id="cards-container">
-  <div *ngFor="let excursao of excursoes; let i = index" class="excursao-card">
-
-      <!-- Imagem -->
-    <div class="image-container" (click)="abrirUpload(i)">
-      <img class="preview" [src]="excursao.imagem" alt="Imagem da excursão">
-      <input type="file" class="upload" #inputUpload (change)="selecionarImagem($event, i)" hidden>
-    </div>
-
-    <!-- Formulário da excursão -->
-    <div class="form-fields">
-      <!-- Campo Título -->
-      <input type="text" [(ngModel)]="excursao.titulo" placeholder="Título da excursão..." *ngIf="excursao.isNew" />
-
-      <!-- Campo Descrição -->
-      <textarea [(ngModel)]="excursao.descricao" placeholder="Digite a descrição da excursão..."></textarea>
-
-      <!-- Campo Data -->
-      <input type="date"
-             [(ngModel)]="excursao.dataExcursao"
-             [value]="excursao.dataExcursao | date:'yyyy-MM-dd'"
-             *ngIf="excursao.isNew" />
-    </div>
-
-    <!-- Botões inferiores -->
-    <div class="button-container bottom">
-      <button class="confirmar" (click)="confirmarCard(i)">Confirmar</button>
-      <button class="cancelar" (click)="cancelarCard(i)">Cancelar</button>
-    </div>
-
-    <!-- Botão excluir -->
-    <button class="delete-card" (click)="apagarCard(i)">
-      <i class="fas fa-trash-alt"></i> Apagar
-    </button>
-  </div>
-</div>
-
-<!-- Botão adicionar nova excursão -->
-<button class="add-card" (click)="adicionarCard()">
-  <i class="fa-solid fa-plus"></i>
-</button>
+<!-- ========== BOTÃO PARA ABRIR MODAL ========== -->
+<button class="add-card" (click)="abrirModalParaNovo()">+</button>
