@@ -1,6 +1,6 @@
 /* Estilo para a seção da frota */
 .fleet-container {
-  margin-top: 80px; /* Espaço para evitar que o conteúdo fique coberto pela navbar */
+  margin-top: 80px;
   padding: 20px;
   text-align: center;
 }
@@ -11,7 +11,7 @@
   margin-bottom: 20px;
 }
 
-/* Grid responsivo: usa mínimo de 280px por coluna */
+/* Grid responsivo */
 .fleet-container ul.fleet-grid {
   list-style: none;
   padding: 0;
@@ -37,14 +37,6 @@
 .fleet-container ul.fleet-grid li:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Imagem do veículo */
-.fleet-container .fleet-img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 12px;
 }
 
 /* Meta (ano/categoria/lotação) */
