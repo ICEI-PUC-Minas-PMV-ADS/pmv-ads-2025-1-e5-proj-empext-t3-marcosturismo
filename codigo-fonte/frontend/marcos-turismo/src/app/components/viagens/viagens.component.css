@@ -192,3 +192,122 @@ select {
     width: 95%;
   }
 }
+input[type="text"] {
+    border-radius: 5px;
+    width: 90%;
+    height: 30px;
+    padding: 5px;
+    box-sizing: border-box;
+    margin: 10px 0;
+    font-size: 14px;
+    border: none;
+}
+
+select {
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    width: 100%; /* ajustado */
+    padding: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #f1f1f1;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* para layout vertical */
+    align-items: center;
+    padding: 20px;
+    /* height: 100vh;  Removido para layout mais natural */
+    text-align: center;
+}
+
+.card {
+    background-color: #002f6c;
+    color: white;
+    width: 350px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #004aad;
+    transition: background 0.3s;
+    margin: 0 10px; /* margem entre botões */
+}
+
+.btn:hover {
+    background-color: #003580;
+}
+
+.success {
+  color: #4CAF50;
+  margin-top: 10px;
+}
+
+.error {
+  color: #f44336;
+  margin-top: 10px;
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background-color: #002f6c;
+    color: white;
+    width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+  }
+  
+  .btn-fechar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+  }
+  .btn-mais{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #1DA1F2;
+    color: white;
+    font-size: 36px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+
+
+  }
+  
+  /* Resto do seu CSS permanece o mesmo */
+  
+
+/* restante do CSS de modal, checklist, textarea, logo mantidos iguais */

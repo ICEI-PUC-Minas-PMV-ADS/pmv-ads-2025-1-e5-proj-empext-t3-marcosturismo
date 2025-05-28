@@ -4,9 +4,7 @@
   <h1>Viajar é colecionar momentos, expandir horizontes e descobrir que o mundo é muito maior do que os olhos podem ver.</h1>
 </section>
 
-<section class="gallery">
-  <div class="gallery-text">Fotos de algumas viagens, pode ficar em carrossel ou separadas!</div>
-</section>
+
 
 <section class="testimonials">
   <div class="card" *ngFor="let avaliacao of avaliacoesValidas">
@@ -53,10 +51,7 @@
       </div>
     </div>
 
-    <div class="campo-form">
-      <label for="foto">Adicionar Foto (opcional)</label>
-      <input type="file" id="foto" (change)="onFileSelected($event)">
-    </div>
+  
 
     <div class="botoes-avaliacao">
       <button type="submit" class="enviar">Enviar</button>

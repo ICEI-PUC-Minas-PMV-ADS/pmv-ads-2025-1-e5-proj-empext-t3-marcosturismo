@@ -1,153 +1,142 @@
-/* ===== Estilos Gerais ===== */
+/* ===== Estilo Global ===== */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
 }
 
 /* Container principal */
 .container {
   display: flex;
-  min-height: 100vh;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-  margin-top: 150px; /* ajuste se o navbar sobrepõe */
-  gap: 20px;
-}
-
-/* Lados esquerdo e direito */
-.left,
-.right {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 10px;
+  align-items: flex-start;
+  padding: 100px 20px 40px;
+  gap: 40px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 /* Lado esquerdo */
 .left {
-  background-color: #00266b;
-  color: #fff;
-  width: 50%;
-  padding: 60px 40px;
+  flex: 1 1 45%;
+  background-color: #d9d9d9;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 1.0);
 }
 
-/* Localização */
-.location {
-  margin-top: 40px;
-}
-.location h3 {
-  margin-bottom: 10px;
+.left h3 {
+  color: #0074d9;
   font-size: 16px;
-  letter-spacing: 2px;
-  color: #fbb700;
-}
-.location p {
-  line-height: 1.5;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Cartões de contato */
+.left p {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
 .contact-cards .card {
-  background: rgba(255,255,255,0.1);
-  padding: 20px;
-  border-radius: 5px;
+  border-left: 4px solid #0074d9;
+  padding: 15px 20px;
+  background: #f0f4f8;
+  border-radius: 6px;
   margin-bottom: 20px;
 }
+
 .contact-cards .card h4 {
-  margin: 0 0 10px;
-  font-size: 18px;
+  font-size: 16px;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
 }
 .contact-cards .card h4 i {
-  margin-right: 8px;
+  margin-right: 10px;
+  color: #0074d9;
 }
 .contact-cards .card p {
-  margin: 0;
+  font-size: 14px;
+  color: #555;
 }
 
-/* Redes sociais */
-.social h3 {
-  margin-bottom: 10px;
-  font-size: 16px;
-  letter-spacing: 2px;
-  color: #fbb700;
-}
 .social .icons i {
-  margin-right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #fbb700;
+  font-size: 20px;
+  margin-right: 12px;
+  color: #0074d9;
+  transition: color 0.3s ease;
+}
+.social .icons i:hover {
+  color: #0056a8;
 }
 
-/* Horário de atendimento */
-.hours h3 {
-  margin-bottom: 10px;
-  font-size: 16px;
-  letter-spacing: 2px;
-  color: #fbb700;
-}
-.hours p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-/* Política de privacidade */
+.hours,
 .privacy {
-  font-size: 12px;
-  margin-top: 20px;
-  color: #f5f5f5;
+  font-size: 14px;
+  color: #777;
 }
 
-/* Lado direito (formulário) */
+/* Lado direito - Formulário */
 .right {
-  background-color: #fbb700;
-  width: 50%;
-  padding: 60px 40px;
-  margin-left: 20px;
+  flex: 1 1 45%;
+  background-color: #d9d9d9;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 1.0);
 }
+
 .right h2 {
-  color: #00266b;
+  font-size: 26px;
+  color: #0074d9;
   margin-bottom: 30px;
-  letter-spacing: 1px;
-  font-size: 28px;
 }
+
 .right form {
   display: flex;
   flex-direction: column;
 }
 .right form label {
-  margin-bottom: 5px;
-  font-weight: bold;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 .right form input,
 .right form textarea {
   padding: 12px;
   margin-bottom: 20px;
-  border: 1px solid #00266b;
-  width: 100%;
-  background-color: #f5f5f5;
-  border-radius: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fafafa;
+}
+.right form input:focus,
+.right form textarea:focus {
+  outline: none;
+  border-color: #0074d9;
+  background-color: #fff;
 }
 .right form button {
-  background-color: #00266b;
-  color: #fbb700;
-  padding: 10px 20px;
+  background-color: #0074d9;
+  color: #fff;
+  padding: 12px 20px;
   border: none;
-  cursor: pointer;
+  border-radius: 6px;
   font-weight: bold;
-  align-self: flex-start;
-  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 .right form button:hover {
-  background-color: #000bec;
-  color: #fbb700;
+  background-color: #0056a8;
 }
 
-/* Rodapé fixo */
+/* Rodapé */
 footer {
   position: relative;
   bottom: 0;
@@ -157,89 +146,37 @@ footer {
   text-align: center;
   font-size: 14px;
   padding: 10px 0;
+  margin-top: 50px;
 }
 
-/* ===== Media Queries ===== */
-
-/* Desktops menores e tablets em paisagem */
-@media (max-width: 992px) {
-  .container {
-    gap: 15px;
-    margin-top: 120px;
-  }
-  .left,
-  .right {
-    width: 100%;
-    padding: 40px 20px;
-  }
-  .right {
-    margin-left: 0;
-  }
-  .right h2 {
-    font-size: 24px;
-  }
-}
-
-/* Tablets e celulares maiores */
+/* ===== Responsivo ===== */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    margin-top: 100px;
+    padding: 60px 20px;
   }
   .left,
   .right {
     width: 100%;
-    padding: 30px 15px;
+    padding: 30px 20px;
   }
-  .left {
-    margin-bottom: 20px;
+  .right h2 {
+    font-size: 22px;
   }
-  .header h1 { font-size: 32px; }
-  .header h2 { font-size: 24px; }
-  .social .icons i { font-size: 20px; margin-right: 10px; }
-  .contact-cards .card { padding: 15px; }
-  .right h2 { font-size: 22px; margin-bottom: 20px; }
-  .right form button { width: 100%; text-align: center; }
 }
 
-/* Celulares pequenos */
 @media (max-width: 480px) {
-  .container {
-    padding: 10px;
-    margin-top: 80px;
-  }
-  .left,
-  .right {
-    padding: 20px 10px;
-  }
-  .location h3,
-  .social h3,
-  .hours h3 {
-    font-size: 14px;
-    letter-spacing: 1px;
-  }
-  .location p,
-  .hours p {
-    font-size: 14px;
-  }
-  .social .icons i {
-    font-size: 18px;
-    margin-right: 8px;
-  }
-  .contact-cards .card h4 { font-size: 16px; }
-  .contact-cards .card p { font-size: 14px; }
-  .right h2 { font-size: 20px; }
   .right form input,
   .right form textarea {
-    padding: 10px;
     font-size: 14px;
   }
-  .right form button {
-    padding: 12px;
-    font-size: 16px;
+  .right h2 {
+    font-size: 20px;
   }
-  footer {
-    font-size: 12px;
-    padding: 8px 0;
+  .contact-cards .card h4 {
+    font-size: 15px;
+  }
+  .contact-cards .card p {
+    font-size: 13px;
   }
 }

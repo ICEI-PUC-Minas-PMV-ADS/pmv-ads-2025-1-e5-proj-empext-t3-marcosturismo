@@ -1,152 +1,132 @@
-/* Estilo Geral */
-.hero-section {
-  text-align: center;
-  padding: 50px 0;
-  background-color: #f8f8f8;
-  margin-top: 80px;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+  color: #333;
 }
 
-.hero-section h1 {
-  font-size: 2.5rem;
+/* HERO SECTION */
+.hero-section {
+  padding: 100px 20px 60px;
+  background: linear-gradient(135deg, #d9d9d9, #d9d9d9);
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
-.hero-section p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+.hero-content p {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  color: #555;
 }
 
-/* Botões CTA */
+/* BOTÕES CTA */
 .cta-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .cta-buttons .btn {
-  padding: 10px 20px;
-  background-color: #f39c12;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
+  padding: 12px 24px;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  border-radius: 25px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cta-buttons .btn:not(.whatsapp) {
+  background-color: #007bff;
 }
 
 .cta-buttons .btn:hover {
-  background-color: #e67e22;
+  transform: scale(1.05);
+}
+
+.cta-buttons .btn:not(.whatsapp):hover {
+  background-color: #0056b3;
 }
 
 .cta-buttons .whatsapp {
   background-color: #25d366;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .cta-buttons .whatsapp:hover {
   background-color: #128c7e;
 }
 
-/* Seção de Vídeo */
+.whatsapp-icon-small {
+  width: 20px;
+  height: 20px;
+}
+
+/* VÍDEOS */
 .video-section {
+  padding: 60px 20px;
+}
+
+.video-container {
   display: flex;
-  justify-content: center; /* Centraliza os vídeos */
-  align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
-  flex-wrap: nowrap; /* Mantém os vídeos lado a lado */
-  margin-top: 50px;
-  max-width: 1200px; /* Limita a largura da seção */
-  margin: 0 auto;
-  width: 100%;
+  justify-content: center;
 }
 
 .video-wrapper {
-  flex: 0 1 48%; /* Controla o tamanho dos vídeos */
-  max-width: 48%;
+  flex: 1 1 30%;
+  min-width: 250px;
+  max-width: 400px;
 }
 
 video {
   width: 100%;
   border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-  .video-section {
-    flex-wrap: wrap; /* Em telas menores, os vídeos ficarão um abaixo do outro */
-  }
-
-  .video-wrapper {
-    flex: 1 1 100%; /* Ocupa 100% da largura da tela */
-    max-width: 100%;
-  }
-}
-
-/* Seção de Imagens */
+/* IMAGENS / CARROSSEL */
 .image-section {
-  margin-top: 50px;
-  width: 100%; 
+  padding: 60px 20px;
 }
 
 .carousel-container {
-  max-width: 100%;
   overflow: hidden;
-}
-
-.swiper {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 10px;
+  max-width: 100%;
 }
 
 .swiper-wrapper {
   display: flex;
-  animation: slide 12s infinite linear;
+  gap: 10px;
+  animation: slide 25s infinite linear;
 }
 
 .swiper-slide {
   flex: 0 0 auto;
   width: 100%;
-  height: 100%;
-}
-
-.image-container {
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
 }
 
 .image-container img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   object-fit: cover;
   border-radius: 10px;
 }
 
-/* Animação do Carrossel */
 @keyframes slide {
-  0% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(-100%);
-  }
-  40% {
-    transform: translateX(-200%);
-  }
-  60% {
-    transform: translateX(-300%);
-  }
-  80% {
-    transform: translateX(-400%);
-  }
-  100% {
-    transform: translateX(-500%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Botão do WhatsApp */
+/* WHATSAPP FIXO */
 .whatsapp-container {
   position: fixed;
   bottom: 20px;
@@ -158,86 +138,61 @@ video {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
 }
 
-/* Seção de Vídeo */
-.video-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-  width: 100%;
+.whatsapp-icon:hover {
+  transform: scale(1.1);
 }
 
-.video-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: nowrap;
-  max-width: 1200px;
-  width: 100%;
-}
-
-.video-wrapper {
-  flex: 0 1 32%; /* Garante que três vídeos fiquem lado a lado */
-  max-width: 32%;
-}
-
-video {
-  width: 100%;
-  border-radius: 10px;
-}
-
-/* Responsividade para telas menores */
-@media (max-width: 992px) {
-  .video-container {
-    flex-wrap: wrap; /* Permite que os vídeos fiquem um abaixo do outro em telas pequenas */
-  }
-
-  .video-wrapper {
-    flex: 1 1 48%; /* Em telas menores, dois vídeos por linha */
-    max-width: 48%;
-  }
-}
-
-@media (max-width: 600px) {
-  .video-wrapper {
-    flex: 1 1 100%; /* Em telas muito pequenas, um vídeo por linha */
-    max-width: 100%;
-  }
-}
-
-body {
-  margin: 0;
-  overflow: hidden;
-  background-color: lightblue;
-}
-
-#bus-container {
-  position: fixed; /* Colocando o bus-container em posição fixa */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 999; /* Garante que os ônibus fiquem acima de todo o conteúdo */
-}
-
-.bus {
-  position: absolute;
-  width: 100px;
-  cursor: grab;
-  transition: transform 0.3s;
-}
-
-.bus:active {
-  cursor: grabbing;
-}
-
+/* FOOTER */
 footer {
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
-  color: white;
+  color: #ffffff;
   text-align: center;
   font-size: 14px;
+  padding: 10px 0;
+  margin-top: 460px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .video-wrapper {
+    flex: 1 1 100%;
+  }
+
+  .image-container img {
+    height: 200px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .hero-section {
+    padding: 120px 60px 80px;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1.5rem;
+  }
 }

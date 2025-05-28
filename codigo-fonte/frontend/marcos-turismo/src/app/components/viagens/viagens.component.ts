@@ -106,6 +106,7 @@ export class ViagensComponent implements OnInit, OnDestroy {
 
   /** Lista de viagens */
   viagens: Viagem[] = [];
+  usuarios: Usuario[] = [];
   mensagem: string = '';
   mensagemTipo: 'success' | 'error' | '' = '';
 
@@ -127,12 +128,25 @@ export class ViagensComponent implements OnInit, OnDestroy {
       this.carregarClientes();
       this.carregarMotoristas();
       this.loadViagens();
+      this.loadUsuarios();
     }
   }
 
   ngOnDestroy(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('viagens', JSON.stringify(this.viagens));
+    }
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : ''
+      });
+    } else {
+      return new HttpHeaders({ 'Content-Type': 'application/json' });
     }
   }
 
@@ -273,6 +287,15 @@ export class ViagensComponent implements OnInit, OnDestroy {
           this.handleError(err, 'carregar viagens');
         }
       });
+  }
+
+  loadUsuarios() {
+    this.http.get<Usuario[]>(`${this.baseUrl}`, { headers: this.getAuthHeaders() }).subscribe({
+      next: (data) => {
+        this.usuarios = data ?? [];
+      },
+      error: this.handleError.bind(this)
+    });
   }
 
   private buildViagemFromForm(): any {
