@@ -7,7 +7,7 @@
 
 .fleet-container h1 {
   font-size: 32px;
-  color: #002f6c;
+  color: #fdf8f8;
   margin-bottom: 20px;
 }
 
@@ -63,7 +63,7 @@
 /* Título e descrição dentro do card */
 .fleet-container h2 {
   font-size: 24px;
-  color: #002f6c;
+  color: #080808;
   margin: 10px 0;
 }
 
