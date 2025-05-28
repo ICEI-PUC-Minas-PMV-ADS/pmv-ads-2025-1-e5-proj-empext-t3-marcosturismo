@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NONAME } from 'dns';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class SidebarComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter<boolean>();
   isSidebarActive = true;  // em desktop, inicia aberta
+
 
   constructor(private router: Router) {}
 

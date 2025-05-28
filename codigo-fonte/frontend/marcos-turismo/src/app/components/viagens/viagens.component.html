@@ -1,22 +1,55 @@
 <app-sidebar></app-sidebar>
 
-<div class="container">
-    <div class="card">
-        <h2>Motorista: 
-            <input type="text" placeholder="Digite o nome do motorista" [(ngModel)]="motorista">
-        </h2>
-        <p>Tipo de Serviço: 
-            <select [(ngModel)]="tipoServico">
-                <option value="excursao">Excursão</option>
-                <option value="fretamento">Fretamento</option>
-            </select>
-        </p>
-        <p>Data de Início: <input type="date" [(ngModel)]="dataInicio"></p>
-        <p>Data de Volta: <input type="date" [(ngModel)]="dataVolta"></p>
+<!-- Botão para abrir modal -->
+<button class="btn-mais" (click)="openModal()">+</button>
 
-        <div class="button-container">
-            <button class="btn incluir" (click)="incluir()">Salvar</button>
-            <button class="btn excluir" (click)="excluir()">Excluir</button>
-        </div>
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="modalAberto">
+  <div class="modal">
+    <button class="btn-fechar" (click)="closeModal()">×</button>
+
+    <div class="card">
+      <h2>Motorista:
+        <select [(ngModel)]="motorista">
+          <option value="">Selecione um motorista</option>
+          <option *ngFor="let usuario of usuarios ?? []" [value]="usuario.nome">
+            {{ usuario.nome }}
+          </option>
+        </select>
+      </h2>
+
+      <p>Tipo de Serviço:
+        <select [(ngModel)]="tipoServico">
+          <option value="excursao">Excursão</option>
+          <option value="fretamento">Fretamento</option>
+        </select>
+      </p>
+
+      <p>Data de Início: <input type="date" [(ngModel)]="dataInicio"></p>
+      <p>Data de Volta: <input type="date" [(ngModel)]="dataVolta"></p>
+
+      <div class="button-container">
+        <button class="btn incluir" (click)="incluir()">Salvar</button>
+        <button class="btn excluir" (click)="excluir()">Excluir Última</button>
+      </div>
+
+      <p *ngIf="mensagem" [ngClass]="mensagemTipo">{{ mensagem }}</p>
     </div>
+  </div>
+</div>
+
+<!-- Lista fora do modal -->
+<div class="lista-viagens" *ngIf="viagens && viagens.length > 0">
+  <h3>Viagens Registradas</h3>
+  <ul>
+    <li *ngFor="let viagem of viagens">
+      {{ viagem.motorista }} - {{ viagem.tipoServico }} - 
+      Início: {{ viagem.dataInicio | date:'dd/MM/yyyy' }} - 
+      Volta: {{ viagem.dataVolta | date:'dd/MM/yyyy' }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="viagens && viagens.length === 0">
+  <p>Nenhuma viagem cadastrada.</p>
 </div>

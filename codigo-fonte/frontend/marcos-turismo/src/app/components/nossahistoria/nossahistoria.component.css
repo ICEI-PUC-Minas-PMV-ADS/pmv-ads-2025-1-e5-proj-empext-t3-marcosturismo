@@ -100,6 +100,8 @@ a {
 .whatsapp-icon {
   width: 60px;
   height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   transition: transform 0.3s ease;
 }
 
@@ -117,6 +119,7 @@ footer {
   text-align: center;
   font-size: 14px;
   padding: 10px 0;
+  margin-top: 38px;
 }
 
 /* ===== Responsividade ===== */

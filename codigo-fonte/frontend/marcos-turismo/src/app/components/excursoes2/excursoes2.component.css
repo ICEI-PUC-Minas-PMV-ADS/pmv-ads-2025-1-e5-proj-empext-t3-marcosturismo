@@ -158,6 +158,9 @@ body {
 .whatsapp-icon {
   width: 60px;
   height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
 }
 
 /* Rodapé */

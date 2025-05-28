@@ -1,20 +1,23 @@
 import { Component, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { throwError } from 'rxjs';
-
 
 interface Viagem {
-  id: string; // UUID da viagem
+  id: string;
   motorista: string;
   tipoServico: string;
   dataInicio: string;
   dataVolta: string;
+}
+
+interface Usuario {
+  id: string;
+  nome: string;
 }
 
 @Component({
@@ -30,9 +33,13 @@ export class ViagensComponent implements OnInit, OnDestroy {
   dataInicio: string = '';
   dataVolta: string = '';
   viagens: Viagem[] = [];
+  usuarios: Usuario[] = [];
   mensagem: string = '';
   mensagemTipo: 'success' | 'error' | '' = '';
+  modalAberto: boolean = false;  // Controle do modal
+
   apiUrl: string = `${environment.apiUrl}/viagem`;
+  private baseUrl = `${environment.apiUrl}/usuario`;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -42,7 +49,10 @@ export class ViagensComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
+      this.viagens = [];
+      this.usuarios = [];
       this.loadViagens();
+      this.loadUsuarios();
     }
   }
 
@@ -52,10 +62,22 @@ export class ViagensComponent implements OnInit, OnDestroy {
     }
   }
 
+  private getAuthHeaders(): HttpHeaders {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : ''
+      });
+    } else {
+      return new HttpHeaders({ 'Content-Type': 'application/json' });
+    }
+  }
+
   loadViagens() {
     this.getViagens().subscribe({
       next: (data: Viagem[]) => {
-        this.viagens = data;
+        this.viagens = data ?? [];
         this.mensagem = '';
         this.mensagemTipo = '';
       },
@@ -63,8 +85,17 @@ export class ViagensComponent implements OnInit, OnDestroy {
     });
   }
 
+  loadUsuarios() {
+    this.http.get<Usuario[]>(`${this.baseUrl}`, { headers: this.getAuthHeaders() }).subscribe({
+      next: (data) => {
+        this.usuarios = data ?? [];
+      },
+      error: this.handleError.bind(this)
+    });
+  }
+
   getViagens(): Observable<Viagem[]> {
-    return this.http.get<Viagem[]>(this.apiUrl);
+    return this.http.get<Viagem[]>(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
   incluir() {
@@ -81,9 +112,8 @@ export class ViagensComponent implements OnInit, OnDestroy {
       dataVolta: this.dataVolta
     };
 
-    this.http.post(this.apiUrl, novaViagem).subscribe({
-      next: (response) => {
-        console.log('Viagem incluída no backend:', response);
+    this.http.post(this.apiUrl, novaViagem, { headers: this.getAuthHeaders() }).subscribe({
+      next: () => {
         this.mensagem = 'Viagem registrada com sucesso!';
         this.mensagemTipo = 'success';
         this.loadViagens();
@@ -91,13 +121,14 @@ export class ViagensComponent implements OnInit, OnDestroy {
         this.tipoServico = 'excursao';
         this.dataInicio = '';
         this.dataVolta = '';
+        this.closeModal();  // Fecha o modal após salvar
       },
       error: this.handleError.bind(this)
     });
   }
 
   excluir() {
-    if (this.viagens.length === 0) {
+    if (!this.viagens || this.viagens.length === 0) {
       this.mensagem = 'Não há viagens para excluir.';
       this.mensagemTipo = 'error';
       return;
@@ -111,18 +142,18 @@ export class ViagensComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.http.delete(`${this.apiUrl}/${ultimaViagem.id}`).subscribe({
+    this.http.delete(`${this.apiUrl}/${ultimaViagem.id}`, { headers: this.getAuthHeaders() }).subscribe({
       next: () => {
-        console.log('Viagem excluída no backend:', ultimaViagem);
         this.mensagem = 'Viagem excluída com sucesso!';
         this.mensagemTipo = 'success';
-        this.viagens = this.viagens.filter(v => v.id !== ultimaViagem.id);
+        this.viagens = this.viagens.filter(v => v.id !== ultimaViagem.id) ?? [];
       },
       error: this.handleError.bind(this)
     });
   }
 
   private handleError(error: HttpErrorResponse) {
+    console.error('Erro completo:', error);
     switch (error.status) {
       case 400:
         this.mensagem = error.error || 'Dados inválidos. Verifique os campos.';
@@ -141,7 +172,17 @@ export class ViagensComponent implements OnInit, OnDestroy {
         this.mensagem = error.error || 'Erro ao processar a solicitação.';
     }
     this.mensagemTipo = 'error';
-    console.error('Erro:', error);
     return throwError(() => error);
+  }
+
+  // Métodos para abrir e fechar modal
+  openModal() {
+    this.modalAberto = true;
+    this.mensagem = '';
+    this.mensagemTipo = '';
+  }
+
+  closeModal() {
+    this.modalAberto = false;
   }
 }
