@@ -45,6 +45,11 @@ interface Veiculo {
   sanitarios: boolean;
 }
 
+interface Resultado {
+  veiculo: Veiculo;
+  checkList: string;
+}
+
 interface Cliente {
   id: string;
   nome: string;
@@ -74,7 +79,7 @@ interface Usuario {
   styleUrls: ['./viagens.component.css']
 })
 export class ViagensComponent implements OnInit, OnDestroy {
-  /** Modal e edição */
+  /** Controle do modal */
   showModalViagem = false;
   editingId: string | null = null;
 
@@ -106,14 +111,13 @@ export class ViagensComponent implements OnInit, OnDestroy {
 
   /** Lista de viagens */
   viagens: Viagem[] = [];
-  usuarios: Usuario[] = [];
   mensagem: string = '';
   mensagemTipo: 'success' | 'error' | '' = '';
 
   private apiUrl = `${environment.apiUrl}/viagem`;
-  private veiculoUrl = `${environment.apiUrl}/veiculo/frota`;
+  private veiculoUrl = `${environment.apiUrl}/veiculo`;
   private clienteUrl = `${environment.apiUrl}/cliente`;
-  private usuarioUrl = `${environment.apiUrl}/suario`;
+  private usuarioUrl = `${environment.apiUrl}/usuario`;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -128,25 +132,12 @@ export class ViagensComponent implements OnInit, OnDestroy {
       this.carregarClientes();
       this.carregarMotoristas();
       this.loadViagens();
-      this.loadUsuarios();
     }
   }
 
   ngOnDestroy(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('viagens', JSON.stringify(this.viagens));
-    }
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    if (isPlatformBrowser(this.platformId)) {
-      const token = localStorage.getItem('token');
-      return new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: token ? `Bearer ${token}` : ''
-      });
-    } else {
-      return new HttpHeaders({ 'Content-Type': 'application/json' });
     }
   }
 
@@ -196,18 +187,16 @@ export class ViagensComponent implements OnInit, OnDestroy {
 
   /** ----- FUNÇÕES DE GET PARA SELECTs ----- */
 
-  /** Carrega motoristas (GET /usuario) */
+  /** Carrega motoristas (GET /usuario/motoristas) */
   carregarMotoristas(): void {
     this.loadingMotoristas = true;
     this.errorMsgMotoristas = null;
 
     this.http
-      .get<Usuario[]>(`${this.usuarioUrl}`, { headers: this.getAuthHeaders() })
+      .get<Usuario[]>(`${this.usuarioUrl}/motoristas`, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (data) => {
           this.motoristas = Array.isArray(data) ? data : [];
-          // Filtrar apenas motoristas:
-          this.motoristas = this.motoristas.filter((u) => u.tipo === 'Motorista');
           this.cdref.detectChanges();
           this.errorMsgMotoristas = null;
         },
@@ -221,17 +210,18 @@ export class ViagensComponent implements OnInit, OnDestroy {
       });
   }
 
-  /** Carrega veículos (GET /veiculo) */
+  /** Carrega veículos (GET /veiculo) retornando Resultado[] */
   carregarVeiculos(): void {
     this.loadingVeiculos = true;
     this.mensagemVeiculos = '';
     this.mensagemTipoVeiculos = '';
 
     this.http
-      .get<Veiculo[]>(`${this.veiculoUrl}`, { headers: this.getAuthHeaders() })
+      .get<Resultado[]>(`${this.veiculoUrl}`, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (data) => {
-          this.veiculos = Array.isArray(data) ? data : [];
+          const listaResultado = Array.isArray(data) ? data : [];
+          this.veiculos = listaResultado.map((r) => r.veiculo);
           if (this.veiculos.length === 0) {
             this.mensagemVeiculos = 'Nenhum veículo encontrado.';
             this.mensagemTipoVeiculos = 'error';
@@ -289,15 +279,6 @@ export class ViagensComponent implements OnInit, OnDestroy {
       });
   }
 
-  loadUsuarios() {
-    this.http.get<Usuario[]>(`${this.baseUrl}`, { headers: this.getAuthHeaders() }).subscribe({
-      next: (data) => {
-        this.usuarios = data ?? [];
-      },
-      error: this.handleError.bind(this)
-    });
-  }
-
   private buildViagemFromForm(): any {
     return {
       status: this.status,
@@ -331,16 +312,19 @@ export class ViagensComponent implements OnInit, OnDestroy {
     this.mensagemTipo = '';
   }
 
+  /** Abre modal de cadastro/edição */
   openModal(): void {
     this.clearForm();
     this.showModalViagem = true;
   }
 
+  /** Fecha modal */
   closeModal(): void {
     this.showModalViagem = false;
     this.clearForm();
   }
 
+  /** Salva nova viagem (POST) ou atualiza existente (PUT) */
   salvarViagem(): void {
     if (
       !this.motoristaId ||
@@ -393,6 +377,7 @@ export class ViagensComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** Preenche o formulário para edição e abre modal */
   editarViagem(viagem: Viagem): void {
     this.editingId = viagem.id;
     this.status = viagem.status;
@@ -409,6 +394,7 @@ export class ViagensComponent implements OnInit, OnDestroy {
     this.showModalViagem = true;
   }
 
+  /** Exclui a última viagem cadastrada */
   excluirUltimaViagem(): void {
     if (!this.viagens.length) {
       this.mensagem = 'Não há viagens para excluir.';
@@ -431,6 +417,7 @@ export class ViagensComponent implements OnInit, OnDestroy {
       });
   }
 
+  /** Inicia viagem */
   iniciarViagem(id: string): void {
     this.http
       .put<string>(`${this.apiUrl}/iniciar/${id}`, null, { headers: this.getAuthHeaders() })
@@ -447,6 +434,7 @@ export class ViagensComponent implements OnInit, OnDestroy {
       });
   }
 
+  /** Finaliza viagem */
   finalizarViagem(id: string, km: number): void {
     this.http
       .put<string>(`${this.apiUrl}/finalizar/${id}?km=${km}`, null, { headers: this.getAuthHeaders() })
@@ -463,6 +451,7 @@ export class ViagensComponent implements OnInit, OnDestroy {
       });
   }
 
+  /** Cancela viagem */
   cancelarViagem(id: string): void {
     this.http
       .put<string>(`${this.apiUrl}/cancelar/${id}`, null, { headers: this.getAuthHeaders() })
@@ -479,6 +468,7 @@ export class ViagensComponent implements OnInit, OnDestroy {
       });
   }
 
+  /** Cria checklist */
   criarChecklist(id: string, checklistData: any): void {
     this.http
       .post<string>(`${this.apiUrl}/checklist/${id}`, checklistData, { headers: this.getAuthHeaders() })

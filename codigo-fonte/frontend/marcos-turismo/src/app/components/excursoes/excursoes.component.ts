@@ -60,12 +60,8 @@ export class ExcursoesComponent implements OnInit {
     };
   }
 
-  // ==== CABEÇALHO AUTENTICAÇÃO ====
   private isBrowser(): boolean {
-    return (
-      typeof window !== 'undefined' &&
-      typeof localStorage !== 'undefined'
-    );
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 
   private getAuthHeaders(): HttpHeaders {
@@ -150,9 +146,6 @@ export class ExcursoesComponent implements OnInit {
     if (file) {
       this.imagemSelecionada = file;
     }
-    if (file) {
-      this.imagemSelecionada = file;
-    }
   }
 
   /**
@@ -168,8 +161,6 @@ export class ExcursoesComponent implements OnInit {
       ? candidateDate.getTime().toString()
       : '';
     formData.append('dataExcursao', timestamp);
-
-    formData.append('veiculoId', this.excursaoForm.veiculoId || '');
 
     if (this.imagemSelecionada) {
       formData.append('file', this.imagemSelecionada);
@@ -288,10 +279,6 @@ export class ExcursoesComponent implements OnInit {
     if (!file) {
       return;
     }
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
     const reader = new FileReader();
     reader.onload = (e: any) => {
       this.excursoes[index].imagem = e.target.result;
@@ -406,7 +393,6 @@ export class ExcursoesComponent implements OnInit {
           }
         });
     } else {
-      // Caso seja apenas um card temporário (isNew), remove-o sem chamar API
       this.excursoes.splice(index, 1);
     }
   }
