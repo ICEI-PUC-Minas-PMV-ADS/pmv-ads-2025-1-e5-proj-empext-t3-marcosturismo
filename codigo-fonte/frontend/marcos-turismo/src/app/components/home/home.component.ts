@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-import { environment } from '../../../environments/environment'; // ajuste o caminho
 
 @Component({
   selector: 'app-home',
@@ -12,22 +11,18 @@ import { environment } from '../../../environments/environment'; // ajuste o cam
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  imagens: string[] = [
-    'logo.jpg',
-    'excursao.jpg',
-    'poderosoUno.jpg',
-    'logo.jpg',
-    'logo.jpg',
-    'logo.jpg'
+  imagens = [
+    'assets/logo.jpg',
+    'assets/excursao.jpg',
+    'assets/poderosoUno.jpg',
+    'assets/logo.jpg',
+    'assets/logo.jpg',
+    'assets/logo.jpg'
   ];
 
-  videos: { src: string }[] = [
-    { src: 'video.mp4' },
-    { src: 'video.mp4' },
-    { src: 'video.mp4' }
+  videos = [
+    { src: 'assets/video1.mp4' },
+    { src: 'assets/video2.mp4' },
+    { src: 'assets/video3.mp4' }
   ];
-
-  apiUrl: string = `${environment.apiUrl}/upcoming`;
-
-  constructor() {}
 }

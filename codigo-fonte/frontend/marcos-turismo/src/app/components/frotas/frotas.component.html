@@ -11,11 +11,6 @@
   <!-- Grid de cards -->
   <ul class="fleet-grid">
     <li *ngFor="let v of frotas" class="fleet-card">
-      <img
-        class="fleet-img"
-        [src]="'assets/images/' + v.modelo + '.png'"
-        alt="{{ v.modelo }}"
-      />
       <h2>{{ v.marca }} {{ v.modelo }}</h2>
       <p class="meta">
         {{ v.anoModelo }} &mdash; {{ v.categoria }} &mdash;
@@ -30,5 +25,9 @@
         <li *ngIf="v.sanitarios">🚾 Sanitários</li>
       </ul>
     </li>
-  </ul>
+  </ul>
 </div>
+
+<footer class="bg-dark text-light text-center py-3">
+  <small>&copy; Copyright 2025</small>
+</footer>
