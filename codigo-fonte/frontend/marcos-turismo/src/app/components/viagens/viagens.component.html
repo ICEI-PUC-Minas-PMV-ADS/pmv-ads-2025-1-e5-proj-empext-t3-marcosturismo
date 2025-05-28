@@ -1,22 +1,249 @@
 <app-sidebar></app-sidebar>
 
 <div class="container">
-    <div class="card">
-        <h2>Motorista: 
-            <input type="text" placeholder="Digite o nome do motorista" [(ngModel)]="motorista">
-        </h2>
-        <p>Tipo de Serviço: 
-            <select [(ngModel)]="tipoServico">
-                <option value="excursao">Excursão</option>
-                <option value="fretamento">Fretamento</option>
-            </select>
-        </p>
-        <p>Data de Início: <input type="date" [(ngModel)]="dataInicio"></p>
-        <p>Data de Volta: <input type="date" [(ngModel)]="dataVolta"></p>
+  <!-- Botão que abre o modal para “+ Adicionar Viagem” -->
+  <div style="display: flex; justify-content: flex-end; margin: 16px;">
+    <button class="btn incluir" (click)="openModal()">+ Adicionar Viagem</button>
+  </div>
 
-        <div class="button-container">
-            <button class="btn incluir" (click)="incluir()">Salvar</button>
-            <button class="btn excluir" (click)="excluir()">Excluir</button>
+  <!-- MODAL DE CADASTRO / EDIÇÃO (aparece apenas se showModalViagem for true) -->
+  <div
+    class="modal"
+    *ngIf="showModalViagem"
+    style="
+      display: flex;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <div
+      class="modal-content"
+      style="
+        background-color: #002f6c;
+        padding: 20px;
+        border-radius: 20px;
+        width: 500px;
+        color: white;
+        position: relative;
+      "
+    >
+      <!-- Botão “X” para fechar o modal -->
+      <span
+        class="close"
+        style="
+          color: red;
+          font-size: 24px;
+          cursor: pointer;
+          position: absolute;
+          top: 10px;
+          right: 15px;
+        "
+        (click)="closeModal()"
+        >×</span
+      >
+
+      <h2 *ngIf="!editingId" style="margin-bottom: 16px;">Cadastrar Viagem</h2>
+      <h2 *ngIf="editingId" style="margin-bottom: 16px;">Editar Viagem</h2>
+
+      <!-- FORMULÁRIO -->
+      <form (ngSubmit)="salvarViagem()">
+        <!-- Status -->
+        <p>
+          <label>Status:</label>
+          <select [(ngModel)]="status" name="status">
+            <option value="NaoIniciada">Não Iniciada</option>
+            <option value="EmAndamento">Em Andamento</option>
+            <option value="Finalizada">Finalizada</option>
+            <option value="Cancelada">Cancelada</option>
+          </select>
+        </p>
+
+        <!-- Distância -->
+        <p>
+          <label>Distância (km):</label>
+          <input
+            type="number"
+            [(ngModel)]="distancia"
+            name="distancia"
+            placeholder="Ex: 120"
+          />
+        </p>
+
+        <!-- Valor -->
+        <p>
+          <label>Valor (R$):</label>
+          <input
+            type="number"
+            [(ngModel)]="valor"
+            name="valor"
+            placeholder="Ex: 1500.00"
+          />
+        </p>
+
+        <!-- Data de Início -->
+        <p>
+          <label>Data de Início:</label>
+          <input type="date" [(ngModel)]="dataInicioStr" name="dataInicio" />
+        </p>
+
+        <!-- Data de Chegada -->
+        <p>
+          <label>Data de Chegada:</label>
+          <input type="date" [(ngModel)]="dataChegadaStr" name="dataChegada" />
+        </p>
+
+        <!-- Endereço de Saída -->
+        <p>
+          <label>Endereço de Saída:</label>
+          <input
+            type="text"
+            [(ngModel)]="enderecoSaida"
+            name="enderecoSaida"
+            placeholder="Ex: Belo Horizonte, MG"
+          />
+        </p>
+
+        <!-- Endereço de Destino -->
+        <p>
+          <label>Endereço de Destino:</label>
+          <input
+            type="text"
+            [(ngModel)]="enderecoDestino"
+            name="enderecoDestino"
+            placeholder="Ex: São Paulo, SP"
+          />
+        </p>
+
+        <!-- Tipo de Viagem -->
+        <p>
+          <label>Tipo de Viagem:</label>
+          <select [(ngModel)]="tipoViagem" name="tipoViagem">
+            <option value="Excursao">Excursão</option>
+            <option value="Fretamento">Fretamento</option>
+          </select>
+        </p>
+
+        <!-- Seleção de Veículo -->
+        <p>
+          <label>Veículo:</label>
+          <select [(ngModel)]="veiculoId" name="veiculo">
+            <option value="" disabled selected>Selecione um veículo</option>
+            <option *ngFor="let v of veiculos" [value]="v.id">
+              {{ v.placa }} – {{ v.modelo }} ({{ v.anoModelo }})
+            </option>
+          </select>
+        </p>
+
+        <!-- Seleção de Motorista -->
+        <p>
+          <label>Motorista:</label>
+          <select [(ngModel)]="motoristaId" name="motorista">
+            <option value="" disabled selected>Selecione um motorista</option>
+            <option *ngFor="let m of motoristas" [value]="m.id">
+              {{ m.nome }}
+            </option>
+          </select>
+        </p>
+
+        <!-- Seleção de Cliente -->
+        <p>
+          <label>Cliente:</label>
+          <select [(ngModel)]="clienteId" name="cliente">
+            <option value="" disabled selected>Selecione um cliente</option>
+            <option *ngFor="let c of clientes" [value]="c.id">
+              {{ c.nome }} – {{ c.cpfCnpj }}
+            </option>
+          </select>
+        </p>
+
+        <!-- Mensagens de erro (dentro do modal) -->
+        <p *ngIf="mensagemTipo === 'error'" class="msg-error">
+          {{ mensagem }}
+        </p>
+
+        <!-- Botões “Salvar” e “Cancelar” -->
+        <div
+          class="button-container"
+          style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;"
+        >
+          <button class="btn incluir" type="submit">
+            {{ editingId ? 'Atualizar' : 'Salvar' }}
+          </button>
+          <button
+            class="btn excluir"
+            type="button"
+            (click)="closeModal()"
+          >
+            Cancelar
+          </button>
         </div>
+      </form>
     </div>
+  </div>
+
+  <!-- LISTA DE VIAGENS -->
+  <div class="card" style="margin-top: 20px;">
+    <h2>Lista de Viagens</h2>
+
+    <table class="tabela-viagens" *ngIf="viagens.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Distância</th>
+          <th>Valor (R$)</th>
+          <th>Data Início</th>
+          <th>Data Chegada</th>
+          <th>Saída</th>
+          <th>Destino</th>
+          <th>Tipo</th>
+          <th>Veículo</th>
+          <th>Motorista</th>
+          <th>Cliente</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of viagens">
+          <td>{{ v.id }}</td>
+          <td>{{ v.status }}</td>
+          <td>{{ v.distancia }} km</td>
+          <td>R$ {{ v.valor }}</td>
+          <td>{{ v.dataInicio | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ v.dataChegada | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ v.enderecoSaida }}</td>
+          <td>{{ v.enderecoDestino }}</td>
+          <td>{{ v.tipoViagem }}</td>
+          <td>{{ v.veiculo }}</td>
+          <td>{{ v.motorista }}</td>
+          <td>{{ v.cliente }}</td>
+          <td style="display: flex; gap: 4px;">
+            <button class="btn incluir" (click)="editarViagem(v)">
+              Editar
+            </button>
+            <button class="btn incluir" (click)="iniciarViagem(v.id)">
+              Iniciar
+            </button>
+            <button class="btn incluir" (click)="finalizarViagem(v.id, 100)">
+              Finalizar
+            </button>
+            <button class="btn excluir" (click)="cancelarViagem(v.id)">
+              Cancelar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="viagens.length === 0" style="text-align: center;">
+      Nenhuma viagem cadastrada.
+    </p>
+  </div>
 </div>
