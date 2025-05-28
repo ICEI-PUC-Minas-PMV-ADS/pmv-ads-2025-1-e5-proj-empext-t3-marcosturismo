@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { Chart } from 'chart.js/auto';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { environment } from '../../../environments/environment';
-import { throwError, timer } from 'rxjs';
+import { of, throwError, timer } from 'rxjs';
 import { catchError, retryWhen, delayWhen, take } from 'rxjs/operators';
 
-// Interfaces para tipagem
+// Interfaces para tipagem conforme documentação dos endpoints
+
 interface TipoServico {
   id: string;
   descricao: string;
@@ -35,10 +36,17 @@ interface Gastos {
   [month: string]: number;
 }
 
+// Ajuste da interface para “manutenções pendentes” conforme JSON retornado
 interface PendingMaintenance {
   id: string;
-  veiculo: string;
-  data: string;
+  numeracao: string;
+  modelo: string;
+  marca: string;
+  anoModelo: string;
+  kmAtual: number;
+  situacao: string;
+  kmProxTrocaOleo: number;
+  kmProxTrocaPneu: number;
 }
 
 @Component({
@@ -54,7 +62,7 @@ export class DashboardComponent implements OnInit {
   activeVehicles: number = 0;
   pendingMaintenances: PendingMaintenance[] = [];
   maintenanceCosts: Gastos = {};
-  fuelCosts: Gastos = {}; // Corrigido de Gostoss para Gastos
+  fuelCosts: Gastos = {}; // Mantivemos, embora nos exemplos não tenha vindo rota de “gastos-abastecimento”
   servicos: Servico[] = [];
 
   private maintenanceChart: Chart | undefined;
@@ -74,7 +82,6 @@ export class DashboardComponent implements OnInit {
     this.loadFuelCosts();
     this.loadActiveVehicles();
     this.loadPendingMaintenances();
-
   }
 
   /**
@@ -85,6 +92,7 @@ export class DashboardComponent implements OnInit {
     if (!token) {
       this.errorMsg = 'Usuário não autenticado. Faça login novamente.';
       console.warn('Token não encontrado');
+      // Retornar cabeçalho vazio para evitar undefined
       return new HttpHeaders();
     }
     return new HttpHeaders({
@@ -93,7 +101,8 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
-   * Carrega os custos de manutenção.
+   * Carrega os custos de manutenção (últimos 6 meses).
+   * Em caso de erro, retorna um objeto com todos os meses mapeados para 0.
    */
   private loadMaintenanceCosts(): void {
     const headers = this.getAuthHeaders();
@@ -101,47 +110,69 @@ export class DashboardComponent implements OnInit {
       .pipe(
         retryWhen(errors => errors.pipe(delayWhen(() => timer(1000)), take(3))),
         catchError(error => {
-          this.errorMsg = 'Falha ao carregar custos de manutenção. Tente novamente.';
+          this.errorMsg = 'Falha ao carregar custos de manutenção. Valores definidos como zero.';
           console.error('Erro ao carregar gastos de manutenção:', error);
-          return throwError(() => error);
+          // Retorna um objeto vazio — mas depois de subscribir fazemos merge nos meses ausentes
+          return of({});
         })
       )
       .subscribe({
         next: (response) => {
-          this.maintenanceCosts = response;
-          const months = Object.keys(response);
-          const values = Object.values(response).map(Number);
+          // Se vier vazio ou parcialmente vazio, vamos preencher com 0 para os 6 meses correntes.
+          const filledGastos = this.fillLastSixMonthsWithZero(response);
+          this.maintenanceCosts = filledGastos;
+          const months = Object.keys(filledGastos);
+          const values = Object.values(filledGastos).map(Number);
           this.updateMaintenanceChart(months, values);
         }
       });
   }
 
   /**
-   * Carrega os custos de abastecimento.
+   * Carrega os custos de abastecimento (últimos 6 meses).
+   * Em caso de erro, retorna um objeto com todos os meses mapeados para 0.
    */
   private loadFuelCosts(): void {
-    const headers = this.getAuthHeaders(); // Corrigido, removido ", ارزیابی"
+    const headers = this.getAuthHeaders();
     this.http.get<Gastos>(`${environment.apiUrl}/dashboard/gastos-abastecimento`, { headers })
       .pipe(
         retryWhen(errors => errors.pipe(delayWhen(() => timer(1000)), take(3))),
         catchError(error => {
-          this.errorMsg = 'Falha ao carregar custos de abastecimento. Tente novamente.';
+          this.errorMsg = 'Falha ao carregar custos de abastecimento. Valores definidos como zero.';
           console.error('Erro ao carregar gastos com abastecimento:', error);
-          return throwError(() => error);
+          return of({});
         })
       )
       .subscribe({
         next: (response) => {
-          this.fuelCosts = response;
-          const months = Object.keys(response);
-          const values = Object.values(response).map(Number);
+          const filledGastos = this.fillLastSixMonthsWithZero(response);
+          this.fuelCosts = filledGastos;
+          const months = Object.keys(filledGastos);
+          const values = Object.values(filledGastos).map(Number);
           this.updateFuelChart(months, values);
         }
       });
   }
 
   /**
+   * Preenche os últimos seis meses (no formato MM-YYYY) com 0 caso estejam ausentes no objeto dado.
+   */
+  private fillLastSixMonthsWithZero(partial: Gastos): Gastos {
+    const result: Gastos = {};
+    const today = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const dt = new Date(today.getFullYear(), today.getMonth() - i, 1);
+      const mm = String(dt.getMonth() + 1).padStart(2, '0');
+      const yyyy = dt.getFullYear();
+      const key = `${mm}-${yyyy}`;
+      result[key] = partial[key] !== undefined ? partial[key] : 0;
+    }
+    return result;
+  }
+
+  /**
    * Carrega o número de veículos ativos.
+   * Em caso de erro, retorna 0.
    */
   private loadActiveVehicles(): void {
     const headers = this.getAuthHeaders();
@@ -149,9 +180,9 @@ export class DashboardComponent implements OnInit {
       .pipe(
         retryWhen(errors => errors.pipe(delayWhen(() => timer(1000)), take(3))),
         catchError(error => {
-          this.errorMsg = 'Falha ao carregar veículos ativos. Tente novamente.';
+          this.errorMsg = 'Falha ao carregar veículos ativos. Valor definido como zero.';
           console.error('Erro ao carregar veículos ativos:', error);
-          return throwError(() => error);
+          return of(0);
         })
       )
       .subscribe({
@@ -163,6 +194,7 @@ export class DashboardComponent implements OnInit {
 
   /**
    * Carrega as manutenções pendentes.
+   * Em caso de erro, retorna array vazio.
    */
   private loadPendingMaintenances(): void {
     const headers = this.getAuthHeaders();
@@ -170,9 +202,9 @@ export class DashboardComponent implements OnInit {
       .pipe(
         retryWhen(errors => errors.pipe(delayWhen(() => timer(1000)), take(3))),
         catchError(error => {
-          this.errorMsg = 'Falha ao carregar manutenções pendentes. Tente novamente.';
+          this.errorMsg = 'Falha ao carregar manutenções pendentes. Lista ficará vazia.';
           console.error('Erro ao carregar manutenções pendentes:', error);
-          return throwError(() => error);
+          return of([]);
         })
       )
       .subscribe({
@@ -181,11 +213,6 @@ export class DashboardComponent implements OnInit {
         }
       });
   }
-
-  /**
-   * Carrega os serviços.
-   */
-  
 
   /**
    * Carrega um tipo de serviço específico (usado para mapear tipoServicoId).

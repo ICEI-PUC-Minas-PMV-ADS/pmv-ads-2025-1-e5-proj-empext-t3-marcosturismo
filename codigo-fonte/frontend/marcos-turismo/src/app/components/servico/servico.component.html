@@ -3,7 +3,6 @@
   <h1>Serviços</h1>
   <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
-  <!-- Container responsivo para a tabela -->
   <div class="table-responsive">
     <table *ngIf="servicos?.length; else emptyList" class="table">
       <thead>
@@ -13,7 +12,7 @@
           <th>KM Próx. Troca Óleo</th>
           <th>KM Próx. Troca Pneus</th>
           <th>Descrição</th>
-          <th>ID Veículo</th>
+          <th>Número Veículo</th>
           <th>Serviços Realizados</th>
           <th>Ações</th>
         </tr>
@@ -24,17 +23,12 @@
           <td>{{ s.kmVeiculo }} km</td>
           <td>{{ s.kmProxTrocaOleo }} km</td>
           <td>{{ s.kmProxTrocaPneu }} km</td>
-
-          <!-- Descrição: agora dentro de uma div scrollable -->
           <td>
             <div class="scrollable-cell">
               {{ s.descricao }}
             </div>
           </td>
-
-          <td>{{ s.veiculoId }}</td>
-
-          <!-- Serviços Realizados: caixa rolável -->
+          <td>{{ s.veiculoNumeracao }}</td>
           <td>
             <div class="scrollable-cell">
               <ul>
@@ -45,10 +39,8 @@
               </ul>
             </div>
           </td>
-
           <td>
             <div class="acoes-btns">
-              <button class="btn-action btn-save" (click)="editarServico(s)">Editar</button>
               <button class="btn-action btn-cancel" (click)="excluirServico(s.id!)">Excluir</button>
             </div>
           </td>
@@ -63,14 +55,12 @@
 
   <button class="btn-mais" (click)="openModal()">+</button>
 
-  <!-- Modal para adicionar ou editar serviço -->
   <div class="modal" [class.show]="showModal">
     <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>{{ editingId ? 'Editar Serviço' : 'Adicionar Serviço' }}</h2>
+      <span class="close" (click)="closeModal()">×</span>
+      <h2>Adicionar Serviço</h2>
 
       <form (ngSubmit)="salvar()" #f="ngForm">
-        <!-- Data do Serviço -->
         <div class="form-group">
           <label for="dataServico">Data do Serviço:</label>
           <input
@@ -81,8 +71,6 @@
             required
           />
         </div>
-
-        <!-- KM Veículo -->
         <div class="form-group">
           <label for="kmVeiculo">KM Veículo:</label>
           <input
@@ -93,8 +81,6 @@
             required
           />
         </div>
-
-        <!-- KM Próxima Troca de Óleo -->
         <div class="form-group">
           <label for="kmProxTrocaOleo">KM Próx. Troca Óleo:</label>
           <input
@@ -105,8 +91,6 @@
             required
           />
         </div>
-
-        <!-- KM Próxima Troca de Pneus -->
         <div class="form-group">
           <label for="kmProxTrocaPneu">KM Próx. Troca Pneus:</label>
           <input
@@ -117,8 +101,6 @@
             required
           />
         </div>
-
-        <!-- Descrição -->
         <div class="form-group">
           <label for="descricao">Descrição:</label>
           <textarea
@@ -129,8 +111,6 @@
             required
           ></textarea>
         </div>
-
-        <!-- Seleção de Veículo -->
         <div class="form-group">
           <label for="veiculoId">Veículo:</label>
           <select
@@ -144,8 +124,6 @@
             </option>
           </select>
         </div>
-
-        <!-- Serviços Realizados -->
         <div class="servicos-realizados">
           <h3>Serviços Realizados</h3>
           <button type="button" class="btn-add-realizado" (click)="addRealizado()">+ Adicionar</button>
@@ -180,15 +158,9 @@
             <button type="button" class="btn-remove-realizado" (click)="removeRealizado(i)">Remover</button>
           </div>
         </div>
-
-        <!-- Botões de Ação -->
         <div class="buttons">
-          <button type="button" class="btn-action btn-cancel" (click)="closeModal()">
-            Cancelar
-          </button>
-          <button type="submit" class="btn-action btn-save">
-            {{ editingId ? 'Atualizar' : 'Salvar' }}
-          </button>
+          <button type="button" class="btn-action btn-cancel" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn-action btn-save">Salvar</button>
         </div>
       </form>
     </div>
