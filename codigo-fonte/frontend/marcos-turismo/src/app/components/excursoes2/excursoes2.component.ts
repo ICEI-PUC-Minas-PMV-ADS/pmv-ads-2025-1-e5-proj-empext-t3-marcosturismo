@@ -10,26 +10,25 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { environment } from '../../../environments/environment';
 
 /**
- * Interface com o formato exato que o endpoint GET /excursao
- * retorna. Ajuste conforme o JSON do seu back‑end.
+ * Interface com o formato exato que o endpoint GET /excursao retorna.
  */
 interface ExcursaoApi {
   id?: string;
   titulo: string;
   descricao: string;
-  dataExcursao?: number; // por exemplo, timestamp em milissegundos
-  imagem?: string;       // URL da imagem ou null
+  dataExcursao?: number;
+  imgUrl?: string; // URL da imagem no backend
 }
 
 /**
- * View model que o template espera (mesmo nome de propriedades do HTML).
+ * Interface que representa como os dados serão exibidos no template.
  */
 interface ExcursaoView {
   id?: string;
   nome: string;
   descricao: string;
-  data: string;       // string formatada em "dd/mm/aaaa"
-  imagem: string;     // URL ou placeholder
+  data: string;
+  imgUrl: string;
   mostrarInfo: boolean;
 }
 
@@ -46,8 +45,8 @@ export class Excursoes2Component implements OnInit {
   carregando = false;
   nenhumEncontrado = false;
 
-  // Para GET público de todas as excursões:
-  private baseUrl = `${environment.apiUrl}/excursao/upcoming?date=1742430548303`;
+  // Endpoint público das excursões
+  private baseUrl = `${environment.apiUrl}/excursao/upcoming?date=${Date.now()}`;
 
   constructor(private http: HttpClient) {}
 
@@ -61,20 +60,17 @@ export class Excursoes2Component implements OnInit {
     this.nenhumEncontrado = false;
     this.excursaoList = [];
 
-    // Chamamos GET /excursao e observamos a resposta completa
     this.http
       .get<ExcursaoApi[] | null>(this.baseUrl, { observe: 'response' })
       .subscribe({
         next: (response: HttpResponse<ExcursaoApi[] | null>) => {
           this.carregando = false;
 
-          // Se 204 ou body nulo, não há dados
           if (response.status === 204 || !response.body) {
             this.nenhumEncontrado = true;
             return;
           }
 
-          // response.body é possivelmente um array de ExcursaoApi
           const listaApi = Array.isArray(response.body) ? response.body : [];
 
           if (!listaApi.length) {
@@ -82,7 +78,6 @@ export class Excursoes2Component implements OnInit {
             return;
           }
 
-          // Convertemos cada ExcursaoApi para ExcursaoView
           this.excursaoList = listaApi.map(e => ({
             id: e.id,
             nome: e.titulo,
@@ -90,7 +85,7 @@ export class Excursoes2Component implements OnInit {
             data: e.dataExcursao
               ? new Date(e.dataExcursao).toLocaleDateString('pt-BR')
               : '—',
-            imagem: e.imagem || 'assets/imagens/placeholder.jpg',
+            imgUrl: e.imgUrl ||  'assets/imagens/placeholder.jpg',
             mostrarInfo: false
           }));
         },

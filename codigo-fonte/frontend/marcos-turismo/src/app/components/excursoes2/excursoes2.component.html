@@ -6,7 +6,7 @@
     <h2>Cada destino é uma nova história para contar.</h2>
   </header>
 
-  <!-- Estado de carregamento -->
+  <!-- Mensagem de carregamento -->
   <div *ngIf="carregando" class="my-4 text-center">
     <p>Carregando excursões...</p>
   </div>
@@ -16,46 +16,46 @@
     {{ erro }}
   </div>
 
-  <!-- Caso não haja erro e nem dados -->
+  <!-- Nenhuma excursão encontrada -->
   <div *ngIf="!carregando && !erro && nenhumEncontrado" class="alert alert-info my-3">
     Nenhuma excursão encontrada no momento.
   </div>
 
-  <!-- Lista de cards de excursões -->
+  <!-- Lista de excursões -->
   <section class="excursao-cards" *ngIf="!carregando && !erro && !nenhumEncontrado">
     <div class="excursao-card" *ngFor="let excursao of excursaoList">
       <div class="excursao">
         <img
-          [src]="excursao.imagem"
+          [src]="excursao.imgUrl || 'assets/imagens/imagem-padrao.jpg'"
           alt="{{ excursao.nome }}"
           class="excursao-img"
-        >
+        />
         <h2>{{ excursao.nome }}</h2>
         <p><strong>Descrição:</strong> {{ excursao.descricao }}</p>
         <p><strong>Data da Excursão:</strong> {{ excursao.data }}</p>
 
-        <button class="btn btn-outline-primary btn-sm" (click)="mostrarDetalhes(excursao)">
+        <button (click)="mostrarDetalhes(excursao)">
           {{ excursao.mostrarInfo ? 'Ocultar detalhes' : 'Ver detalhes' }}
         </button>
 
-        <div *ngIf="excursao.mostrarInfo" class="detalhes-excursao mt-2">
+        <div *ngIf="excursao.mostrarInfo" class="detalhes-excursao">
           <h3>Detalhes da Excursão</h3>
           <p><strong>Data:</strong> {{ excursao.data }}</p>
-          <!-- Caso você tenha mais campos na API, pode exibi-los aqui -->
+          <p><strong>Descrição completa:</strong> {{ excursao.descricao }}</p>
         </div>
       </div>
     </div>
   </section>
 </div>
 
-<!-- Botão flutuante do WhatsApp -->
+<!-- Botão WhatsApp -->
 <div class="whatsapp-container">
   <a href="https://wa.me/558791103345" target="_blank">
-    <img src="whatsapp (1).png" alt="WhatsApp" class="whatsapp-icon">
+    <img src="assets/imagens/whatsapp.png" alt="WhatsApp" class="whatsapp-icon" />
   </a>
 </div>
 
 <!-- Rodapé -->
-<footer class="bg-dark text-light text-center py-3">
-  <small>&copy; Copyright 2025</small>
+<footer>
+  <small>&copy; 2025 | Todos os direitos reservados</small>
 </footer>
