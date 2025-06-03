@@ -12,9 +12,6 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { environment } from '../../../environments/environment';
 
-/**
- * Interface simplificada para Excursão (sem veiculo).
- */
 interface Excursao {
   id?: string;
   data: string;             // 'yyyy-MM-dd'
@@ -33,7 +30,7 @@ interface Excursao {
   styleUrls: ['./excursoes.component.css'],
 })
 export class ExcursoesComponent implements OnInit {
-  private baseUrl = `${environment.apiUrl}/excursao`;
+  private baseUrl: string = `${environment.apiUrl}/excursao`;
 
   excursoes: Excursao[] = [];
   excursaoForm: Excursao = this.resetForm();
@@ -70,27 +67,21 @@ export class ExcursoesComponent implements OnInit {
   }
 
   /**
-   * 1) Carrega excursões futuras (GET /excursao?date=<now>).
-   *    Converte dataExcursao (ms) → string 'yyyy-MM-dd' e imgUrl → imagemUrl.
+   * 1) Carrega todas as excursões (GET /excursao) — requer token.
    */
   carregarExcursoes(): void {
-    const timestampNow = Date.now().toString();
-    const urlComTimestamp = `${this.baseUrl}?date=${timestampNow}`;
-
-    this.http.get<any[]>(urlComTimestamp, { headers: this.getAuthHeaders() })
+    this.http.get<any[]>(`${this.baseUrl}`, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (data) => {
           if (Array.isArray(data)) {
             this.excursoes = data.map(e => {
-              // Converte dataExcursao (ms) em string 'yyyy-MM-dd'
               let formattedDate = '';
-              if ((e as any).dataExcursao) {
-                const candidate = new Date((e as any).dataExcursao);
-                if (!isNaN(candidate.getTime())) {
-                  formattedDate = candidate.toISOString().substring(0, 10);
+              if (e.dataExcursao) {
+                const d = new Date(e.dataExcursao);
+                if (!isNaN(d.getTime())) {
+                  formattedDate = d.toISOString().substring(0, 10);
                 }
               }
-
               return {
                 id:        e.id,
                 titulo:    e.titulo,
@@ -113,7 +104,7 @@ export class ExcursoesComponent implements OnInit {
   }
 
   /**
-   * 2) Abre o modal para criar (sem parâmetro) ou editar (com parâmetro).
+   * 2) Abre o modal para criar/editar.
    */
   openModal(excursao?: Excursao): void {
     this.showModal = true;
@@ -149,7 +140,8 @@ export class ExcursoesComponent implements OnInit {
   }
 
   /**
-   * 3) “Salvar” no modal: monta FormData e faz POST (criação) ou PUT (edição).
+   * 3) Salvar (criar ou editar) usando multipart/form-data.
+   *     — Se não houver imagem selecionada, usamos um PNG 1×1 transparente (base64) como placeholder.
    */
   salvar(): void {
     const formData = new FormData();
@@ -163,11 +155,21 @@ export class ExcursoesComponent implements OnInit {
     formData.append('dataExcursao', timestamp);
 
     if (this.imagemSelecionada) {
+      // Se o usuário escolheu um arquivo, envia ele diretamente
       formData.append('file', this.imagemSelecionada);
     } else {
-      // Envia um Blob vazio para não quebrar no backend
-      const blobVazio = new Blob([], { type: 'application/octet-stream' });
-      formData.append('file', blobVazio, 'placeholder.txt');
+      // Senão, convertemos um PNG transparente mínimamente válido (1x1) para Blob
+      const placeholderBase64 = 
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=';
+      const byteCharacters = atob(placeholderBase64);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blobImg = new Blob([byteArray], { type: 'image/png' });
+      // Nome do arquivo: placeholder.png — o backend vai aceitar image/png
+      formData.append('file', blobImg, 'placeholder.png');
     }
 
     const headers = this.getAuthHeaders();
@@ -194,7 +196,7 @@ export class ExcursoesComponent implements OnInit {
         this.mostrarMensagem(
           this.editingId
             ? 'Excursão atualizada com sucesso!'
-            : 'Excursão criada com sucesso!',
+            : 'Excursão registrada com sucesso!',
           'sucesso'
         );
         this.closeModal();
@@ -202,8 +204,9 @@ export class ExcursoesComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         let msg = 'Erro ao salvar excursão. Veja console para detalhes.';
-        if (err.status === 400 && err.error && typeof err.error === 'object' && err.error.erro) {
-          msg = err.error.erro;
+        // Se o backend retornar um JSON com { erro: "mensagem" }
+        if (err.status === 400 && err.error && (err.error as any).erro) {
+          msg = (err.error as any).erro;
         }
         console.error('Erro ao salvar via modal:', err);
         this.mostrarMensagem(msg, 'erro');
@@ -224,14 +227,14 @@ export class ExcursoesComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.excursoes = this.excursoes.filter(e => e.id !== id);
-          const mensagem = (res && res.mensagem) ? res.mensagem : 'Excursão excluída com sucesso!';
+          const mensagem = (res && (res as any).mensagem) ? (res as any).mensagem : 'Excursão excluída com sucesso!';
           this.mostrarMensagem(mensagem, 'sucesso');
         },
         error: (err) => {
           console.error('Erro ao excluir excursão:', err);
           let msg = 'Erro ao excluir excursão.';
-          if (err.status === 404 && err.error && err.error.erro) {
-            msg = err.error.erro;
+          if (err.status === 404 && err.error && (err.error as any).erro) {
+            msg = (err.error as any).erro;
           }
           this.mostrarMensagem(msg, 'erro');
         }
@@ -248,12 +251,10 @@ export class ExcursoesComponent implements OnInit {
   }
 
   /**
-   * 4) Adiciona um card inline para criação rápida (sem veículo).
+   * 4) Adiciona um card inline (sem veículo). Depois, ao “confirmar”, também manda multipart/form-data.
    */
   adicionarCard(): void {
-    console.log('Criando novo card inline (sem veículo).');
     const hojeStr = new Date().toISOString().substring(0, 10);
-
     const novoCard: Excursao = {
       titulo: '',
       descricao: '',
@@ -262,7 +263,6 @@ export class ExcursoesComponent implements OnInit {
       imagem: 'assets/imagens/placeholder.jpg',
       isNew: true
     };
-
     this.excursoes.push(novoCard);
     this.cdref.detectChanges();
   }
@@ -276,9 +276,7 @@ export class ExcursoesComponent implements OnInit {
 
   selecionarImagem(event: any, index: number): void {
     const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
+    if (!file) { return; }
     const reader = new FileReader();
     reader.onload = (e: any) => {
       this.excursoes[index].imagem = e.target.result;
@@ -295,15 +293,24 @@ export class ExcursoesComponent implements OnInit {
     formData.append('titulo', excursao.titulo);
     formData.append('descricao', excursao.descricao);
 
-    const candidateDate = new Date(excursao.data);
-    const timestamp = !isNaN(candidateDate.getTime()) ? candidateDate.getTime().toString() : '';
+    const date = new Date(excursao.data);
+    const timestamp = !isNaN(date.getTime()) ? date.getTime().toString() : '';
     formData.append('dataExcursao', timestamp);
 
     if (excursao.imagem instanceof File) {
       formData.append('file', excursao.imagem);
     } else {
-      const blobVazio = new Blob([], { type: 'application/octet-stream' });
-      formData.append('file', blobVazio, 'placeholder.txt');
+      // Mesmo PNG transparente base64, se usuário não escolheu imagem
+      const placeholderBase64 = 
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=';
+      const byteCharacters = atob(placeholderBase64);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blobImg = new Blob([byteArray], { type: 'image/png' });
+      formData.append('file', blobImg, 'placeholder.png');
     }
 
     if (excursao.isNew) {
@@ -320,12 +327,12 @@ export class ExcursoesComponent implements OnInit {
               isNew:     false
             };
             this.excursoes[index] = nova;
-            this.mostrarMensagem('Excursão criada com sucesso!', 'sucesso');
+            this.mostrarMensagem('Excursão registrada com sucesso!', 'sucesso');
           },
           error: (err: HttpErrorResponse) => {
             let msg = 'Erro ao criar excursão. Veja console para detalhes.';
-            if (err.status === 400 && err.error && typeof err.error === 'object' && err.error.erro) {
-              msg = err.error.erro;
+            if (err.status === 400 && err.error && (err.error as any).erro) {
+              msg = (err.error as any).erro;
             }
             console.error('Erro ao criar excursão:', err);
             this.mostrarMensagem(msg, 'erro');
@@ -348,8 +355,8 @@ export class ExcursoesComponent implements OnInit {
           },
           error: (err: HttpErrorResponse) => {
             let msg = 'Erro ao atualizar excursão. Veja console para detalhes.';
-            if (err.status === 400 && err.error && typeof err.error === 'object' && err.error.erro) {
-              msg = err.error.erro;
+            if (err.status === 400 && err.error && (err.error as any).erro) {
+              msg = (err.error as any).erro;
             }
             console.error('Erro ao atualizar excursão:', err);
             this.mostrarMensagem(msg, 'erro');
@@ -380,14 +387,14 @@ export class ExcursoesComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.excursoes.splice(index, 1);
-            const mensagem = (res && res.mensagem) ? res.mensagem : 'Excursão excluída com sucesso!';
+            const mensagem = (res && (res as any).mensagem) ? (res as any).mensagem : 'Excursão excluída com sucesso!';
             this.mostrarMensagem(mensagem, 'sucesso');
           },
           error: (err) => {
             console.error('Erro ao excluir excursão:', err);
             let msg = 'Erro ao excluir excursão.';
-            if (err.status === 404 && err.error && err.error.erro) {
-              msg = err.error.erro;
+            if (err.status === 404 && err.error && (err.error as any).erro) {
+              msg = (err.error as any).erro;
             }
             this.mostrarMensagem(msg, 'erro');
           }
