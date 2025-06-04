@@ -28,24 +28,20 @@ export class AvaliacaoComponent implements OnInit {
 
   // Função para carregar avaliações (as que vêm do componente Historia)
   carregarAvaliacoes(): void {
-    forkJoin([
-      this.http.get(`${this.apiUrl}`, { headers: this.getAuthHeaders() }),  // Endereço correto da API
-      this.http.get(`${this.apiUrl}/validas`, {})
-    ]).subscribe(
-      ([avaliacoes, avaliacoesValidas]) => {
-        console.log('Avaliações:', avaliacoes);
-        console.log('Avaliações válidas:', avaliacoesValidas);
+  this.http.get<any[]>(`${this.apiUrl}`, { headers: this.getAuthHeaders() }).subscribe(
+    (avaliacoes) => {
+      console.log('Todas as avaliações:', avaliacoes);
 
-        //Verificando se a resposta é um array e atualizando o estado
-        this.avaliacoes = Array.isArray(avaliacoes) ? avaliacoes : [];
-        this.avaliacoesValidas = Array.isArray(avaliacoesValidas) ? avaliacoesValidas : [];
-      },
-      (error) => {
-        console.error('Erro ao listar avaliações:', error);
-        alert('Erro ao carregar avaliações');
-      }
-    );
-  }
+      // Filtra as avaliações por status
+      this.avaliacoes = avaliacoes.filter(avaliacao => avaliacao.status === 'AValidar');
+      this.avaliacoesValidas = avaliacoes.filter(avaliacao => avaliacao.status === 'Valida');
+    },
+    (error) => {
+      console.error('Erro ao listar avaliações:', error);
+      alert('Erro ao carregar avaliações');
+    }
+  );
+}
 
   // Função para validar avaliação
   validarAvaliacao(avaliacaoId: string): void {
