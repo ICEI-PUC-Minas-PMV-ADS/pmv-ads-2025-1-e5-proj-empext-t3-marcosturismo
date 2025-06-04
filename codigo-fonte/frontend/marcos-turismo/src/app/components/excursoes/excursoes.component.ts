@@ -1,29 +1,15 @@
 import {
   Component,
-  OnInit,
-  ChangeDetectorRef,
-  ViewChildren,
-  QueryList,
   ElementRef,
+  QueryList,
+  ViewChildren,
+  OnInit,
 } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { environment } from '../../../environments/environment';
-
-/**
- * Interface simplificada para Excursão (sem veiculo).
- */
-interface Excursao {
-  id?: string;
-  data: string;             // 'yyyy-MM-dd'
-  titulo: string;
-  descricao: string;
-  imagemUrl?: string;
-  imagem?: string | File;
-  isNew?: boolean;
-}
 
 @Component({
   selector: 'app-excursoes',
@@ -33,374 +19,316 @@ interface Excursao {
   styleUrls: ['./excursoes.component.css'],
 })
 export class ExcursoesComponent implements OnInit {
-  private baseUrl = `${environment.apiUrl}/excursao`;
+  hoje: string = new Date().toISOString().split('T')[0];
 
-  excursoes: Excursao[] = [];
-  excursaoForm: Excursao = this.resetForm();
-  imagemSelecionada: File | null = null;
+  excursoes: any[] = [];
+  excursaoForm: any = {
+    id: null,
+    dataExcursao: '',
+    titulo: '',
+    descricao: '',
+    // Não precisamos mais de imagemBase64 aqui, pois vamos enviar via FormData
+  };
+  showModal: boolean = false;
   editingId: string | null = null;
-  showModal = false;
-  errorMsg: string | null = null;
-  mensagem: string = '';
-  tipoMensagem: 'sucesso' | 'erro' = 'sucesso';
+  errorMsg: string = '';
 
-  @ViewChildren('inputUpload') uploads!: QueryList<ElementRef<HTMLInputElement>>;
+  // Para abrir a janela de seleção de arquivo em cada card (edição inline)
+  @ViewChildren('inputUpload') inputUploadElements!: QueryList<ElementRef>;
 
-  constructor(private http: HttpClient, private cdref: ChangeDetectorRef) {}
+  // Em vez de armazenar base64, vamos armazenar o File que o usuário selecionou
+  arquivoParaEnvio: File | null = null;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.carregarExcursoes();
+    this.buscarExcursoes();
   }
 
-  private resetForm(): Excursao {
-    return {
-      data: '',
-      titulo: '',
-      descricao: '',
-    };
-  }
+  // -----------------------------------------------------
+  // 1. BUSCAR TODAS AS EXCURSÕES (GET /excursao)
+  // -----------------------------------------------------
+  buscarExcursoes(): void {
+    const token = localStorage.getItem('token') || '';
+    if (!token) {
+      this.errorMsg = 'Não há token de autenticação.';
+      return;
+    }
 
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = this.isBrowser() ? localStorage.getItem('token') || '' : '';
-    return new HttpHeaders({ Authorization: `Bearer ${token}` });
-  }
-
-  /**
-   * 1) Carrega excursões futuras (GET /excursao?date=<now>).
-   *    Converte dataExcursao (ms) → string 'yyyy-MM-dd' e imgUrl → imagemUrl.
-   */
-  carregarExcursoes(): void {
-    const timestampNow = Date.now().toString();
-    const urlComTimestamp = `${this.baseUrl}?date=${timestampNow}`;
-
-    this.http.get<any[]>(urlComTimestamp, { headers: this.getAuthHeaders() })
+    this.http
+      .get<any[]>(`${environment.apiUrl}/excursao`, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      })
       .subscribe({
         next: (data) => {
-          if (Array.isArray(data)) {
-            this.excursoes = data.map(e => {
-              // Converte dataExcursao (ms) em string 'yyyy-MM-dd'
-              let formattedDate = '';
-              if ((e as any).dataExcursao) {
-                const candidate = new Date((e as any).dataExcursao);
-                if (!isNaN(candidate.getTime())) {
-                  formattedDate = candidate.toISOString().substring(0, 10);
-                }
-              }
-
-              return {
-                id:        e.id,
-                titulo:    e.titulo,
-                descricao: e.descricao,
-                data:      formattedDate,
-                imagemUrl: e.imgUrl || 'assets/imagens/placeholder.jpg',
-                isNew:     false
-              } as Excursao;
-            });
-          } else {
-            this.excursoes = [];
-          }
-          this.cdref.detectChanges();
+          // O backend retorna lista de Excursao, cada uma com: id, titulo, descricao, dataExcursao, imgUrl, etc.
+          this.excursoes = data.map((e) => ({
+            ...e,
+            isNew: false,
+          }));
         },
         error: (err) => {
-          console.error('Erro ao carregar excursões:', err);
+          console.error('Erro ao chamar GET /excursao:', err);
           this.errorMsg = 'Erro ao carregar excursões.';
-        }
+        },
       });
   }
 
-  /**
-   * 2) Abre o modal para criar (sem parâmetro) ou editar (com parâmetro).
-   */
-  openModal(excursao?: Excursao): void {
-    this.showModal = true;
-    this.imagemSelecionada = null;
-
-    if (excursao) {
-      this.editingId = excursao.id || null;
-      this.excursaoForm = {
-        id:        excursao.id,
-        data:      excursao.data,
-        titulo:    excursao.titulo,
-        descricao: excursao.descricao,
-        imagemUrl: excursao.imagemUrl
-      } as Excursao;
-    } else {
-      this.editingId = null;
-      this.excursaoForm = this.resetForm();
-    }
-  }
-
-  closeModal(): void {
-    this.showModal = false;
-    this.excursaoForm = this.resetForm();
-    this.editingId = null;
-    this.imagemSelecionada = null;
-  }
-
-  onFileChange(event: any): void {
-    const file = event.target.files?.[0];
-    if (file) {
-      this.imagemSelecionada = file;
-    }
-  }
-
-  /**
-   * 3) “Salvar” no modal: monta FormData e faz POST (criação) ou PUT (edição).
-   */
-  salvar(): void {
-    const formData = new FormData();
-    formData.append('titulo', this.excursaoForm.titulo);
-    formData.append('descricao', this.excursaoForm.descricao);
-
-    const candidateDate = new Date(this.excursaoForm.data);
-    const timestamp = !isNaN(candidateDate.getTime())
-      ? candidateDate.getTime().toString()
-      : '';
-    formData.append('dataExcursao', timestamp);
-
-    if (this.imagemSelecionada) {
-      formData.append('file', this.imagemSelecionada);
-    } else {
-      // Envia um Blob vazio para não quebrar no backend
-      const blobVazio = new Blob([], { type: 'application/octet-stream' });
-      formData.append('file', blobVazio, 'placeholder.txt');
-    }
-
-    const headers = this.getAuthHeaders();
-    let request$;
-
-    if (this.editingId) {
-      // PUT /excursao/{id}
-      request$ = this.http.put<any>(
-        `${this.baseUrl}/${this.editingId}`,
-        formData,
-        { headers }
-      );
-    } else {
-      // POST /excursao
-      request$ = this.http.post<any>(
-        this.baseUrl,
-        formData,
-        { headers }
-      );
-    }
-
-    request$.subscribe({
-      next: (res) => {
-        this.mostrarMensagem(
-          this.editingId
-            ? 'Excursão atualizada com sucesso!'
-            : 'Excursão criada com sucesso!',
-          'sucesso'
-        );
-        this.closeModal();
-        this.carregarExcursoes();
-      },
-      error: (err: HttpErrorResponse) => {
-        let msg = 'Erro ao salvar excursão. Veja console para detalhes.';
-        if (err.status === 400 && err.error && typeof err.error === 'object' && err.error.erro) {
-          msg = err.error.erro;
-        }
-        console.error('Erro ao salvar via modal:', err);
-        this.mostrarMensagem(msg, 'erro');
-      }
+  // -----------------------------------------------------
+  // 2. ABRIR FORMULÁRIO DE NOVA EXCURSÃO
+  //    Insere um "card vazio" no topo, com isNew = true
+  // -----------------------------------------------------
+  adicionarCard(): void {
+    this.excursoes.unshift({
+      id: null,
+      dataExcursao: '',
+      titulo: '',
+      descricao: '',
+      imgUrl: '',
+      isNew: true,
+      arquivo: null, // guardaremos aqui o File até o confirm
     });
   }
 
-  editarExcursao(exc: Excursao): void {
-    this.openModal(exc);
+  cancelarCard(index: number): void {
+    this.excursoes.splice(index, 1);
   }
 
+  // -----------------------------------------------------
+  // 3. CONFIRMAR CRIAÇÃO OU EDIÇÃO INLINE (sem modal)
+  //    Envia multipart/form-data para POST /excursao ou PUT /excursao/{id}
+  // -----------------------------------------------------
+  confirmarCard(index: number): void {
+    const card = this.excursoes[index];
+    const token = localStorage.getItem('token') || '';
+    if (!token) {
+      this.errorMsg = 'Usuário não autenticado.';
+      return;
+    }
+
+    // Validações mínimas:
+    if (!card.titulo || !card.dataExcursao || !card.descricao) {
+      this.errorMsg = 'Todos os campos obrigatórios devem ser preenchidos.';
+      return;
+    }
+
+    // Monta FormData:
+    const formData = new FormData();
+    formData.append('titulo', card.titulo);
+    formData.append('descricao', card.descricao);
+    // O backend espera 'dataExcursao' como string (milissegundos desde Epoch). Convertamos:
+    // card.dataExcursao é no formato YYYY-MM-DD => transformamos em timestamp:
+    const dataMillis = new Date(card.dataExcursao).getTime().toString();
+    formData.append('dataExcursao', dataMillis);
+
+    // Se o usuário selecionou arquivo (no card.arquivo), enviamos:
+    if (card.arquivo) {
+      formData.append('file', card.arquivo, card.arquivo.name);
+    }
+
+    // Escolhe o método POST ou PUT:
+    let req$;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    if (card.id) {
+      // Edição de existente
+      req$ = this.http.put(
+        `${environment.apiUrl}/excursao/${card.id}`,
+        formData,
+        { headers }
+      );
+    } else {
+      // Nova excursão
+      req$ = this.http.post(`${environment.apiUrl}/excursao`, formData, {
+        headers,
+      });
+    }
+
+    req$.subscribe({
+      next: () => {
+        // Recarrega a lista após sucesso
+        this.buscarExcursoes();
+      },
+      error: (err) => {
+        console.error('Erro ao salvar excursão:', err);
+        this.errorMsg = 'Erro ao salvar excursão.';
+      },
+    });
+  }
+
+  // -----------------------------------------------------
+  // 4. CAPTURAR ARQUIVO QUANDO O USUÁRIO CLICA NO INPUT DE UM CARD
+  // -----------------------------------------------------
+  selecionarImagem(event: any, index: number): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      // Validações básicas de tamanho e tipo (mesmo que o backend valide novamente)
+      if (file.size > 10 * 1024 * 1024) {
+        this.errorMsg = 'Imagem excede 10MB.';
+        return;
+      }
+      const tipo = file.type;
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(tipo)) {
+        this.errorMsg = 'Formato de imagem não suportado.';
+        return;
+      }
+
+      this.excursoes[index].arquivo = file;
+      // Opcional: poderíamos mostrar uma prévia local usando FileReader, mas não é estritamente necessário
+    }
+  }
+
+  // -----------------------------------------------------
+  // 5. ABRIR SELETOR DE ARQUIVO VIA botão "Carregar Imagem" de cada card
+  // -----------------------------------------------------
+  abrirUpload(index: number): void {
+    const input = this.inputUploadElements.toArray()[index].nativeElement;
+    input.click();
+  }
+
+  // -----------------------------------------------------
+  // 6. EXCLUIR EXCURSÃO (DELETE /excursao/{id})
+  // -----------------------------------------------------
   excluirExcursao(id: string): void {
     if (!confirm('Tem certeza que deseja excluir esta excursão?')) {
       return;
     }
-    const headers = this.getAuthHeaders();
-    this.http.delete<any>(`${this.baseUrl}/${id}`, { headers })
+
+    const token = localStorage.getItem('token') || '';
+    if (!token) {
+      this.errorMsg = 'Usuário não autenticado.';
+      return;
+    }
+
+    this.http
+      .delete(`${environment.apiUrl}/excursao/${id}`, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      })
       .subscribe({
-        next: (res) => {
-          this.excursoes = this.excursoes.filter(e => e.id !== id);
-          const mensagem = (res && res.mensagem) ? res.mensagem : 'Excursão excluída com sucesso!';
-          this.mostrarMensagem(mensagem, 'sucesso');
-        },
+        next: () => this.buscarExcursoes(),
         error: (err) => {
           console.error('Erro ao excluir excursão:', err);
-          let msg = 'Erro ao excluir excursão.';
-          if (err.status === 404 && err.error && err.error.erro) {
-            msg = err.error.erro;
-          }
-          this.mostrarMensagem(msg, 'erro');
-        }
+          this.errorMsg = 'Erro ao excluir excursão.';
+        },
       });
   }
 
-  private mostrarMensagem(texto: string, tipo: 'sucesso' | 'erro'): void {
-    this.mensagem = texto;
-    this.tipoMensagem = tipo;
-    setTimeout(() => {
-      this.mensagem = '';
-      this.tipoMensagem = 'sucesso';
-    }, 4000);
-  }
-
-  /**
-   * 4) Adiciona um card inline para criação rápida (sem veículo).
-   */
-  adicionarCard(): void {
-    console.log('Criando novo card inline (sem veículo).');
-    const hojeStr = new Date().toISOString().substring(0, 10);
-
-    const novoCard: Excursao = {
-      titulo: '',
-      descricao: '',
-      data: hojeStr,
-      imagemUrl: 'assets/imagens/placeholder.jpg',
-      imagem: 'assets/imagens/placeholder.jpg',
-      isNew: true
+  // -----------------------------------------------------
+  // 7. ABRIR FORMULÁRIO DE EDIÇÃO EM MODAL
+  //    (Preenche excursaoForm e exibe modal separado)
+  // -----------------------------------------------------
+  editarExcursao(excursao: any): void {
+    // Preenche formulários (sem imagem, pois a imagem já está salva no servidor)
+    this.excursaoForm = {
+      id: excursao.id,
+      dataExcursao: new Date(excursao.dataExcursao).toISOString().split('T')[0],
+      titulo: excursao.titulo,
+      descricao: excursao.descricao,
     };
-
-    this.excursoes.push(novoCard);
-    this.cdref.detectChanges();
+    this.editingId = excursao.id;
+    this.showModal = true;
+    this.arquivoParaEnvio = null; // caso o usuário deseje trocar a imagem via modal
   }
 
-  abrirUpload(index: number): void {
-    const inputEl = this.uploads.toArray()[index]?.nativeElement;
-    if (inputEl) {
-      inputEl.click();
-    }
-  }
-
-  selecionarImagem(event: any, index: number): void {
-    const file = event.target.files?.[0];
-    if (!file) {
+  // -----------------------------------------------------
+  // 8. SALVAR VIA MODAL (POST ou PUT, muito parecido com confirmarCard)
+  // -----------------------------------------------------
+  salvar(): void {
+    if (
+      !this.excursaoForm.titulo ||
+      !this.excursaoForm.dataExcursao ||
+      !this.excursaoForm.descricao
+    ) {
+      this.errorMsg = 'Todos os campos obrigatórios devem ser preenchidos.';
       return;
     }
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.excursoes[index].imagem = e.target.result;
-      this.cdref.detectChanges();
-    };
-    reader.readAsDataURL(file);
-  }
 
-  confirmarCard(index: number): void {
-    const excursao = this.excursoes[index];
-    const headers = this.getAuthHeaders();
+    const token = localStorage.getItem('token') || '';
+    if (!token) {
+      this.errorMsg = 'Usuário não está autenticado.';
+      return;
+    }
+
     const formData = new FormData();
+    formData.append('titulo', this.excursaoForm.titulo);
+    formData.append('descricao', this.excursaoForm.descricao);
+    const dataMillis = new Date(this.excursaoForm.dataExcursao)
+      .getTime()
+      .toString();
+    formData.append('dataExcursao', dataMillis);
 
-    formData.append('titulo', excursao.titulo);
-    formData.append('descricao', excursao.descricao);
+    // Se o usuário escolheu trocar a imagem no modal
+    if (this.arquivoParaEnvio) {
+      formData.append(
+        'file',
+        this.arquivoParaEnvio,
+        this.arquivoParaEnvio.name
+      );
+    }
 
-    const candidateDate = new Date(excursao.data);
-    const timestamp = !isNaN(candidateDate.getTime()) ? candidateDate.getTime().toString() : '';
-    formData.append('dataExcursao', timestamp);
-
-    if (excursao.imagem instanceof File) {
-      formData.append('file', excursao.imagem);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    let req$;
+    if (this.editingId) {
+      req$ = this.http.put(
+        `${environment.apiUrl}/excursao/${this.editingId}`,
+        formData,
+        { headers }
+      );
     } else {
-      const blobVazio = new Blob([], { type: 'application/octet-stream' });
-      formData.append('file', blobVazio, 'placeholder.txt');
+      req$ = this.http.post(`${environment.apiUrl}/excursao`, formData, {
+        headers,
+      });
     }
 
-    if (excursao.isNew) {
-      // POST /excursao
-      this.http.post<any>(`${this.baseUrl}`, formData, { headers })
-        .subscribe({
-          next: (res) => {
-            const nova: Excursao = {
-              id:        res.id,
-              titulo:    res.titulo,
-              descricao: res.descricao,
-              data:      new Date(res.dataExcursao).toISOString().substring(0, 10),
-              imagemUrl: res.imgUrl || (excursao.imagem as string),
-              isNew:     false
-            };
-            this.excursoes[index] = nova;
-            this.mostrarMensagem('Excursão criada com sucesso!', 'sucesso');
-          },
-          error: (err: HttpErrorResponse) => {
-            let msg = 'Erro ao criar excursão. Veja console para detalhes.';
-            if (err.status === 400 && err.error && typeof err.error === 'object' && err.error.erro) {
-              msg = err.error.erro;
-            }
-            console.error('Erro ao criar excursão:', err);
-            this.mostrarMensagem(msg, 'erro');
-          }
-        });
-    } else if (excursao.id) {
-      // PUT /excursao/{id}
-      this.http.put<any>(`${this.baseUrl}/${excursao.id}`, formData, { headers })
-        .subscribe({
-          next: (res) => {
-            this.excursoes[index] = {
-              ...this.excursoes[index],
-              titulo:    res.titulo,
-              descricao: res.descricao,
-              data:      new Date(res.dataExcursao).toISOString().substring(0, 10),
-              imagemUrl: res.imgUrl || this.excursoes[index].imagemUrl,
-              isNew:     false
-            };
-            this.mostrarMensagem('Excursão atualizada com sucesso!', 'sucesso');
-          },
-          error: (err: HttpErrorResponse) => {
-            let msg = 'Erro ao atualizar excursão. Veja console para detalhes.';
-            if (err.status === 400 && err.error && typeof err.error === 'object' && err.error.erro) {
-              msg = err.error.erro;
-            }
-            console.error('Erro ao atualizar excursão:', err);
-            this.mostrarMensagem(msg, 'erro');
-          }
-        });
-    }
-
-    delete excursao.isNew;
+    req$.subscribe({
+      next: () => {
+        this.closeModal();
+        this.buscarExcursoes();
+      },
+      error: (err) => {
+        console.error('Erro ao salvar excursão via modal:', err);
+        this.errorMsg = 'Erro ao salvar excursão.';
+      },
+    });
   }
 
-  cancelarCard(index: number): void {
-    const excursao = this.excursoes[index];
-    if (excursao.isNew) {
-      this.excursoes.splice(index, 1);
-    } else {
-      this.carregarExcursoes();
-    }
-  }
-
-  apagarCard(index: number): void {
-    const excursao = this.excursoes[index];
-    if (excursao.id) {
-      if (!confirm('Tem certeza que deseja excluir esta excursão?')) {
+  // -----------------------------------------------------
+  // 9. CAPTURAR ARQUIVO NO MODAL
+  // -----------------------------------------------------
+  onFileChangeModal(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        this.errorMsg = 'Imagem excede 10MB.';
         return;
       }
-      const headers = this.getAuthHeaders();
-      this.http.delete<any>(`${this.baseUrl}/${excursao.id}`, { headers })
-        .subscribe({
-          next: (res) => {
-            this.excursoes.splice(index, 1);
-            const mensagem = (res && res.mensagem) ? res.mensagem : 'Excursão excluída com sucesso!';
-            this.mostrarMensagem(mensagem, 'sucesso');
-          },
-          error: (err) => {
-            console.error('Erro ao excluir excursão:', err);
-            let msg = 'Erro ao excluir excursão.';
-            if (err.status === 404 && err.error && err.error.erro) {
-              msg = err.error.erro;
-            }
-            this.mostrarMensagem(msg, 'erro');
-          }
-        });
-    } else {
-      this.excursoes.splice(index, 1);
+      const tipo = file.type;
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(tipo)) {
+        this.errorMsg = 'Formato de imagem não suportado.';
+        return;
+      }
+      this.arquivoParaEnvio = file;
     }
   }
 
-  getImagemSrc(e: Excursao): string {
-    if (e.imagem && typeof e.imagem === 'string') {
-      return e.imagem;
-    }
-    return e.imagemUrl || 'assets/imagens/placeholder.jpg';
+  // -----------------------------------------------------
+  // 10. FECHAR MODAL
+  // -----------------------------------------------------
+  closeModal(): void {
+    this.showModal = false;
+    this.editingId = null;
+    this.excursaoForm = {
+      id: null,
+      dataExcursao: '',
+      titulo: '',
+      descricao: '',
+    };
+    this.arquivoParaEnvio = null;
+  }
+
+  // -----------------------------------------------------
+  // 11. RETORNA A URL DA IMAGEM (já que o backend devolve imgUrl)
+  // -----------------------------------------------------
+  getImagemSrc(excursao: any): string | null {
+    return excursao.imgUrl || null;
   }
 }

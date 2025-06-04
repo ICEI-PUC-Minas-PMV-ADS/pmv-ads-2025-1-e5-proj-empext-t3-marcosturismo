@@ -1,3 +1,4 @@
+html
 <app-sidebar></app-sidebar>
 
 <div class="container-principal">
@@ -11,13 +12,12 @@
   <!-- Container de cards responsivo -->
   <div class="card-container">
     <ng-container *ngFor="let e of excursoes; let i = index">
-
       <!-- === 1) Card normal (quando NÃO é isNew) === -->
       <ng-container *ngIf="!e.isNew">
         <div class="card">
           <div class="card-header">
             {{ e.titulo }}
-            <span class="card-data">{{ e.data | date: 'dd/MM/yyyy' }}</span>
+            <span class="card-data">{{ e.dataExcursao | date: 'dd/MM/yyyy' }}</span>
           </div>
           <div class="card-body">
             <div *ngIf="getImagemSrc(e)" class="card-imagem">
@@ -32,11 +32,16 @@
             <p class="scrollable-cell">{{ e.descricao }}</p>
           </div>
           <div class="card-footer">
-            <button class="btn-action btn-save" (click)="editarExcursao(e)">
+            <button
+              class="btn-action btn-save"
+              aria-label="Editar excursão"
+              (click)="editarExcursao(e)"
+            >
               Editar
             </button>
             <button
               class="btn-action btn-cancel"
+              aria-label="Excluir excursão"
               (click)="excluirExcursao(e.id!)"
             >
               Excluir
@@ -45,7 +50,7 @@
         </div>
       </ng-container>
 
-      <!-- === 2) Card de edição in‑line (quando isNew === true) === -->
+      <!-- === 2) Card de edição inline (quando isNew === true) === -->
       <ng-container *ngIf="e.isNew">
         <div class="card">
           <div class="card-header">
@@ -103,50 +108,65 @@
               <input
                 id="dataCard{{ i }}"
                 type="date"
-                [(ngModel)]="e.data"
+                [(ngModel)]="e.dataExcursao"
                 name="dataCard{{ i }}"
+                [min]="hoje"
                 required
               />
             </div>
           </div>
 
           <div class="card-footer">
-            <button class="btn-action btn-save" (click)="confirmarCard(i)">
+            <button
+              class="btn-action btn-save"
+              aria-label="Confirmar"
+              (click)="confirmarCard(i)"
+            >
               Confirmar
             </button>
-            <button class="btn-action btn-cancel" (click)="cancelarCard(i)">
+            <button
+              class="btn-action btn-cancel"
+              aria-label="Cancelar"
+              (click)="cancelarCard(i)"
+            >
               Cancelar
             </button>
           </div>
         </div>
       </ng-container>
-
     </ng-container>
   </div>
 
   <!-- Botão flutuante “+” para adicionar novo card -->
-  <button class="add-card" (click)="adicionarCard()">+</button>
+  <button
+    class="add-card"
+    aria-label="Adicionar nova excursão"
+    (click)="adicionarCard()"
+  >
+    +
+  </button>
 
   <!-- === Modal de Adicionar/Editar Excursão (via botão “Editar”) === -->
   <div class="modal" *ngIf="showModal">
     <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
+      <span
+        class="close"
+        aria-label="Fechar modal"
+        (click)="closeModal()"
+        >&times;</span
+      >
       <h2>{{ editingId ? 'Editar Excursão' : 'Adicionar Excursão' }}</h2>
 
-      <form
-        (ngSubmit)="salvar()"
-        #f="ngForm"
-        enctype="multipart/form-data"
-        novalidate
-      >
+      <form (ngSubmit)="salvar()" #f="ngForm" novalidate>
         <!-- Campo Data -->
         <div class="form-group">
           <label for="data">Data da Excursão:</label>
           <input
             id="data"
             type="date"
-            [(ngModel)]="excursaoForm.data"
-            name="data"
+            [(ngModel)]="excursaoForm.dataExcursao"
+            name="dataExcursao"
+            [min]="hoje"
             required
           />
         </div>
@@ -178,7 +198,7 @@
         <!-- Upload de Imagem -->
         <div class="form-group">
           <label for="imagem">Imagem da Excursão:</label>
-          <input id="imagem" type="file" (change)="onFileChange($event)" />
+          <input id="imagem" type="file" (change)="onFileChangeModal($event)" />
         </div>
 
         <!-- Botões de Ação no Modal -->
@@ -186,6 +206,7 @@
           <button
             type="button"
             class="btn-action btn-cancel"
+            aria-label="Cancelar modal"
             (click)="closeModal()"
           >
             Cancelar
@@ -193,6 +214,7 @@
           <button
             type="submit"
             class="btn-action btn-save"
+            aria-label="Salvar excursão"
             [disabled]="f.invalid"
           >
             {{ editingId ? 'Atualizar' : 'Salvar' }}
@@ -200,5 +222,5 @@
         </div>
       </form>
     </div>
-  </div>
+  </div>
 </div>
