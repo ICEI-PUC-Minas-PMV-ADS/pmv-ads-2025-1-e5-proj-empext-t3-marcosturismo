@@ -17,12 +17,14 @@
         ★
       </span>
     </div>
-    <p><strong>Data: </strong>{{ avaliacao.dataPublicacao | date:'short' }}</p>
+    <!-- Aqui a formatação DD/MM/YYYY -->
+    <p><strong>Data: </strong>{{ avaliacao.dataPublicacao | date:'dd/MM/yyyy' }}</p>
     <div *ngIf="avaliacao.foto">
       <img [src]="avaliacao.foto" alt="Foto da avaliação" />
     </div>
   </div>
 </section>
+
 
 <section class="avaliacao-novo">
   <h2>💬 Avalie sua experiência</h2>

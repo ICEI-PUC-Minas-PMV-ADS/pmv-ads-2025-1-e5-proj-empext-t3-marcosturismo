@@ -73,11 +73,14 @@
       </div>
 
       <div class="input-item">
+        <!-- Alterado para text, com máscara de dígitos -->
         <input
-          type="number"
+          type="text"
           [(ngModel)]="kmAtual"
           placeholder="KM Atual"
           #kmAtualInput="ngModel"
+          (input)="formatarQuilometragem($event, 'kmAtual')"
+          maxlength="7"
           required
         />
         <div
@@ -106,11 +109,14 @@
       </div>
 
       <div class="input-item">
+        <!-- Adicionada chamada ao método de formatação -->
         <input
           type="text"
           [(ngModel)]="placa"
           placeholder="Placa"
           #placaInput="ngModel"
+          (input)="formatPlaca($event)"
+          maxlength="8"
           required
         />
         <div
@@ -151,20 +157,26 @@
       </div>
 
       <div class="input-item">
+        <!-- Alterado para text, com máscara de dígitos -->
         <input
-          type="number"
+          type="text"
           [(ngModel)]="kmProxTrocaOleo"
           placeholder="KM Próxima Troca de Óleo"
           #kmProxTrocaOleoInput="ngModel"
+          (input)="formatarQuilometragem($event, 'kmProxTrocaOleo')"
+          maxlength="7"
         />
       </div>
 
       <div class="input-item">
+        <!-- Alterado para text, com máscara de dígitos -->
         <input
-          type="number"
+          type="text"
           [(ngModel)]="kmProxTrocaPneu"
           placeholder="KM Próxima Troca de Pneu"
           #kmProxTrocaPneuInput="ngModel"
+          (input)="formatarQuilometragem($event, 'kmProxTrocaPneu')"
+          maxlength="7"
         />
       </div>
     </div>

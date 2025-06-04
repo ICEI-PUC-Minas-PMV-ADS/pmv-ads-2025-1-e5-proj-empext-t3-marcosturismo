@@ -45,7 +45,7 @@ interface Resultado {
   standalone: true,
   imports: [FormsModule, CommonModule, SidebarComponent],
   templateUrl: './frota.component.html',
-  styleUrls: ['./frota.component.css']
+  styleUrls: ['./frota.component.css'],
 })
 export class FrotaComponent implements OnInit {
   @ViewChildren('fileInput') fileInputs!: QueryList<ElementRef<HTMLInputElement>>;
@@ -125,7 +125,7 @@ export class FrotaComponent implements OnInit {
       complete: () => {
         this.loading = false;
         this.cdref.detectChanges();
-      }
+      },
     });
   }
 
@@ -207,7 +207,7 @@ export class FrotaComponent implements OnInit {
       poltronaReclinavel: this.poltronaReclinavel,
       tv: this.tv,
       geladeira: this.geladeira,
-      sanitarios: this.sanitarios
+      sanitarios: this.sanitarios,
       // sem campos de imagem
     };
 
@@ -246,7 +246,7 @@ export class FrotaComponent implements OnInit {
         this.fecharModal();
       },
       error: (error) => this.handleError(error, 'adicionar veículo'),
-      complete: () => (this.loading = false)
+      complete: () => (this.loading = false),
     });
   }
 
@@ -262,7 +262,7 @@ export class FrotaComponent implements OnInit {
         this.fecharModal();
       },
       error: (error) => this.handleError(error, 'atualizar veículo'),
-      complete: () => (this.loading = false)
+      complete: () => (this.loading = false),
     });
   }
 
@@ -288,15 +288,17 @@ export class FrotaComponent implements OnInit {
     if (!confirmacao) return;
 
     this.loading = true;
-    this.http.delete(`${this.apiUrl}/${veic.id}`, { headers, responseType: 'text' }).subscribe({
-      next: (response) => {
-        this.mensagem = response || 'Veículo excluído com sucesso!';
-        this.mensagemTipo = 'success';
-        this.carregarFrota();
-      },
-      error: (error) => this.handleError(error, 'excluir veículo'),
-      complete: () => (this.loading = false)
-    });
+    this.http
+      .delete(`${this.apiUrl}/${veic.id}`, { headers, responseType: 'text' })
+      .subscribe({
+        next: (response) => {
+          this.mensagem = response || 'Veículo excluído com sucesso!';
+          this.mensagemTipo = 'success';
+          this.carregarFrota();
+        },
+        error: (error) => this.handleError(error, 'excluir veículo'),
+        complete: () => (this.loading = false),
+      });
   }
 
   /**
@@ -318,7 +320,9 @@ export class FrotaComponent implements OnInit {
       this.mensagemTipo = 'error';
       return false;
     }
-    if (this.placa.length !== 7) {
+    // A placa deve ter 7 caracteres (letras/números) + hífen opcional (totalizando até 8)
+    const placaSemHifen = this.placa.replace('-', '');
+    if (placaSemHifen.length !== 7) {
       this.mensagem = 'A placa deve ter exatamente 7 caracteres.';
       this.mensagemTipo = 'error';
       return false;
@@ -328,7 +332,7 @@ export class FrotaComponent implements OnInit {
       this.mensagemTipo = 'error';
       return false;
     }
-    if (this.lotacao <= 0) {
+    if (this.lotacao! <= 0) {
       this.mensagem = 'A lotação deve ser positiva.';
       this.mensagemTipo = 'error';
       return false;
@@ -337,7 +341,7 @@ export class FrotaComponent implements OnInit {
   }
 
   /**
-   * Trata erros HTTP. Se 401/403, remove token e redireciona para login.
+   * Tratamento de erros HTTP. Se 401/403, remove token e redireciona para login.
    */
   private handleError(error: any, action: string): void {
     console.error(`${action} falhou:`, error);
@@ -364,5 +368,49 @@ export class FrotaComponent implements OnInit {
     this.mensagem = errorMessage;
     this.mensagemTipo = 'error';
     this.loading = false;
+  }
+
+  /**
+   * Formata a placa para o padrão “AAA-1234”.
+   * Remove tudo que não for letra/número, deixa em maiúsculas e insere o '-' após 3 caracteres.
+   */
+  formatPlaca(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let raw = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+    // Insere hífen após as três primeiras posições, se houver caracteres extras
+    if (raw.length > 3) {
+      raw = raw.slice(0, 3) + '-' + raw.slice(3, 7);
+    }
+    input.value = raw;
+    this.placa = raw;
+  }
+
+  /**
+   * Remove qualquer caractere que não seja dígito e repassa para a propriedade vinculada.
+   * Usa nos campos kmAtual, kmProxTrocaOleo e kmProxTrocaPneu.
+   */
+  formatarQuilometragem(
+    event: Event,
+    campo: 'kmAtual' | 'kmProxTrocaOleo' | 'kmProxTrocaPneu'
+  ): void {
+    const input = event.target as HTMLInputElement;
+    let raw = input.value.replace(/\D/g, '');
+
+    // Limita a até 7 dígitos, se desejar:
+    if (raw.length > 7) {
+      raw = raw.slice(0, 7);
+    }
+
+    input.value = raw;
+    const valorNum = raw ? parseInt(raw, 10) : null;
+
+    if (campo === 'kmAtual') {
+      this.kmAtual = valorNum;
+    } else if (campo === 'kmProxTrocaOleo') {
+      this.kmProxTrocaOleo = valorNum;
+    } else if (campo === 'kmProxTrocaPneu') {
+      this.kmProxTrocaPneu = valorNum;
+    }
   }
 }
