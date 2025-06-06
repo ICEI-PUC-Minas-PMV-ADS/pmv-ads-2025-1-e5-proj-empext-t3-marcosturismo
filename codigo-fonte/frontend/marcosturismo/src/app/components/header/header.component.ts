@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -11,22 +11,22 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   navItems = [
     { label: 'Início', id: 'home' },
-    { label: 'Serviços', id: 'servicos' },
     { label: 'Sobre', id: 'sobre' },
+    { label: 'Serviços', id: 'servicos' },
     { label: 'Frota', id: 'frota' },
     { label: 'Histórias', id: 'historias' },
     { label: 'Contato', id: 'contato' }
   ];
-
+  constructor(private location: Location) { }
   activeSection = 'home';
   menuOpen = true;
 
   toggleMenu() {
-   this.menuOpen = !this.menuOpen;
+    this.menuOpen = !this.menuOpen;
   }
 
   closeMenu() {
-   this.menuOpen = false;
+    this.menuOpen = false;
   }
 
   scrollTo(sectionId: string): void {
@@ -36,7 +36,12 @@ export class HeaderComponent {
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
 
+      // Atualiza a URL sem recarregar
+      this.location.replaceState(`/${sectionId}`);
+
       this.activeSection = sectionId;
+
+      this.closeMenu(); 
     }
   }
 
