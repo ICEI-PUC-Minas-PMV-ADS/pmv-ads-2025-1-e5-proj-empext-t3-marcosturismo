@@ -5,7 +5,7 @@ import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { CommonModule } from '@angular/common';
 import { FrotaComponent } from './components/frota/frota.component';
-import { ExcursoesComponent } from './components/excursoes/excursoes.component';
+import { ServicesComponent } from './components/services/services.component';
 import { HistoriasComponent } from './components/historias/historias.component';
 
 @Component({
@@ -15,9 +15,9 @@ import { HistoriasComponent } from './components/historias/historias.component';
     CommonModule,
     HeaderComponent,
     HomeComponent,
+    ServicesComponent,
     AboutComponent,
     FrotaComponent,
-    ExcursoesComponent,
     HistoriasComponent,
     ContactComponent
   ],

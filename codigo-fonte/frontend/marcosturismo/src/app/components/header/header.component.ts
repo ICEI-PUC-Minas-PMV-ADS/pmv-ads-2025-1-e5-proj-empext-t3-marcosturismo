@@ -10,10 +10,10 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   navItems = [
-    { label: 'Home', id: 'home' },
+    { label: 'Início', id: 'home' },
+    { label: 'Serviços', id: 'servicos' },
     { label: 'Sobre', id: 'sobre' },
     { label: 'Frota', id: 'frota' },
-    { label: 'Excursões', id: 'excursoes' },
     { label: 'Histórias', id: 'historias' },
     { label: 'Contato', id: 'contato' }
   ];

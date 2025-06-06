@@ -5,5 +5,48 @@ html {
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  padding-top: 80px; /* espaço para o header fixo */
+  padding-top: 30px;
+  /* espaço para o header fixo */
+  background-image: url('/imagemfundo.png');
+  /* ajuste o caminho */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+section {
+  background: linear-gradient(rgba(0, 0, 10, 0.6),
+      rgba(6, 6, 94, 0.6));
+  padding: 40px;
+  color: white;
+  /* para melhor contraste */
+}
+
+button {
+  background-color: transparent;
+  color: #ffcc00;
+  border: 1px solid #ffcc00;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: 10px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #ffcc00;
+  color: black;
+}
+
+@media (max-width: 768px) {
+
+  button {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
 }

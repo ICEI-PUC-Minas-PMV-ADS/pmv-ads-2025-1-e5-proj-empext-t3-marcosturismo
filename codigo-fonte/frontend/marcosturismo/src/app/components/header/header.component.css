@@ -1,6 +1,6 @@
 /* Mantém o estilo base */
 .header {
-    background-color: rgb(1, 21, 58);
+    background: linear-gradient(to right, #02276b, #000d25);
     padding: 0.9rem 1.5rem;
     position: fixed;
     width: 100%;
