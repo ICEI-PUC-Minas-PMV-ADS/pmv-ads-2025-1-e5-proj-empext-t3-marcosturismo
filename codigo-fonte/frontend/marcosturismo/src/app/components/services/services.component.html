@@ -1,6 +1,6 @@
 <section class="servico" *ngIf="servicos.length > 0">
-  <div>
-    <h1>Nosso serviços</h1>
+  <div class="center">
+    <h2>Nosso serviços</h2>
   </div>
   <div class="servico-container" *ngFor="let servico of servicos">
     <div class="carousel">
@@ -13,7 +13,6 @@
     </div>
   </div>
   <div *ngIf="excursaoCards.length > 0" class="carousel-wrapper">
-    <h2>Próximas excursões</h2>
     <div class="carousel-nav">
 
       <!-- Botão Anterior (somente desktop + overflow) -->
@@ -26,7 +25,7 @@
           <div class="excursao-content">
             <h3>{{card.titulo}}</h3>
             <div class="excursao-descricao">{{card.descricao}}</div>
-            <div class="excursao-card-date" >{{ card.dataExcursao | date: 'dd/MM/yyyy' }}</div>
+            <div class="excursao-card-date">{{ card.dataExcursao | date: 'dd/MM/yyyy' }}</div>
           </div>
         </div>
       </div>

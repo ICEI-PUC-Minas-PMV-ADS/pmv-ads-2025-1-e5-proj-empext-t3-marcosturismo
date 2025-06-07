@@ -1,14 +1,10 @@
 .servico {
-  padding: 40px;
+  padding: 0 40px;
   
 }
 
 h1 {
   font-size: 35px;
-}
-
-h2 {
-  font-size: 25px;
 }
 
 .servico-container {
@@ -227,5 +223,4 @@ h2 {
     background-color: transparent;
     transform: scale();
   }
-
 }

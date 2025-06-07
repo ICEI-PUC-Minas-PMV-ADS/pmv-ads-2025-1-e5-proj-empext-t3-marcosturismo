@@ -42,6 +42,34 @@ button:hover {
   color: black;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.center h2 {
+  font-size: 2.8rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.center h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #fec10c;
+  margin: 10px auto 20px;
+  border-radius: 5px;
+}
+
+ p {
+  font-size: 1.2rem;
+  color: #ffffffd0;
+}
+
 @media (max-width: 768px) {
 
   button {

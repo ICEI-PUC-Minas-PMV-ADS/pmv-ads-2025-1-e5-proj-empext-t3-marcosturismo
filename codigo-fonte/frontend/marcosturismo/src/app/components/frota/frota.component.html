@@ -1,4 +1,234 @@
-<section class="section frota">
-  <h2>Frota</h2>
-  <p>Página de frotas.</p>
+<section class="frota-section">
+  <div class="center">
+    <h2>Nossa frota</h2>
+  </div>
+  <p>
+    Oferecemos uma frota moderna, segura e versátil, ideal para atender desde pequenos grupos até grandes excursões.
+    Contamos com <strong>vans</strong>, <strong>micro-ônibus</strong> e <strong>ônibus</strong> equipados para
+    proporcionar o máximo conforto e segurança
+    em cada viagem.
+  </p>
+  <p>
+    Seja qual for a sua necessidade — <strong>turismo</strong>, <strong>fretamento</strong>,
+    <strong>corporativo</strong>, <strong>eventos</strong> ou <strong>traslados</strong> — temos o veículo ideal para
+    você. Viaje com tranquilidade e qualidade!
+  </p>
+  <div class="frota-container">
+
+    <div *ngIf="veiculos_46_mais.length > 0" class="carousel-wrapper">
+
+      <h1> Veículos com 46 lugares ou mais</h1>
+      <div class="carousel-nav">
+
+        <!-- Botão Anterior (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons46" (click)="scrollCarousel46('left')">◀</button>
+
+        <!-- Área scrollável -->
+        <div class="frota-cards-scroll" #carousel46>
+          <div class="frota-card" *ngFor="let card of veiculos_46_mais" [ngStyle]="getCardBackgroundStyle(card)"
+            [ngClass]="{ 'card-unico': veiculos_46_mais.length === 1 }">
+            <div class="frota-content">
+              <!-- Header do Card -->
+              <div class="frota-header">
+                <h3 class="modelo">{{ card.modelo }}</h3>
+                <p class="subinfo">
+                  {{ card.marca }} • {{ card.anoModelo }} • {{ card.categoria }}
+                </p>
+
+              </div>
+
+
+              <!-- Recursos -->
+              <ul class="frota-itens">
+                <li class="lotacao-badge">{{ card.lotacao }} lugares</li>
+                <li *ngIf="card.arCondicionado">❄️ Ar-condicionado</li>
+                <li *ngIf="card.wifi">📶 Wi-Fi</li>
+                <li *ngIf="card.poltronaReclinavel">💺 Poltrona reclinável</li>
+                <li *ngIf="card.tv">📺 TV</li>
+                <li *ngIf="card.geladeira">🧊 Geladeira</li>
+                <li *ngIf="card.sanitarios">🚾 Sanitários</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão Próximo (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons46" (click)="scrollCarousel46('right')">▶</button>
+
+      </div>
+    </div>
+
+
+    <div *ngIf="veiculos_32_45.length > 0" class="carousel-wrapper">
+
+      <h1> Veículos com 32 lugares ou mais</h1>
+      <div class="carousel-nav">
+
+        <!-- Botão Anterior (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons32" (click)="scrollCarousel32('left')">◀</button>
+
+        <!-- Área scrollável -->
+        <div class="frota-cards-scroll" #carousel32>
+          <div class="frota-card" *ngFor="let card of veiculos_32_45" [ngStyle]="getCardBackgroundStyle(card)" [ngClass]="{ 'card-unico': veiculos_32_45.length === 1 }">
+            <div class="frota-content">
+              <!-- Header do Card -->
+              <div class="frota-header">
+                <h3 class="modelo">{{ card.modelo }}</h3>
+                <p class="subinfo">
+                  {{ card.marca }} • {{ card.anoModelo }} • {{ card.categoria }}
+                </p>
+
+              </div>
+
+
+              <!-- Recursos -->
+              <ul class="frota-itens">
+                <li class="lotacao-badge">{{ card.lotacao }} lugares</li>
+                <li *ngIf="card.arCondicionado">❄️ Ar-condicionado</li>
+                <li *ngIf="card.wifi">📶 Wi-Fi</li>
+                <li *ngIf="card.poltronaReclinavel">💺 Poltrona reclinável</li>
+                <li *ngIf="card.tv">📺 TV</li>
+                <li *ngIf="card.geladeira">🧊 Geladeira</li>
+                <li *ngIf="card.sanitarios">🚾 Sanitários</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão Próximo (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons32" (click)="scrollCarousel32('right')">▶</button>
+
+      </div>
+    </div>
+
+
+    <div *ngIf="veiculos_20_31.length > 0" class="carousel-wrapper">
+
+      <h1> Veículos com 20 lugares ou mais</h1>
+      <div class="carousel-nav">
+
+        <!-- Botão Anterior (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons20" (click)="scrollCarousel20('left')">◀</button>
+
+        <!-- Área scrollável -->
+        <div class="frota-cards-scroll" #carousel20>
+          <div class="frota-card" *ngFor="let card of veiculos_20_31" [ngStyle]="getCardBackgroundStyle(card)" [ngClass]="{ 'card-unico': veiculos_20_31.length === 1 }">
+            <div class="frota-content">
+              <!-- Header do Card -->
+              <div class="frota-header">
+                <h3 class="modelo">{{ card.modelo }}</h3>
+                <p class="subinfo">
+                  {{ card.marca }} • {{ card.anoModelo }} • {{ card.categoria }}
+                </p>
+
+              </div>
+
+
+              <!-- Recursos -->
+              <ul class="frota-itens">
+                <li class="lotacao-badge">{{ card.lotacao }} lugares</li>
+                <li *ngIf="card.arCondicionado">❄️ Ar-condicionado</li>
+                <li *ngIf="card.wifi">📶 Wi-Fi</li>
+                <li *ngIf="card.poltronaReclinavel">💺 Poltrona reclinável</li>
+                <li *ngIf="card.tv">📺 TV</li>
+                <li *ngIf="card.geladeira">🧊 Geladeira</li>
+                <li *ngIf="card.sanitarios">🚾 Sanitários</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão Próximo (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons20" (click)="scrollCarousel20('right')">▶</button>
+
+      </div>
+    </div>
+
+
+
+
+    <div *ngIf="veiculos_15_19.length > 0" class="carousel-wrapper">
+
+      <h1> Veículos com 15 lugares ou mais</h1>
+      <div class="carousel-nav">
+
+        <!-- Botão Anterior (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons15" (click)="scrollCarousel15('left')">◀</button>
+
+        <!-- Área scrollável -->
+        <div class="frota-cards-scroll" #carousel15>
+          <div class="frota-card" *ngFor="let card of veiculos_15_19" [ngStyle]="getCardBackgroundStyle(card)" [ngClass]="{ 'card-unico': veiculos_15_19.length === 1 }">
+            <div class="frota-content">
+              <!-- Header do Card -->
+              <div class="frota-header">
+                <h3 class="modelo">{{ card.modelo }}</h3>
+                <p class="subinfo">
+                  {{ card.marca }} • {{ card.anoModelo }} • {{ card.categoria }}
+                </p>
+
+              </div>
+
+
+              <!-- Recursos -->
+              <ul class="frota-itens">
+                <li class="lotacao-badge">{{ card.lotacao }} lugares</li>
+                <li *ngIf="card.arCondicionado">❄️ Ar-condicionado</li>
+                <li *ngIf="card.wifi">📶 Wi-Fi</li>
+                <li *ngIf="card.poltronaReclinavel">💺 Poltrona reclinável</li>
+                <li *ngIf="card.tv">📺 TV</li>
+                <li *ngIf="card.geladeira">🧊 Geladeira</li>
+                <li *ngIf="card.sanitarios">🚾 Sanitários</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão Próximo (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons15" (click)="scrollCarousel15('right')">▶</button>
+
+      </div>
+    </div>
+
+    <div *ngIf="veiculos_outros.length > 0" class="carousel-wrapper">
+
+      <h1> Outros veículos</h1>
+      <div class="carousel-nav">
+
+        <!-- Botão Anterior (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons00" (click)="scrollCarousel00('left')">◀</button>
+
+        <!-- Área scrollável -->
+        <div class="frota-cards-scroll" #carousel00>
+          <div class="frota-card" *ngFor="let card of veiculos_outros" [ngStyle]="getCardBackgroundStyle(card)" [ngClass]="{ 'card-unico': veiculos_outros.length === 1 }">
+            <div class="frota-content">
+              <!-- Header do Card -->
+              <div class="frota-header">
+                <h3 class="modelo">{{ card.modelo }}</h3>
+                <p class="subinfo">
+                  {{ card.marca }} • {{ card.anoModelo }} • {{ card.categoria }}
+                </p>
+
+              </div>
+
+
+              <!-- Recursos -->
+              <ul class="frota-itens">
+                <li class="lotacao-badge">{{ card.lotacao }} lugares</li>
+                <li *ngIf="card.arCondicionado">❄️ Ar-condicionado</li>
+                <li *ngIf="card.wifi">📶 Wi-Fi</li>
+                <li *ngIf="card.poltronaReclinavel">💺 Poltrona reclinável</li>
+                <li *ngIf="card.tv">📺 TV</li>
+                <li *ngIf="card.geladeira">🧊 Geladeira</li>
+                <li *ngIf="card.sanitarios">🚾 Sanitários</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão Próximo (somente desktop + overflow) -->
+        <button class="nav-button" *ngIf="showNavButtons00" (click)="scrollCarousel00('right')">▶</button>
+
+      </div>
+    </div>
+  </div>
 </section>
