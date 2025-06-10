@@ -4,7 +4,7 @@
         <div class="menu-toggle" (click)="toggleMenu()">
             &#9776;
         </div>
-        
+
         <!-- Logo -->
         <div class="logo">
             <img src="logo.jpg" alt="Marcos Turismo" />
@@ -17,12 +17,12 @@
                 {{ item.label }}
             </a>
             <div class="login-btn mobile-only">
-                <button>Coorporativo</button>
+                <button (click)="abrirCoorporativo()">Coorporativo</button>
             </div>
         </nav>
 
         <div class="login-btn desktop-only">
-            <button>Coorporativo</button>
+            <button (click)="abrirCoorporativo()">Coorporativo</button>
         </div>
     </div>
 </header>

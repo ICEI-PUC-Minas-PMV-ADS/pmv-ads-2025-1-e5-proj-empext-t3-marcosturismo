@@ -110,7 +110,7 @@ export class FrotaComponent implements OnInit {
     }
   }
 
-  
+
   /// Carrossel para 46 veiculos
   scrollCarousel46(direction: 'left' | 'right') {
     const container = this.carousel46?.nativeElement as HTMLElement;
@@ -182,7 +182,6 @@ export class FrotaComponent implements OnInit {
       this.showNavButtons46 = isDesktop && hasOverflow;
     });
 
-    console.log(this.showNavButtons46);
   }
 
 
@@ -200,7 +199,7 @@ export class FrotaComponent implements OnInit {
       this.showNavButtons32 = isDesktop && hasOverflow;
     });
 
-    console.log(this.showNavButtons32);
+
   }
 
   /// Olha se deu overflow para sumir com as setas para 20 veiculos
@@ -217,7 +216,7 @@ export class FrotaComponent implements OnInit {
       this.showNavButtons20 = isDesktop && hasOverflow;
     });
 
-    console.log(this.showNavButtons20);
+
   }
 
   /// Olha se deu overflow para sumir com as setas para 15 veiculos
@@ -234,7 +233,7 @@ export class FrotaComponent implements OnInit {
       this.showNavButtons15 = isDesktop && hasOverflow;
     });
 
-    console.log(this.showNavButtons46);
+
   }
 
   /// Olha se deu overflow para sumir com as setas para 00 veiculos
@@ -251,7 +250,7 @@ export class FrotaComponent implements OnInit {
       this.showNavButtons00 = isDesktop && hasOverflow;
     });
 
-    console.log(this.showNavButtons00);
+
   }
 
   getCardBackgroundStyle(card: any): any {

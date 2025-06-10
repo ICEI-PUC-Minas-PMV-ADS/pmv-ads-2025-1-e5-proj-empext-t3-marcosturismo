@@ -37,11 +37,11 @@ export class HeaderComponent {
       window.scrollTo({ top: y, behavior: 'smooth' });
 
       // Atualiza a URL sem recarregar
-      this.location.replaceState(`/${sectionId}`);
+      this.location.replaceState(`#${sectionId}`);
 
       this.activeSection = sectionId;
 
-      this.closeMenu(); 
+      this.closeMenu();
     }
   }
 
@@ -57,4 +57,9 @@ export class HeaderComponent {
       }
     }
   }
+
+  abrirCoorporativo(): void {
+    window.location.href = 'https://www.marcosturismo.com.br/coorporativo';
+  }
+
 }

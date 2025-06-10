@@ -1,12 +1,12 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit, Inject, PLATFORM_ID, AfterViewChecked } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css']
 })
@@ -98,6 +98,5 @@ export class ServicesComponent implements OnInit, AfterViewChecked {
       this.showNavButtons = isDesktop && hasOverflow;
     });
 
-    console.log(this.showNavButtons);
   }
 }

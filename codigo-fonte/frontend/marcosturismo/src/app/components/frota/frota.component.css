@@ -40,7 +40,6 @@ strong {
   display: flex;
   flex-direction: row;
   gap: 40px;
-  margin-bottom: 80px;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -166,6 +165,7 @@ strong {
 }
 
 .nav-button {
+  width: 20px;
   border: none;
   font-size: 15px;
   cursor: pointer;

@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FrotaComponent } from './components/frota/frota.component';
 import { ServicesComponent } from './components/services/services.component';
 import { HistoriasComponent } from './components/historias/historias.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +20,13 @@ import { HistoriasComponent } from './components/historias/historias.component';
     AboutComponent,
     FrotaComponent,
     HistoriasComponent,
-    ContactComponent
+    ContactComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
-  title = 'site-unico';
+  title = 'marcosturismo';
 }

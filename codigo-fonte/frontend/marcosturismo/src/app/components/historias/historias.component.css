@@ -1,5 +1,337 @@
-.historias {
-  padding: 100px 20px;
-  min-height: 100vh;
-  background-color: #fff;
+.historias-section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.media {
+  margin-bottom: 30px;
+}
+
+.texto-incentivo {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+
+.avaliacao {
+  width: 300px;
+  max-width: 90vw;
+  border-radius: 15px;
+  overflow: hidden;
+  flex: 0 0 250px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  color: white;
+  scroll-snap-align: start;
+  background: rgba(0, 0, 0, 0.438);
+  padding: 20px;
+  backdrop-filter: blur(2px);
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.avaliacao-cards-scroll {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.avaliacao-cards-scroll::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+.avaliacao h3 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.comentario {
+  font-size: 1.1rem;
+  height: 200px;
+  color: #e0e0e0;
+  color: #e6e6e6;
+  padding-right: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.comentario::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comentario::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.comentario::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.autor {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-weight: 500;
+  color: #ffc107;
+}
+
+.estrelas {
+  margin-top: 8px;
+  font-size: 1.2rem;
+}
+
+.estrelas span {
+  color: #555;
+}
+
+.estrelas .filled {
+  color: gold;
+}
+
+.avaliacao-form {
+  max-width: 500px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: #022565af;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+button {
+
+  margin-top: 10px;
+  width: 100%;
+}
+
+.estrelas-interativas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.estrela {
+  transition: color 0.2s ease;
+}
+
+.estrela.cheia,
+.estrela:hover,
+.estrela.meia {
+  color: gold;
+}
+
+
+.estrelas-svg {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0;
+}
+
+.estrela-wrapper {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.estrela-base,
+.estrela-overlay svg {
+  width: 100%;
+  height: 100%;
+  fill: #ccc;
+}
+
+.estrela-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.estrela-overlay svg {
+  fill: gold;
+  pointer-events: none;
+}
+
+label {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.erro {
+  width: 100%;
+  align-items: center;
+  margin: 5px;
+  color: #ffaaaa;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.carousel-wrapper {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.nav-button {
+  width: 20px;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+  padding: 0px;
+  border-radius: 50%;
+  z-index: 2;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: transparent;
+  transform: scale(1.2);
+}
+
+.custombutton {
+  width: 100%;
+  flex: 1;
+  display: flex;
+
+}
+
+.custombutton button {
+  padding: 10px 25px;
+  cursor: default;
+}
+
+.custombutton button:enabled {
+  color: black;
+  background-color: #ffcc00;
+  cursor: pointer;
+}
+
+.custombutton button:hover {
+  background-color: transparent;
+  color: #ffcc00;
+}
+
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  animation: fadeInOut 4s ease forwards;
+  font-size: 0.95rem;
+}
+
+.snackbar.erro {
+  background-color: #c0392b;
+  color: #fff;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .carousel {
+    width: 100%;
+    height: auto;
+  }
+
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .avaliacao {
+    width: 70vw;
+  }
+
+  .avaliacao img {
+    height: 170px;
+  }
+
+  .avaliacao-cards-scroll {
+    gap: 12px;
+    padding: 0;
+
+
+    justify-content: start;
+
+  }
+
+  .nav-button {
+    display: none !important;
+  }
+
+  .nav-button:hover {
+    background-color: transparent;
+    transform: scale();
+  }
 }
