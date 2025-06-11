@@ -51,6 +51,6 @@ export class SidebarComponent implements OnInit {
     localStorage.removeItem('authToken');
     sessionStorage.clear();
     console.log('User logged out successfully');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
   }
 }

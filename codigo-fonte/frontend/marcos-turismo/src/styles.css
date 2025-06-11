@@ -1,9 +1,77 @@
+html,
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-image: url('/imagemfundo.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+
+  margin: 0;
+  background-image: url('/imagemfundo.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+
+button {
+  background-color: transparent;
+  color: #ffcc00;
+  border: 1px solid #ffcc00;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: 10px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #ffcc00;
+  color: black;
+}
+
+
+
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  animation: fadeInOut 4s ease forwards;
+  font-size: 0.95rem;
+}
+
+.snackbar.erro {
+  background-color: #c0392b;
+  color: #fff;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
+
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}

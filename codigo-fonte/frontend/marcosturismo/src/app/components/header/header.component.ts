@@ -19,7 +19,7 @@ export class HeaderComponent {
   ];
   constructor(private location: Location) { }
   activeSection = 'home';
-  menuOpen = true;
+  menuOpen = false;
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
