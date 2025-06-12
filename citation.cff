@@ -1,29 +1,24 @@
-message: Please cite this software using these metadata.
-title:
+title: "Sistema de Gestão Operacional Marcos Turismo"
 authors:
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
+  - family-names: Reis Silva
+    given-names: Davi Haniel
+  - family-names: Cunha Da Silva
+    given-names: Israel
+  - family-names: Freitas Da Silva
+    given-names: Jefferson
+  - family-names: Júnio De Paula
+    given-names: Leonardo
+  - family-names: Monteiro Da Silva
+    given-names: Maria De Lourdes
   - name-suffix: Professor
-    affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    affiliation: PUC Minas
+    family-names: Costa
+    given-names: José Wilson da
   - name-suffix: Professor
-    affiliation: PUC Minas
-    family-names: 
-    given-names: 
 keywords:
-  - 
-  - 
-repository-code: 
-version: 1.0.0
-date-released: 2023-10-31
+  - Cadastro de veículos
+  - Excursões e serviços
+  - API REST
+repository-code: "http://www.marcosturismo.com.br/novo"
+version: "1.0.0"
+date-released: "2025-06-20"
