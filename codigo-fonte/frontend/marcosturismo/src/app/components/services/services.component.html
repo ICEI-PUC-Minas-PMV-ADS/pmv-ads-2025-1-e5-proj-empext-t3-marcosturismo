@@ -1,0 +1,38 @@
+<section class="servico" *ngIf="servicos.length > 0">
+  <div class="center">
+    <h2>Nosso serviços</h2>
+  </div>
+  <div class="servico-container" *ngFor="let servico of servicos">
+    <div class="carousel">
+      <img [src]="servico.imagem" alt="{{ servico.titulo }}" />
+    </div>
+    <div class="servico-conteudo">
+      <h2>{{ servico.titulo }}</h2>
+      <p>{{ servico.descricao }}</p>
+      <button (click)="verMais(servico.titulo)">Saiba mais</button>
+    </div>
+  </div>
+  <div *ngIf="excursaoCards.length > 0" class="carousel-wrapper">
+    <div class="carousel-nav">
+
+      <!-- Botão Anterior (somente desktop + overflow) -->
+      <button class="nav-button" *ngIf="showNavButtons" (click)="scrollCarousel('left')">◀</button>
+
+      <!-- Área scrollável -->
+      <div class="excursao-cards-scroll" #carouselContainer>
+        <div class="excursao-card" *ngFor="let card of excursaoCards">
+          <img [src]="card.imgUrl" alt="{{card.titulo}}" />
+          <div class="excursao-content">
+            <h3>{{card.titulo}}</h3>
+            <div class="excursao-descricao">{{card.descricao}}</div>
+            <div class="excursao-card-date">{{ card.dataExcursao | date: 'dd/MM/yyyy' }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão Próximo (somente desktop + overflow) -->
+      <button class="nav-button" *ngIf="showNavButtons" (click)="scrollCarousel('right')">▶</button>
+
+    </div>
+  </div>
+</section>

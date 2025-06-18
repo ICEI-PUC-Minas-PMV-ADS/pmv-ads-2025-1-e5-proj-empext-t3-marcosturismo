@@ -1,0 +1,91 @@
+html {
+  scroll-behavior: smooth;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding-top: 30px;
+  /* espaço para o header fixo */
+  background-image: url('/imagemfundo.png');
+  /* ajuste o caminho */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+input,
+textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+section {
+  background: linear-gradient(rgba(0, 0, 10, 0.6),
+      rgba(6, 6, 94, 0.6));
+  padding: 40px;
+  color: white;
+  /* para melhor contraste */
+}
+
+button {
+  background-color: transparent;
+  color: #ffcc00;
+  border: 1px solid #ffcc00;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: 10px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #ffcc00;
+  color: black;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.center h2 {
+  font-size: 2.8rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.center h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #fec10c;
+  margin: 10px auto 20px;
+  border-radius: 5px;
+}
+
+ p {
+  font-size: 1.2rem;
+  color: #ffffffd0;
+}
+
+@media (max-width: 768px) {
+
+  button {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+}

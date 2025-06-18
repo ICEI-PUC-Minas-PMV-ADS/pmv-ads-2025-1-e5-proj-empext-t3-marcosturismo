@@ -1,7 +1,22 @@
-<div class="main-layout">
+<div class="main-layout" *ngIf="showLayout">
 
+  <!-- TopBar visível só no Mobile -->
+  <header class="topbar" *ngIf="isMobile">
+    <button class="hamburguer-btn" (click)="sidebar.toggleSidebarFunction()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <span class="app-title">Marcos Turismo</span>
+  </header>
 
-  <div class="content" [class.expanded]="isSidebarActive">
+  <app-sidebar #sidebar></app-sidebar>
+
+  <div class="content" [class.expanded]="sidebar.isSidebarActive">
     <router-outlet></router-outlet>
   </div>
+
+</div>
+
+<!-- Para páginas sem layout (ex: Login) -->
+<div *ngIf="!showLayout">
+  <router-outlet></router-outlet>
 </div>

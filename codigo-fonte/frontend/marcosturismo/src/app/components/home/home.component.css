@@ -1,0 +1,101 @@
+.home {
+  background: linear-gradient(to right, #022669c4, #886a10be);
+  background-size: cover;
+  color: balck;
+  text-align: center;
+  padding: 30px 20px;
+  display: flex;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.hero-content h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  align-items: center;
+  justify-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-secondary {
+  background-color: #28a745;
+  color: white;
+  width: 20%;
+}
+
+.btn-secondary:hover {
+  background-color: #1e7e34;
+}
+
+/* RESPONSIVIDADE 📱 */
+@media screen and (max-width: 768px) {
+  .hero-content {
+    padding: 30px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .btn-secondary {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+}

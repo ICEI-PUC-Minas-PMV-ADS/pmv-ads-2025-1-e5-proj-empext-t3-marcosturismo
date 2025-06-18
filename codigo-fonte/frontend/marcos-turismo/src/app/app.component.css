@@ -1,5 +1,68 @@
+.main-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Faz a altura da tela inteira */
+  overflow: hidden; /* Impede scroll no body */
+}
+
 .content {
-    margin-left: 0px;
-    transition: margin-left 0.3s ease;
+  flex: 1;
+  overflow-y: auto; /* Scroll apenas aqui */
+  padding: 20px;
+  background: linear-gradient(rgba(0, 0, 10, 0.6),
+      rgba(6, 6, 94, 0.6));
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar {
+  width: 60px; /* ou 120px quando ativa */
+  flex-shrink: 0;
+}
+
+.sidebar.active {
+  width: 120px;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: #00266b;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  z-index: 1000;
+}
+
+.hamburguer-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.app-title {
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.content {
+  margin-top: 50px; /* Pra não ficar por trás da Topbar */
+  overflow-y: auto;
+  height: calc(100vh - 50px);
+}
+
+@media (min-width: 769px) {
+  .topbar {
+    display: none;
   }
-  
+  .content {
+    margin-top: 0;
+    height: 100vh;
+  }
+}
