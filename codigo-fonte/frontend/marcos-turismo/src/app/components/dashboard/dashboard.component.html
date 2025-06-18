@@ -1,17 +1,15 @@
-<div>
-  <app-sidebar></app-sidebar>
+<div class="layout-container">
 
   <div class="main-content" [class.active]="isSidebarActive">
-    <!-- Mensagem de erro -->
-    <div *ngIf="errorMsg" class="alert alert-danger">
-      {{ errorMsg }}
-    </div>
+
 
     <!-- Cabeçalho -->
-    <header class="page-header">
-      <h1>Bem-vindo ao ISO-MT</h1>
-      <h3>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</h3>
-    </header>
+    <div class="center">
+      <h2>Início</h2>
+    </div>
+    <div class="subtitle">
+      <h2>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</h2>
+    </div>
 
     <!-- Cards de informações -->
     <section class="cards-container">
@@ -42,23 +40,19 @@
             <!-- Removido “ID” -->
             <th>Numeração</th>
             <th>Modelo</th>
-            <th>Marca</th>
             <th>Ano/Modelo</th>
             <th>KM Atual</th>
-            <th>Situação</th>
-            <th>KM Próx. Troca Óleo</th>
-            <th>KM Próx. Troca Pneu</th>
-            <th>Tipo de Serviço</th> <!-- Nova coluna -->
+            <th>Próx. Troca Óleo</th>
+            <th>Próx. Troca Pneu</th>
+            <th>Serviço necessário</th> <!-- Nova coluna -->
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let m of pendingMaintenances">
             <td>{{ m.numeracao }}</td>
             <td>{{ m.modelo }}</td>
-            <td>{{ m.marca }}</td>
             <td>{{ m.anoModelo }}</td>
             <td>{{ m.kmAtual }}</td>
-            <td>{{ m.situacao }}</td>
             <td>{{ m.kmProxTrocaOleo }}</td>
             <td>{{ m.kmProxTrocaPneu }}</td>
             <td>
@@ -70,20 +64,12 @@
                 (m.kmProxTrocaOleo != null && m.kmAtual >= m.kmProxTrocaOleo - 3000) &&
                 (m.kmProxTrocaPneu != null && m.kmAtual >= m.kmProxTrocaPneu - 3000)
               ">
-                , 
+              e
               </span>
               <span *ngIf="m.kmProxTrocaPneu != null && m.kmAtual >= m.kmProxTrocaPneu - 3000">
                 Troca de Pneu
               </span>
-              <!-- Caso nenhum dos dois esteja no critério, mostrar “–” -->
-              <span *ngIf="
-                !(
-                  (m.kmProxTrocaOleo != null && m.kmAtual >= m.kmProxTrocaOleo - 3000) ||
-                  (m.kmProxTrocaPneu != null && m.kmAtual >= m.kmProxTrocaPneu - 3000)
-                )
-              ">
-                –
-              </span>
+            
             </td>
           </tr>
           <tr *ngIf="pendingMaintenances.length === 0">
@@ -93,5 +79,4 @@
       </table>
     </section>
   </div>
-
 </div>

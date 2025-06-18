@@ -13,6 +13,9 @@ body {
   background-attachment: fixed;
 }
 
+input {
+  font-family: 'Segoe UI', sans-serif;
+}
 
 button {
   background-color: transparent;
@@ -52,6 +55,34 @@ button:hover {
 .snackbar.erro {
   background-color: #c0392b;
   color: #fff;
+}
+
+.content-view{
+  display: flex;
+}
+
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.center h2 {
+  font-size: 2.8rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.center h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #fec10c;
+  margin: 10px auto 20px;
+  border-radius: 5px;
 }
 
 @keyframes fadeInOut {

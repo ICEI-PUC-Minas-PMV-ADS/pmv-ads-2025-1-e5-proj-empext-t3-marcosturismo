@@ -22,5 +22,5 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'servico', component: ServicoComponent },
   { path: 'checklist', component: ChecklistComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' } // Redireciona para 'home' ao acessar a raiz
+  { path: '', redirectTo: '/login', pathMatch: 'full' } // Redireciona para 'login' ao acessar a raiz
 ];
