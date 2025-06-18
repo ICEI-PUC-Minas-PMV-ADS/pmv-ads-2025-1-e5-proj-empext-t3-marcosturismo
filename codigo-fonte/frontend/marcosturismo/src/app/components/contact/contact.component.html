@@ -1,0 +1,59 @@
+<section class="contato-section">
+  <div class="center">
+    <h2>Contato</h2>
+  </div>
+  <p class="text">
+    Quer saber mais sobre nossos serviços? Estamos à disposição para ajudar, entre em contato!
+  </p>
+  <div class="contato-wrapper">
+    <!-- COLUNA 1: Informações -->
+    <div class="info-box">
+      <h3>📍 Localização</h3>
+      <div class="mapa-wrapper">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d986.7044685709647!2d-37.080323389071935!3d-8.419540219100867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7a820241299c4ad%3A0x32c175b7424d4a52!2sMARCOS%20TURISMO!5e0!3m2!1spt-BR!2sbr!4v1749514876729!5m2!1spt-BR!2sbr"
+          width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <h3>🕒 Atendimento</h3>
+      <p>Seg à Sex: 08h às 12h e 14h às 18h</p>
+
+      <div class="social">
+        <h3>🔗 Redes sociais</h3>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/share/163uxfqk7b/?mibextid=wwXIfr" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/marcosturismoonline" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://wa.me/5587991103345" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+
+      <p class="footer-text">© 2025 Marcos Turismo</p>
+    </div>
+
+    <!-- COLUNA 2: Formulário -->
+    <div class="form-box">
+      <h2>Fale Conosco</h2>
+      <form [formGroup]="form" (ngSubmit)="enviarParaWhatsApp()">
+        <label>Nome</label>
+        <input type="text" formControlName="nome" placeholder="Seu nome" />
+
+        <label>Telefone</label>
+        <input type="text" formControlName="telefone" mask="(000) 00000-0000" placeholder="(DDD) Número" />
+
+        <label>Mensagem</label>
+        <textarea formControlName="mensagem" placeholder="Digite sua mensagem..."></textarea>
+
+        <button type="submit" [disabled]="form.invalid">Enviar para WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>

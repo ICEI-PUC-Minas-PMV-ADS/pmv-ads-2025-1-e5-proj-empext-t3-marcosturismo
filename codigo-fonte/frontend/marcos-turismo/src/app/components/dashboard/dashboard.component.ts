@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
   private maintenanceChart: Chart | undefined;
   private fuelChart: Chart | undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -256,19 +256,22 @@ export class DashboardComponent implements OnInit {
         datasets: [{
           label: 'Custos com Manutenção',
           data: values,
-          backgroundColor: 'rgba(0, 71, 179, 0.5)',
+          backgroundColor: 'rgba(0, 72, 179, 0.5)',  // 👈 Opacidade alterada aqui!
           borderColor: 'rgba(0, 71, 179, 1)',
-          borderWidth: 1
+          borderWidth: 1,
         }]
       },
       options: {
         responsive: true,
         scales: {
-          y: { beginAtZero: true }
+          y: {
+            beginAtZero: true
+          }
         }
       }
     });
   }
+
 
   /**
    * Atualiza o gráfico de custos de abastecimento.

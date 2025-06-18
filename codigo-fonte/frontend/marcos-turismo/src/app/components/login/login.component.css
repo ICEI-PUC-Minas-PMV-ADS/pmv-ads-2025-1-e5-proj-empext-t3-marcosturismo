@@ -1,51 +1,42 @@
 .container {
-    background: url('/codigo-fonte/frontend/marcos-turismo/public/imagemfundoG8.jpg') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .login-box {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    color: white;
-    width: 300px;
-  }
-  
-  .logo {
-    width: 160px;
-    margin-bottom: 20px;
-    border-radius: 50%;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    text-align: left;
-    margin-bottom: 5px;
-  }
-  
-  input {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .btn {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #0056b3;
-    color: white;
-    font-size: 16px;
-  }
-  
+  background: linear-gradient(to right, #022669c4, #886a10be);
+  background-size: cover;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+height: 100vh;
+  display: flex;
+}
+
+.login-box {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  width: 300px;
+}
+
+.logo {
+  width: 160px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+}

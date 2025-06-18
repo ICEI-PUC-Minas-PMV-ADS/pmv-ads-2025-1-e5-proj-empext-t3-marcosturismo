@@ -1,96 +1,82 @@
-<app-sidebar></app-sidebar>
+<div class="layout-container">
 
-<div class="main-content" [class.active]="isSidebarActive">
-  <!-- Mensagem de erro -->
-  <div *ngIf="errorMsg" class="alert alert-danger">
-    {{ errorMsg }}
-  </div>
+  <div class="main-content" [class.active]="isSidebarActive">
 
-  <!-- Cabeçalho -->
-  <header class="page-header">
-    <h1>Bem-vindo ao ISO-MT</h1>
-    <h3>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</h3>
-  </header>
 
-  <!-- Cards de informações -->
-  <section class="cards-container">
-    <div class="card">
-      <h2>Veículos Ativos</h2>
-      <p>Quantidade: {{ activeVehicles }}</p>
+    <!-- Cabeçalho -->
+    <div class="center">
+      <h2>Início</h2>
     </div>
-    <div class="card">
-      <h2>Manutenções Pendentes</h2>
-      <p>Quantidade: {{ pendingMaintenances.length }}</p>
+    <div class="subtitle">
+      <h2>Aqui você pode gerenciar sua frota de veículos de forma eficiente e segura</h2>
     </div>
-  </section>
 
-  <!-- Gráfico de Custos de Manutenção (ocupando toda a largura) -->
-  <section class="charts-container">
-    <div class="chart-card full-width">
-      <h3>Custos de Manutenção (Últimos 6 meses)</h3>
-      <canvas id="maintenanceChart"></canvas>
-    </div>
-  </section>
+    <!-- Cards de informações -->
+    <section class="cards-container">
+      <div class="card">
+        <h2>Veículos Ativos</h2>
+        <p>Quantidade: {{ activeVehicles }}</p>
+      </div>
+      <div class="card">
+        <h2>Manutenções Pendentes</h2>
+        <p>Quantidade: {{ pendingMaintenances.length }}</p>
+      </div>
+    </section>
 
-  <!-- Tabela de manutenções pendentes -->
-  <section class="table-container">
-    <h3>Manutenções Pendentes</h3>
-    <table class="pending-table">
-      <thead>
-        <tr>
-          <!-- Removido “ID” -->
-          <th>Numeração</th>
-          <th>Modelo</th>
-          <th>Marca</th>
-          <th>Ano/Modelo</th>
-          <th>KM Atual</th>
-          <th>Situação</th>
-          <th>KM Próx. Troca Óleo</th>
-          <th>KM Próx. Troca Pneu</th>
-          <th>Tipo de Serviço</th> <!-- Nova coluna -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let m of pendingMaintenances">
-          <td>{{ m.numeracao }}</td>
-          <td>{{ m.modelo }}</td>
-          <td>{{ m.marca }}</td>
-          <td>{{ m.anoModelo }}</td>
-          <td>{{ m.kmAtual }}</td>
-          <td>{{ m.situacao }}</td>
-          <td>{{ m.kmProxTrocaOleo }}</td>
-          <td>{{ m.kmProxTrocaPneu }}</td>
-          <td>
-            <!-- Lógica para determinar quais serviços estão pendentes -->
-            <span *ngIf="m.kmProxTrocaOleo != null && m.kmAtual >= m.kmProxTrocaOleo - 3000">
-              Troca de Óleo
-            </span>
-            <span *ngIf="
+    <!-- Gráfico de Custos de Manutenção (ocupando toda a largura) -->
+    <section class="charts-container">
+      <div class="chart-card full-width">
+        <h3>Custos de Manutenção (Últimos 6 meses)</h3>
+        <canvas id="maintenanceChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Tabela de manutenções pendentes -->
+    <section class="table-container">
+      <h3>Manutenções Pendentes</h3>
+      <table class="pending-table">
+        <thead>
+          <tr>
+            <!-- Removido “ID” -->
+            <th>Numeração</th>
+            <th>Modelo</th>
+            <th>Ano/Modelo</th>
+            <th>KM Atual</th>
+            <th>Próx. Troca Óleo</th>
+            <th>Próx. Troca Pneu</th>
+            <th>Serviço necessário</th> <!-- Nova coluna -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of pendingMaintenances">
+            <td>{{ m.numeracao }}</td>
+            <td>{{ m.modelo }}</td>
+            <td>{{ m.anoModelo }}</td>
+            <td>{{ m.kmAtual }}</td>
+            <td>{{ m.kmProxTrocaOleo }}</td>
+            <td>{{ m.kmProxTrocaPneu }}</td>
+            <td>
+              <!-- Lógica para determinar quais serviços estão pendentes -->
+              <span *ngIf="m.kmProxTrocaOleo != null && m.kmAtual >= m.kmProxTrocaOleo - 3000">
+                Troca de Óleo
+              </span>
+              <span *ngIf="
                 (m.kmProxTrocaOleo != null && m.kmAtual >= m.kmProxTrocaOleo - 3000) &&
                 (m.kmProxTrocaPneu != null && m.kmAtual >= m.kmProxTrocaPneu - 3000)
               ">
-              , 
-            </span>
-            <span *ngIf="m.kmProxTrocaPneu != null && m.kmAtual >= m.kmProxTrocaPneu - 3000">
-              Troca de Pneu
-            </span>
-            <!-- Caso nenhum dos dois esteja no critério, mostrar “–” -->
-            <span
-              *ngIf="
-                !(
-                  (m.kmProxTrocaOleo != null && m.kmAtual >= m.kmProxTrocaOleo - 3000) ||
-                  (m.kmProxTrocaPneu != null && m.kmAtual >= m.kmProxTrocaPneu - 3000)
-                )
-              "
-            >
-              –
-            </span>
-          </td>
-        </tr>
-        <tr *ngIf="pendingMaintenances.length === 0">
-          <td colspan="9">Nenhuma manutenção pendente.</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+              e
+              </span>
+              <span *ngIf="m.kmProxTrocaPneu != null && m.kmAtual >= m.kmProxTrocaPneu - 3000">
+                Troca de Pneu
+              </span>
+            
+            </td>
+          </tr>
+          <tr *ngIf="pendingMaintenances.length === 0">
+            <td colspan="9">Nenhuma manutenção pendente.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
 </div>

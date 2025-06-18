@@ -1,0 +1,256 @@
+.frota-section {
+  background: linear-gradient(rgba(6, 6, 94, 0.6),
+      rgba(0, 0, 10, 0.6));
+  text-align: center;
+  padding: 0 40px;
+}
+
+.frota-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.frota-section p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  color: #d3d3d3;
+  line-height: 1.6;
+}
+
+h3 {
+  font-size: 26px;
+}
+
+.marca {
+  font-size: 15px;
+}
+
+strong {
+  color: #e7e7e7;
+}
+
+.subtitulo {
+  display: flex;
+  justify-items: center;
+}
+
+
+.frota-container {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.frota-cards-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.frota-cards-scroll::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+
+.frota-card {
+  width: 260px;
+  max-width: 85vw;
+  border-radius: 15px;
+  overflow: hidden;
+  flex: 0 0 250px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  color: white;
+  scroll-snap-align: start;
+}
+
+.frota-card:hover {
+  transform: scale(1.03);
+}
+
+.frota-content {
+  background: rgba(0, 0, 0, 0.438);
+  padding: 20px;
+  backdrop-filter: blur(2px);
+  height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.frota-header .modelo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.frota-header .subinfo {
+  font-size: 0.85rem;
+  font-weight: 300;
+  margin-top: 5px;
+  color: #ccc;
+}
+
+
+.frota-itens {
+  max-height: 240px;
+  flex-direction: column-reverse;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.frota-itens .lotacao-badge {
+  background-color: #ffc107;
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 30px;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.frota-itens .lotacao-badge:hover {
+  background-color: #ffc825;
+}
+
+.frota-itens::-webkit-scrollbar {
+  width: 6px;
+}
+
+.frota-itens::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.frota-itens::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.frota-itens li {
+  background-color: rgba(255, 255, 255, 0.12);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.frota-itens li:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-button {
+  width: 20px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+  padding: 0px;
+  border-radius: 50%;
+  z-index: 2;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: transparent;
+  transform: scale(1.2);
+}
+
+.carousel-wrapper {
+  width: 100%;
+}
+
+.carousel-wrapper h1 {
+  justify-content: start;
+  display: flex;
+}
+
+
+.carousel {
+  width: 100%;
+  max-width: 500px;
+  height: 270px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .frota-container {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0px;
+    gap: 10px;
+  }
+
+  .carousel {
+    width: 100%;
+    height: auto;
+  }
+
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .frota-card {
+    flex: 0 0 70vw
+  }
+
+  .frota-card.card-unico {
+    flex: 0 0 78vw
+  }
+
+  .frota-card img {
+    height: 170px;
+  }
+
+  .frota-cards-scroll {
+    gap: 12px;
+    padding: 0px;
+  }
+
+  .nav-button {
+    display: none !important;
+  }
+
+  .nav-button:hover {
+    background-color: transparent;
+    transform: scale();
+  }
+}

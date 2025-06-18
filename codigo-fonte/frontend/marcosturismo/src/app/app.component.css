@@ -1,0 +1,5 @@
+:host {
+  display: block;
+  scroll-behavior: smooth;
+  margin-top: 60px; /* compensar header fixo */
+}

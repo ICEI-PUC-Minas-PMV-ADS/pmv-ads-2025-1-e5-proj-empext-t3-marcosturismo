@@ -24,8 +24,19 @@ jobs:
       - name: Increment frontend and backend versions
         id: increment
         run: |
-          # FRONTEND
+          # FRONTEND - Coorporativo
           FRONTEND_DIR="codigo-fonte/frontend/marcos-turismo"
+          PACKAGE_JSON="$FRONTEND_DIR/package.json"
+
+          currentFrontendVersion=$(jq -r '.version' $PACKAGE_JSON)
+          IFS='.' read -r -a f_parts <<< "$currentFrontendVersion"
+          f_parts[2]=$((f_parts[2] + 1))
+          newFrontendVersion="${f_parts[0]}.${f_parts[1]}.${f_parts[2]}"
+          jq ".version = \"$newFrontendVersion\"" $PACKAGE_JSON > temp.json && mv temp.json $PACKAGE_JSON
+          echo "Frontend version: $newFrontendVersion"
+
+          # FRONTEND - site
+          FRONTEND_DIR="codigo-fonte/frontend/marcosturismo"
           PACKAGE_JSON="$FRONTEND_DIR/package.json"
 
           currentFrontendVersion=$(jq -r '.version' $PACKAGE_JSON)
@@ -87,7 +98,7 @@ jobs:
           git merge release --no-ff -m "[CI/CD] MERGE RELEASE"
           git push origin main
 
-  build-deploy-frontend:
+  build-deploy-frontend-coorporativo:
     needs: versioning
     runs-on: ubuntu-latest
     steps:
@@ -119,6 +130,10 @@ jobs:
       - name: Rename CSR index file to index.html
         run: mv codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.csr.html codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
 
+      - name: Update base href for coorporativo
+        run: |
+          sed -i 's|<base href="/">|<base href="/coorporativo/">|' codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser/index.html
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
@@ -128,11 +143,68 @@ jobs:
       - name: Clear remote folder
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "\
-            find ${{ secrets.HOST_DEPLOY_DIR }} -mindepth 1 -maxdepth 1 ! -name 'storage' -exec rm -rf {} +"
+            find ${{ secrets.HOST_DEPLOY_DIR }} -mindepth 1 -maxdepth 1 -exec rm -rf {} +"
 
       - name: Upload frontend via SCP
         run: |
           cd codigo-fonte/frontend/marcos-turismo/dist/marcos-turismo/browser
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}/coorporativo
+
+      - name: Reload Apache
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST_SSH_IP }}
+          username: ${{ secrets.HOST_SSH_USER }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: sudo systemctl reload apache2 || echo "Apache not reloaded"
+  
+  
+  build-deploy-frontend-site:
+    needs: versioning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest release changes
+        run: |
+          git fetch origin
+          git pull origin release
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        working-directory: codigo-fonte/frontend/marcosturismo
+        run: npm ci
+
+      - name: Build Angular app
+        working-directory: codigo-fonte/frontend/marcosturismo
+        run: ng build --configuration=production
+
+      - name: Rename CSR index file to index.html
+        run: mv codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.csr.html codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.html
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Clear remote folder
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "\
+            find ${{ secrets.HOST_DEPLOY_DIR }} -mindepth 1 -maxdepth 1 \ ! -name 'storage' ! -name 'coorporativo' \ -exec rm -rf {} +"
+
+      - name: Upload frontend via SCP
+        run: |
+          cd codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser
           scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }}:${{ secrets.HOST_DEPLOY_DIR }}
 
       - name: Reload Apache

@@ -1,0 +1,98 @@
+<section class="historias-section">
+  <div class="center">
+    <h2>Histórias</h2>
+  </div>
+  <p *ngIf="avaliacoes.length > 0">
+    A satisfação dos nossos clientes é nossa prioridade. Veja o que eles têm a dizer!
+  </p>
+  <p *ngIf="1 > avaliacoes.length">
+    Faça parte e conte um pouco da sua experiência com nossos serviços!
+  </p>
+
+
+  <!-- Carrossel -->
+  <div *ngIf="avaliacoes.length > 0" class="carousel-wrapper">
+    <div class="carousel-nav">
+
+      <!-- Botão Anterior (somente desktop + overflow) -->
+      <button class="nav-button" *ngIf="showNavButtons" (click)="scrollCarousel('left')">◀</button>
+
+      <!-- Área scrollável -->
+      <div class="avaliacao-cards-scroll" [ngClass]="{
+    'justify-start': showNavButtons,
+    'justify-center': !showNavButtons
+  }" #carouselContainer>
+        <div class="avaliacao" *ngFor="let card of avaliacoes">
+          <h3>{{ card.titulo }}</h3>
+          <p class="comentario">“{{ card.descricao }}”</p>
+          <div>
+            <p class="autor">{{ card.autor }}</p>
+            <div class="estrelas">
+              <ng-container *ngFor="let i of [1,2,3,4,5]">
+                <span [class.filled]="i <= Math.floor(card.nota)">★</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão Próximo (somente desktop + overflow) -->
+      <button class="nav-button" *ngIf="showNavButtons" (click)="scrollCarousel('right')">▶</button>
+
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <form [formGroup]="form" (ngSubmit)="enviarAvaliacao()" class="avaliacao-form">
+    <h3>📝 Conte para nós a sua experiência!</h3>
+
+    <input type="text" formControlName="autor" placeholder="Nome" />
+    <div *ngIf="form.get('autor')?.invalid && form.get('autor')?.touched" class="erro">Nome obrigatório!</div>
+
+    <input type="text" formControlName="titulo" placeholder="Título" />
+    <div *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched" class="erro">Título obrigatório!
+    </div>
+
+    <textarea rows="4" formControlName="descricao" placeholder="Comentário"></textarea>
+    <div *ngIf="form.get('descricao')?.invalid && form.get('descricao')?.touched" class="erro">Comentário obrigatório!
+    </div>
+
+    <div class="avaliacao-estrelas">
+      <div class="estrelas-svg">
+        <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+          <div class="estrela-wrapper" (mouseenter)="hover = i" (mouseleave)="hover = 0" (click)="setNota(i)">
+            <svg viewBox="0 0 24 24" class="estrela-base">
+              <path
+                d="M12 .587l3.668 7.571L24 9.748l-6 5.847 1.416 8.255L12 18.896l-7.416 4.954L6 15.595 0 9.748l8.332-1.59z" />
+            </svg>
+            <div class="estrela-overlay" [style.width.%]="getStarFillPercent(i)">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 .587l3.668 7.571L24 9.748l-6 5.847 1.416 8.255L12 18.896l-7.416 4.954L6 15.595 0 9.748l8.332-1.59z" />
+              </svg>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div *ngIf="form.get('nota')?.invalid && form.get('nota')?.touched" class="erro">Nota obrigatória</div>
+
+    <div class="custombutton">
+
+      <button type="submit" [disabled]="form.invalid || enviando">
+        <ng-container *ngIf="!enviando">Enviar</ng-container>
+        <ng-container *ngIf="enviando">Enviando...</ng-container>
+      </button>
+    </div>
+  </form>
+
+  <div class="snackbar" *ngIf="showSnackbar">
+    ✅ Sua avaliação foi enviada e está em análise.
+  </div>
+
+  <div class="snackbar erro" *ngIf="mensagemErro">
+    {{ mensagemErro }}
+  </div>
+
+
+</section>

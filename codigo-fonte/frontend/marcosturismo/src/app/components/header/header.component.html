@@ -1,0 +1,28 @@
+<header class="header">
+    <div class="container">
+        <!-- Ícone hamburguer -->
+        <div class="menu-toggle" (click)="toggleMenu()">
+            &#9776;
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">
+            <img src="logo.jpg" alt="Marcos Turismo" />
+        </div>
+
+        <!-- Navegação -->
+        <nav class="nav" [class.open]="menuOpen">
+            <a *ngFor="let item of navItems" [class.active]="activeSection === item.id"
+                (click)="scrollTo(item.id); closeMenu()">
+                {{ item.label }}
+            </a>
+            <div class="login-btn mobile-only">
+                <button (click)="abrirCoorporativo()">Coorporativo</button>
+            </div>
+        </nav>
+
+        <div class="login-btn desktop-only">
+            <button (click)="abrirCoorporativo()">Coorporativo</button>
+        </div>
+    </div>
+</header>
