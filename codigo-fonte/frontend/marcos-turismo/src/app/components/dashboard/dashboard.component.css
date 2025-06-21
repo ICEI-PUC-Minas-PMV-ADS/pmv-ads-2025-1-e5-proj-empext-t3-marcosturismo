@@ -43,14 +43,6 @@ app-sidebar {
 }
 
 
-.subtitle h2 {
-  color: #fff;
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
 /* GRID DE CARDS */
 .cards-container {
   display: grid;
@@ -170,10 +162,6 @@ canvas {
   .page-header h1,
   .center h2 {
     font-size: 1.5rem;
-  }
-
-  .subtitle h2 {
-    font-size: 0.9rem;
   }
 
   .card h2 {

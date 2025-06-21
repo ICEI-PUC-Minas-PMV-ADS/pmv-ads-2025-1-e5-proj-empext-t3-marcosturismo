@@ -143,7 +143,7 @@ jobs:
       - name: Clear remote folder
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "\
-            find ${{ secrets.HOST_DEPLOY_DIR }} -mindepth 1 -maxdepth 1 -exec rm -rf {} +"
+            find ${{ secrets.HOST_DEPLOY_DIR }}/coorporativo -mindepth 1 -maxdepth 1 -exec rm -rf {} +"
 
       - name: Upload frontend via SCP
         run: |
@@ -188,8 +188,8 @@ jobs:
         working-directory: codigo-fonte/frontend/marcosturismo
         run: ng build --configuration=production
 
-      - name: Rename CSR index file to index.html
-        run: mv codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.csr.html codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.html
+      #- name: Rename CSR index file to index.html
+      #  run: mv codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.csr.html codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.html
 
       - name: Setup SSH
         run: |

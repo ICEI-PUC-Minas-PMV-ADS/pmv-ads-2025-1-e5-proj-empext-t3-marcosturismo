@@ -66,17 +66,18 @@ h1 {
   font-weight: 600;
   font-size: 16px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  word-wrap: break-word;
 }
 
-/* Data no cabeçalho, alinhada à direita */
 .card-data {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-weight: normal;
-  font-size: 14px;
+  font-size: 12px;
+  color: #ccc;
+  align-self: flex-end;
 }
+
 
 /* ================================ */
 /* Corpo do card                    */
@@ -203,28 +204,6 @@ h1 {
 .btn-cancel:hover,
 .buttons .btn-cancel:hover {
   background-color: #c82333;
-}
-
-/* Botão flutuante “+” (azul claro) */
-.add-card {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #1da1f2;
-  color: white;
-  font-size: 36px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
-
-.add-card:hover {
-  background-color: #1a91da;
 }
 
 /* ================================ */

@@ -13,7 +13,8 @@ body {
   background-attachment: fixed;
 }
 
-input {
+input,
+textarea {
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -57,7 +58,7 @@ button:hover {
   color: #fff;
 }
 
-.content-view{
+.content-view {
   display: flex;
 }
 
@@ -85,6 +86,14 @@ button:hover {
   border-radius: 5px;
 }
 
+.subtitle h2 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -105,4 +114,47 @@ button:hover {
     opacity: 0;
     transform: translateY(10px);
   }
+}
+
+/* Botão flutuante “+” (azul claro) */
+.add-card {
+  bottom: 20px;
+  left: 94.5%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #011dc0;
+  color: white;
+  font-size: 26px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  position: fixed;
+  justify-content: center;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+}
+
+.add-card:hover {
+  background-color: #122cc2;
+}
+
+
+
+@media (max-width: 576px) {
+
+  .center h2 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle h2 {
+    font-size: 0.9rem;
+  }
+
+  .add-card {
+    left: 80%;
+  }
+
 }

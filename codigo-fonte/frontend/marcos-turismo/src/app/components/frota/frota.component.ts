@@ -32,8 +32,15 @@ interface Veiculo {
   tv: boolean;
   geladeira: boolean;
   sanitarios: boolean;
-  // Por enquanto não enviamos nem recebemos imagens
+  imagens?: ImagemVeiculo[];
 }
+
+interface ImagemVeiculo {
+  id: string;
+  imgUrl: string;
+  dataCriacao: string;
+}
+
 
 interface Resultado {
   veiculo: Veiculo;
@@ -55,6 +62,9 @@ export class FrotaComponent implements OnInit {
   mensagem = '';
   mensagemTipo: 'success' | 'error' | '' = '';
   mensagemErro: string | null = null;
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
 
   // Campos do formulário
   numeracao = '';
@@ -84,7 +94,7 @@ export class FrotaComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private cdref: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.carregarFrota();
@@ -98,6 +108,20 @@ export class FrotaComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (!token) return null;
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+
+      // Faz preview da imagem
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
 
   /**
@@ -154,6 +178,15 @@ export class FrotaComponent implements OnInit {
 
     this.selectedCardIndex = index;
     this.modalAberto = true;
+
+    // ✅ Se o veículo já tem imagem, mostra no preview
+    if (veic.imagens && veic.imagens.length > 0) {
+      this.imagePreview = veic.imagens[0].imgUrl;
+      this.selectedFile = null; // ← Ainda não tem novo arquivo escolhido
+    } else {
+      this.imagePreview = null;
+      this.selectedFile = null;
+    }
   }
 
   /**
@@ -181,6 +214,22 @@ export class FrotaComponent implements OnInit {
     this.sanitarios = false;
     this.mensagem = '';
     this.mensagemTipo = '';
+    this.selectedFile = null;
+    this.imagePreview = null;
+  }
+
+
+  getCardBackgroundStyle(card: any): any {
+    if (card?.veiculo?.imagens?.length) {
+      return {
+        'background-image': `url('${card?.veiculo?.imagens[0].imgUrl}')`,
+        'background-size': 'cover',
+        'background-position': 'center',
+        'background-repeat': 'no-repeat'
+      };
+    }
+    return {
+    };
   }
 
   /**
@@ -208,7 +257,6 @@ export class FrotaComponent implements OnInit {
       tv: this.tv,
       geladeira: this.geladeira,
       sanitarios: this.sanitarios,
-      // sem campos de imagem
     };
 
     const headers = this.getAuthHeaders();
@@ -221,6 +269,7 @@ export class FrotaComponent implements OnInit {
 
     if (this.selectedCardIndex !== null) {
       const existente = this.cardsGerados[this.selectedCardIndex].veiculo;
+      const imagem = this.cardsGerados[this.selectedCardIndex].veiculo?.imagens;
       if (!existente.id) {
         this.mensagem = 'Erro: ID do veículo não encontrado.';
         this.mensagemTipo = 'error';
@@ -234,18 +283,83 @@ export class FrotaComponent implements OnInit {
     }
   }
 
+  deleteImagem(imagemId: string, callback: () => void): void {
+      this.loading = true;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.mensagem = 'Sessão expirada. Faça login novamente.';
+      this.mensagemTipo = 'error';
+      this.loading = false;
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.delete(`${environment.apiUrl}/veiculo/imagem/${imagemId}`, { headers, responseType: 'text' as const }).subscribe({
+      next: () => {
+        console.log('Imagem antiga deletada.');
+        callback();
+      },
+      error: (error) => {
+        console.error('Erro ao deletar imagem:', error);
+        this.handleError(error, 'excluir imagem antiga');
+        callback();  // Mesmo com erro no delete, tenta seguir o upload
+      },
+      complete: () => this.loading = false
+    });
+  }
+
+
   /**
    * POST /veiculo — envia JSON puro para criar novo veículo.
    */
   criarVeiculo(veiculo: Veiculo, headers: HttpHeaders): void {
+    this.loading = true;
     this.http.post<Veiculo>(this.apiUrl, veiculo, { headers }).subscribe({
+      next: (novoVeiculo) => {
+        if (this.selectedFile) {
+          console.log(novoVeiculo);
+          console.log(novoVeiculo.id);
+          this.uploadImagem(novoVeiculo.id!, this.selectedFile);
+        } else {
+          this.mensagem = 'Veículo adicionado com sucesso!';
+          this.mensagemTipo = 'success';
+          this.carregarFrota();
+          this.fecharModal();
+          this.loading = false;
+        }
+      },
+      error: (error) => {
+        this.handleError(error, 'adicionar veículo');
+        this.loading = false;
+      },
+      complete: () => (this.loading = false),
+    });
+  }
+
+  uploadImagem(veiculoId: string, file: File): void {
+      this.loading = true;
+    const headers = this.getAuthHeaders();
+    if (!headers) {
+      this.mensagem = 'Sessão expirada. Faça login novamente.';
+      this.mensagemTipo = 'error';
+      this.loading = false;
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    this.http.post(`${this.apiUrl}/upload/${veiculoId}`, formData, { headers, responseType: 'text' as const }).subscribe({
       next: () => {
-        this.mensagem = 'Veículo adicionado com sucesso!';
+        this.mensagem = 'Imagem enviada com sucesso!';
         this.mensagemTipo = 'success';
         this.carregarFrota();
         this.fecharModal();
       },
-      error: (error) => this.handleError(error, 'adicionar veículo'),
+      error: (error) => this.handleError(error, 'fazer upload da imagem'),
       complete: () => (this.loading = false),
     });
   }
@@ -254,14 +368,35 @@ export class FrotaComponent implements OnInit {
    * PUT /veiculo/{id} — envia JSON puro para atualizar veículo.
    */
   atualizarVeiculo(id: string, veiculo: Veiculo, headers: HttpHeaders): void {
+    this.loading = true;
     this.http.put<Veiculo>(`${this.apiUrl}/${id}`, veiculo, { headers }).subscribe({
-      next: () => {
-        this.mensagem = 'Veículo atualizado com sucesso!';
-        this.mensagemTipo = 'success';
-        this.carregarFrota();
-        this.fecharModal();
+      next: (veiculoAtualizado) => {
+        if (this.selectedFile) {
+          const imagemAntiga = veiculoAtualizado.imagens && veiculoAtualizado.imagens.length > 0
+            ? veiculoAtualizado.imagens[0]
+            : null;
+
+          if (imagemAntiga) {
+            // Primeiro deleta imagem antiga
+            this.deleteImagem(imagemAntiga.id, () => {
+              this.uploadImagem(id, this.selectedFile!);
+            });
+          } else {
+            // Se não tem imagem antiga, apenas faz o upload direto
+            this.uploadImagem(id, this.selectedFile!);
+          }
+        } else {
+          this.mensagem = 'Veículo atualizado com sucesso!';
+          this.mensagemTipo = 'success';
+          this.carregarFrota();
+          this.fecharModal();
+          this.loading = false;
+        }
       },
-      error: (error) => this.handleError(error, 'atualizar veículo'),
+      error: (error) => {
+        this.handleError(error, 'atualizar veículo');
+        this.loading = false;
+      },
       complete: () => (this.loading = false),
     });
   }
@@ -270,35 +405,65 @@ export class FrotaComponent implements OnInit {
    * DELETE /veiculo/{id} — remove o veículo.
    */
   excluirCard(index: number): void {
+    this.loading = true;
     const headers = this.getAuthHeaders();
     if (!headers) {
       this.mensagem = 'Sessão expirada. Faça login novamente.';
       this.mensagemTipo = 'error';
+      this.loading = false;
       return;
     }
+
     const veic = this.cardsGerados[index].veiculo;
     if (!veic.id) {
       this.mensagem = 'Erro: Veículo não possui ID válido.';
       this.mensagemTipo = 'error';
+      this.loading = false;
       return;
     }
+
     const confirmacao = window.confirm(
       `Tem certeza que deseja excluir o veículo ${veic.numeracao}?`
     );
-    if (!confirmacao) return;
+    if (!confirmacao) {
+      this.loading = false; return;
+    }
 
-    this.loading = true;
-    this.http
-      .delete(`${this.apiUrl}/${veic.id}`, { headers, responseType: 'text' })
-      .subscribe({
-        next: (response) => {
-          this.mensagem = response || 'Veículo excluído com sucesso!';
-          this.mensagemTipo = 'success';
-          this.carregarFrota();
-        },
-        error: (error) => this.handleError(error, 'excluir veículo'),
-        complete: () => (this.loading = false),
-      });
+    const excluirVeiculo = () => {
+      this.http
+        .delete(`${this.apiUrl}/${veic.id}`, { headers, responseType: 'text' as const })
+        .subscribe({
+          next: (response) => {
+            this.mensagem = response || 'Veículo excluído com sucesso!';
+            this.mensagemTipo = 'success';
+            this.carregarFrota();
+          },
+          error: (error) => {
+            this.handleError(error, 'excluir veículo');
+            this.loading = false;
+          },
+          complete: () => (this.loading = false),
+        });
+    };
+
+    if (veic.imagens && veic.imagens.length > 0) {
+      const imagemId = veic.imagens[0].id;
+      this.http
+        .delete(`${environment.apiUrl}/veiculo/imagem/${imagemId}`, { headers, responseType: 'text' as const })
+        .subscribe({
+          next: () => {
+            console.log('Imagem deletada com sucesso');
+            excluirVeiculo();
+          },
+          error: (error) => {
+            console.error('Erro ao excluir imagem:', error);
+            // Mesmo que falhe ao excluir a imagem, ainda tenta excluir o veículo
+            excluirVeiculo();
+          }
+        });
+    } else {
+      excluirVeiculo();
+    }
   }
 
   /**
@@ -385,7 +550,6 @@ export class FrotaComponent implements OnInit {
     input.value = raw;
     this.placa = raw;
   }
-
   /**
    * Remove qualquer caractere que não seja dígito e repassa para a propriedade vinculada.
    * Usa nos campos kmAtual, kmProxTrocaOleo e kmProxTrocaPneu.

@@ -32,6 +32,8 @@ export class ExcursoesComponent implements OnInit {
   showModal: boolean = false;
   editingId: string | null = null;
   errorMsg: string = '';
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   // Para abrir a janela de seleção de arquivo em cada card (edição inline)
   @ViewChildren('inputUpload') inputUploadElements!: QueryList<ElementRef>;
@@ -39,7 +41,7 @@ export class ExcursoesComponent implements OnInit {
   // Em vez de armazenar base64, vamos armazenar o File que o usuário selecionou
   arquivoParaEnvio: File | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.buscarExcursoes();
@@ -87,6 +89,8 @@ export class ExcursoesComponent implements OnInit {
       imgUrl: '',
       isNew: true,
       arquivo: null, // guardaremos aqui o File até o confirm
+      imagePreview: null,
+      selectedFile: null,
     });
   }
 
@@ -122,8 +126,12 @@ export class ExcursoesComponent implements OnInit {
     formData.append('dataExcursao', dataMillis);
 
     // Se o usuário selecionou arquivo (no card.arquivo), enviamos:
-    if (card.arquivo) {
-      formData.append('file', card.arquivo, card.arquivo.name);
+    if (this.selectedFile) {
+      formData.append(
+        'file',
+        this.selectedFile,
+        this.selectedFile.name
+      );
     }
 
     // Escolhe o método POST ou PUT:
@@ -134,12 +142,12 @@ export class ExcursoesComponent implements OnInit {
       req$ = this.http.put(
         `${environment.apiUrl}/excursao/${card.id}`,
         formData,
-        { headers }
+        { headers, responseType: 'text' as const }
       );
     } else {
       // Nova excursão
       req$ = this.http.post(`${environment.apiUrl}/excursao`, formData, {
-        headers,
+        headers, responseType: 'text' as const
       });
     }
 
@@ -172,7 +180,13 @@ export class ExcursoesComponent implements OnInit {
         return;
       }
 
-      this.excursoes[index].arquivo = file;
+      this.selectedFile = file;
+      // Faz preview da imagem
+      const reader = new FileReader();
+      reader.readAsDataURL(this.selectedFile);
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
       // Opcional: poderíamos mostrar uma prévia local usando FileReader, mas não é estritamente necessário
     }
   }
@@ -202,6 +216,7 @@ export class ExcursoesComponent implements OnInit {
     this.http
       .delete(`${environment.apiUrl}/excursao/${id}`, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+        responseType: 'text' as const,
       })
       .subscribe({
         next: () => this.buscarExcursoes(),
@@ -271,12 +286,11 @@ export class ExcursoesComponent implements OnInit {
       req$ = this.http.put(
         `${environment.apiUrl}/excursao/${this.editingId}`,
         formData,
-        { headers }
+        { headers, responseType: 'text' as const }
       );
     } else {
-      req$ = this.http.post(`${environment.apiUrl}/excursao`, formData, {
-        headers,
-      });
+      req$ = this.http.post(`${environment.apiUrl}/excursao`, formData,
+        { headers, responseType: 'text' as const });
     }
 
     req$.subscribe({
@@ -322,6 +336,7 @@ export class ExcursoesComponent implements OnInit {
       titulo: '',
       descricao: '',
     };
+    this.selectedFile = null;
     this.arquivoParaEnvio = null;
   }
 
