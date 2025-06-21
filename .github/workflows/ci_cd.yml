@@ -143,7 +143,7 @@ jobs:
       - name: Clear remote folder
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.HOST_SSH_USER }}@${{ secrets.HOST_SSH_IP }} "\
-            find ${{ secrets.HOST_DEPLOY_DIR }} -mindepth 1 -maxdepth 1 -exec rm -rf {} +"
+            find ${{ secrets.HOST_DEPLOY_DIR }}/coorporativo -mindepth 1 -maxdepth 1 -exec rm -rf {} +"
 
       - name: Upload frontend via SCP
         run: |

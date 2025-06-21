@@ -1,221 +1,156 @@
-
 <!-- Botão flutuante “+” para abrir o modal -->
 <button class="add-btn" (click)="modalAberto = true">+</button>
 
 <!-- Modal de criação/edição de veículo (sem upload de imagem) -->
 <div class="modal" [style.display]="modalAberto ? 'flex' : 'none'">
   <div class="card">
-    <!-- Inputs de texto (numeração, modelo, marca, ano, km atual) -->
-    <div class="input-group">
-      <div class="input-item">
-        <input
-          type="text"
-          [(ngModel)]="numeracao"
-          placeholder="Numeração"
-          #numeracaoInput="ngModel"
-          required
-        />
-        <div
-          *ngIf="numeracaoInput.invalid && numeracaoInput.touched"
-          class="error-message"
-        >
-          Numeração é obrigatória.
+
+    <!-- Cabeçalho fixo -->
+    <div class="modal-header">
+      <h2>{{ selectedCardIndex !== null ? 'Editar Veículo' : 'Novo Veículo' }}</h2>
+      <button class="close-btn" (click)="fecharModal()">X</button>
+    </div>
+
+    <!-- Conteúdo scrollável -->
+    <div class="modal-body">
+      <!-- Upload de Imagem -->
+      <div class="upload-section">
+        <label for="fileInput">Selecionar Imagem:</label>
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/png, image/jpeg" />
+
+        <div class="image-preview" *ngIf="imagePreview">
+          <p>Preview:</p>
+          <img [src]="imagePreview" alt="Preview da Imagem" />
         </div>
       </div>
 
-      <div class="input-item">
-        <input
-          type="text"
-          [(ngModel)]="modelo"
-          placeholder="Modelo"
-          #modeloInput="ngModel"
-          required
-        />
-        <div
-          *ngIf="modeloInput.invalid && modeloInput.touched"
-          class="error-message"
-        >
-          Modelo é obrigatório.
+      <!-- Inputs de texto (numeração, modelo, marca, ano, km atual) -->
+      <div class="input-group">
+        <div class="input-item">
+          <input type="text" [(ngModel)]="numeracao" placeholder="Numeração" #numeracaoInput="ngModel" required />
+          <div *ngIf="numeracaoInput.invalid && numeracaoInput.touched" class="error-message">
+            Numeração é obrigatória.
+          </div>
+        </div>
+
+        <div class="input-item">
+          <input type="text" [(ngModel)]="modelo" placeholder="Modelo" #modeloInput="ngModel" required />
+          <div *ngIf="modeloInput.invalid && modeloInput.touched" class="error-message">
+            Modelo é obrigatório.
+          </div>
+        </div>
+
+        <div class="input-item">
+          <input type="text" [(ngModel)]="marca" placeholder="Marca" #marcaInput="ngModel" required />
+          <div *ngIf="marcaInput.invalid && marcaInput.touched" class="error-message">
+            Marca é obrigatória.
+          </div>
+        </div>
+
+        <div class="input-item">
+          <input type="number" [(ngModel)]="anoModelo" placeholder="Ano Modelo" #anoModeloInput="ngModel" required />
+          <div *ngIf="anoModeloInput.invalid && anoModeloInput.touched" class="error-message">
+            Ano Modelo é obrigatório.
+          </div>
+        </div>
+
+        <div class="input-item">
+          <!-- Alterado para text, com máscara de dígitos -->
+          <input type="text" [(ngModel)]="kmAtual" placeholder="KM Atual" #kmAtualInput="ngModel"
+            (input)="formatarQuilometragem($event, 'kmAtual')" maxlength="7" required />
+          <div *ngIf="kmAtualInput.invalid && kmAtualInput.touched" class="error-message">
+            KM Atual é obrigatório.
+          </div>
         </div>
       </div>
 
-      <div class="input-item">
-        <input
-          type="text"
-          [(ngModel)]="marca"
-          placeholder="Marca"
-          #marcaInput="ngModel"
-          required
-        />
-        <div
-          *ngIf="marcaInput.invalid && marcaInput.touched"
-          class="error-message"
-        >
-          Marca é obrigatória.
+      <!-- Campos de select (situação, placa, lotação, categoria, km próximas trocas) -->
+      <div class="select-group">
+        <div class="select-item">
+          <select [(ngModel)]="situacao" #situacaoInput="ngModel" required>
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+            <option value="Manutencao">Manutenção</option>
+          </select>
+          <div *ngIf="situacaoInput.invalid && situacaoInput.touched" class="error-message">
+            Situação é obrigatória.
+          </div>
+        </div>
+
+        <div class="input-item">
+          <!-- Adicionada chamada ao método de formatação -->
+          <input type="text" [(ngModel)]="placa" placeholder="Placa" #placaInput="ngModel" (input)="formatPlaca($event)"
+            maxlength="8" required />
+          <div *ngIf="placaInput.invalid && placaInput.touched" class="error-message">
+            Placa é obrigatória.
+          </div>
+        </div>
+
+        <div class="input-item">
+          <input type="number" [(ngModel)]="lotacao" placeholder="Lotação" #lotacaoInput="ngModel" required />
+          <div *ngIf="lotacaoInput.invalid && lotacaoInput.touched" class="error-message">
+            Lotação é obrigatória.
+          </div>
+        </div>
+
+        <div class="select-item">
+          <select [(ngModel)]="categoria" #categoriaInput="ngModel" required>
+            <option value="Rodoviario">Rodoviário</option>
+            <option value="Urbano">Urbano</option>
+          </select>
+          <div *ngIf="categoriaInput.invalid && categoriaInput.touched" class="error-message">
+            Categoria é obrigatória.
+          </div>
+        </div>
+
+        <div class="input-item">
+          <!-- Alterado para text, com máscara de dígitos -->
+          <input type="text" [(ngModel)]="kmProxTrocaOleo" placeholder="KM Próxima Troca de Óleo"
+            #kmProxTrocaOleoInput="ngModel" (input)="formatarQuilometragem($event, 'kmProxTrocaOleo')" maxlength="7" />
+        </div>
+
+        <div class="input-item">
+          <!-- Alterado para text, com máscara de dígitos -->
+          <input type="text" [(ngModel)]="kmProxTrocaPneu" placeholder="KM Próxima Troca de Pneu"
+            #kmProxTrocaPneuInput="ngModel" (input)="formatarQuilometragem($event, 'kmProxTrocaPneu')" maxlength="7" />
         </div>
       </div>
 
-      <div class="input-item">
-        <input
-          type="text"
-          [(ngModel)]="anoModelo"
-          placeholder="Ano Modelo"
-          #anoModeloInput="ngModel"
-          required
-        />
-        <div
-          *ngIf="anoModeloInput.invalid && anoModeloInput.touched"
-          class="error-message"
-        >
-          Ano Modelo é obrigatório.
+      <!-- Checkboxes de opcionais -->
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" [(ngModel)]="arCondicionado" />
+          <span>Ar Condicionado</span>
         </div>
-      </div>
-
-      <div class="input-item">
-        <!-- Alterado para text, com máscara de dígitos -->
-        <input
-          type="text"
-          [(ngModel)]="kmAtual"
-          placeholder="KM Atual"
-          #kmAtualInput="ngModel"
-          (input)="formatarQuilometragem($event, 'kmAtual')"
-          maxlength="7"
-          required
-        />
-        <div
-          *ngIf="kmAtualInput.invalid && kmAtualInput.touched"
-          class="error-message"
-        >
-          KM Atual é obrigatório.
+        <div class="checkbox-item">
+          <input type="checkbox" [(ngModel)]="wifi" />
+          <span>Wi-Fi</span>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" [(ngModel)]="poltronaReclinavel" />
+          <span>Poltrona Reclinável</span>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" [(ngModel)]="tv" />
+          <span>TV</span>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" [(ngModel)]="geladeira" />
+          <span>Geladeira</span>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" [(ngModel)]="sanitarios" />
+          <span>Sanitários</span>
         </div>
       </div>
     </div>
-
-    <!-- Campos de select (situação, placa, lotação, categoria, km próximas trocas) -->
-    <div class="select-group">
-      <div class="select-item">
-        <select [(ngModel)]="situacao" #situacaoInput="ngModel" required>
-          <option value="Ativo">Ativo</option>
-          <option value="Inativo">Inativo</option>
-          <option value="Manutencao">Manutenção</option>
-        </select>
-        <div
-          *ngIf="situacaoInput.invalid && situacaoInput.touched"
-          class="error-message"
-        >
-          Situação é obrigatória.
-        </div>
-      </div>
-
-      <div class="input-item">
-        <!-- Adicionada chamada ao método de formatação -->
-        <input
-          type="text"
-          [(ngModel)]="placa"
-          placeholder="Placa"
-          #placaInput="ngModel"
-          (input)="formatPlaca($event)"
-          maxlength="8"
-          required
-        />
-        <div
-          *ngIf="placaInput.invalid && placaInput.touched"
-          class="error-message"
-        >
-          Placa é obrigatória.
-        </div>
-      </div>
-
-      <div class="input-item">
-        <input
-          type="number"
-          [(ngModel)]="lotacao"
-          placeholder="Lotação"
-          #lotacaoInput="ngModel"
-          required
-        />
-        <div
-          *ngIf="lotacaoInput.invalid && lotacaoInput.touched"
-          class="error-message"
-        >
-          Lotação é obrigatória.
-        </div>
-      </div>
-
-      <div class="select-item">
-        <select [(ngModel)]="categoria" #categoriaInput="ngModel" required>
-          <option value="Rodoviario">Rodoviário</option>
-          <option value="Urbano">Urbano</option>
-        </select>
-        <div
-          *ngIf="categoriaInput.invalid && categoriaInput.touched"
-          class="error-message"
-        >
-          Categoria é obrigatória.
-        </div>
-      </div>
-
-      <div class="input-item">
-        <!-- Alterado para text, com máscara de dígitos -->
-        <input
-          type="text"
-          [(ngModel)]="kmProxTrocaOleo"
-          placeholder="KM Próxima Troca de Óleo"
-          #kmProxTrocaOleoInput="ngModel"
-          (input)="formatarQuilometragem($event, 'kmProxTrocaOleo')"
-          maxlength="7"
-        />
-      </div>
-
-      <div class="input-item">
-        <!-- Alterado para text, com máscara de dígitos -->
-        <input
-          type="text"
-          [(ngModel)]="kmProxTrocaPneu"
-          placeholder="KM Próxima Troca de Pneu"
-          #kmProxTrocaPneuInput="ngModel"
-          (input)="formatarQuilometragem($event, 'kmProxTrocaPneu')"
-          maxlength="7"
-        />
-      </div>
-    </div>
-
-    <!-- Checkboxes de opcionais -->
-    <div class="checkbox-group">
-      <div class="checkbox-item">
-        <input type="checkbox" [(ngModel)]="arCondicionado" />
-        <span>Ar Condicionado</span>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" [(ngModel)]="wifi" />
-        <span>Wi-Fi</span>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" [(ngModel)]="poltronaReclinavel" />
-        <span>Poltrona Reclinável</span>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" [(ngModel)]="tv" />
-        <span>TV</span>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" [(ngModel)]="geladeira" />
-        <span>Geladeira</span>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" [(ngModel)]="sanitarios" />
-        <span>Sanitários</span>
-      </div>
-    </div>
-
     <!-- Botões de ação no modal -->
     <div class="buttons">
-      <button
-        class="btn green"
-        (click)="adicionarCard()"
-        [disabled]="loading"
-      >
-        Salvar
+      <button class="btn green" (click)="adicionarCard()" [disabled]="loading">
+        <span *ngIf="!loading">Salvar</span>
+        <span *ngIf="loading">
+          <span class="spinner"></span> Salvando...
+        </span>
       </button>
       <button class="btn red" (click)="modalAberto = false">
         Cancelar
@@ -224,58 +159,44 @@
   </div>
 </div>
 
+
+<!-- Cabeçalho -->
+<div class="center">
+  <h2>Frota</h2>
+</div>
+<div class="subtitle">
+  <h2>Todos os veículos inseridos no sistema. Veículos inativos não aparecerão no site.</h2>
+</div>
 <!-- Grid de exibição dos veículos já cadastrados -->
 <div class="cards-container">
-  <div
-    class="veiculo-card"
-    *ngFor="let resultado of cardsGerados; let i = index"
-  >
+  <div class="veiculo-card" *ngFor="let resultado of cardsGerados; let i = index"
+    [ngStyle]="getCardBackgroundStyle(resultado)">
     <div class="veiculo-info">
-      <h3>
-        {{ resultado.veiculo.modelo }} – {{ resultado.veiculo.marca }}
-      </h3>
+      <h3>{{ resultado.veiculo.modelo }} – {{ resultado.veiculo.marca }}</h3>
       <p><strong>Numeração:</strong> {{ resultado.veiculo.numeracao }}</p>
       <p><strong>Ano Modelo:</strong> {{ resultado.veiculo.anoModelo }}</p>
       <p><strong>KM Atual:</strong> {{ resultado.veiculo.kmAtual }}</p>
       <p><strong>Situação:</strong> {{ resultado.veiculo.situacao }}</p>
-      <p>
-        <strong>Próx. Troca Óleo:</strong>
-        {{ resultado.veiculo.kmProxTrocaOleo }}
-      </p>
-      <p>
-        <strong>Próx. Troca Pneu:</strong>
-        {{ resultado.veiculo.kmProxTrocaPneu }}
-      </p>
+      <p><strong>Próx. Troca Óleo:</strong> {{ resultado.veiculo.kmProxTrocaOleo }}</p>
+      <p><strong>Próx. Troca Pneu:</strong> {{ resultado.veiculo.kmProxTrocaPneu }}</p>
       <p><strong>Placa:</strong> {{ resultado.veiculo.placa }}</p>
       <p><strong>Lotação:</strong> {{ resultado.veiculo.lotacao }}</p>
       <p><strong>Categoria:</strong> {{ resultado.veiculo.categoria }}</p>
-      <p>
-        <strong>Opcionais:</strong><br />
-        <span *ngIf="resultado.veiculo.arCondicionado"
-          >❄ Ar Condicionado</span
-        ><br />
-        <span *ngIf="resultado.veiculo.wifi">📶 Wi-Fi</span><br />
-        <span *ngIf="resultado.veiculo.poltronaReclinavel"
-          >💺 Poltrona</span
-        ><br />
-        <span *ngIf="resultado.veiculo.tv">📺 TV</span><br />
-        <span *ngIf="resultado.veiculo.geladeira">🧊 Geladeira</span><br />
-        <span *ngIf="resultado.veiculo.sanitarios">🚻 Sanitários</span><br />
-      </p>
+
+      <div class="veiculo-itens">
+        <p><strong>Opcionais:</strong></p>
+        <span *ngIf="resultado.veiculo.arCondicionado">❄ Ar Condicionado</span>
+        <span *ngIf="resultado.veiculo.wifi">📶 Wi-Fi</span>
+        <span *ngIf="resultado.veiculo.poltronaReclinavel">💺 Poltrona</span>
+        <span *ngIf="resultado.veiculo.tv">📺 TV</span>
+        <span *ngIf="resultado.veiculo.geladeira">🧊 Geladeira</span>
+        <span *ngIf="resultado.veiculo.sanitarios">🚻 Sanitários</span>
+      </div>
     </div>
 
-    <!-- Botões de ação no card -->
     <div class="card-actions">
-      <button
-        class="btn red"
-        (click)="excluirCard(i)"
-        [disabled]="loading"
-      >
-        Excluir
-      </button>
-      <button class="btn green" (click)="editarCard(i)">
-        Editar
-      </button>
+      <button class="btn red" (click)="excluirCard(i)">Excluir</button>
+      <button class="btn green" (click)="editarCard(i)">Editar</button>
     </div>
   </div>
 </div>
