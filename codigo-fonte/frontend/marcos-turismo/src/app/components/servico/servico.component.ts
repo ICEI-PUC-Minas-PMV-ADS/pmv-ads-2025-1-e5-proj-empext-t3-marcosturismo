@@ -58,6 +58,7 @@ interface Servico {
   veiculoId: string;
   veiculoNumeracao: string;
   servicosRealizados: ServicoRealizadoDTO[];
+  custoTotal?: number;
 }
 
 interface Veiculo {
@@ -111,7 +112,7 @@ export class ServicoComponent implements OnInit {
     private http: HttpClient,
     private cdref: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.carregarServicos();
@@ -149,7 +150,8 @@ export class ServicoComponent implements OnInit {
             servicosRealizados: s.servicosRealizados.map((r) => ({
               tipoServicoId: r.tipoServico.id,
               custo: r.custo
-            }))
+            })),
+            custoTotal: s.custoTotal
           }));
           this.cdref.detectChanges();
         },
@@ -266,7 +268,7 @@ export class ServicoComponent implements OnInit {
 
   private adicionarServico(payload: any): void {
     this.http
-      .post<Servico>(this.baseUrl, payload, { headers: this.getAuthHeaders() })
+      .post(this.baseUrl, payload, { headers: this.getAuthHeaders(), responseType: 'text' as const })
       .subscribe({
         next: () => {
           this.carregarServicos();
@@ -282,7 +284,7 @@ export class ServicoComponent implements OnInit {
   excluirServico(id: string): void {
     if (confirm('Você tem certeza que deseja excluir este serviço?')) {
       this.http
-        .delete(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() })
+        .delete(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders(), responseType: 'text' as const })
         .subscribe({
           next: () => {
             this.carregarServicos();

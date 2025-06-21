@@ -188,8 +188,8 @@ jobs:
         working-directory: codigo-fonte/frontend/marcosturismo
         run: ng build --configuration=production
 
-      - name: Rename CSR index file to index.html
-        run: mv codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.csr.html codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.html
+      #- name: Rename CSR index file to index.html
+      #  run: mv codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.csr.html codigo-fonte/frontend/marcosturismo/dist/marcosturismo/browser/index.html
 
       - name: Setup SSH
         run: |

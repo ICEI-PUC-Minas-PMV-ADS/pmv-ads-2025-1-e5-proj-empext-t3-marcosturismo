@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-height: 100vh;
+  height: 100vh;
   display: flex;
 }
 
@@ -39,4 +39,30 @@ input {
   margin-bottom: 15px;
   border: none;
   border-radius: 5px;
+}
+
+.btn {
+  width: 100%;
+  background-color: #ffcc00;
+  color: black;
+  border: 1px solid #ffcc00;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: #ffcc00;
+}
+
+
+.btn-back {
+  width: 100%;
+  margin-top: 10px;
 }

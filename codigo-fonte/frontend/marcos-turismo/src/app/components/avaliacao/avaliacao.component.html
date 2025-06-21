@@ -1,29 +1,47 @@
-<div class="container">
-  <!-- Cabeçalho -->
-  <div class="center">
-    <h2>Avaliações Pendentes</h2>
-  </div>
-  <div class="subtitle">
-    <h2>Todas as avaliações a serem validadas</h2>
-  </div>
+<!-- Cabeçalho -->
+<div class="center">
+  <h2>Avaliações Pendentes</h2>
+</div>
+<div class="subtitle">
+  <h2>Todas as avaliações a serem validadas</h2>
+</div>
 
+<!-- Grid de exibição dos veículos já cadastrados -->
+<div class="cards-container">
   <div *ngFor="let avaliacao of avaliacoes" class="card">
-    <p>{{ avaliacao.titulo }} - {{ avaliacao.autor }}</p>
+    <p>{{ avaliacao.titulo }}</p>
+    <p>{{ avaliacao.descricao }}</p>
+    <p class="autor">{{ avaliacao.autor }}</p>
+    <div class="estrelas">
+      <ng-container *ngFor="let i of [1,2,3,4,5]">
+        <span [class.filled]="i <= Math.floor(avaliacao.nota)">★</span>
+      </ng-container>
+    </div>
     <div class="botoes">
       <button class="confirmar" (click)="validarAvaliacao(avaliacao.id)">Validar</button>
       <button class="excluir" (click)="excluirAvaliacao(avaliacao.id)">Excluir</button>
     </div>
   </div>
+</div>
 
-  <!-- Cabeçalho -->
-  <div class="center">
-    <h2>Avaliações Válidas</h2>
-  </div>
-  <div class="subtitle">
-    <h2>Avaliações validadas e mostradas no site</h2>
-  </div>
+<!-- Cabeçalho -->
+<div class="center">
+  <h2>Avaliações Válidas</h2>
+</div>
+<div class="subtitle">
+  <h2>Avaliações validadas e mostradas no site</h2>
+</div>
 
+<!-- Grid de exibição dos veículos já cadastrados -->
+<div class="cards-container">
   <div *ngFor="let avaliacao of avaliacoesValidas" class="card">
-    <p>{{ avaliacao.titulo }} - {{ avaliacao.autor }}</p>
+    <p>{{ avaliacao.titulo }}</p>
+    <p>{{ avaliacao.descricao }}</p>
+    <p class="autor">{{ avaliacao.autor }}</p>
+    <div class="estrelas">
+      <ng-container *ngFor="let i of [1,2,3,4,5]">
+        <span [class.filled]="i <= Math.floor(avaliacao.nota)">★</span>
+      </ng-container>
+    </div>
   </div>
 </div>

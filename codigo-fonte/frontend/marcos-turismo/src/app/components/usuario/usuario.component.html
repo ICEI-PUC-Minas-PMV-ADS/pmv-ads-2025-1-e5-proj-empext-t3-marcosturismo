@@ -1,52 +1,38 @@
 <!-- usuario.component.html -->
 
+<!-- Cabeçalho -->
+<div class="center">
+  <h2>Usuários</h2>
+</div>
+<div class="subtitle">
+  <h2>Gerêncie os usuários do sistema</h2>
+</div>
 <div class="user-card">
   <!-- Botão que abre o modal de listagem -->
   <button class="btn listar" (click)="isModalOpen = true">Listar Usuários</button>
 
   <!-- Formulário de criação/edição de usuário -->
   <label for="nome">Nome</label>
-  <input
-    type="text"
-    id="nome"
-    [(ngModel)]="usuarioForm.nome"
-    [ngClass]="{'erro': campoTemErro('nome')}"
+  <input type="text" id="nome" [(ngModel)]="usuarioForm.nome" [ngClass]="{'erro': campoTemErro('nome')}"
     placeholder="Digite o nome do usuário">
 
+  <label for="email">E-mail</label>
+  <input type="email" id="email" [(ngModel)]="usuarioForm.email" [ngClass]="{'erro': campoTemErro('email')}"
+    placeholder="Digite o e-mail">
+
   <label for="status">Status</label>
-  <select
-    id="status"
-    [(ngModel)]="usuarioForm.status"
-    [ngClass]="{'erro': campoTemErro('status')}">
+  <select id="status" [(ngModel)]="usuarioForm.status" [ngClass]="{'erro': campoTemErro('status')}">
     <option value="Ativo">Ativo</option>
     <option value="Inativo">Inativo</option>
     <option value="EmServico">Em Serviço</option>
   </select>
 
   <label for="categoria">Categoria</label>
-  <select
-    id="categoria"
-    [(ngModel)]="usuarioForm.tipo"
-    [ngClass]="{'erro': campoTemErro('tipo')}">
+  <select id="categoria" [(ngModel)]="usuarioForm.tipo" [ngClass]="{'erro': campoTemErro('tipo')}">
     <option value="Administrador">Administrador</option>
     <option value="Motorista">Motorista</option>
   </select>
 
-  <label for="documento">Documento</label>
-  <input
-    type="text"
-    id="documento"
-    [(ngModel)]="usuarioForm.documento"
-    [ngClass]="{'erro': campoTemErro('documento')}"
-    placeholder="Digite o número do documento">
-
-  <label for="email">E-mail</label>
-  <input
-    type="email"
-    id="email"
-    [(ngModel)]="usuarioForm.email"
-    [ngClass]="{'erro': campoTemErro('email')}"
-    placeholder="Digite o e-mail">
 
   <div class="button-container">
     <button class="btn cadastrar" (click)="cadastrar()">Cadastrar</button>
@@ -62,11 +48,10 @@
       <h3>{{ usuario.nome }}</h3>
       <p><strong>Status:</strong> {{ usuario.status }}</p>
       <p><strong>Categoria:</strong> {{ usuario.tipo }}</p>
-      <p><strong>Documento:</strong> {{ usuario.documento }}</p>
       <p><strong>E-mail:</strong> {{ usuario.email }}</p>
       <div class="button-container">
-        <button class="btn cadastrar" (click)="editarUsuario(usuario); isModalOpen=false">✏️</button>
-        <button class="btn cancelar" (click)="excluirUsuario(usuario.id)">🗑️</button>
+        <button *ngIf="usuario.id != '5d7208ef-6a27-4904-9a82-23b1b120ef38'" class="btn cadastrar" (click)="editarUsuario(usuario); isModalOpen=false">✏️</button>
+        <button *ngIf="usuario.id != '5d7208ef-6a27-4904-9a82-23b1b120ef38'" class="btn cancelar" (click)="excluirUsuario(usuario.id)">🗑️</button>
       </div>
     </div>
     <button class="btn cancelar fechar" (click)="isModalOpen = false">Fechar</button>

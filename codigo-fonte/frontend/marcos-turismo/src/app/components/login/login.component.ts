@@ -90,4 +90,8 @@ export class LoginComponent {
         }
       });
   }
+
+   voltar() {
+    window.location.href = 'https://www.marcosturismo.com.br/';
+  }
 }

@@ -1,7 +1,12 @@
-
-
 <div class="container-principal">
-  <h1>Excursões</h1>
+
+  <!-- Cabeçalho -->
+  <div class="center">
+    <h2>Excursões</h2>
+  </div>
+  <div class="subtitle">
+    <h2>Gerêncie as excursões que serão exibidas no site.</h2>
+  </div>
 
   <!-- Mensagem de erro -->
   <div *ngIf="errorMsg" class="error-msg">
@@ -15,34 +20,22 @@
       <ng-container *ngIf="!e.isNew">
         <div class="card">
           <div class="card-header">
-            {{ e.titulo }}
+            <div>{{ e.titulo }}</div>
             <span class="card-data">{{ e.dataExcursao | date: 'dd/MM/yyyy' }}</span>
           </div>
           <div class="card-body">
             <div *ngIf="getImagemSrc(e)" class="card-imagem">
-              <img
-                [src]="getImagemSrc(e)"
-                alt="Imagem da excursão"
-                class="imagem-fullwidth"
-              />
+              <img [src]="getImagemSrc(e)" alt="Imagem da excursão" class="imagem-fullwidth" />
             </div>
 
             <p class="card-label"><strong>Descrição:</strong></p>
             <p class="scrollable-cell">{{ e.descricao }}</p>
           </div>
           <div class="card-footer">
-            <button
-              class="btn-action btn-save"
-              aria-label="Editar excursão"
-              (click)="editarExcursao(e)"
-            >
+            <button class="btn-action btn-save" aria-label="Editar excursão" (click)="editarExcursao(e)">
               Editar
             </button>
-            <button
-              class="btn-action btn-cancel"
-              aria-label="Excluir excursão"
-              (click)="excluirExcursao(e.id!)"
-            >
+            <button class="btn-action btn-cancel" aria-label="Excluir excursão" (click)="excluirExcursao(e.id!)">
               Excluir
             </button>
           </div>
@@ -60,74 +53,39 @@
             <div class="form-group form-imagem">
               <label for="upload{{ i }}">Imagem da Excursão:</label>
               <div class="image-container" (click)="abrirUpload(i)">
-                <img
-                  class="preview imagem-fullwidth"
-                  [src]="getImagemSrc(e)"
-                  alt="Preview da excursão"
-                />
-                <input
-                  type="file"
-                  class="upload"
-                  id="upload{{ i }}"
-                  #inputUpload
-                  (change)="selecionarImagem($event, i)"
-                  hidden
-                />
+                <img class="preview imagem-fullwidth" [src]="imagePreview" alt="Preview da excursão" />
+                <input type="file" class="upload" id="upload{{ i }}" accept="image/png, image/jpeg" #inputUpload
+                  (change)="selecionarImagem($event, i)" hidden />
               </div>
             </div>
 
             <!-- Título -->
             <div class="form-group">
               <label for="tituloCard{{ i }}">Título:</label>
-              <input
-                id="tituloCard{{ i }}"
-                type="text"
-                [(ngModel)]="e.titulo"
-                name="tituloCard{{ i }}"
-                placeholder="Digite o título..."
-                required
-              />
+              <input id="tituloCard{{ i }}" type="text" [(ngModel)]="e.titulo" name="tituloCard{{ i }}"
+                placeholder="Digite o título..." required />
             </div>
 
             <!-- Descrição -->
             <div class="form-group">
               <label for="descricaoCard{{ i }}">Descrição:</label>
-              <textarea
-                id="descricaoCard{{ i }}"
-                [(ngModel)]="e.descricao"
-                name="descricaoCard{{ i }}"
-                rows="3"
-                placeholder="Descrição da excursão..."
-              ></textarea>
+              <textarea id="descricaoCard{{ i }}" [(ngModel)]="e.descricao" name="descricaoCard{{ i }}" rows="3"
+                placeholder="Descrição da excursão..."></textarea>
             </div>
 
             <!-- Data -->
             <div class="form-group">
               <label for="dataCard{{ i }}">Data:</label>
-              <input
-                id="dataCard{{ i }}"
-                type="date"
-                [(ngModel)]="e.dataExcursao"
-                name="dataCard{{ i }}"
-                [min]="hoje"
-                required
-              />
+              <input id="dataCard{{ i }}" type="date" [(ngModel)]="e.dataExcursao" name="dataCard{{ i }}" [min]="hoje"
+                required />
             </div>
           </div>
 
           <div class="card-footer">
-            <button
-              class="btn-action btn-save"
-              aria-label="Confirmar"
-              (click)="confirmarCard(i)"
-            >
+            <button class="btn-action btn-save" aria-label="Confirmar" (click)="confirmarCard(i)">
               Confirmar
             </button>
-            <button
-              class="btn-action btn-cancel"
-              aria-label="Cancelar"
-              (click)="cancelarCard(i)"
-            >
+            <button class="btn-action btn-cancel" aria-label="Cancelar" (click)="cancelarCard(i)">
               Cancelar
             </button>
           </div>
@@ -137,89 +95,51 @@
   </div>
 
   <!-- Botão flutuante “+” para adicionar novo card -->
-  <button
-    class="add-card"
-    aria-label="Adicionar nova excursão"
-    (click)="adicionarCard()"
-  >
-    +
-  </button>
+  <button class="add-card" aria-label="Adicionar nova excursão" (click)="adicionarCard()">+</button>
 
   <!-- === Modal de Adicionar/Editar Excursão (via botão “Editar”) === -->
   <div class="modal" *ngIf="showModal">
     <div class="modal-content">
-      <span
-        class="close"
-        aria-label="Fechar modal"
-        (click)="closeModal()"
-        >&times;</span
-      >
+      <span class="close" aria-label="Fechar modal" (click)="closeModal()">&times;</span>
       <h2>{{ editingId ? 'Editar Excursão' : 'Adicionar Excursão' }}</h2>
 
       <form (ngSubmit)="salvar()" #f="ngForm" novalidate>
         <!-- Campo Data -->
         <div class="form-group">
           <label for="data">Data da Excursão:</label>
-          <input
-            id="data"
-            type="date"
-            [(ngModel)]="excursaoForm.dataExcursao"
-            name="dataExcursao"
-            [min]="hoje"
-            required
-          />
+          <input id="data" type="date" [(ngModel)]="excursaoForm.dataExcursao" name="dataExcursao" [min]="hoje"
+            required />
         </div>
 
         <!-- Campo Título -->
         <div class="form-group">
           <label for="titulo">Título (Destino):</label>
-          <input
-            id="titulo"
-            type="text"
-            [(ngModel)]="excursaoForm.titulo"
-            name="titulo"
-            required
-          />
+          <input id="titulo" type="text" [(ngModel)]="excursaoForm.titulo" name="titulo" required />
         </div>
 
         <!-- Campo Descrição -->
         <div class="form-group">
           <label for="descricao">Descrição:</label>
-          <textarea
-            id="descricao"
-            [(ngModel)]="excursaoForm.descricao"
-            name="descricao"
-            rows="3"
-            required
-          ></textarea>
+          <textarea id="descricao" [(ngModel)]="excursaoForm.descricao" name="descricao" rows="3" required></textarea>
         </div>
 
         <!-- Upload de Imagem -->
         <div class="form-group">
           <label for="imagem">Imagem da Excursão:</label>
-          <input id="imagem" type="file" (change)="onFileChangeModal($event)" />
+          <input id="imagem" type="file" (change)="onFileChangeModal($event)" accept="image/png, image/jpeg" />
         </div>
 
         <!-- Botões de Ação no Modal -->
         <div class="buttons">
-          <button
-            type="button"
-            class="btn-action btn-cancel"
-            aria-label="Cancelar modal"
-            (click)="closeModal()"
-          >
+          <button type="button" class="btn-action btn-cancel" aria-label="Cancelar modal" (click)="closeModal()">
             Cancelar
           </button>
-          <button
-            type="submit"
-            class="btn-action btn-save"
-            aria-label="Salvar excursão"
-            [disabled]="f.invalid"
-          >
+          <button type="submit" class="btn-action btn-save" aria-label="Salvar excursão" [disabled]="f.invalid">
             {{ editingId ? 'Atualizar' : 'Salvar' }}
           </button>
         </div>
       </form>
     </div>
-  </div>
+      
+  </div>
 </div>

@@ -1,3 +1,12 @@
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 20px));
+  margin: 20px auto;
+  gap: 30px;
+  justify-content: center;
+  justify-items: center;
+}
+
 /* Estilo para o container */
 .container {
     display: flex;
@@ -10,7 +19,7 @@
 
 /* Estilo para os cards de avaliação */
 .card {
-    background-color: #002f6c;
+    background-color: #002f6c71;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
@@ -68,10 +77,31 @@ h3 {
     font-size: 30px;
 }
 
+/* Estilo para o título das avaliações válidas */
+.autor {
+    text-align: center;
+    font-size: 13px;
+font-weight: 400;
+}
+
 /* Estilo para as avaliações válidas */
 div > div {
     font-size: 16px;
     margin-bottom: 10px;
     color: white;
     text-align: center;
+}
+
+
+.estrelas {
+  margin-top: 8px;
+  font-size: 1.3rem;
+}
+
+.estrelas span {
+  color: #555;
+}
+
+.estrelas .filled {
+  color: gold;
 }

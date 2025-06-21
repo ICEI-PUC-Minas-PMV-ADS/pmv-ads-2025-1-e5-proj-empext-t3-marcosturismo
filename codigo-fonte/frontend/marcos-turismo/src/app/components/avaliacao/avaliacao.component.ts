@@ -15,6 +15,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AvaliacaoComponent implements OnInit {
 
+  Math = Math;
   avaliacoes: any[] = [];
   avaliacoesValidas: any[] = [];
 
