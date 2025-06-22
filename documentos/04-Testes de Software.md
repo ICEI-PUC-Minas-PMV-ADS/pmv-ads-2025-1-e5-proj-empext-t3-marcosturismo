@@ -1739,7 +1739,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/6af0d55e-eb4f-4cb2-bfd6-398032d713d3"></td>
   </tr>
 </table>
 
@@ -1769,8 +1769,9 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
-  </tr>
+  <td colspan="6" align="center">
+<img src="https://github.com/user-attachments/assets/2724d6b9-d3ed-4872-8011-1407b44827fd" alt="Imagem" />
+
 </table>
 
 
@@ -1801,7 +1802,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/6af0d55e-eb4f-4cb2-bfd6-398032d713d3"/></td>
   </tr>
 </table>
 
@@ -1830,8 +1831,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/9dcde818-82bb-4b13-bc83-0e9fccf9a3bb"/></td>
-  </tr>
+    <td colspan="6" align="center">
+ <img src="https://github.com/user-attachments/assets/2724d6b9-d3ed-4872-8011-1407b44827fd" alt="Imagem" />
+
 </table>
 
 
@@ -1882,7 +1884,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     </td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/c2f20ff8-c8e3-4882-967b-e29395a416aa"/></td>
   </tr>
 </table>
 
@@ -1967,7 +1969,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
     <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/c2f20ff8-c8e3-4882-967b-e29395a416aa"/></td>
   </tr>
   <tr>
     <td ></td>
@@ -1999,7 +2001,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
     <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/c2f20ff8-c8e3-4882-967b-e29395a416aa"/></td>
   </tr>
   <tr>
     <td ></td>
@@ -2035,7 +2037,8 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td></td>
+   <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/c2f20ff8-c8e3-4882-967b-e29395a416aa"/></td>
+  </tr>
   </tr>
 
   <th colspan="6" width="1000">CT-009<br>Gerenciar Colaboradores</th>
@@ -2058,6 +2061,8 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
 </td>
   </tr>
   <tr>
+     <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/c2f20ff8-c8e3-4882-967b-e29395a416aa"/></td>
+  </tr>
 </table>
 
 
