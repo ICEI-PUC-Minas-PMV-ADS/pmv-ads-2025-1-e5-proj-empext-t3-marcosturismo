@@ -99,7 +99,12 @@ Nessa etapa, vamos apresentar os casos de teste que utilizamos para verificar e 
  
 # Evidências de Testes de Software
 
-A apresentação de evidências de teste é fundamental para comprovar que os testes foram executados conforme o planejado. Essas evidências podem ser imagens ou vídeos que demonstram os resultados obtidos.
+## Sucesso
+[A apresentação de evidências de teste é fundamental para comprovar que os testes foram executados conforme o planejado. Essas evidências podem ser imagens ou vídeos que demonstram os resultados obtidos.](https://github.com/user-attachments/assets/6fda9715-99d6-47aa-9417-a1a1a44a2640)
+
+ ## Insucesso
+
+https://github.com/user-attachments/assets/2085135a-a0f6-4710-b604-e9cd8a762255
 
 ## Parte 1 - Testes Unitários
 
@@ -125,7 +130,7 @@ A apresentação de evidências de teste é fundamental para comprovar que os te
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4b68115f-77fc-4deb-a3b2-efed417e4886"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/6fda9715-99d6-47aa-9417-a1a1a44a2640"/></td>
   </tr>
 </table>
 
@@ -152,7 +157,7 @@ A apresentação de evidências de teste é fundamental para comprovar que os te
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/25a56887-d348-4f19-886f-9346d52ade33"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/2085135a-a0f6-4710-b604-e9cd8a762255"/></td>
   </tr>
 </table>
 
@@ -184,8 +189,11 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/92e25d4e-d0ad-41cd-aa64-e4319bd5405e"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/6fda9715-99d6-47aa-9417-a1a1a44a2640"/></td>
   </tr>
+ <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/2085135a-a0f6-4710-b604-e9cd8a762255"/></td>
+  </tr>
+     
 </table>
 
 ## CT-002 
@@ -241,7 +249,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     </td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/ea23db4a-3491-44b3-aa47-0dae667d4ce6"/></td>
   </tr>
 </table>
 
@@ -328,7 +336,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
     <tr>
-    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/4c8f1ba8-4e25-4174-8783-f69ee245db98"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/ea23db4a-3491-44b3-aa47-0dae667d4ce6"/></td>
   </tr>
   <tr>
     <td ></td>
