@@ -2,7 +2,7 @@
   <div class="center">
     <h2>Histórias</h2>
   </div>
-  <p *ngIf="avaliacoes.length > 0">
+  <p *ngIf="avaliacoes && avaliacoes.length > 0">
     A satisfação dos nossos clientes é nossa prioridade. Veja o que eles têm a dizer!
   </p>
   <p *ngIf="1 > avaliacoes.length">
@@ -11,7 +11,7 @@
 
 
   <!-- Carrossel -->
-  <div *ngIf="avaliacoes.length > 0" class="carousel-wrapper">
+  <div *ngIf="avaliacoes && avaliacoes.length > 0" class="carousel-wrapper">
     <div class="carousel-nav">
 
       <!-- Botão Anterior (somente desktop + overflow) -->

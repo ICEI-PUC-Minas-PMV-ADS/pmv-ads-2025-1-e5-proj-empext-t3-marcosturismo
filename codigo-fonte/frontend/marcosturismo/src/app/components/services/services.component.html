@@ -12,7 +12,7 @@
       <button (click)="verMais(servico.titulo)">Saiba mais</button>
     </div>
   </div>
-  <div *ngIf="excursaoCards.length > 0" class="carousel-wrapper">
+  <div *ngIf="excursaoCards && excursaoCards.length > 0" class="carousel-wrapper">
     <div class="carousel-nav">
 
       <!-- Botão Anterior (somente desktop + overflow) -->
