@@ -793,7 +793,7 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/3c8b545c-117c-4ea4-88c3-ead61cd5ce05"/></td>
   </tr>
 </table>
 
@@ -825,8 +825,10 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
-  </tr>
+    <td colspan="6" align="center">
+  <img src="https://github.com/user-attachments/assets/d812c181-2ff0-48df-b4ba-69ce1abd1ce6" alt="Imagem" />
+</td>
+
 </table>
 
 ## Parte 2 - Testes por pares
@@ -856,7 +858,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
+       <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/3c8b545c-117c-4ea4-88c3-ead61cd5ce05"/></td>
   </tr>
 </table>
 
@@ -885,8 +887,9 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="(https://github.com/user-attachments/assets/7e6bb87c-aff4-48f6-bc6d-2dc6abadc795)"/></td>
-  </tr>
+     <td colspan="6" align="center">
+  <img src="https://github.com/user-attachments/assets/d812c181-2ff0-48df-b4ba-69ce1abd1ce6" alt="Imagem" />
+</td>
 </table>
 
 
@@ -1405,7 +1408,7 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     </td>
   </tr>
   <tr>
-    <td colspan="6" align="center"><video src="INSIRA O VÍDEO AQUI"/></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1c731123-22eb-4b92-b38e-ce774beaa448"/></td>
   </tr>
 </table>
 
@@ -1455,6 +1458,8 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
       •	Nenhum registro é efetuado até que todos os dados obrigatórios sejam corretamente fornecidos.<br>
     </td>
   </tr>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/659adddf-a2f6-4fba-a99d-a7ed2418d0ea"/></td>
+  </tr>
 </table>
 
  
@@ -1494,7 +1499,8 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td ></td>
+    <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1c731123-22eb-4b92-b38e-ce774beaa448"/></td>
+  </tr>
   </tr>
 </table>
 
@@ -1528,7 +1534,8 @@ Cada funcionalidade desenvolvida deve ser testada utilizando os casos de testes 
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td></td>
+      <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1c731123-22eb-4b92-b38e-ce774beaa448"/></td>
+  </tr>
   </tr>
 </table>
 
@@ -1560,7 +1567,8 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td></td>
+   <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1c731123-22eb-4b92-b38e-ce774beaa448"/></td>
+  </tr>
   </tr>
 </table>
 
@@ -1588,7 +1596,8 @@ A fim de aumentar a qualidade da aplicação desenvolvida, cada funcionalidade d
     <td colspan="6" align="center"><strong>Evidência</strong></td>
   </tr>
   <tr>
-    <td></td>
+      <td colspan="6" align="center"><video src="https://github.com/user-attachments/assets/1c731123-22eb-4b92-b38e-ce774beaa448"/></td>
+  </tr>
   </tr>
 </table>
 
